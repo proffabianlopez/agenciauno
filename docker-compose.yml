@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  php-apache:
+    build: Dockerfiles/php-apache/
+    env_file:
+      - .env
+    volumes: 
+      - ./www/:/var/www/html
+    ports:
+      - ${PHP_PORT_AGENCIAUNO}:80
+    container_name: Agenciauno
+    restart: always
