@@ -10,3 +10,10 @@ services:
       - ${PHP_PORT_AGENCIAUNO}:80
     container_name: Agenciauno
     restart: always
+    networks: 
+      - network1
+networks: 
+  network1: 
+    external: 
+      name: ${RED_NOW}
+
