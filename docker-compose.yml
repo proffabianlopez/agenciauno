@@ -12,7 +12,11 @@ services:
     restart: always
     networks: 
       - network1
+    environment:
+      - PHP_IP_ADDRESS=${PHP_IP_ADDRESS}
+
 networks: 
   network1: 
     external: 
       name: ${RED_NOW}
+
