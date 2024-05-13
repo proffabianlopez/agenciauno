@@ -16,4 +16,3 @@ networks:
   network1: 
     external: 
       name: ${RED_NOW}
-
