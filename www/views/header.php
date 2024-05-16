@@ -20,7 +20,7 @@
 
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item"
-                      href="#">Salir</a>
+                      href="../index.html">Salir</a>
               </div>
           </li>
 
