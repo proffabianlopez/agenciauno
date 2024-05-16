@@ -46,4 +46,4 @@ class conec_sql {
        }
    }
 }
-?>
+

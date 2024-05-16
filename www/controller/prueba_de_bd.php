@@ -9,4 +9,3 @@ if ($conec_sql->Agregarol($genre)) {
 } else {
     echo "No se subió.";
 }
-?>

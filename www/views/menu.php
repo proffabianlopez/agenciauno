@@ -1,10 +1,10 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->    
-    <a href="#" class="brand-link bg-white">
+    <a href="home.php" class="brand-link bg-white">
     
     <div class="container text-center">                
                     <div class="col-xs-9">
-                        <img src="Resources/img/Agencia_1_F.png" class="col-xs-9" height="35%" width="35%" alt="">                
+                    <img src="../assets/img/app/Agencia_1_F.png" class="col-xs-9" height="35%" width="35%" alt="">                
                 </div>
             </div>    
     </a>
@@ -30,13 +30,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../Templates.php" class="nav-link">
+                            <a href="template.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Crear Producto</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../Templates.php" class="nav-link">
+                            <a href="template.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lista de Productos</p>
                             </a>
@@ -56,13 +56,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../Templates.php" class="nav-link">
+                            <a href="template.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Crear Proveedores</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../Templates.php" class="nav-link">
+                            <a href="template.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lista Proveedores</p>
                             </a>
@@ -84,13 +84,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../Clients.php" class="nav-link">
+                            <a href="clients.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Crear Clientes</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../Clients.php" class="nav-link">
+                            <a href="clients.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lista Clientes</p>
                             </a>
