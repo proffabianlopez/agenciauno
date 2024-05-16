@@ -10,9 +10,9 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="Resources/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="Resources/plugins/fontawesome-free/css/all.min.css">
-    <Link rel="stylesheet" href="Resources/dist/css/agencia1.css">
+    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+    <Link rel="stylesheet" href="../assets/dist/css/agencia1.css">
     </Link>
     <!-- Theme style -->
     <style>
@@ -35,10 +35,10 @@
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- HEADER -->
-        <?php include "Modules/Header.php"?>
+        <?php include "header.php"?>
         <!-- HEADER -->
         <!-- MENU -->
-        <?php include "Modules/Menu.php"?>
+        <?php include "menu.php"?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="min-height: 1604.8px;">
 
@@ -144,18 +144,17 @@
         </div>
 
         <!-- FOOTER -->
-        <?php include "Modules/Footer.php"?>
+        <?php include "footer.php"?>
     </div>
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="Resources/plugins/jquery/jquery.min.js"></script>
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="Resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="Resources/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="Resources/dist/js/demo.js"></script>
+    <script src="../assets/dist/js/adminlte.min.js"></script>
+    
 
 
 </body>

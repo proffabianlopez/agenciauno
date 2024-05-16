@@ -10,4 +10,3 @@ if (Agregarol($genre)) {
     echo "No se subió.";
 }
 ?>
-

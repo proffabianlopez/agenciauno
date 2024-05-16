@@ -8,7 +8,7 @@ services:
       - ./www/:/var/www/html
     ports:
       - ${PHP_PORT_AGENCIAUNO}:80
-    container_name: Agenciauno
+    container_name: Agenciauno1
     restart: always
     networks: 
       - network1
@@ -19,4 +19,3 @@ networks:
   network1: 
     external: 
       name: ${RED_NOW}
-

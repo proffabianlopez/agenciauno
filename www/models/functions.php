@@ -22,4 +22,3 @@ function Agregarol($genre)
     return $result;
 }
 ?>
-
