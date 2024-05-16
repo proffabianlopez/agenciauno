@@ -53,19 +53,19 @@
                         <br>
 
                         <div class="card-body">
-                            <form id="formManualRegister" class="form needs-validation" action="" method="post">
+                            <form id="formManualRegister" class="form needs-validation" action="../controller/controller_clients.php" method="post">
                                 <div class="form-row">
                                     <label for="user" class="col col-lg-2 col-form-label">Código Cliente: </label>
                                     <div class="col-sm-10">
                                         <input ID="id_user" placeholder="Código Automático" type="text"
-                                            Class="form-control-sm" name="id_user" required>
+                                            Class="form-control-sm" name="codigo_cliente" required>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <label for="user" class="col-sm-2 col-form-label">CUIT / CUIL: </label>
                                     <div class="col-sm-10">
-                                        <input ID="id_user" type="text" Class="form-control-sm" name="id_user" required>
+                                        <input ID="id_user" type="text" Class="form-control-sm" name="identifier" required>
                                     </div>
                                 </div>
 
@@ -73,38 +73,51 @@
                                     <label for="user" class="col-sm-2 col-form-label">Cliente: </label>
                                     <div class="col-sm-10">
                                         <input ID="id_user" placeholder="Nombre Cliente" type="text"
-                                            Class="form-control-sm" name="id_user" required>
+                                            Class="form-control-sm" name="name_cliente" required>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <label for="user" class="col-sm-2 col-form-label">Email: </label>
                                     <div class="col-sm-10">
-                                        <input ID="id_user" type="text" Class="form-control-sm" name="id_user" required>
+                                        <input ID="id_user" type="text" Class="form-control-sm" name="email_cliente" required>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <label for="user" class="col-sm-2 col-form-label">Teléfono: </label>
                                     <div class="col-sm-10">
-                                        <input ID="id_user" type="text" Class="form-control-sm" name="id_user" required>
+                                        <input ID="id_user" type="text" Class="form-control-sm" name="telefono" required>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <label for="user" class="col-sm-2 col-form-label">Dirección: </label>
                                     <div class="col-sm-10">
-                                    <input ID="id_user" type="text" Class="form-control-sm" name="id_user" required>    
+                                    <input ID="id_user" type="text" Class="form-control-sm" name="direccion" required>    
                                         <b>&nbsp&nbsp Altura: </b>
-                                        <input ID="id_user" type="text" Class="form-control-sm" name="id_user" required>
+                                        <input ID="id_user" type="text" Class="form-control-sm" name="altura" required>
                                     </div>
                                 </div>
-
+                                <div class="form-row">
+                                    <label for="user" class="col-sm-2 col-form-label">Piso: </label>
+                                    <div class="col-sm-10">
+                                       
+                                        <input ID="id_user" type="text" Class="form-control-sm" name="piso">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <label for="user" class="col-sm-2 col-form-label">Numero de piso: </label>
+                                    <div class="col-sm-10">
+                                       
+                                        <input ID="id_user" type="text" Class="form-control-sm" name="numero_de_piso">
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <label for="user" class="col-sm-2 col-form-label">Ciudad: </label>
                                     <div class="col-sm-10">
                                        
-                                        <input ID="id_user" type="text" Class="form-control-sm" name="id_user" required>
+                                        <input ID="id_user" type="text" Class="form-control-sm" name="ciudad" required>
                                     </div>
                                 </div>
 
@@ -112,7 +125,7 @@
                                 <div class="form-row">
                                     <label for="user" class="col-sm-2 col-form-label">Observaciones: </label>
                                     <div class="col-sm-10">
-                                        <input ID="id_user" type="text" Class="form-control" name="id_user" required>
+                                        <input ID="id_user" type="text" Class="form-control" name="observaciones" required>
                                     </div>
                                 </div>
 
@@ -121,7 +134,7 @@
                                 <div class="form-row">
                                     <label for="time" class="col-sm-2 col-form-label">Habilitado:</label>
                                     <div class="col-7">
-                                        <input ID="time" type="checkbox" Class="form-control-sm" name="time" required>
+                                        <input ID="time" type="checkbox" Class="form-control-sm" name="status" required>
                                     </div>
                                 </div>
 
