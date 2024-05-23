@@ -90,7 +90,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="clients.php" class="nav-link">
+                            <a href="lista_cliente.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lista Clientes</p>
                             </a>
