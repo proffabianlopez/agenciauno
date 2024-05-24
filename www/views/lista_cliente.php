@@ -114,7 +114,7 @@ $clientes = obtenerclientes();
                     </table>
                 </div>
             </div>
-
+<<<
             <!-- Edit Modal HTML -->
             <div id="editEmployeeModal" class="modal fade">
                 <div class="modal-dialog modal-dialog-centered">
