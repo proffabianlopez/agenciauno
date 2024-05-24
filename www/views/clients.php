@@ -58,7 +58,7 @@
                                     <label for="user" class="col col-lg-2 col-form-label">Código Cliente: </label>
                                     <div class="col-sm-10">
                                         <input ID="id_user" placeholder="Código Automático" type="text"
-                                            Class="form-control-sm" name="codigo_cliente" required>
+                                            Class="form-control-sm" name="codigo_cliente" >
                                     </div>
                                 </div>
 
