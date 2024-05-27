@@ -56,15 +56,16 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="../views/crud_suppliers.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Crear Proveedores</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="../views/home.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lista Proveedores</p>
+                                <p>Volver</p>
+                                
                             </a>
                         </li>
                                             
