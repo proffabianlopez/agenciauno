@@ -30,15 +30,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="crud_products.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Crear Producto</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="home.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lista de Productos</p>
+                                <p>Volver</p>
                             </a>
                         </li>                                           
                     </ul>
@@ -56,15 +56,16 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="../views/crud_suppliers.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Crear Proveedores</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="../views/home.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lista Proveedores</p>
+                                <p>Volver</p>
+                                
                             </a>
                         </li>
                                             
@@ -78,21 +79,22 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
-                            Clientes
+                            Marcas
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="clients.php" class="nav-link">
+                            <a href="../views/crud_brands.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Crear Clientes</p>
+                                <p>Crear Marcas</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+
                             <a href="lista_cliente.php" class="nav-link">
+
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lista Clientes</p>
+                                <p>Volver</p>
                             </a>
                         </li>
                                               
