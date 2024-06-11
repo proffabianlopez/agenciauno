@@ -51,11 +51,21 @@ https://templatemo.com/tm-559-zay-shop
 
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container d-flex justify-content-between ">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="../index.html">
+            <a href="../index.html" class="brand-link bg-white">
+
+                <div class="container text-center">
+                    <div class="col-xs-9">
+                        <img src="../assets/img/app/Agencia_1_F.png" class="col-xs-9" height="45%" width="45%" alt="">
+                    </div>
+                </div> 
+              </a>
+        <!-- Chequear si va el Nombre o solo Logo 
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
                 Agencia Uno
             </a>
+            -->
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -71,14 +81,15 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link" href="about.html">Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="template.php">ADMINISTRADOR</a>
+                            <a class="nav-link" href="shop-single.html">Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contacto</a>
+                            <a class="nav-link" href="contact.html">Contáctanos</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
+
                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                         <div class="input-group">
                             <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
@@ -93,12 +104,13 @@ https://templatemo.com/tm-559-zay-shop
                     
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
                     </a>
                 </div>
             </div>
 
-        </div>
+        </div>  
     </nav>
     <!-- Close Header -->
 
@@ -136,7 +148,7 @@ https://templatemo.com/tm-559-zay-shop
     <!-- Start Contact -->
     <div class="container py-5">
         <div class="row py-5">
-            <form class="col-md-9 m-auto" method="post" role="form">
+            <form class="col-md-9 m-auto" action="../controller/contact_form.php" method="post" role="form">
                 <div class="row">
                     <div class="form-group col-md-6 mb-3">
                         <label for="inputname">Nombre</label>
@@ -144,7 +156,7 @@ https://templatemo.com/tm-559-zay-shop
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label for="inputsubject">Apellido</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Apellido">
+                    <input type="text" class="form-control mt-1" id="lastname" name="lastname" placeholder="Apellido">
                         
                     </div>
                 </div>
@@ -250,6 +262,7 @@ https://templatemo.com/tm-559-zay-shop
     <!-- End Footer -->
 
     <!-- Start Script -->
+    <script src="../assets/js/form_contact.js"></script>
     <script src="../assets/js/jquery-1.11.0.min.js"></script>
     <script src="../assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
