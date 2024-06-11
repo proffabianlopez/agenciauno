@@ -44,11 +44,28 @@ function check_existing_supplier($cuil, $email_Proveedor) {
     return $row['count'] > 0;
 }
 function insert_suppliers($name_Proveedor, $telefono, $email_Proveedor, $direccion, $altura, $piso, $numero_de_piso, $ciudad, $observaciones, $cuil) {
-    $bd = database();
-    $sentence = $bd->prepare("INSERT INTO suppliers (name_supplier, phone_supplier, email_supplier, street, height, floor, departament, location, id_status,observations, tax_identifier) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    return $sentence->execute([$name_Proveedor, $telefono, $email_Proveedor, $direccion, $altura, $piso, $numero_de_piso, $ciudad,1, $observaciones, $cuil]);
-    
+    try {
+        $bd = database();
+        $sentence = $bd->prepare("INSERT INTO suppliers (name_supplier, phone_supplier, email_supplier, street, height, floor, departament, location, id_status, observations, tax_identifier) VALUES (:name_Proveedor, :telefono, :email_Proveedor, :direccion, :altura, :piso, :numero_de_piso, :ciudad, 1, :observaciones, :cuil)");
+
+        $sentence->bindParam(':name_Proveedor', $name_Proveedor, PDO::PARAM_STR);
+        $sentence->bindParam(':telefono', $telefono, PDO::PARAM_STR);
+        $sentence->bindParam(':email_Proveedor', $email_Proveedor, PDO::PARAM_STR);
+        $sentence->bindParam(':direccion', $direccion, PDO::PARAM_STR);
+        $sentence->bindParam(':altura', $altura, PDO::PARAM_STR);
+        $sentence->bindParam(':piso', $piso, PDO::PARAM_STR);
+        $sentence->bindParam(':numero_de_piso', $numero_de_piso, PDO::PARAM_STR);
+        $sentence->bindParam(':ciudad', $ciudad, PDO::PARAM_STR);
+        $sentence->bindParam(':observaciones', $observaciones, PDO::PARAM_STR);
+        $sentence->bindParam(':cuil', $cuil, PDO::PARAM_STR);
+
+        return $sentence->execute();
+    } catch (PDOException $e) {
+        echo "Error al insertar proveedor: " . $e->getMessage();
+        return false;
+    }
 }
+
 function show_state($table){
     $bd = database();
     $query= $bd->prepare("SELECT * FROM $table WHERE id_status = 1");
@@ -142,59 +159,167 @@ function eliminated_Suppliers($table, $id_user) {
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
 
-/*
-function insert_suppliers($name_Proveedor,$telefono,$email_Proveedor,$direccion,$altura,$piso,$numero_de_piso,$ciudad,$observaciones,$cuil){
- $bd = database();
- $sentence = $bd->prepare("INSERT INTO suppliers (name_supplier, phone_supplier, email_supplier, street, height, floor, departament, location, id_status,observations, tax_identifier)
- VALUES ('name_supplier', 'phone_supplier', 'email_supplier', 'street', height, floor, 'departament', 'location',1,'observations','tax_identifier'");
- return $sentence->execute([$name_Proveedor,$telefono,$email_Proveedor,$direccion,$altura,$piso,$numero_de_piso,$ciudad,$observaciones,$cuil]);
- 
-}*/
-/*  EJEMPLO DE SELECT!!!!! COMO POR EJ UN LOGIN
-function getDefaultRole()
-{
+  function insert_products($name_product, $description, $stock, $id_brand,$id_category) {
     $bd = database();
-    $query = $bd->query("SELECT id_rol, rol FROM Roles WHERE id_rol= 1");
-    $default_role = $query->fetch(PDO::FETCH_ASSOC);
-    return $default_role;
-}
-function getDefaultState()
-{
-    $bd = database();
-    $query = $bd->query("SELECT id_state, _state FROM States WHERE id_state= 1");
-    $default_state = $query->fetch(PDO::FETCH_ASSOC);
-    return $default_state;
-}
-EJEMPLOO DE UPDATEEE!!! COMO POR EJEMPLO CAMBIAR UN ESTADO O UN ROL
+    $query = "INSERT INTO products (name_product, description, stock, id_status, id_brand ,id_category) VALUES (:name_product, :description, :stock, 1, :id_brand, :id_category)";
+    
+    $consulta = $bd->prepare($query);
 
-function deleteSHow($id_libro)
-{
-    $bd = database();
-    $query = $bd->prepare("UPDATE Book_author SET id_state = 2 WHERE id_book = :id");
-    $query->execute(array(':id' => $id_libro));
-
+    // Asociar los parámetros
+    $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
+    $consulta->bindParam(':description', $description, PDO::PARAM_STR);
+    $consulta->bindParam(':stock', $stock, PDO::PARAM_INT);
+    $consulta->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+    $consulta->bindParam(':id_category', $id_category, PDO::PARAM_INT);
+    
+    try {
+        if ($consulta->execute()) {
+            return true; // Devuelve verdadero si la inserción fue exitosa
+        }
+    } catch (PDOException $e) {
+        echo "Error en la inserción: " . $e->getMessage();
+        return false;
+    }
 }
-function reanudeSHow($id_libro)
+function getproducts($id_product)
 {
-    $bd = database();
-    $query = $bd->prepare("UPDATE Book_author SET id_state = 1 WHERE id_book = :id");
-    $query->execute(array(':id' => $id_libro));
+    try {
+        $bd = database();
+        $query = "SELECT * FROM products WHERE id_product = :id_product and id_status=1";
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':id_product', $id_product, PDO::PARAM_INT);
+        $statement->execute();
 
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error al obtener el proveedor: " . $e->getMessage();
+        return null;
+    }
 }
-function UpdateBook($id_book, $titulo, $genero, $anio, $synopsis, $lenguaje, $page)
+function update_products($id_product, $name_product, $description, $stock)
 {
-    $bd = database();
-    $query = $bd->prepare("UPDATE Books SET book_title = :titulo, id_gender = :genero, published_year = :anio, synopsis = :synopsis, book_language = :lenguaje, page_number = :page WHERE id_book = :id");
-    $query->execute(array(':id' => $id_book, ':titulo' => $titulo, ':genero'=> $genero, ':anio' => $anio, ':synopsis' => $synopsis, ':lenguaje' => $lenguaje, ':page' => $page));
+    try {
+        $bd = database();
+        $query = "UPDATE products SET
+        name_product = :name_product, 
+        description = :description, 
+        stock = :stock
+        WHERE id_product = :id_product";
+
+        $consulta = $bd->prepare($query);
+        $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
+        $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
+        $consulta->bindParam(':description', $description, PDO::PARAM_STR);
+        $consulta->bindParam(':stock', $stock, PDO::PARAM_INT);
+
+        $result = $consulta->execute();
+
+        return $result; 
+    } catch (PDOException $e) {
+        echo "Error al actualizar el proveedor: " . $e->getMessage();
+        return false;
+    }
 }
-
-UN EJEMPLO MAS DE INSERT!!!
-
-function AgregarGenero($genre)
+function eliminated_product($table, $id_user) {
+    try {
+        // Obtener la conexión a la base de datos
+        $bd = database(); // Asumiendo que la función database() está definida en functions.php
+        
+        // Preparar la consulta de actualización
+        $query = "UPDATE $table SET id_status = 0 WHERE id_product = :id_product";
+        $updateStatement = $bd->prepare($query);
+        $updateStatement->bindParam(':id_product', $id_user, PDO::PARAM_INT);
+        
+        // Ejecutar la actualización
+        $updateStatement->execute();
+        
+        // Verificar si se actualizó al menos una fila
+        $rowCount = $updateStatement->rowCount();
+        
+        // Devolver verdadero si se actualizó correctamente
+        return ($rowCount > 0);
+        
+    } catch (PDOException $e) {
+        // Manejar errores de base de datos
+        echo "Error al actualizar: " . $e->getMessage();
+        return false;
+    }
+}
+function insert_brand($detail) {
+    $bd = database();
+    $query = "INSERT INTO brands (detail,id_status) VALUES (:detail, 1)";
+    $consulta = $bd->prepare($query);
+    $consulta->bindParam(':detail', $detail, PDO::PARAM_STR);
+    
+    try {
+        if ($consulta->execute()) {
+            return true; // Devuelve verdadero si la inserción fue exitosa
+        }
+    } catch (PDOException $e) {
+        echo "Error en la inserción: " . $e->getMessage();
+        return false;
+    }
+}
+function getbrands($id_brand)
 {
-    $bd = database();
-    $sentence = $bd->prepare("INSERT INTO Genders (gender) VALUES (?)");
-    return $sentence->execute([$genre]);
+    try {
+        $bd = database();
+        $query = "SELECT * FROM brands WHERE id_brand = :id_brand and id_status=1";
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error al obtener el proveedor: " . $e->getMessage();
+        return null;
+    }
 }
-*/
+function update_brands($id_brand, $detail)
+{
+    try {
+        $bd = database();
+        $query = "UPDATE brands SET
+        detail = :detail
+        WHERE id_brand = :id_brand";
+
+        $consulta = $bd->prepare($query);
+        $consulta->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+        $consulta->bindParam(':detail', $detail, PDO::PARAM_STR);
+       
+
+        $result = $consulta->execute();
+
+        return $result; 
+    } catch (PDOException $e) {
+        echo "Error al actualizar el proveedor: " . $e->getMessage();
+        return false;
+    }
+}
+function eliminated_brand($table, $id_brand) {
+    try {
+        // Obtener la conexión a la base de datos
+        $bd = database(); // Asumiendo que la función database() está definida en functions.php
+        
+        // Preparar la consulta de eliminación
+        $query = "DELETE FROM $table WHERE id_brand = :id_brand";
+        $deleteStatement = $bd->prepare($query);
+        $deleteStatement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+        
+        // Ejecutar la eliminación
+        $deleteStatement->execute();
+        
+        // Verificar si se eliminó al menos una fila
+        $rowCount = $deleteStatement->rowCount();
+        
+        // Devolver verdadero si se eliminó correctamente
+        return ($rowCount > 0);
+        
+    } catch (PDOException $e) {
+        // Manejar errores de base de datos
+        return false;
+    }
+}
+
+
 ?>

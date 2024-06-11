@@ -4,7 +4,7 @@ const next = document.getElementById("next");
 const page = document.getElementById("page");
 
 let currentPage = 1;
-let rowsPerPage = 7; // Change this value to the number of rows you want to show per page
+let rowsPerPage = 5; // Change this value to the number of rows you want to show per page
 
 // Function to display rows for the current page
 function showRows() {

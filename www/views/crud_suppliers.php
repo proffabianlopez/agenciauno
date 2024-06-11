@@ -89,11 +89,17 @@ $show=show_state("suppliers");
                </tbody>
            </table>
            </form>
-           <div id="pagination" class="text-center">
+           <!-- <div id="pagination" class="text-center">
            <button id="previous" class="btn-outline-primary">Anterior</button>
             <span id="page">Pagina 1</span>
             <button id="next" class="btn-outline-primary">Siguiente</button>
-          </div>
+          </div> -->
+          <div id="pagination" class="text-center d-flex justify-content-center align-items-center">
+             <button id="previous" class="btn btn-outline-primary mr-2">Anterior</button>
+             <span id="page">Pagina 1</span>
+             <button id="next" class="btn btn-outline-primary ml-2">Siguiente</button>
+           </div>
+
         </div>
     </div>
     </main>
@@ -171,7 +177,7 @@ $show=show_state("suppliers");
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h5 class="modal-title text-white">Editar Alumnos</h5>
+                    <h5 class="modal-title text-white">Editar Proveedor</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -216,7 +222,7 @@ $show=show_state("suppliers");
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h5 class="modal-title text-white">Eliminar al Alumno</h5>
+                <h5 class="modal-title text-white">Eliminar al Proveedor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white";>
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -250,14 +256,11 @@ $show=show_state("suppliers");
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../js/modal_suppliers.js"></script>
-    <script src="../js/page_table.js"></script>
-    <script src="../plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../dist/js/adminlte.min.js"></script>
-    <script src="../js/paginated.js"></script>
+    <script src="../js.modal/modal_suppliers.js"></script>
+
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../js.modal/paginated.js"></script>
     
     
 
