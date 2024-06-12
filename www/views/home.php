@@ -40,10 +40,10 @@
 
             <div class="container text-center">
                 <div class="row">
-                    <div class="col-md-4"><a href="template.php"><b>PRODUCTOS</b>
+                    <div class="col-md-4"><a href="../views/crud_products.php"><b>PRODUCTOS</b>
                         <img src="../assets/img/app/items_2.png" class="col-md-4" alt=""></a>
                     </div>
-                    <div class="col-md-4"><a href="template.php"><b>PROVEEDORES</b>
+                    <div class="col-md-4"><a href="../views/crud_suppliers.php"><b>PROVEEDORES</b>
                         <img src="../assets/img/app/proveedores.png" class="col-md-4" alt=""></a>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
             <div class="container text-center">
                 <div class="row">
                     
-                        <div class="col-md-4"><a href="clients.php"><b>CLIENTES</b>
+                        <div class="col-md-4"><a href="../views/crud_brands.php"><b>MARCAS</b>
                         <img src="../assets/img/app/clientes.png" class="col-md-4" alt=""></a>
                         </div>
                     
