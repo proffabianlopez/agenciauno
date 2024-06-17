@@ -1,4 +1,6 @@
-
+<?php
+include_once "../controller/controller_login.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +27,7 @@
       <p class="login-box-msg">Inicia sesión</p>
 
       
-      <form action="home.php" method="post">
+      <form action="../controller/controller_login.php" method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" name="email_user" placeholder="Email" required>
           <div class="input-group-append">
@@ -56,9 +58,7 @@
      
       <!-- /.social-auth-links -->
 
-      <p class="mb-1">
-        <a href="forgot-password.html">Olvidé mi contraseña</a>
-      </p>
+     
       
     </div>
     <!-- /.card-body -->

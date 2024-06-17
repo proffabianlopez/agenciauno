@@ -35,6 +35,7 @@
             <div class="container-fluid" style="padding:125px;">
                 
                 <div class="row">
+
                     <div class="col-md-4">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
@@ -77,12 +78,14 @@
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
+
                     </div>
 
                 </div>
                 <br><br><br><br>
 
                 <div class="row">
+
                     <div class="col-md-4">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
@@ -101,6 +104,7 @@
                                     <img src="../assets/img/app/items_2.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
+
                         </div>
                         <!-- /.card -->
                     </div>

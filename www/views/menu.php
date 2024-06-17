@@ -39,6 +39,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+
                             <a href="lista_cliente.php" class="nav-link">
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Clientes</p>
