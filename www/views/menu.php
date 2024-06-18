@@ -41,27 +41,40 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="lista_cliente.php" class="nav-link">
+
+                            <a href="crud_cliente.php" class="nav-link">
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Clientes</p>
                             </a>
                         </li>
                         <li class="nav-item">
+
                             <a href="crud_suppliers_new.php" class="nav-link">
+
                                 <i class="fa fa-truck nav-icon"></i>
                                 <p>Proveedores</p>
                             </a>
                         </li>
                         <li class="nav-item">
+
                             <a href="crud_products_new.php" class="nav-link">
+
                                 <i class="fa fa-microchip nav-icon"></i>
                                 <p>Productos</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="home.php" class="nav-link">
+
+                            <a href="crud_brands.php" class="nav-link">
+
                                 <i class="fa fa-user nav-icon"></i>
-                                <p>Usuarios</p>
+                                <p>Marcas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="crud_category.php" class="nav-link">
+                                <i class="fa fa-user nav-icon"></i>
+                                <p>Categorias</p>
                             </a>
                         </li>
                     </ul>

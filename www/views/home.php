@@ -35,6 +35,7 @@
             <div class="container-fluid" style="padding:125px;">
                 
                 <div class="row">
+
                     <div class="col-md-4">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
@@ -49,7 +50,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
-                                <a href="lista_cliente.php">
+                                <a href="crud_cliente.php">
                                     <img src="../assets/img/app/clientes.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
@@ -71,18 +72,22 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
+
                                 <a href="crud_suppliers_new.php">
+
                                     <img src="../assets/img/app/proveedores.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
+
                     </div>
 
                 </div>
                 <br><br><br><br>
 
                 <div class="row">
+
                     <div class="col-md-4">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
@@ -97,10 +102,13 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
+
                                 <a href="crud_products_new.php">
+
                                     <img src="../assets/img/app/items_2.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
+
                         </div>
                         <!-- /.card -->
                     </div>
@@ -108,7 +116,7 @@
                     <div class="col-md-4">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
-                                <h2 class="card-title"><b>Transacciones</b></h2>
+                                <h2 class="card-title"><b>Marcas</b></h2>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
@@ -119,7 +127,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
-                                <a href="home.php">
+                                <a href="crud_brands.php">
                                     <img src="../assets/img/app/transacciones.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
