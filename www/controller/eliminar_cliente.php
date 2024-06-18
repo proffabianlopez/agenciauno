@@ -5,7 +5,7 @@ if(isset($_POST['edit-id_customer'])) {
     
     deletecliente($id);
     echo '<script>alert("Borrado exitosamente");</script>';
-    echo '<script>window.location.href = "../views/lista_cliente.php";</script>';
+    echo '<script>window.location.href = "../views/crud_cliente.php";</script>';
    
     
 }
