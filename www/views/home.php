@@ -38,7 +38,7 @@
                     <div class="col-md-4">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
-                                <h2 class="card-title"><b>Clientes</b></h2>
+                                <h2 class="card-title"><b>Clientes1</b></h2>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
