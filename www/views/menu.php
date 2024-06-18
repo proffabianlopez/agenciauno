@@ -1,3 +1,5 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
 
@@ -5,7 +7,7 @@
         <div class="container text-center">
             <div class="col-xs-9">
                 <div class="card-header text-center">
-                    <a href="home.php"><h3 class="h3"><b>Agencia</b>UNO</h3></a>
+                    <a href="home.php" style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;"><h3 class="h3"><b>Agencia</b>UNO</h3></a>
                 </div>
             </div>
         </div>
@@ -45,19 +47,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="crud_suppliers_new.php" class="nav-link">
                                 <i class="fa fa-truck nav-icon"></i>
                                 <p>Proveedores</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="crud_products_new.php" class="nav-link">
                                 <i class="fa fa-microchip nav-icon"></i>
                                 <p>Productos</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="template.php" class="nav-link">
+                            <a href="home.php" class="nav-link">
                                 <i class="fa fa-user nav-icon"></i>
                                 <p>Usuarios</p>
                             </a>

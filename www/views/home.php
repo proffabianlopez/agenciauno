@@ -71,7 +71,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
-                                <a href="home.php">
+                                <a href="crud_suppliers_new.php">
                                     <img src="../assets/img/app/proveedores.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
@@ -97,7 +97,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
-                                <a href="home.php">
+                                <a href="crud_products_new.php">
                                     <img src="../assets/img/app/items_2.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
