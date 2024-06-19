@@ -33,14 +33,28 @@
        
        return $sentence->execute();
    }
-   
+   function add_category($name_category, $status)
+   {
+       $bd = database();
+       $sentence = $bd->prepare("INSERT INTO categorys (detail, id_status) VALUES (:detail, :id_status)");
+       
+       $sentence->bindParam(':detail', $name_category);
+       $sentence->bindParam(':id_status', $status);
+       
+       return $sentence->execute();
+   }
    function obtenerclientes()
    { 
        $bd = database();
        $sentence = $bd->query("SELECT id_customer, tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament FROM customers");
        return $sentence->fetchAll(PDO::FETCH_ASSOC); 
    }
-   
+   function obtenercategorys()
+   { 
+       $bd = database();
+       $sentence = $bd->query("SELECT id_category, detail, id_status FROM categorys");
+       return $sentence->fetchAll(PDO::FETCH_ASSOC); 
+   }
    function Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)
    {
        $bd = database();
@@ -73,7 +87,19 @@
    
        $query->execute();
    }
+   function Updatecategory($id, $detail,$status)
+   {
+       $bd = database();
+       $query = $bd->prepare("UPDATE categorys SET 
+           detail = :detail, 
+           id_status = :id_status 
+       WHERE id_category = :id");
    
+       $query->bindParam(':id', $id);
+       $query->bindParam(':detail', $detail);
+       $query->bindParam(':id_status', $status);
+       $query->execute();
+   }
    function deletecliente($id)
    {
        $bd = database();
@@ -81,7 +107,13 @@
        $query->bindParam(':id', $id);
        $query->execute();
    }
-   
+   function deletecategory($id)
+   {
+       $bd = database();
+       $query = $bd->prepare("UPDATE categorys SET id_status = 2 WHERE id_category = :id");
+       $query->bindParam(':id', $id);
+       $query->execute();
+   }
 /*
 function UpdateBook($id_book, $titulo, $genero, $anio, $synopsis, $lenguaje, $page)
 {
