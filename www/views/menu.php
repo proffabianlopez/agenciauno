@@ -65,7 +65,7 @@
                         </li>
                         <li class="nav-item">
 
-                            <a href="crud_brands.php" class="nav-link">
+                            <a href="crud_brands_new.php" class="nav-link">
 
                                 <i class="fa fa-user nav-icon"></i>
                                 <p>Marcas</p>
