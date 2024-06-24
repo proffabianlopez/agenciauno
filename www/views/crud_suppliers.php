@@ -185,7 +185,7 @@ $show=show_state("suppliers");
 
                 <div class="modal-body">
                     <form action="../controller/edit_supplier.php" method="post">
-                    <input type="hidden" name="id_supplier" id="id_supplier" class="form-control" value="">
+                     <input type="hidden" name="id_supplier" id="id_supplier" class="form-control" value="">
                         <div class="form-group">
                             <label for="edit_name">editar Nombre</label>
                             <input type="text" class="form-control" id="name_supplier" name="name" required value="">

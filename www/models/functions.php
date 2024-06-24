@@ -196,7 +196,7 @@ function getSupplier($id_supplier)
 }
 
 // Función para actualizar los datos de un proveedor en la base de datos
-function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax)
+function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,$street,$height,$floor,$departament,$location)
 {
     try {
         $bd = database();
@@ -205,7 +205,12 @@ function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax)
         phone_supplier = :phone_supplier, 
         email_supplier = :email_supplier,
         observations = :observations,
-        tax_identifier = :tax_identifier
+        tax_identifier = :tax_identifier,
+        street = :street,
+        height = :height,
+        floor = :floor,
+        departament = :departament,
+        location = :location
         WHERE id_supplier = :id_supplier";
 
         $statement = $bd->prepare($query);
@@ -215,6 +220,11 @@ function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax)
         $statement->bindParam(':email_supplier', $email, PDO::PARAM_STR);
         $statement->bindParam(':observations', $observation, PDO::PARAM_STR);
         $statement->bindParam(':tax_identifier', $tax, PDO::PARAM_STR);
+        $statement->bindParam(':street', $street, PDO::PARAM_STR);
+        $statement->bindParam(':height', $height, PDO::PARAM_INT);
+        $statement->bindParam(':floor', $floor, PDO::PARAM_STR);
+        $statement->bindParam(':departament', $departament, PDO::PARAM_STR);
+        $statement->bindParam(':location', $location, PDO::PARAM_STR);
 
         $result = $statement->execute();
 
@@ -262,13 +272,15 @@ function eliminated_Suppliers($table, $id_user) {
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
 
-  function insert_products($name_product, $description, $stock, $id_brand,$id_category) {
+  function insert_products($number_serial,$number_product,$name_product, $description, $stock, $id_brand,$id_category) {
     $bd = database();
-    $query = "INSERT INTO products (name_product, description, stock, id_status, id_brand ,id_category) VALUES (:name_product, :description, :stock, 1, :id_brand, :id_category)";
+    $query = "INSERT INTO products (number_serial,number_product,name_product, description, stock, id_status, id_brand ,id_category) VALUES (:number_serial,:number_product,:name_product, :description, :stock, 1, :id_brand, :id_category)";
     
     $consulta = $bd->prepare($query);
 
     // Asociar los parámetros
+    $consulta->bindParam(':number_serial', $number_serial, PDO::PARAM_STR);
+    $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
     $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
     $consulta->bindParam(':description', $description, PDO::PARAM_STR);
     $consulta->bindParam(':stock', $stock, PDO::PARAM_INT);
@@ -299,11 +311,13 @@ function getproducts($id_product)
         return null;
     }
 }
-function update_products($id_product, $name_product, $description, $stock)
+function update_products($number_serial,$number_product,$id_product, $name_product, $description, $stock)
 {
     try {
         $bd = database();
         $query = "UPDATE products SET
+        number_serial = :number_serial,
+        number_product = :number_product,
         name_product = :name_product, 
         description = :description, 
         stock = :stock
@@ -311,6 +325,8 @@ function update_products($id_product, $name_product, $description, $stock)
 
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
+        $consulta->bindParam(':number_serial', $number_serial, PDO::PARAM_STR);
+        $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
         $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
         $consulta->bindParam(':description', $description, PDO::PARAM_STR);
         $consulta->bindParam(':stock', $stock, PDO::PARAM_INT);
