@@ -13,7 +13,7 @@
        $database->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
        return $database;
    }
-
+  
    function add_cliente($identifier, $name_cliente, $email_cliente, $telefono, $direccion, $Altura, $ciudad, $observaciones, $status, $piso, $numero_de_piso)
    {
        $bd = database();
@@ -55,6 +55,12 @@
        $sentence = $bd->query("SELECT id_category, detail, id_status FROM categorys");
        return $sentence->fetchAll(PDO::FETCH_ASSOC); 
    }
+   function obtenerusuarios()
+   { 
+       $bd = database();
+       $sentence = $bd->query("SELECT id_user,email_user,password,phone,date,id_status,id_rol FROM users");
+       return $sentence->fetchAll(PDO::FETCH_ASSOC); 
+   }
    function Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)
    {
        $bd = database();
@@ -66,7 +72,7 @@
            street = :street, 
            height = :height, 
            location = :location, 
-           observaciones = :observaciones, 
+           observaciones = :observations, 
            floor = :floor, 
            departament = :departament,
            id_status = :id_status 
@@ -82,7 +88,7 @@
        $query->bindParam(':floor', $floor);
        $query->bindParam(':departament', $departament);
        $query->bindParam(':location', $location);
-       $query->bindParam(':observaciones', $observaciones);
+       $query->bindParam(':observations', $observaciones);
        $query->bindParam(':id_status', $status);
    
        $query->execute();
@@ -100,6 +106,26 @@
        $query->bindParam(':id_status', $status);
        $query->execute();
    }
+   function Updateusuario($id, $email, $phone, $status) {
+    
+        $bd = database(); 
+        $query = $bd->prepare("UPDATE users 
+                               SET email_user = :email, 
+                                   phone = :phone, 
+                                   id_status = :status 
+                               WHERE id_user = :id");
+
+        
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->bindParam(':email', $email, PDO::PARAM_STR);
+        $query->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $query->bindParam(':status', $status, PDO::PARAM_INT);
+
+        
+        $query->execute();
+
+        return true; 
+}
    function deletecliente($id)
    {
        $bd = database();
@@ -111,6 +137,13 @@
    {
        $bd = database();
        $query = $bd->prepare("UPDATE categorys SET id_status = 2 WHERE id_category = :id");
+       $query->bindParam(':id', $id);
+       $query->execute();
+   }
+   function deleteusuarios($id)
+   {
+       $bd = database();
+       $query = $bd->prepare("UPDATE users SET id_status = 2 WHERE id_user = :id");
        $query->bindParam(':id', $id);
        $query->execute();
    }
