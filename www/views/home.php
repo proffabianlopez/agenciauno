@@ -127,7 +127,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
-                                <a href="crud_brands.php">
+                                <a href="crud_brands_new.php">
                                     <img src="../assets/img/app/transacciones.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
