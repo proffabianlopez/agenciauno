@@ -85,26 +85,21 @@ $(document).ready(function(){
 
 
 
-$(document).ready(function(){
-    // captura el clic en el enlace de eliminar
-    $('.delete').on('click', function(){
-  
-
-        var $viewModal = $('#deleteEmployeeModal');
-        var $viewForm = $viewModal.find('form');
-
-        var id = $(this).data('id');
-        var name = $(this).data('name');   
-        
-        // llena los campos del formulario del modal de edición
-        $viewForm.find('#view-id_customer').val(id);
-        $viewForm.find('#view-name').val(name);
+    $(document).ready(function(){
+        // Captura el clic en el enlace de eliminar
+        $('.delete').on('click', function(){
+            var $viewModal = $('#deleteEmployeeModal');
+            var $viewForm = $viewModal.find('form');
     
-
-        // muestra el modal 
-        $viewModal.modal('show');
+            var id = $(this).data('id');
+            var name = $(this).data('name');   
+            
+            // Llena los campos del formulario del modal
+            $viewForm.find('#edit-id_customer').val(id);
+            $viewForm.find('#view-name').val(name);
+    
+            // Muestra el modal 
+            $viewModal.modal('show');
+        });
     });
-
-   
-});
-
+    
