@@ -69,6 +69,7 @@ $usuarios = obtenerusuarios();
                                     <tr>
                                         <th>Usuario</th>
                                         <th>Teléfono</th>
+                                        <th>Contraseña</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -76,20 +77,21 @@ $usuarios = obtenerusuarios();
                                     <?php foreach ($usuarios as $usuario): ?>
                                         <?php if ($usuario['id_status'] == 1): ?>
                                             <tr>
-                                                <td><?php echo $usuario['email_user']; ?></td>
-                                                <td><?php echo $usuario['phone']; ?></td>
-                                                <td>
+                                                    <td><?php echo $usuario['email_user']; ?></td>
+                                                    <td><?php echo $usuario['phone']; ?></td>
+                                                    <td><?php echo $usuario['password']; ?></td>
+                                                    <td>
                                                     <a href="#editEmployeeModal" class="btn btn-warning float-center editBtn text-white" data-bs-toggle="modal"
                                                         data-id="<?php echo $usuario['id_user']; ?>"
                                                         data-name="<?php echo $usuario['email_user']; ?>"
                                                         data-phone="<?php echo $usuario['phone']; ?>"
                                                         data-password="<?php echo $usuario['password']; ?>"><i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="#deleteEmployeeModal" class="btn btn-danger float-center delete_Btn text-white" data-bs-toggle="modal"
+                                                    <a href="#deleteEmployeeModal" class="btn btn-danger float-center deleteBtn text-white" data-bs-toggle="modal"
                                                         data-id="<?php echo $usuario['id_user']; ?>"
                                                         data-name="<?php echo $usuario['email_user']; ?>"><i class="fas fa-trash-alt"></i>
                                                     </a>
-                                                </td>
+                                                    </td>
                                             </tr>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
@@ -108,12 +110,12 @@ $usuarios = obtenerusuarios();
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="create-user">Nombre de usuario</label>
-                                            <input type="text" class="form-control" id="create-user" name="name_user">
+                                            <label for="create-user">Email de usuario</label>
+                                            <input type="email" class="form-control" id="create-user" name="name_user">
                                         </div>
                                         <div class="form-group">
                                             <label for="create-phone">Teléfono</label>
-                                            <input type="text" class="form-control" id="create-phone" name="phone">
+                                            <input type="number" class="form-control" id="create-phone" name="phone">
                                         </div>
                                         <div class="form-group">
                                             <label for="create-password">Contraseña</label>
@@ -130,32 +132,36 @@ $usuarios = obtenerusuarios();
                     </div>
 
                     <div id="editEmployeeModal" class="modal fade" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <form action="../controller/edit_usuario.php" method="post">
-                                    <div class="modal-header bg-primary">
-                                        <h4 class="modal-title text-white">Editar Usuario</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input type="hidden" name="edit-id_user" id="edit-id_user">
-                                        <div class="form-group">
-                                            <label for="edit-name">Nombre de usuario</label>
-                                            <input type="text" class="form-control" id="edit-name" name="edit-name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="edit-phone">Teléfono</label>
-                                            <input type="text" class="form-control" id="edit-phone" name="edit-phone">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form action="../controller/edit_usuario.php" method="post">
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title text-white">Editar Usuario</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="edit-id_user" id="edit-id_user">
+                    <div class="form-group">
+                        <label for="edit-name">Nombre de usuario</label>
+                        <input type="text" class="form-control" id="edit-name" name="edit-name">
                     </div>
+                    <div class="form-group">
+                        <label for="edit-phone">Teléfono</label>
+                        <input type="text" class="form-control" id="edit-phone" name="edit-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-password">Contraseña</label>
+                        <input type="text" class="form-control" id="edit-password" name="edit-password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
                     <div id="deleteEmployeeModal" class="modal fade" tabindex="-1">
                         <div class="modal-dialog">
