@@ -15,12 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($eliminated) {
             
-            header("Location: ../views/crud_brands.php?borrado=correcto");
-            exit();
+            echo '<script>alert("Se creó exitosamente");</script>';
+    echo '<script>window.location.href = "../views/crud_brands_new.php";</script>';
+            
         } else {
            
-            header("Location: ../views/crud_brands.php?borrado=error_marca_contiene_producto");
-            exit(); // Salir del script después de la redirección
+            echo '<script>alert("Eroor esta Marca Pertenece a un Producto");</script>';
+    echo '<script>window.location.href = "../views/crud_brands_new.php";</script>'; // Salir del script después de la redirección
         }
     }
 } 

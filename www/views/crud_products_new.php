@@ -217,12 +217,12 @@ $categoryData=show_state("categorys");
                     <div class="modal-body">
                         <input type="hidden" name="id_product" id="id_product" class="form-control" value="">
                         <div class="form-group">
-                            <label for="edit_name">Nombre</label>
+                            <label for="edit_name">Numero de serie</label>
                             <input type="text" class="form-control" id="number_serial" name="number_serial" required
                                 value="">
                         </div>
                         <div class="form-group">
-                            <label for="edit_name">Nombre</label>
+                            <label for="edit_name">Numero de producto</label>
                             <input type="text" class="form-control" id="number_product" name="number_product" required
                                 value="">
                         </div>
