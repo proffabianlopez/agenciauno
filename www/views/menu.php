@@ -5,7 +5,10 @@
         <div class="container text-center">
             <div class="col-xs-9">
                 <div class="card-header text-center">
-                    <a href="home.php" style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;">
+
+                    <a href="home.php"
+                        style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;">
+
                         <h3 class="h3"><b>Agencia</b>UNO</h3>
                     </a>
                 </div>
@@ -51,49 +54,61 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="crud_products_new.php" class="nav-link">
-                                <i class="fa fa-microchip nav-icon"></i>
-                                <p>Productos</p>
+
+
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-building nav-icon"></i>
+                                <p>Artículos <i class="fas fa-angle-left right"></i></p>
+
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="crud_products_new.php" class="nav-link">
+                                        <i class="fa fa-microchip nav-icon"></i>
+                                        <p>Productos</p>
+                                    </a>
+
+
+                                    <a href="crud_brands_new.php" class="nav-link">
+
+                                        <i class="fa fa-indent nav-icon"></i>
+                                        <p>Marcas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="crud_category.php" class="nav-link">
+                                        <i class="fa fa-indent nav-icon"></i>
+                                        <p>Categorias</p>
+                                    </a>
+                                </li>
+                            </ul>
+
                         </li>
                         <li class="nav-item">
 
+                            <a href="home.php" class="nav-link">
 
-                            <a href="crud_brands_new.php" class="nav-link">
-                                <i class="fa fa-user nav-icon"></i>
-                                <p>Marcas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="crud_category.php" class="nav-link">
-                                <i class="fa fa-user nav-icon"></i>
-                                <p>Categorias</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="crud_usuarios.php" class="nav-link">
                                 <i class="fa fa-user nav-icon"></i>
                                 <p>Usuarios</p>
                             </a>
                         </li>
+
+
                     </ul>
                 </li>
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
 
-        <!-- Logout Icon -->
-        <nav class="mt-2" style="position: absolute; bottom: 0; width: 100%;">
-            <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
-                <li class="nav-item">
-                    <a href="../index.html" class="nav-link">
-                        <i class="nav-icon fa fa-sign-out-alt"></i>
-                        <p>Cerrar Sesión</p>
-                    </a>
-                </li>
-            </ul>
         </nav>
+        <br><br>
+        <div class="info">
+            <a href="login.php" style="text-decoration: none !important">
+                <h5 class="d-block" style="color:white">&#128274; Cerrar Sesión</h5>
+            </a>
+
+        </div>
+        <!-- /.sidebar-menu -->
     </div>
+
+
     <!-- /.sidebar -->
 </aside>
 
