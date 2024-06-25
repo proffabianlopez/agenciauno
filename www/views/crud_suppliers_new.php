@@ -175,7 +175,8 @@ $show=show_state("suppliers");
                         </div>
                         <div class="form-group">
                             <label for="cuil">CUIL/CUIT</label>
-                            <input type="text" name="cuil" class="form-control">
+                            <input type="text" name="cuil" class="form-control" required pattern="^\d{10}$>"
+                            title="Debe contener exactamente 11 dígitos">
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
@@ -191,17 +192,17 @@ $show=show_state("suppliers");
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
-                                <input type="text" name="altura" class="form-control" required>
+                                <input type="number" name="altura" class="form-control" required>
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="piso">Piso</label>
-                                <input type="text" name="piso" class="form-control" required>
+                                <input type="text" name="piso" class="form-control" >
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="numero_de_piso">Departamento</label>
-                                <input type="text" name="numero_de_piso" class="form-control" required>
+                                <input type="text" name="numero_de_piso" class="form-control" >
 
                             </div>
                         </div>
@@ -212,7 +213,7 @@ $show=show_state("suppliers");
                         </div>
                         <div class="form-group">
                             <label for="observaciones">Observaciones</label>
-                            <textarea type="text" name="observaciones" class="form-control" required></textarea>
+                            <textarea type="text" name="observaciones" class="form-control" ></textarea>
                         </div>
 
 
@@ -248,19 +249,19 @@ $show=show_state("suppliers");
                         </div>
                         <div class="form-group">
                             <label for="edit_phone">Telefono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="">
+                            <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
                         </div>
                         <div class="form-group">
                             <label for="edit_directiòn">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" required value="">
+                            <input type="email" class="form-control" id="email" name="email" required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_heigth">Observaciones</label>
-                            <input type="text" class="form-control" id="obs" name="observaciones" required value="">
+                            <input type="text" class="form-control" id="obs" name="observaciones"  value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_heigth">Cuil</label>
-                            <input type="text" class="form-control" id="tax" name="cuil" value="">
+                            <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
                         </div>
 
                         <div class="form-row">
@@ -276,12 +277,12 @@ $show=show_state("suppliers");
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="floor">piso</label>
-                                <input type="text" id="floor" name="floor" class="form-control" required>
+                                <input type="text" id="floor" name="floor" class="form-control" >
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="departament">Departamento</label>
-                                <input type="text" id="departament" name="departament" id="departament" class="form-control" required>
+                                <input type="text" id="departament" name="departament" id="departament" class="form-control" >
 
                             </div>
                         </div>

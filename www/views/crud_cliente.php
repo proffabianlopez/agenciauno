@@ -179,12 +179,12 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
-                            <input type="number" class="form-control" id="edit-cuit" name="identifier"  required>
+                            <input type="text" class="form-control" id="edit-cuit" name="identifier"  required pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="number" class="form-control" id="edit-phone" name="telefono" required>
+                            <input type="text" class="form-control" id="edit-phone" name="telefono" required pattern="^\d{10}$" title="Debe contener exactamente 11 dígitos">
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
@@ -257,11 +257,11 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
-                            <input type="number" class="form-control" id="edit-cuit" name="edit-cuit"></input>
+                            <input type="text" class="form-control" id="edit-cuit" name="edit-cuit" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos"></input>
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="number" class="form-control" id="edit-phone" name="edit-phone">
+                            <input type="text" class="form-control" id="edit-phone" name="edit-phone" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
@@ -416,7 +416,7 @@ $clientes = obtenerclientes();
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <script src="../assets/js/accions.js"></script>
-
+    
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
@@ -447,117 +447,7 @@ $clientes = obtenerclientes();
     });
     </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Función para validar que solo se ingresen números
-    function soloNumeros(event) {
-        const keyCode = event.which ? event.which : event.keyCode;
-        if ((keyCode < 48 || keyCode > 57) && keyCode !== 8 && keyCode !== 46) {
-            event.preventDefault();
-        }
-    }
 
-    // Agrega el evento de validación de entrada para los campos de CUIL y altura
-    document.querySelector("#create-cuit").addEventListener("keypress", soloNumeros);
-    document.querySelector("#edit-cuit").addEventListener("keypress", soloNumeros);
-    document.querySelector("#create-altura").addEventListener("keypress", soloNumeros);
-    document.querySelector("#edit-altura").addEventListener("keypress", soloNumeros);
-
-    // Validación del formulario "Crear Cliente"
-    const formCreate = document.querySelector("#createEmployeeModal form");
-    formCreate.addEventListener("submit", function(event) {
-        const name = document.querySelector("#create-name").value.trim();
-        const email = document.querySelector("#create-email").value.trim();
-        const cuit = document.querySelector("#create-cuit").value.trim();
-        const phone = document.querySelector("#create-phone").value.trim();
-        const address = document.querySelector("#create-address").value.trim(); // Asegúrate de tener este campo en tu formulario
-        const altura = document.querySelector("#create-altura").value.trim(); // Asegúrate de tener este campo en tu formulario
-
-        let errores = [];
-
-        if (name === "") {
-            errores.push("El nombre es requerido.");
-        } else if (/[^a-zA-Z\s]/.test(name)) {
-            errores.push("El nombre no puede contener números ni símbolos.");
-        }
-
-        if (!/^\S+@\S+\.\S+$/.test(email)) {
-            errores.push("El correo electrónico no es válido.");
-        }
-
-        if (!/^[0-9]{11}$/.test(cuit)) {
-            errores.push("El CUIL/CUIT debe contener 11 dígitos.");
-        }
-
-        if (!/^[0-9]{10}$/.test(phone)) {
-            errores.push("El teléfono debe contener 10 dígitos.");
-        }
-
-        if (address === "") {
-            errores.push("La dirección es requerida.");
-        } else if (/[^a-zA-Z\s]/.test(address)) {
-            errores.push("La dirección no puede contener números ni símbolos.");
-        }
-
-        if (!/^[0-9]+$/.test(altura)) {
-            errores.push("La altura solo puede contener números.");
-        }
-
-        if (errores.length > 0) {
-            event.preventDefault();
-            alert(errores.join("\n"));
-        }
-    });
-
-    // Validación del formulario "Editar Cliente"
-    const formEdit = document.querySelector("#editEmployeeModal form");
-    formEdit.addEventListener("submit", function(event) {
-        const name = document.querySelector("#edit-name").value.trim();
-        const email = document.querySelector("#edit-email").value.trim();
-        const cuit = document.querySelector("#edit-cuit").value.trim();
-        const phone = document.querySelector("#edit-phone").value.trim();
-        const address = document.querySelector("#edit-address").value.trim(); // Asegúrate de tener este campo en tu formulario
-        const altura = document.querySelector("#edit-altura").value.trim(); // Asegúrate de tener este campo en tu formulario
-
-        let errores = [];
-
-        if (name === "") {
-            errores.push("El nombre es requerido.");
-        } else if (/[^a-zA-Z\s]/.test(name)) {
-            errores.push("El nombre no puede contener números ni símbolos.");
-        }
-
-        if (!/^\S+@\S+\.\S+$/.test(email)) {
-            errores.push("El correo electrónico no es válido.");
-        }
-
-        if (!/^[0-9]{11}$/.test(cuit)) {
-            errores.push("El CUIL/CUIT debe contener 11 dígitos.");
-        }
-
-        if (!/^[0-9]{10}$/.test(phone)) {
-            errores.push("El teléfono debe contener 10 dígitos.");
-        }
-
-        if (address === "") {
-            errores.push("La dirección es requerida.");
-        } else if (/[^a-zA-Z\s]/.test(address)) {
-            errores.push("La dirección no puede contener números ni símbolos.");
-        }
-
-        if (!/^[0-9]+$/.test(altura)) {
-            errores.push("La altura solo puede contener números.");
-        }
-
-        if (errores.length > 0) {
-            event.preventDefault();
-            alert(errores.join("\n"));
-        }
-    });
-});
-
-
-</script>
 
 </body>
 
