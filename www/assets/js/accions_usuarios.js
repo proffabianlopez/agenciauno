@@ -13,7 +13,23 @@ $(document).ready(function () {
 
         $editModal.modal('show');
     });
-
+    $(document).ready(function () {
+        $('.view').on('click', function () {
+            var $viewModal = $('#viewEmployeeModal');
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var email = $(this).data('email');
+            var phone = $(this).data('phone');
+            var password = $(this).data('password');
+    
+            $viewModal.find('#view-name').val(name);
+            $viewModal.find('#view-email').val(email);
+            $viewModal.find('#view-phone').val(phone);
+            $viewModal.find('#view-password').val(password);
+    
+            $viewModal.modal('show');
+        });
+    });
     $('.deleteBtn').on('click', function () { 
         var $deleteModal = $('#deleteEmployeeModal');
         var id = $(this).data('id');

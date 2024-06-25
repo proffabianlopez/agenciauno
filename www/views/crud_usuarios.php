@@ -70,7 +70,7 @@ $usuarios = obtenerusuarios();
                                         <th>Usuario</th>
                                         <th>Teléfono</th>
                                         <th>Contraseña</th>
-                                        <th>Acción</th>
+                                        <th>Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,18 +80,28 @@ $usuarios = obtenerusuarios();
                                                     <td><?php echo $usuario['email_user']; ?></td>
                                                     <td><?php echo $usuario['phone']; ?></td>
                                                     <td><?php echo $usuario['password']; ?></td>
-                                                    <td>
+                                                    
+                                                    <td>   <a href="#viewEmployeeModal"
+                                                        class="view btn btn-success long_letter text-white" data-bs-toggle="modal"
+                                                        data-id="<?php echo $usuario['id_user']; ?>"
+                                                        data-name="<?php echo $usuario['email_user']; ?>"
+                                                        data-phone="<?php echo $usuario['phone']; ?>"
+                                                        data-password="<?php echo $usuario['password']; ?>">
+                                                        <i style="width: 19px; height: 10px;" class="fas fa-binoculars"></i>
+                                                    </a>
                                                     <a href="#editEmployeeModal" class="btn btn-warning float-center editBtn text-white" data-bs-toggle="modal"
                                                         data-id="<?php echo $usuario['id_user']; ?>"
                                                         data-name="<?php echo $usuario['email_user']; ?>"
                                                         data-phone="<?php echo $usuario['phone']; ?>"
-                                                        data-password="<?php echo $usuario['password']; ?>"><i class="fas fa-edit"></i>
+                                                        data-password="<?php echo $usuario['password']; ?>">
+                                                        <i style="width: 19px; height: 10px;" class="fas fa-edit"></i>
                                                     </a>
                                                     <a href="#deleteEmployeeModal" class="btn btn-danger float-center deleteBtn text-white" data-bs-toggle="modal"
                                                         data-id="<?php echo $usuario['id_user']; ?>"
                                                         data-name="<?php echo $usuario['email_user']; ?>"><i class="fas fa-trash-alt"></i>
                                                     </a>
                                                     </td>
+                                        
                                             </tr>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
@@ -162,6 +172,40 @@ $usuarios = obtenerusuarios();
         </div>
     </div>
 </div>
+        <!-- View Modal HTML -->
+        <div id="viewEmployeeModal" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-success">
+                                    <h4 class="modal-title text-white">Detalles del Usuario</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="view-name">Nombre de usuario</label>
+                                        <input type="text" class="form-control" id="view-name" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="view-email">Email</label>
+                                        <input type="email" class="form-control" id="view-email" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="view-phone">Teléfono</label>
+                                        <input type="text" class="form-control" id="view-phone" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="view-password">Contraseña</label>
+                                        <input type="text" class="form-control" id="view-password" readonly>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <div id="deleteEmployeeModal" class="modal fade" tabindex="-1">
                         <div class="modal-dialog">
@@ -198,11 +242,30 @@ $usuarios = obtenerusuarios();
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
+    <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#table_usuarios').DataTable();
+        
+            $('#table_usuarios').DataTable({
+            pageLength: 4,
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+        },
+        columns: [{
+            width: '20%'
+        }, {
+            width: '20%'
+        }, {
+            width: '20%'
+        }, {
+            width: '20%'
+        }, {
+            width: '20%'
+        }]
+
+    
         });
     </script>
 
