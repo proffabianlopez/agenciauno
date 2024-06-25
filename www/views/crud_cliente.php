@@ -1,5 +1,6 @@
 <?php
 include_once "../models/functions.php";
+
 $clientes = obtenerclientes();
 ?>
 <!DOCTYPE html>
@@ -174,26 +175,26 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
-                            <input type="email" class="form-control" id="edit-email" name="email_cliente">
+                            <input type="email" class="form-control" id="edit-email" name="email_cliente" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
-                            <input type="text" class="form-control" id="edit-cuit" name="identifier">
+                            <input type="number" class="form-control" id="edit-cuit" name="identifier"  required>
 
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="text" class="form-control" id="edit-phone" name="telefono">
+                            <input type="number" class="form-control" id="edit-phone" name="telefono" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
-                            <input type="text" class="form-control" id="edit-street" name="direccion">
+                            <input type="text" class="form-control" id="edit-street" name="direccion" required>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="edit-height">Altura</label>
-                                <input type="text" class="form-control" id="edit-height" name="altura">
+                                <input type="number" class="form-control" id="edit-height" name="altura" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-floor">Piso</label>
@@ -206,7 +207,7 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-location">Localidad</label>
-                            <input type="text" class="form-control" id="edit-location" name="ciudad">
+                            <input type="text" class="form-control" id="edit-location" name="ciudad" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-observaciones">Observaciones</label>
@@ -256,11 +257,11 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
-                            <input class="form-control" id="edit-cuit" name="edit-cuit"></input>
+                            <input type="number" class="form-control" id="edit-cuit" name="edit-cuit"></input>
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="text" class="form-control" id="edit-phone" name="edit-phone">
+                            <input type="number" class="form-control" id="edit-phone" name="edit-phone">
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
@@ -269,7 +270,7 @@ $clientes = obtenerclientes();
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="edit-height">Altura</label>
-                                <input type="text" class="form-control" id="edit-height" name="edit-height">
+                                <input type="number" class="form-control" id="edit-height" name="edit-height">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-floor">Piso</label>
@@ -375,7 +376,7 @@ $clientes = obtenerclientes();
     </div>
 
 
- <!-- Delete Modal HTML -->
+<!-- Delete Modal HTML -->
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
         <div class="modal-content">
@@ -385,7 +386,7 @@ $clientes = obtenerclientes();
             </div>
             <form action="../controller/eliminar_cliente.php" method="post">
                 <div class="modal-body" style="text-align:center">
-                    <h3>Estas seguro que desea Deshabilitar al Cliente: </h3>
+                    <h3>¿Estás seguro que deseas Deshabilitar al Cliente?</h3>
                     <br>
                     <div class="form-row">
                         <div class="form-group col-md-3"></div>
@@ -395,7 +396,7 @@ $clientes = obtenerclientes();
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="view-id_customer" id="view-id_customer">
+                    <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                     <input type="button" class="btn btn-success" data-dismiss="modal" value="Volver">
                     <input type="submit" class="btn btn-danger" value="Deshabilitar">
                 </div>
@@ -446,6 +447,117 @@ $clientes = obtenerclientes();
     });
     </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Función para validar que solo se ingresen números
+    function soloNumeros(event) {
+        const keyCode = event.which ? event.which : event.keyCode;
+        if ((keyCode < 48 || keyCode > 57) && keyCode !== 8 && keyCode !== 46) {
+            event.preventDefault();
+        }
+    }
+
+    // Agrega el evento de validación de entrada para los campos de CUIL y altura
+    document.querySelector("#create-cuit").addEventListener("keypress", soloNumeros);
+    document.querySelector("#edit-cuit").addEventListener("keypress", soloNumeros);
+    document.querySelector("#create-altura").addEventListener("keypress", soloNumeros);
+    document.querySelector("#edit-altura").addEventListener("keypress", soloNumeros);
+
+    // Validación del formulario "Crear Cliente"
+    const formCreate = document.querySelector("#createEmployeeModal form");
+    formCreate.addEventListener("submit", function(event) {
+        const name = document.querySelector("#create-name").value.trim();
+        const email = document.querySelector("#create-email").value.trim();
+        const cuit = document.querySelector("#create-cuit").value.trim();
+        const phone = document.querySelector("#create-phone").value.trim();
+        const address = document.querySelector("#create-address").value.trim(); // Asegúrate de tener este campo en tu formulario
+        const altura = document.querySelector("#create-altura").value.trim(); // Asegúrate de tener este campo en tu formulario
+
+        let errores = [];
+
+        if (name === "") {
+            errores.push("El nombre es requerido.");
+        } else if (/[^a-zA-Z\s]/.test(name)) {
+            errores.push("El nombre no puede contener números ni símbolos.");
+        }
+
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            errores.push("El correo electrónico no es válido.");
+        }
+
+        if (!/^[0-9]{11}$/.test(cuit)) {
+            errores.push("El CUIL/CUIT debe contener 11 dígitos.");
+        }
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+            errores.push("El teléfono debe contener 10 dígitos.");
+        }
+
+        if (address === "") {
+            errores.push("La dirección es requerida.");
+        } else if (/[^a-zA-Z\s]/.test(address)) {
+            errores.push("La dirección no puede contener números ni símbolos.");
+        }
+
+        if (!/^[0-9]+$/.test(altura)) {
+            errores.push("La altura solo puede contener números.");
+        }
+
+        if (errores.length > 0) {
+            event.preventDefault();
+            alert(errores.join("\n"));
+        }
+    });
+
+    // Validación del formulario "Editar Cliente"
+    const formEdit = document.querySelector("#editEmployeeModal form");
+    formEdit.addEventListener("submit", function(event) {
+        const name = document.querySelector("#edit-name").value.trim();
+        const email = document.querySelector("#edit-email").value.trim();
+        const cuit = document.querySelector("#edit-cuit").value.trim();
+        const phone = document.querySelector("#edit-phone").value.trim();
+        const address = document.querySelector("#edit-address").value.trim(); // Asegúrate de tener este campo en tu formulario
+        const altura = document.querySelector("#edit-altura").value.trim(); // Asegúrate de tener este campo en tu formulario
+
+        let errores = [];
+
+        if (name === "") {
+            errores.push("El nombre es requerido.");
+        } else if (/[^a-zA-Z\s]/.test(name)) {
+            errores.push("El nombre no puede contener números ni símbolos.");
+        }
+
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            errores.push("El correo electrónico no es válido.");
+        }
+
+        if (!/^[0-9]{11}$/.test(cuit)) {
+            errores.push("El CUIL/CUIT debe contener 11 dígitos.");
+        }
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+            errores.push("El teléfono debe contener 10 dígitos.");
+        }
+
+        if (address === "") {
+            errores.push("La dirección es requerida.");
+        } else if (/[^a-zA-Z\s]/.test(address)) {
+            errores.push("La dirección no puede contener números ni símbolos.");
+        }
+
+        if (!/^[0-9]+$/.test(altura)) {
+            errores.push("La altura solo puede contener números.");
+        }
+
+        if (errores.length > 0) {
+            event.preventDefault();
+            alert(errores.join("\n"));
+        }
+    });
+});
+
+
+</script>
 
 </body>
 

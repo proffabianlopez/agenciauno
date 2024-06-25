@@ -53,9 +53,9 @@ $categorys = obtenercategorys();
                             <div class="row mb-12">
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Categorias</b>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#createEmployeeModal" data-action="add" data-placement="right"
-                                            title="Nuevo"><i class="bi bi-person-plus-fill"></i></button>
+                                    <a type="button" class="btn btn-success btn btn-primary btn-lg create_brands_Btn text-white"
+                                        data-bs-toggle="modal" data-bs-target="#createEmployeeModal" data-action="add" data-placement="right"
+                                        title="Nuevo"><i class="fas fa-plus-circle fa-lg"></i></a>
                                     </h4>
                                 </div>
                             </div>
@@ -74,24 +74,21 @@ $categorys = obtenercategorys();
                                 <tbody>
                                 <?php foreach ($categorys as $categoria): ?>
                                     <?php if ($categoria['id_status'] == 1): ?>
-<tr>
-    <td><?php echo $categoria['detail']; ?></td>
-    <td>
-        <a href="#editEmployeeModal" class="edit" data-bs-toggle="modal"
-            data-id="<?php echo $categoria['id_category']; ?>" 
-            data-detail="<?php echo $categoria['detail']; ?>">
-            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-        </a>
-        <a href="#deleteEmployeeModal" class="delete" data-bs-toggle="modal"
-            data-id="<?php echo $categoria['id_category']; ?>" 
-            data-detail="<?php echo $categoria['detail']; ?>">
-            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-        </a>
-    </td>
-</tr>
-<?php endif; ?>
-<?php endforeach; ?>
-
+                                    <tr>
+                                        <td><?php echo $categoria['detail']; ?></td>
+                                        <td>
+                                            <a class="btn btn-warning float-center editBtn text-white"
+                                                data-bs-toggle="modal"
+                                                data-id="<?php echo $categoria['id_category']; ?>" 
+                                                data-detail="<?php echo $categoria['detail']; ?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger float-center delete_Btn text-white"
+                                                data-bs-toggle="modal"
+                                                data-id="<?php echo $categoria['id_category']; ?>" 
+                                                data-detail="<?php echo $categoria['detail']; ?>"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -100,23 +97,22 @@ $categorys = obtenercategorys();
                     <div id="createEmployeeModal" class="modal fade" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                    <h4 class="modal-title text-white">Crear Categoria</h4>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" style="color: white;">&times;</span>
+                                    </button>
+                                </div>
                                 <form action="../controller/controller_categorys.php" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Crear Categoria</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="create-detail">Nombre de la categoria</label>
-                                            <input type="text" class="form-control" id="create-detail"
-                                                name="name_category">
+                                            <input type="text" class="form-control" id="create-detail" name="name_category" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger"
-                                            data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success">Guardar</button>
                                     </div>
                                 </form>
                             </div>
@@ -126,23 +122,23 @@ $categorys = obtenercategorys();
                     <div id="editEmployeeModal" class="modal fade" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                    <h4 class="modal-title text-white">Editar Categoria</h4>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" style="color: white;">&times;</span>
+                                    </button>
+                                </div>
                                 <form action="../controller/edit_category.php" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Editar Categoria</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
                                     <div class="modal-body">
                                         <input type="hidden" name="edit-id" id="edit-id">
                                         <div class="form-group">
                                             <label for="edit-detail">Nombre de la categoria</label>
-                                            <input type="text" class="form-control" id="edit-detail" name="edit-detail">
+                                            <input type="text" class="form-control" id="edit-detail" name="edit-detail" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success">Guardar</button>
                                     </div>
                                 </form>
                             </div>
@@ -150,21 +146,22 @@ $categorys = obtenercategorys();
                     </div>
 
                     <div id="deleteEmployeeModal" class="modal fade" tabindex="-1">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
+                                <div class="modal-header bg-danger">
+                                    <h4 class="modal-title text-white">Deshabilitar Categoria</h4>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" style="color: white;">&times;</span>
+                                    </button>
+                                </div>
                                 <form action="../controller/delete_category.php" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Deshabilitar Categoria</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-hidden="true"></button>
-                                    </div>
                                     <div class="modal-body">
                                         <p>¿Está seguro que desea Deshabilitar esta categoria?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <input type="hidden" name="edit-id_category" id="edit-id_category">
-                                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Deshabilitar</button>
                                     </div>
                                 </form>
                             </div>
@@ -189,19 +186,39 @@ $categorys = obtenercategorys();
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
 
-
     <script>
     $("#table_clientes").DataTable({
         pageLength: 15,
         language: {
-            url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-MX.json",
         },
+        searchPanes: {
+            viewTotal: true,
+            columns: [2]
+        },
+        dom: 'Plfrtip',
         columnDefs: [{
-            width: '20%',
-            targets: 0
+            searchPanes: {
+                show: true
+            },
+            targets: [1]
         }]
+    });
+
+    $(document).on("click", ".editBtn", function () {
+        var id_category = $(this).data('id');
+        var detail = $(this).data('detail');
+        $("#editEmployeeModal #edit-id").val(id_category);
+        $("#editEmployeeModal #edit-detail").val(detail);
+        $("#editEmployeeModal").modal("show");
+    });
+
+    $(document).on("click", ".delete_Btn", function () {
+        var id_category = $(this).data('id');
+        var detail = $(this).data('detail');
+        $("#deleteEmployeeModal #edit-id_category").val(id_category);
+        $("#deleteEmployeeModal").modal("show");
     });
     </script>
 </body>
-
 </html>
