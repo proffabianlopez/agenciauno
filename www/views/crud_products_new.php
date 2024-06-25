@@ -57,7 +57,7 @@ $categoryData=show_state("categorys");
                         <div class="card-header">
                             <div class="row mb-6">
                                 <div class="col-sm-6">
-                                    <h4><b>Listado de Productos &nbsp&nbsp&nbsp</b>
+                                    <h4><b>Listado de de Productos &nbsp&nbsp&nbsp</b>
                                         <button type="button" class="btn btn-success create_products_Btn"
                                             data-toggle="modal" data-target="#create_products_Bt" data-action="add"
                                             data-placement="right" title="Nuevo"><i
