@@ -101,7 +101,7 @@ $show=show_state("suppliers");
                                             <?php echo $row->phone_supplier ?>
                                         </td>
 
-                                        <td> <a class="btn btn-success editBtn long_letter text-white"                                                
+                                        <td> <a class="btn btn-success viewBtn long_letter text-white"                                                
                                                 data-id="<?php echo $row->id_supplier ?>"
                                                 data-name="<?php echo $row->name_supplier?>"
                                                 data-phone="<?php echo $row->phone_supplier ?>"
@@ -127,9 +127,8 @@ $show=show_state("suppliers");
                                                 data-floor="<?php echo $row->floor ?>"
                                                 data-departament="<?php echo $row->departament?>"
                                                 data-location="<?php echo $row->location ?>">
-                                                <i
-                                                    style="width: 10px; height: 10px;" class="fas fa-edit"></i></a>
-                                            <a class="btn btn-danger delete_Btn long_letter text-white"
+                                                <i style="width: 10px; height: 10px;" class="fas fa-edit"></i></a>
+                                                   <a class="btn btn-danger delete_Btn long_letter text-white"
                                                 data-id_suppliers="<?php echo $row->id_supplier ?>"><i
                                                     class="fas fa-trash-alt"></i></a>
                                         </td>
@@ -307,46 +306,59 @@ $show=show_state("suppliers");
     <!--Modal de Ver Proveedores-->
     <div id="viewModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Detalles del Proveedor</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal"aria-label="Close" style="color: white;">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="#" method="post">
-                    <div class="modal-body">
-
-                        <input type="hidden" name="id_supplier" id="id_supplier" class="form-control" value="">
-                        <div class="form-group">
-                            <label for="edit_name">Nombre</label>
-                            <input type="text" class="form-control" id="name_supplier" name="name" required value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_phone">Telefono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_directiòn">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" required value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_heigth">Observaciones</label>
-                            <input type="text" class="form-control" id="obs" name="observaciones" required value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_heigth">Cuil</label>
-                            <input type="text" class="form-control" id="tax" name="cuil" value="">
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancelar</button>
-
-                    </div>
-                </form>
+        <div class="modal-content">
+    <div class="modal-header bg-primary">
+        <h4 class="modal-title text-white">Detalles del Proveedor</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="view_name">Nombre</label>
+            <span id="view_name" class="form-control-static"></span>
+        </div>
+        <div class="form-group">
+            <label for="view_phone">Teléfono</label>
+            <span id="view_phone" class="form-control-static"></span>
+        </div>
+        <div class="form-group">
+            <label for="view_email">Email</label>
+            <span id="view_email" class="form-control-static"></span>
+        </div>
+        <div class="form-group">
+            <label for="view_obs">Observaciones</label>
+            <span id="view_obs" class="form-control-static"></span>
+        </div>
+        <div class="form-group">
+            <label for="view_tax">CUIL</label>
+            <span id="view_tax" class="form-control-static"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="view_street">Calle</label>
+                <span id="view_street" class="form-control-static"></span>
             </div>
+            <div class="form-group col-md-3">
+                <label for="view_height">Altura</label>
+                <span id="view_height" class="form-control-static"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="view_floor">Piso</label>
+                <span id="view_floor" class="form-control-static"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="view_departament">Departamento</label>
+                <span id="view_departament" class="form-control-static"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="view_location">Localidad</label>
+            <span id="view_location" class="form-control-static"></span>
+        </div>
+    </div>
+</div>
+
         </div>
     </div> 
 
