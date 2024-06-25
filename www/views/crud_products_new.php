@@ -81,12 +81,8 @@ $categoryData=show_state("categorys");
                                         <th>Stock</th>
                                         <th>Acciones</th>
                                     </tr>
-
-
                                 </thead>
                                 <tbody>
-
-
                                 <?php foreach ($show as $row) { ?>
                                   <tr>
                                      <td><?php echo $row->number_serial; ?></td>
@@ -108,11 +104,8 @@ $categoryData=show_state("categorys");
            data-id_products="<?php echo $row->id_product ?>"><i class="fas fa-trash-alt"></i></a>
     </div>
 </td>
-
                                   </tr>
                           <?php } ?>
-
-
                                 </tbody>
                             </table>
 
@@ -329,6 +322,10 @@ $categoryData=show_state("categorys");
         }, {
             width: '20%'
         }, {
+            width: '20%'
+        }{
+            width: '20%'
+        }{
             width: '20%'
         }]
     });

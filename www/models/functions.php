@@ -493,4 +493,28 @@ function eliminated_brand($table, $id_brand) {
 }
 
 
+function deletecategorys($table, $id_brands) {
+    try {
+        
+        $bd = database(); 
+        
+        $query = "DELETE FROM $table WHERE id_category = :id_category";
+        $deleteStatement = $bd->prepare($query);
+        $deleteStatement->bindParam(':id_category', $id_brands, PDO::PARAM_INT);
+        
+        
+        $deleteStatement->execute();
+        
+        // Verificar si se eliminó al menos una fila
+        $rowCount = $deleteStatement->rowCount();
+        
+        // Devolver verdadero si se eliminó correctamente
+        return ($rowCount > 0);
+        
+    } catch (PDOException $e) {
+        // Manejar errores de base de datos
+        return false;
+    }
+}
+
 ?>
