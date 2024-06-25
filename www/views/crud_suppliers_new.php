@@ -107,7 +107,13 @@ $show=show_state("suppliers");
                                                 data-phone="<?php echo $row->phone_supplier ?>"
                                                 data-email="<?php echo $row->email_supplier ?>"
                                                 data-obs="<?php echo $row->observations; ?>"
-                                                data-tax="<?php echo $row->tax_identifier ?>"><i
+                                                data-tax="<?php echo $row->tax_identifier ?>"
+                                                data-street="<?php echo $row->street ?>"
+                                                data-height="<?php echo $row->height ?>"
+                                                data-floor="<?php echo $row->floor ?>"
+                                                data-departament="<?php echo $row->departament?>"
+                                                data-location="<?php echo $row->location ?>">
+                                                <i
                                                     class="fa fa-binoculars"></i></a>
                                             <a class="btn btn-warning editBtn long_letter text-white"
                                                 data-id="<?php echo $row->id_supplier ?>"
@@ -115,7 +121,13 @@ $show=show_state("suppliers");
                                                 data-phone="<?php echo $row->phone_supplier ?>"
                                                 data-email="<?php echo $row->email_supplier ?>"
                                                 data-obs="<?php echo $row->observations; ?>"
-                                                data-tax="<?php echo $row->tax_identifier ?>"><i
+                                                data-tax="<?php echo $row->tax_identifier ?>"
+                                                data-street="<?php echo $row->street ?>"
+                                                data-height="<?php echo $row->height ?>"
+                                                data-floor="<?php echo $row->floor ?>"
+                                                data-departament="<?php echo $row->departament?>"
+                                                data-location="<?php echo $row->location ?>">
+                                                <i
                                                     style="width: 10px; height: 10px;" class="fas fa-edit"></i></a>
                                             <a class="btn btn-danger delete_Btn long_letter text-white"
                                                 data-id_suppliers="<?php echo $row->id_supplier ?>"><i
@@ -146,7 +158,7 @@ $show=show_state("suppliers");
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title text-white">Dar de Alta un Proveedor</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -206,8 +218,8 @@ $show=show_state("suppliers");
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="agregar" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>
 
                     </div>
                 </form>
@@ -222,7 +234,7 @@ $show=show_state("suppliers");
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title text-white">Editar un Proveedor</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white;">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -252,28 +264,37 @@ $show=show_state("suppliers");
                         </div>
 
                         <div class="form-row">
+                        <div class="form-group col-md-3">
+                                <label for="street">calle</label>
+                                <input type="text" id="street" name="street"  class="form-control" required>
+
+                            </div>
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
-                                <input type="text" name="altura" class="form-control" required>
+                                <input type="text" id="height" name="height"  class="form-control" required>
 
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="piso">Piso</label>
-                                <input type="text" name="piso" class="form-control" required>
+                                <label for="floor">piso</label>
+                                <input type="text" id="floor" name="floor" class="form-control" required>
 
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="numero_de_piso">Departamento</label>
-                                <input type="text" name="numero_de_piso" class="form-control" required>
+                                <label for="departament">Departamento</label>
+                                <input type="text" id="departament" name="departament" id="departament" class="form-control" required>
 
                             </div>
                         </div>
-
+                     <div class="form-group">
+                            <label for="location">Localidad</label>
+                            <input type="text" class="form-control" id="location" name="location" value="">
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-
+                        <button type="submit" class="btn btn-success" name="save_data">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        
+                        
                     </div>
                 </form>
             </div>
@@ -288,7 +309,7 @@ $show=show_state("suppliers");
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title text-white">Detalles del Proveedor</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                    <button type="button" class="close" data-bs-dismiss="modal"aria-label="Close" style="color: white;">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -320,7 +341,7 @@ $show=show_state("suppliers");
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancelar</button>
 
                     </div>
                 </form>
@@ -334,7 +355,7 @@ $show=show_state("suppliers");
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h4 class="modal-title text-white">Deshabilitar un Proveedor</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white" ;>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white" ;>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -357,8 +378,8 @@ $show=show_state("suppliers");
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
-                        <input type="button" class="btn btn-success" data-dismiss="modal" value="Volver">
-                        <input type="submit" class="btn btn-danger" value="Deshabilitar">
+                        <input type="button" class="btn btn-success" data-bs-dismiss="modal" value="Volver">
+                        <input type="submit" class="btn btn-danger" name="delete" value="Deshabilitar">
                     </div>
                 </form>
             </div>
@@ -390,6 +411,7 @@ $show=show_state("suppliers");
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
+    
 
     <!--        <script src="../js.modal/paginated.js"></script> -->
 

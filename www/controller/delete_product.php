@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verificar si la eliminación fue exitosa
         if ($eliminated) {
             // Redireccionar de vuelta a la página de CRUD con un mensaje de éxito
-            header("Location: ../views/crud_products.php?borrado=correcto");
+            header("Location: ../views/crud_products_new.php?borrado=correcto");
             exit(); // Salir del script después de la redirección
         } else {
             // Mostrar un mensaje de error específico si la eliminación falla

@@ -11,6 +11,11 @@ $('.editBtn').click(function () {
     var email_supplier = $(this).data('email');
     var observations = $(this).data('obs');
     var tax_identifier = $(this).data('tax');
+    var street_suplier = $(this).data('street');
+    var height_suplier = $(this).data('height');
+    var floor_suplier = $(this).data('floor');
+    var departament_suplier = $(this).data('departament');
+    var location_suplier = $(this).data('location');
     
     $('#id_supplier').val(id_supplier); // Corregido el ID del campo oculto
     $('#name_supplier').val(name_supplier);
@@ -18,6 +23,11 @@ $('.editBtn').click(function () {
     $('#email').val(email_supplier); // Corregido el ID del campo de email
     $('#obs').val(observations); // Corregido el ID del campo de observaciones
     $('#tax').val(tax_identifier); // Corregido el ID del campo de CUIL
+    $('#street').val(street_suplier);
+    $('#height').val(height_suplier);
+    $('#floor').val(floor_suplier);
+    $('#departament').val(departament_suplier);
+    $('#location').val(location_suplier);
 
     $('#editModal').modal('show');
 });

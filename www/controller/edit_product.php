@@ -13,16 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if(isset($_POST['save_data'])){
         
         $id_product = $_POST["id_product"];
+        $number_serial = isset($_POST['number_serial']) ? $_POST["number_serial"] : null;
+        $number_product = isset($_POST['number_product'])  ? $_POST["number_product"] : null;
         $name_product = isset($_POST["name_product"]) ? $_POST["name_product"] : null;
         $description = isset($_POST["description"]) ? $_POST["description"] : null;
         $stock = isset($_POST["stock"]) ? $_POST["stock"] : null;
         
         // Actualizar los datos del proveedor en la base de datos
-        $updated = update_products($id_product,$name_product,$description,$stock);
+        $updated = update_products($number_serial,$number_product,$id_product,$name_product,$description,$stock);
     
         if ($updated) {
             // Redirigir a la página de gestión de proveedores con un mensaje de éxito en la URL
-            header("Location:../views/crud_products.php?editado=correcto");
+            header("Location:../views/crud_products_new.php?editado=correcto");
             exit();
         } else {
             // Mostrar un mensaje de error si falla la actualización
