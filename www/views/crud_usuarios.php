@@ -39,7 +39,6 @@ $usuarios = obtenerusuarios();
             max-height: calc(80vh - 120px);
         }
     </style>
-    
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
@@ -54,9 +53,9 @@ $usuarios = obtenerusuarios();
                             <div class="row mb-12">
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Usuarios</b>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#createEmployeeModal" data-action="add" data-placement="right"
-                                            title="Nuevo"><i class="bi bi-person-plus-fill"></i></button>
+                                        <a type="button" class="btn btn-success btn btn-primary btn-lg create_brands_Btn text-white"
+                                            data-bs-toggle="modal" data-bs-target="#createEmployeeModal" data-action="add" data-placement="right"
+                                            title="Nuevo"><i class="fas fa-plus-circle fa-lg"></i></a>
                                     </h4>
                                 </div>
                             </div>
@@ -65,7 +64,7 @@ $usuarios = obtenerusuarios();
 
                     <div class="table-responsive">
                         <div class="table-wrapper">
-                            <table id="table_clientes" class="table table-striped table-hover">
+                            <table id="table_usuarios" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Usuario</th>
@@ -74,28 +73,26 @@ $usuarios = obtenerusuarios();
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($usuarios as $usuario): ?>
-                                    <?php if ($usuario['id_status'] == 1): ?>
-                                    <tr>
-                                        <td><?php echo $usuario['email_user']; ?></td>
-                                        <td><?php echo $usuario['phone']; ?></td>
-                                        <td>
-                                            <a href="#editEmployeeModal" class="edit" data-bs-toggle="modal"
-                                                data-id="<?php echo $usuario['id_user']; ?>"
-                                                data-name="<?php echo $usuario['email_user']; ?>"
-                                                data-phone="<?php echo $usuario['phone']; ?>"
-                                                data-password="<?php echo $usuario['password']; ?>">
-                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                            </a>
-                                            <a href="#deleteEmployeeModal" class="delete" data-bs-toggle="modal"
-   data-id="<?php echo $usuario['id_user']; ?>"
-   data-name="<?php echo $usuario['email_user']; ?>">
-   <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-</a>
-                                        </td>
-                                    </tr>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
+                                    <?php foreach ($usuarios as $usuario): ?>
+                                        <?php if ($usuario['id_status'] == 1): ?>
+                                            <tr>
+                                                <td><?php echo $usuario['email_user']; ?></td>
+                                                <td><?php echo $usuario['phone']; ?></td>
+                                                <td>
+                                                    <a href="#editEmployeeModal" class="btn btn-warning float-center editBtn text-white" data-bs-toggle="modal"
+                                                        data-id="<?php echo $usuario['id_user']; ?>"
+                                                        data-name="<?php echo $usuario['email_user']; ?>"
+                                                        data-phone="<?php echo $usuario['phone']; ?>"
+                                                        data-password="<?php echo $usuario['password']; ?>"><i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="#deleteEmployeeModal" class="btn btn-danger float-center delete_Btn text-white" data-bs-toggle="modal"
+                                                        data-id="<?php echo $usuario['id_user']; ?>"
+                                                        data-name="<?php echo $usuario['email_user']; ?>"><i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -105,8 +102,8 @@ $usuarios = obtenerusuarios();
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <form action="../controller/controller_usuario.php" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Crear Usuario</h4>
+                                    <div class="modal-header bg-primary">
+                                        <h4 class="modal-title text-white">Crear Usuario</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -136,8 +133,8 @@ $usuarios = obtenerusuarios();
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <form action="../controller/edit_usuario.php" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Editar usuario</h4>
+                                    <div class="modal-header bg-primary">
+                                        <h4 class="modal-title text-white">Editar Usuario</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -164,12 +161,12 @@ $usuarios = obtenerusuarios();
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form action="../controller/delete_usuario.php" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Deshabilitar usuario</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                    <div class="modal-header bg-danger">
+                                        <h4 class="modal-title text-white">Deshabilitar Usuario</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>¿Está seguro que desea deshabilitar esta usuario?</p>
+                                        <p>¿Está seguro que desea deshabilitar este usuario?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <input type="hidden" name="delete-id_user" id="delete-id_user">
@@ -195,22 +192,14 @@ $usuarios = obtenerusuarios();
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
 
     <script>
-    $("#table_clientes").DataTable({
-        pageLength: 15,
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
-        },
-        columnDefs: [{
-            width: '20%',
-            targets: 0
-        }]
-    });
+        $(document).ready(function () {
+            $('#table_usuarios').DataTable();
+        });
     </script>
+
 </body>
 
 </html>
