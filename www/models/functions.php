@@ -106,13 +106,14 @@
        $query->bindParam(':id_status', $status);
        $query->execute();
    }
-   function Updateusuario($id, $email, $phone, $status) {
+   function Updateusuario($id, $email, $phone, $status,$password) {
     
         $bd = database(); 
         $query = $bd->prepare("UPDATE users 
                                SET email_user = :email, 
                                    phone = :phone, 
-                                   id_status = :status 
+                                   id_status = :status,
+                                   password = :password
                                WHERE id_user = :id");
 
         
@@ -120,6 +121,7 @@
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':phone', $phone, PDO::PARAM_STR);
         $query->bindParam(':status', $status, PDO::PARAM_INT);
+        $query->bindParam(':password', $password, PDO::PARAM_STR);
 
         
         $query->execute();
@@ -147,13 +149,30 @@
        $query->bindParam(':id', $id);
        $query->execute();
    }
+   function addUsuario($email_user, $phone, $password,$id_status) {
+    $bd = database(); 
+    $sql = "INSERT INTO users (email_user, phone, password,id_status,id_rol) VALUES (:email_user, :phone, :password, :id_status, :id_rol)";
+    $stmt = $bd->prepare($sql);
+    $stmt->bindParam(':email_user', $email_user);
+    $stmt->bindParam(':phone', $phone);
+    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':id_status', $id_status);
+    $stmt->bindParam(':id_rol', $id_status);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 /*
 function UpdateBook($id_book, $titulo, $genero, $anio, $synopsis, $lenguaje, $page)
 {
     $bd = database();
     $query = $bd->prepare("UPDATE Books SET book_title = :titulo, id_gender = :genero, published_year = :anio, synopsis = :synopsis, book_language = :lenguaje, page_number = :page WHERE id_book = :id");
     $query->execute(array(':id' => $id_book, ':titulo' => $titulo, ':genero'=> $genero, ':anio' => $anio, ':synopsis' => $synopsis, ':lenguaje' => $lenguaje, ':page' => $page));
-}*/
+}
 /*  EJEMPLO DE SELECT!!!!! COMO POR EJ UN LOGIN*/
 
 

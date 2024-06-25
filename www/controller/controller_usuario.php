@@ -1,22 +1,18 @@
 <?php
-include_once "../models/functions.php";
-//$codigo_cliente=$_POST["codigo_cliente"];
-$identifier=$_POST["identifier"];
-$name_cliente=$_POST["name_cliente"];
-$email_cliente=$_POST["email_cliente"];
-$telefono=$_POST["telefono"];
-$direccion=$_POST["direccion"];
-$Altura=$_POST["altura"];
-$ciudad=$_POST["ciudad"];
-$piso=$_POST["piso"];
+include_once "../models/functions.php"; 
 
-$observaciones=$_POST["observaciones"];
-$status=1;
-$department=$_POST["department"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email_user = $_POST['name_user'];
+    $phone = $_POST['phone'];
+    $password = ($_POST['password']); 
+    $id_status=1;
+    $id_rol=1;
+    
 
-
-if(add_cliente($identifier, $name_cliente, $email_cliente, $telefono, $direccion, $Altura, $ciudad, $observaciones, $status,$piso,$department))
-{
-    echo '<script>alert("Se creó exitosamente");</script>';
-    echo '<script>window.location.href = "../views/lista_cliente.php";</script>';
+    if (addUsuario($email_user, $phone, $password,$id_status,$id_rol)) {
+        header("Location: ../views/crud_usuarios.php"); 
+    } else {
+        header("Location: ../views/usuarios.php?error=1"); 
+    }
 }
+?>

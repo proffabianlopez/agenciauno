@@ -100,7 +100,7 @@
         </nav>
         <br><br>
         <div class="info">
-            <a href="login.php" style="text-decoration: none !important">
+            <a href="../index.html" style="text-decoration: none !important">
                 <h5 class="d-block" style="color:white">&#128274; Cerrar Sesión</h5>
             </a>
 

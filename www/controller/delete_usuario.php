@@ -1,8 +1,6 @@
 <?php
 include_once "../models/functions.php";
 
-
-
 if(isset($_POST['delete-id_user'])) {
     $id = $_POST['delete-id_user'];
   
