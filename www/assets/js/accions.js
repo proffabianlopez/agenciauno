@@ -93,6 +93,9 @@ $(document).ready(function(){
     
             var id = $(this).data('id');
             var name = $(this).data('name');   
+    
+            console.log("ID:", id); // Para depuración, elimina esto después de verificar
+            console.log("Name:", name); // Para depuración, elimina esto después de verificar
             
             // Llena los campos del formulario del modal
             $viewForm.find('#edit-id_customer').val(id);
@@ -102,4 +105,5 @@ $(document).ready(function(){
             $viewModal.modal('show');
         });
     });
+    
     

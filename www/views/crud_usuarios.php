@@ -39,6 +39,7 @@ $usuarios = obtenerusuarios();
             max-height: calc(80vh - 120px);
         }
     </style>
+    
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
