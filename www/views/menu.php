@@ -86,7 +86,7 @@
                         </li>
                         <li class="nav-item">
 
-                            <a href="home.php" class="nav-link">
+                            <a href="crud_usuarios.php" class="nav-link">
 
                                 <i class="fa fa-user nav-icon"></i>
                                 <p>Usuarios</p>
