@@ -21,13 +21,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = isset($_POST["email"]) ? $_POST["email"] : null;
         $observation = isset($_POST["observaciones"]) ? $_POST["observaciones"] : null;
         $tax = isset($_POST["cuil"]) ? $_POST["cuil"] : null;
-        
+        $street = isset($_POST["street"]) ? $_POST["street"] : null;
+        $height = isset($_POST["height"]) ? $_POST["height"] : null;
+        $floor = isset($_POST["floor"]) ? $_POST["floor"] : null;
+        $departament = isset($_POST["departament"]) ? $_POST["departament"] : null;
+        $location = isset($_POST["location"]) ? $_POST["location"] : null;
         // Actualizar los datos del proveedor en la base de datos
-        $updated = updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax);
+        $updated = updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,$street,$height,$floor,$departament,$location );
     
         if ($updated) {
             // Redirigir a la página de gestión de proveedores con un mensaje de éxito en la URL
-            header("Location:../views/crud_suppliers.php?editado=correcto");
+            header("Location:../views/crud_suppliers_new.php?editado=correcto");
             exit();
         } else {
             // Mostrar un mensaje de error si falla la actualización

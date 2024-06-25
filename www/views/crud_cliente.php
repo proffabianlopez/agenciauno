@@ -54,10 +54,11 @@ $clientes = obtenerclientes();
                         <div class="card-header">
                             <div class="row mb-12">
                                 <div class="col-sm-6">
-                                    <h4><b>Listado de Clientes &nbsp&nbsp&nbsp</b>
+                                    <h4><b>Listado de Clientes</b>
                                         <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#createEmployeeModal" data-action="add" data-placement="right"
-                                            title="Nuevo"><i class="bi bi-person-plus-fill"></i></button>
+                                            title="Nuevo"><i class="fas fa-plus-circle fa-lg"></i></button>
+                                          
                                     </h4>
                                 </div><!-- /.col -->
                             </div><!-- /.col -->
@@ -111,7 +112,7 @@ $clientes = obtenerclientes();
                                                 data-departament="<?php echo $cliente['departament']; ?>"
                                                 data-location="<?php echo $cliente['location']; ?>"
                                                 data-observaciones="<?php echo $cliente['observaciones']; ?>"><i
-                                                    style="width: 10px; height: 10px;" class="fa fa-binoculars"></i></a>
+                                                style="width: 19px; height: 10px;" class="fas fa-binoculars"></i></a>
 
 
                                             <a href="#editEmployeeModal"
@@ -127,37 +128,18 @@ $clientes = obtenerclientes();
                                                 data-departament="<?php echo $cliente['departament']; ?>"
                                                 data-location="<?php echo $cliente['location']; ?>"
                                                 data-observaciones="<?php echo $cliente['observaciones']; ?>"><i
-                                                    style="width: 10px; height: 10px;" class="fas fa-edit"></i></a>
-                                            <a href="#deleteEmployeeModal"
-                                                class="delete btn btn-danger delete_Btn long_letter text-white"
-                                                data-toggle="modal" data-id="<?php echo $cliente['id_customer']; ?>"
-                                                data-name="<?php echo $cliente['customer_name']; ?>">
-                                                <i class="fas fa-trash-alt"></i></a>
-                                        </td>
+                                                    style="width: 19px; height: 10px;" class="fas fa-edit"></i></a>
 
-                                        <!-- 
-                                        <td>
-                                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"
-                                                data-id="<?php echo $cliente['id_customer']; ?>"
-                                                data-name="<?php echo $cliente['customer_name']; ?>"
-                                                data-email="<?php echo $cliente['email_customer']; ?>"
-                                                data-cuit="<?php echo $cliente['tax_identifier']; ?>"
-                                                data-phone="<?php echo $cliente['phone_customer']; ?>"
-                                                data-street="<?php echo $cliente['street']; ?>"
-                                                data-height="<?php echo $cliente['height']; ?>"
-                                                data-floor="<?php echo $cliente['floor']; ?>"
-                                                data-departament="<?php echo $cliente['departament']; ?>"
-                                                data-location="<?php echo $cliente['location']; ?>"
-                                                data-observaciones="<?php echo $cliente['observaciones']; ?>">
-                                                <i class="material-icons" data-toggle="tooltip"
-                                                    title="Edit">&#xE254;</i>
-                                            </a>
-                                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"
-                                                data-id="<?php echo $cliente['id_customer']; ?>">
-                                                <i class="material-icons" data-toggle="tooltip"
-                                                    title="Delete">&#xE872;</i>
-                                            </a>
-                                        </td>-->
+
+            
+                                            <a href="#deleteEmployeeModal"
+                                                 class="delete btn btn-danger delete_Btn long_letter text-white" data-toggle="modal"
+                                                  data-id="<?php echo $cliente['id_customer']; ?>" 
+                                                  data-name="<?php echo $cliente['customer_name']; ?>">
+                                                   <i class="fas fa-trash-alt"></i>
+</a>
+                                    </td>
+
                                     </tr>
                                     <?php endif; ?>
                                     <?php endforeach; ?>
@@ -304,7 +286,7 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-observaciones">Observaciones</label>
-                            <textarea class="form-control" id="edit-observaciones" name="observaciones"></textarea>
+                            <textarea class="form-control" id="edit-observaciones" name="edit-observaciones"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -393,40 +375,34 @@ $clientes = obtenerclientes();
     </div>
 
 
-    <!-- Delete Modal HTML -->
-    <div id="deleteEmployeeModal" class="modal fade">
-        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-            <div class="modal-content">
-
-                <div class="modal-header bg-danger">
-                    <h4 class="modal-title text-white">Deshabilitar un Cliente</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <form action="../controller/eliminar_cliente.php" method="post">
-                    <div class="modal-body" style="text-align:center">
-                        <h3>Estas seguro que desea Deshabilitar al Cliente: </h3>
-                        <br>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                            </div>
-                            <div class="form-group col-md-6" style="text-align:center">
-                                <input type="text" class="form-control" id="view-name" name="view-name" readonly
-                                    style="text-align:center">
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <input type="hidden" name="edit-id_customer" id="edit-id_customer">
-                        <input type="button" class="btn btn-success" data-dismiss="modal" value="Volver">
-                        <input type="submit" class="btn btn-danger" value="Deshabilitar">
-                    </div>
-                </form>
+ <!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4 class="modal-title text-white">Deshabilitar un Cliente</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
+            <form action="../controller/eliminar_cliente.php" method="post">
+                <div class="modal-body" style="text-align:center">
+                    <h3>Estas seguro que desea Deshabilitar al Cliente: </h3>
+                    <br>
+                    <div class="form-row">
+                        <div class="form-group col-md-3"></div>
+                        <div class="form-group col-md-6" style="text-align:center">
+                            <input type="text" class="form-control" id="view-name" name="view-name" readonly style="text-align:center">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="view-id_customer" id="view-id_customer">
+                    <input type="button" class="btn btn-success" data-dismiss="modal" value="Volver">
+                    <input type="submit" class="btn btn-danger" value="Deshabilitar">
+                </div>
+            </form>
         </div>
     </div>
-
+</div>
 
 
 
