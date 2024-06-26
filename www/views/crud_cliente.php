@@ -171,7 +171,7 @@ $clientes = obtenerclientes();
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <div class="form-group">
                             <label for="edit-name">Nombre</label>
-                            <input type="text" id="edit-name" name="name_cliente" class="form-control" required>
+                            <input type="text" id="edit-name" name="name_cliente" class="form-control" pattern="[A-Za-z]+" minlength="2" maxlength="30" required title="Debe contenter solo letras">
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
@@ -179,22 +179,22 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
-                            <input type="text" class="form-control" id="edit-cuit" name="identifier"  required pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
+                            <input type="text" class="form-control" id="edit-cuit" name="identifier"  required pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="text" class="form-control" id="edit-phone" name="telefono" required pattern="^\d{10}$" title="Debe contener exactamente 11 dígitos">
+                            <input type="text" class="form-control" id="edit-phone" name="telefono" required pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 11 dígitos">
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
-                            <input type="text" class="form-control" id="edit-street" name="direccion" required>
+                            <input type="text" class="form-control" id="edit-street" name="direccion" pattern="[A-Za-z]+" required title="Ingrese solo letras, sin puntos ni comas">
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="edit-height">Altura</label>
-                                <input type="number" class="form-control" id="edit-height" name="altura" required>
+                                <input type="number" class="form-control" id="edit-height" name="altura" min="1" required title="solo se permiten números">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-floor">Piso</label>
@@ -207,7 +207,7 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-location">Localidad</label>
-                            <input type="text" class="form-control" id="edit-location" name="ciudad" required>
+                            <input type="text" class="form-control" id="edit-location" name="ciudad" pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-observaciones">Observaciones</label>
