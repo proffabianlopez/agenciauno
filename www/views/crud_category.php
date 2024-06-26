@@ -133,7 +133,7 @@ $categorys = obtenercategorys();
                                         <input type="hidden" name="edit-id" id="edit-id">
                                         <div class="form-group">
                                             <label for="edit-detail">Nombre de la categoria</label>
-                                            <input type="text" class="form-control" id="edit-detail" name="edit-detail" required>
+                                            <input type="text" class="form-control" id="edit-detail" name="edit-detail" pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

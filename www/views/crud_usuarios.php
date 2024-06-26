@@ -125,7 +125,7 @@ $usuarios = obtenerusuarios();
                                         </div>
                                         <div class="form-group">
                                             <label for="create-phone">Teléfono</label>
-                                            <input type="number" class="form-control" id="create-phone" name="phone">
+                                            <input type="number" class="form-control" id="create-phone" name="phone" required pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10 dígitos">
                                         </div>
                                         <div class="form-group">
                                             <label for="create-password">Contraseña</label>

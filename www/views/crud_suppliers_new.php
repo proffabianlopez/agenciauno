@@ -166,7 +166,7 @@ $show=show_state("suppliers");
 
                         <div class="form-group">
                             <label for="name">Nombre </label>
-                            <input type="text" name="name_Proveedor" class="form-control" required>
+                            <input type="text" name="name_Proveedor" class="form-control" pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -174,24 +174,23 @@ $show=show_state("suppliers");
                         </div>
                         <div class="form-group">
                             <label for="cuil">CUIL/CUIT</label>
-                            <input type="text" name="cuil" class="form-control" required pattern="^\d{11}$">
-                            title="Debe contener exactamente 11 dígitos">
+                            <input type="text" name="cuil" class="form-control" required pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos">
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
-                            <input type="text" name="telefono" class="form-control" required pattern="^\d{10}$"
+                            <input type="text" name="telefono" class="form-control" required pattern="^\d{10}$" maxlength="10"
                                 title="Debe contener exactamente 10 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="direction">Dirección</label>
-                            <input type="text" name="direccion" class="form-control" required>
+                            <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required>
 
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
-                                <input type="number" name="altura" class="form-control" required>
+                                <input type="number" name="altura" class="form-control" required min="1">
 
                             </div>
                             <div class="form-group col-md-3">
@@ -207,7 +206,7 @@ $show=show_state("suppliers");
                         </div>
                         <div class="form-group">
                             <label for="ciudad">Localidad</label>
-                            <input type="text" name="ciudad" class="form-control" required>
+                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-z]+" minlength="2" maxlength="20" required>
 
                         </div>
                         <div class="form-group">

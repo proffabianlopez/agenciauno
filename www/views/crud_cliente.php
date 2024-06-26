@@ -188,7 +188,7 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
-                            <input type="text" class="form-control" id="edit-street" name="direccion" pattern="[A-Za-z]+" required title="Ingrese solo letras, sin puntos ni comas">
+                            <input type="text" class="form-control" id="edit-street" name="direccion" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" required title="Ingrese solo letras, sin puntos ni comas">
                         </div>
 
                         <div class="form-row">
