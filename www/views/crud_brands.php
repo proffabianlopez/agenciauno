@@ -113,7 +113,7 @@ $show=show_state("brands");
                 <form action="../controller/insert_brands.php" method="post">
                     <div class="form-group">
                         <label for="name_product">Nombre De Marca</label>
-                       <input type="text" name="detail" class="form-control form-control-sm" required>
+                       <input type="text" name="detail" class="form-control form-control-sm" pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
 
                     </div>
                     <div class="text-center">
