@@ -21,11 +21,8 @@ $categoryData=show_state("categorys");
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     </Link>
-    </script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
@@ -57,7 +54,7 @@ $categoryData=show_state("categorys");
                         <div class="card-header">
                             <div class="row mb-6">
                                 <div class="col-sm-6">
-                                    <h4><b>Listado de de Productos &nbsp&nbsp&nbsp</b>
+                                    <h4><b>Listado de Productos &nbsp&nbsp&nbsp</b>
                                         <button type="button" class="btn btn-success create_products_Btn"
                                             data-toggle="modal" data-target="#create_products_Bt" data-action="add"
                                             data-placement="right" title="Nuevo"><i
@@ -74,7 +71,7 @@ $categoryData=show_state("categorys");
                             <table class="table table-striped table-hover" id="table_products">
                                 <thead>
                                     <tr>
-                                        <th>Numero De Serie</th>
+                                        <!--<th>Numero De Serie</th>-->
                                         <th>Numero De Producto</th>
                                         <th>Nombre Producto</th>
                                         <th>Descripcion</th>
@@ -83,29 +80,38 @@ $categoryData=show_state("categorys");
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($show as $row) { ?>
-                                  <tr>
-                                     <td><?php echo $row->number_serial; ?></td>
-                                     <td><?php echo $row->number_product; ?></td>
-                                     <td><?php echo $row->name_product; ?></td>
-                                     <td><?php echo $row->description; ?></td>
-                                     <td><?php echo $row->stock; ?></td>
-                                     <td>
-    <div class="btn-group">
-        <a class="btn btn-success editBtn long_letter text-white"><i class="fa fa-binoculars"></i></a>
-        <a class="btn btn-warning editBtn long_letter text-white"
-           data-id_product="<?php echo $row->id_product ?>"
-           data-number_serial="<?php echo $row->number_serial ?>"
-           data-number_product="<?php echo $row->number_product ?>"
-           data-name_product="<?php echo $row->name_product ?>"
-           data-description="<?php echo $row->description ?>"
-           data-stock="<?php echo $row->stock ?>"><i class="fas fa-edit"></i></a>
-        <a class="btn btn-danger delete_Btn text-white long_letter"
-           data-id_products="<?php echo $row->id_product ?>"><i class="fas fa-trash-alt"></i></a>
-    </div>
-</td>
-                                  </tr>
-                          <?php } ?>
+                                    <?php foreach ($show as $row) { ?>
+                                    <tr>
+                                        <!--<td><?php echo $row->number_serial; ?></td>-->
+                                        <td><?php echo $row->number_product; ?></td>
+                                        <td><?php echo $row->name_product; ?></td>
+                                        <td><?php echo $row->description; ?></td>
+                                        <td><?php echo $row->stock; ?></td>
+
+
+                                        <td>
+                                            <a class="btn btn-success viewBtn long_letter text-white"
+                                                data-id_product="<?php echo $row->id_product ?>"
+                                                data-number_serial="<?php echo $row->number_serial ?>"
+                                                data-number_product="<?php echo $row->number_product ?>"
+                                                data-name_product="<?php echo $row->name_product ?>"
+                                                data-description="<?php echo $row->description ?>"
+                                                data-stock="<?php echo $row->stock ?>"><i
+                                                    class="fa fa-binoculars"></i></a>
+                                            <a class="btn btn-warning editBtn long_letter text-white"
+                                                data-id_product="<?php echo $row->id_product ?>"
+                                                data-number_serial="<?php echo $row->number_serial ?>"
+                                                data-number_product="<?php echo $row->number_product ?>"
+                                                data-name_product="<?php echo $row->name_product ?>"
+                                                data-description="<?php echo $row->description ?>"
+                                                data-stock="<?php echo $row->stock ?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger delete_Btn text-white long_letter"
+                                                data-id_products="<?php echo $row->id_product ?>"><i
+                                                    class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+
+                                    <?php } ?>
                                 </tbody>
                             </table>
 
@@ -134,40 +140,41 @@ $categoryData=show_state("categorys");
                 </div>
                 <form action="../controller/insert_products.php" method="post">
                     <div class="modal-body">
-                    <div class="form-group">
-                            <label for="name_product">Numero de Serie</label>
-                            <!-- <input type="text" name="name_product" class="form-control form-control-sm" required>  Cambia a form-control-sm para un input más pequeño -->
-                            <input type="text" name="number_serial" class="form-control" required>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="name_product">Numero de Producto</label>
-                            <!-- <input type="text" name="name_product" class="form-control form-control-sm" required>  Cambia a form-control-sm para un input más pequeño -->
-                            <input type="text" name="number_product" class="form-control" required>
-
-                        </div>
 
                         <div class="form-group">
                             <label for="name_product">Nombre</label>
-                            <!-- <input type="text" name="name_product" class="form-control form-control-sm" required>  Cambia a form-control-sm para un input más pequeño -->
                             <input type="text" name="name_product" class="form-control" required>
 
                         </div>
                         <div class="form-group">
                             <label for="description">Descripción</label>
                             <input type="text" name="description" class="form-control" required>
-                            <!-- Cambia a form-control-sm para un input más pequeño -->
+
                         </div>
+
+                        <div class="form-group">
+                            <label for="name_product">Número de Serie</label>
+                            <input type="text" name="number_serial" class="form-control" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="name_product">Número de Producto</label>
+                            <input type="text" name="number_product" class="form-control" required>
+
+                        </div>
+
                         <div class="form-group col-md-3">
                             <label for="stock">Stock</label>
                             <input type="number" name="stock" class="form-control" required>
-                            <!-- Cambia a form-control-sm para un input más pequeño -->
+
                         </div>
 
                         <div class="form-group">
                             <label for="brand">Marca</label>
-                            <select name="id_brand" id="brand" class="form-select">
+                            <select name="id_brand" id="brand" class="form-select" required>
+                                <option option value="" selected disabled>-- Seleccione Marca --</option>
                                 <?php foreach ($brandData as $brand) { ?>
+
                                 <option value="<?php echo $brand->id_brand; ?>">
                                     <?php echo $brand->detail; ?>
                                 </option>
@@ -176,7 +183,8 @@ $categoryData=show_state("categorys");
                         </div>
                         <div class="form-group">
                             <label for="category">Categoría</label>
-                            <select name="id_category" id="category" class="form-select">
+                            <select name="id_category" id="category" class="form-select" required>
+                                <option option value="" selected disabled>-- Seleccione Categoría --</option>
                                 <?php foreach ($categoryData as $category) { ?>
                                 <option value="<?php echo $category->id_category; ?>">
                                     <?php echo $category->detail; ?></option>
@@ -202,13 +210,24 @@ $categoryData=show_state("categorys");
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title text-white">Editar un Producto</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white;">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+                        style="color: white;">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="../controller/edit_product.php" method="post">
                     <div class="modal-body">
                         <input type="hidden" name="id_product" id="id_product" class="form-control" value="">
+
+                        <div class="form-group">
+                            <label for="edit_name">Nombre</label>
+                            <input type="text" class="form-control" id="name_product" name="name_product" required
+                                value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_description">Descripcion</label>
+                            <input type="text" class="form-control" id="description" name="description" value="">
+                        </div>
                         <div class="form-group">
                             <label for="edit_name">Numero de serie</label>
                             <input type="text" class="form-control" id="number_serial" name="number_serial" required
@@ -218,15 +237,6 @@ $categoryData=show_state("categorys");
                             <label for="edit_name">Numero de producto</label>
                             <input type="text" class="form-control" id="number_product" name="number_product" required
                                 value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_name">Nombre</label>
-                            <input type="text" class="form-control" id="name_product" name="name_product" required
-                                value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_description">Descripcion</label>
-                            <input type="text" class="form-control" id="description" name="description" value="">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="edit_stock">Stock</label>
@@ -246,34 +256,94 @@ $categoryData=show_state("categorys");
     </div> <!-- Fin Modal para Editar Productos-->
 
 
-    <!-- Eliminar Alumno -->
+
+    <!--Modal de Ver Productos-->
+    <div id="viewModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h4 class="modal-title text-white">Detalles del Producto</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <input type="hidden" name="id_product" id="id_product" class="form-control" value="">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="view_name_product">Nombre</label>
+                                <input type="text" class="form-control" id="view_name_product" name="view_name_product"
+                                    readonly value="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="view_description">Descripción</label>
+                                <input type="text" class="form-control" id="view_description" name="view_description"
+                                    value="" readonly>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="view_number_serial">Numero de serie</label>
+                                    <input type="text" class="form-control" id="view_number_serial" readonly
+                                        name="view_number_serial" value="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="view_number_product">Numero de producto</label>
+                                    <input type="text" class="form-control" id="view_number_product" readonly
+                                        name="view_number_product" value="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="view_stock">Stock</label>
+                            <input type="number" class="form-control" id="view_stock" name="view_stock" value=""
+                                readonly>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Volver</button>
+                    </div>
+
+
+            </div>
+            </form>
+        </div>
+    </div>
+    </div> <!-- Fin Modal para Ver Productos-->
+
+
+
+    <!-- Eliminar Producto -->
     <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h4 class="modal-title text-white">Deshabilitar un Producto</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white" ;>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white"
+                        ;>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="../controller/delete_product.php" method="post">
                     <div class="modal-body">
-                        <h3>Estas seguro que desea Deshabilitar el Producto: </h3>
+                        <br>
+                        <h5 style="text-align:center">Estas seguro que desea Deshabilitar el Producto</h5>
                         <br>
                         <div class="form-row">
                             <div class="form-group col-md-3">
                             </div>
                             <div class="form-group col-md-6" style="text-align:center">
-                                <input type="text" class="form-control" id="view-name" name="view-name" readonly
-                                    value="<?php echo  $row->name_product?>" style="text-align:center">
+                                <input type="hidden" name="id_product" id="id_product_eliminate"
+                                    value="<?php echo $row->id_product?>">
+
                             </div>
                         </div>
-                        <input type="hidden" name="id_product" id="id_product_eliminate"
-                            value="<?php echo $row->id_product?>">                        
+                        <!-- number_product_eliminate-->
                     </div>
 
                     <div class="modal-footer">
-                        <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Volver</button>
                         <button type="submit" name="delete" class="btn btn-danger">Deshabilitar</button>
                     </div>
@@ -318,16 +388,14 @@ $categoryData=show_state("categorys");
         columns: [{
             width: '20%'
         }, {
-            width: '20%'
+            width: '25%'
+        }, {
+            width: '25%'
+        }, {
+            width: '10%'
         }, {
             width: '20%'
-        }, {
-            width: '20%'
-        }{
-            width: '20%'
-        }{
-            width: '20%'
-        }]
+        }, ]
     });
     </script>
 </body>
