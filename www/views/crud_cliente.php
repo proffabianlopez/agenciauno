@@ -179,12 +179,12 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
-                            <input type="text" class="form-control" id="edit-cuit" name="identifier"  required pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
+                            <input type="text" class="form-control" id="edit-cuit" name="identifier"  required >
 
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="text" class="form-control" id="edit-phone" name="telefono" required pattern="^\d{10}$" title="Debe contener exactamente 11 dígitos">
+                            <input type="text" class="form-control" id="edit-phone" name="telefono" required >
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
@@ -257,11 +257,11 @@ $clientes = obtenerclientes();
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
-                            <input type="text" class="form-control" id="edit-cuit" name="edit-cuit" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos"></input>
+                            <input type="text" class="form-control" id="edit-cuit" name="edit-cuit" ></input>
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="text" class="form-control" id="edit-phone" name="edit-phone" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
+                            <input type="text" class="form-control" id="edit-phone" name="edit-phone" >
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>

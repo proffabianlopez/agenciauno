@@ -14,7 +14,8 @@ if(isset($_POST['enviar'])){
         $insert = insert_brand($detail_uppercase);
        
         if ($insert) {
-            header("Location: ../views/crud_brands.php?ingreso=check");
+            echo '<script>alert("Se creo exitosamente");</script>';
+            echo '<script>window.location.href = "../views/crud_brands_new.php";</script>';
         }else
         {
             echo "error en la insersion";
