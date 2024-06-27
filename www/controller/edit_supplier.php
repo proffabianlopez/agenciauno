@@ -18,10 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $departament = isset($_POST["departament"]) ? trim($_POST["departament"]) : null;
         $location = isset($_POST["location"]) ? trim($_POST["location"]) : null;
 
-        // Imprime los valores para depuración
-        var_dump($id_supplier, $name, $phone, $email, $observation, $tax, $street, $height, $floor, $departament, $location);
-        exit();
-
+     
         // Verificar que id_supplier no sea null
         if ($id_supplier !== null) {
             // Actualizar los datos del proveedor en la base de datos
