@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($eliminated) {
             
-            echo '<script>alert("Se creó exitosamente");</script>';
+            echo '<script>alert("Se borro exitosamente");</script>';
     echo '<script>window.location.href = "../views/crud_brands_new.php";</script>';
             
         } else {

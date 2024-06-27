@@ -19,11 +19,13 @@ if(isset($_POST['agregar'])){
     
     // Verificar si el cuil o el email ya existen en la base de datos
     if (check_existing_supplier($cuil, $email_Proveedor)) {
-        echo "Error: El CUIL o el email ya están registrados.";
+        echo '<script>alert("el mail o cuil ya existen");</script>';
+    echo '<script>window.location.href = "../views/crud_suppliers_new.php";</script>';
     } else {
         // Llamada a la función insert_suppliers
         $insert = insert_suppliers($name_Proveedor,$telefono,$email_Proveedor,$direccion,$altura,$piso,$numero_de_piso,$ciudad,$observaciones,$cuil);
-        header("Location: ../views/crud_suppliers.php?ingreso=check");
+        echo '<script>alert("Se creó exitosamente");</script>';
+    echo '<script>window.location.href = "../views/crud_suppliers_new.php";</script>';
         if (!$insert) {
             echo "Error en la inserción.";
         }

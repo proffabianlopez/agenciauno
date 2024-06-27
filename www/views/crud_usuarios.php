@@ -181,13 +181,10 @@ $usuarios = obtenerusuarios();
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="view-name">Nombre de usuario</label>
-                                        <input type="text" class="form-control" id="view-name" readonly>
-                                    </div>
+                                   
                                     <div class="form-group">
                                         <label for="view-email">Email</label>
-                                        <input type="email" class="form-control" id="view-email" readonly>
+                                        <input type="email" class="form-control" id="view-name" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="view-phone">Teléfono</label>
@@ -261,12 +258,11 @@ $usuarios = obtenerusuarios();
             width: '20%'
         }, {
             width: '20%'
-        }, {
-            width: '20%'
         }]
 
     
-        });
+
+    });
     </script>
     
 

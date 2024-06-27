@@ -192,8 +192,8 @@ function login($email, $password)
     return false;
 }
 function check_existing_supplier($cuil, $email_Proveedor) {
-    $bd = database();
-    $sentence = $bd->prepare("SELECT COUNT(*) AS count FROM suppliers WHERE tax_identifier = ? OR email_supplier = ?");
+    $bd = database(); 
+    $sentence = $bd->prepare("SELECT COUNT(*) AS count FROM suppliers WHERE (tax_identifier = ? OR email_supplier = ?) AND id_status != 0");
     $sentence->execute([$cuil, $email_Proveedor]);
     $row = $sentence->fetch(PDO::FETCH_ASSOC);
     return $row['count'] > 0;
@@ -248,7 +248,7 @@ function getSupplier($id_supplier)
 }
 
 // Función para actualizar los datos de un proveedor en la base de datos
-function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,$street,$height,$floor,$departament,$location)
+function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax, $street, $height, $floor, $departament, $location)
 {
     try {
         $bd = database();
@@ -268,7 +268,7 @@ function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,
         $statement = $bd->prepare($query);
         $statement->bindParam(':id_supplier', $id_supplier, PDO::PARAM_INT);
         $statement->bindParam(':name_supplier', $name, PDO::PARAM_STR);
-        $statement->bindParam(':phone_supplier', $phone, PDO::PARAM_INT);
+        $statement->bindParam(':phone_supplier', $phone, PDO::PARAM_STR); // Cambiado a STR
         $statement->bindParam(':email_supplier', $email, PDO::PARAM_STR);
         $statement->bindParam(':observations', $observation, PDO::PARAM_STR);
         $statement->bindParam(':tax_identifier', $tax, PDO::PARAM_STR);
@@ -286,6 +286,7 @@ function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,
         return false;
     }
 }
+
 
 function eliminated_Suppliers($table, $id_user) {
     try {
@@ -492,5 +493,29 @@ function eliminated_brand($table, $id_brand) {
     }
 }
 
+
+function deletecategorys($table, $id_brands) {
+    try {
+        
+        $bd = database(); 
+        
+        $query = "DELETE FROM $table WHERE id_category = :id_category";
+        $deleteStatement = $bd->prepare($query);
+        $deleteStatement->bindParam(':id_category', $id_brands, PDO::PARAM_INT);
+        
+        
+        $deleteStatement->execute();
+        
+        // Verificar si se eliminó al menos una fila
+        $rowCount = $deleteStatement->rowCount();
+        
+        // Devolver verdadero si se eliminó correctamente
+        return ($rowCount > 0);
+        
+    } catch (PDOException $e) {
+        // Manejar errores de base de datos
+        return false;
+    }
+}
 
 ?>
