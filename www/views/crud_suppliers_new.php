@@ -174,6 +174,7 @@ $show=show_state("suppliers");
                         </div>
                         <div class="form-group">
                             <label for="cuil">CUIL/CUIT</label>
+
                             <input type="text" name="cuil" class="form-control" required pattern="^\d{11}$">
                             title="Debe contener exactamente 11 dígitos">
                         </div>
