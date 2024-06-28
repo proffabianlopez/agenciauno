@@ -17,6 +17,6 @@ $department=$_POST["department"];
 
 if(add_cliente($identifier, $name_cliente, $email_cliente, $telefono, $direccion, $Altura, $ciudad, $observaciones, $status,$piso,$department))
 {
-    echo '<script>alert("Se creó exitosamente");</script>';
-    echo '<script>window.location.href = "../views/crud_cliente.php";</script>';
+    
+    echo '<script>window.location.href = "../views/crud_cliente.php?mensaje=Usuario%20registrado%20con%20éxito&tipo=success";</script>';
 }
