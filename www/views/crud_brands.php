@@ -98,7 +98,7 @@ $show=show_state("brands");
             <!-- Main content -->
 
           
-<!-- Modal para Crear Alumnos-->
+<!-- Modal para Crear marcas-->
 <div id="create_Modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md modal-dialog-scrollable"> <!-- Cambia modal-md para un tamaño mediano y permite el scroll -->
         <div class="modal-content">
@@ -113,7 +113,7 @@ $show=show_state("brands");
                 <form action="../controller/insert_brands.php" method="post">
                     <div class="form-group">
                         <label for="name_product">Nombre De Marca</label>
-                       <input type="text" name="detail" class="form-control form-control-sm" pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
+                       <input type="text" name="detail" class="form-control form-control-sm" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required>
 
                     </div>
                     <div class="text-center">
@@ -126,8 +126,8 @@ $show=show_state("brands");
     </div>
 </div>
 
-<!-- Fin Modal para Crear Alumnos -->
-<!--Modal de Editar Alumnos-->
+<!-- Fin Modal para Crear marcas -->
+<!--Modal de Editar marcas-->
 <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -143,7 +143,7 @@ $show=show_state("brands");
                     <input type="hidden" name="id_brand" id="id_brand" class="form-control" value="">
                         <div class="form-group">
                             <label for="edit_name">editar Marca</label>
-                            <input type="text" class="form-control" id="detail" name="detail" required value="">
+                            <input type="text" class="form-control" id="detail" name="detail" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required value="">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
