@@ -5,7 +5,7 @@ $(document).ready(function () {
         var name = $(this).data('name');
         var phone = $(this).data('phone');
         var password = $(this).data('password');
-
+        
         $editModal.find('#edit-id_user').val(id);
         $editModal.find('#edit-name').val(name);
         $editModal.find('#edit-phone').val(phone);
@@ -33,8 +33,11 @@ $(document).ready(function () {
     $('.deleteBtn').on('click', function () { 
         var $deleteModal = $('#deleteEmployeeModal');
         var id = $(this).data('id');
-        console.log(id);
+        var rol = $(this).data('rol');
+
+        console.log(rol);
         $deleteModal.find('#delete-id_user').val(id);
+        $deleteModal.find('#delete-id_rol').val(rol);
         $deleteModal.modal('show');
     });
 });

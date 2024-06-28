@@ -1,4 +1,6 @@
 <?php
+session_start();
+include 'session_config.php';
 include_once "../models/functions.php";
  
 if(isset($_POST['enviar'])){
@@ -21,14 +23,14 @@ if(isset($_POST['enviar'])){
         $_SESSION['email'] = $email;
         $_SESSION['id_rol'] = $id_rol;
        
-       if($id_status == 1) {
-       $_SESSION['id_status'] =$id_status;
-        switch($id_rol){
-            case 1: header("Location: ../views/home.php?ingreso=check");
-            exit();
-           
-        }
-
+        if ($id_status == 1) {
+            $_SESSION['id_status'] = $id_status;
+            if ($id_rol == 1 || $id_rol == 4) {
+                header("Location: ../views/home.php");
+                exit();
+            }
+        
+        
     }
     } header("Location: ../views/login.php?noingreso=check");
     exit();

@@ -1,3 +1,13 @@
+<?php
+session_start();
+include_once "../models/functions.php";
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+    
+} else {
+    header("Location: login.php");
+    exit();
+}
+?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -100,7 +110,7 @@
         </nav>
         <br><br>
         <div class="info">
-            <a href="../index.html" style="text-decoration: none !important">
+            <a href="../controller/logout.php" style="text-decoration: none !important">
                 <h5 class="d-block" style="color:white">&#128274; Cerrar Sesión</h5>
             </a>
 
