@@ -142,13 +142,19 @@
        $query->bindParam(':id', $id);
        $query->execute();
    }
-   function deleteusuarios($id)
+   function deleteusuarios($id, $id_rol)
    {
-       $bd = database();
-       $query = $bd->prepare("UPDATE users SET id_status = 2 WHERE id_user = :id");
-       $query->bindParam(':id', $id);
-       $query->execute();
+       if ($id_rol != 4) {
+           $bd = database();
+           $query = $bd->prepare("UPDATE users SET id_status = 2 WHERE id_user = :id");
+           $query->bindParam(':id', $id);
+           $query->execute();
+       }
+       else{
+        echo "no";
+       }
    }
+   
    function addUsuario($email_user, $phone, $password,$id_status) {
     $bd = database(); 
     $sql = "INSERT INTO users (email_user, phone, password,id_status,id_rol) VALUES (:email_user, :phone, :password, :id_status, :id_rol)";

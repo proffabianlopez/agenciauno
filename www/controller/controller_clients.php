@@ -1,6 +1,5 @@
 <?php
 include_once "../models/functions.php";
-//$codigo_cliente=$_POST["codigo_cliente"];
 $identifier=$_POST["identifier"];
 $name_cliente=$_POST["name_cliente"];
 $email_cliente=$_POST["email_cliente"];
