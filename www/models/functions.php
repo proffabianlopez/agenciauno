@@ -518,4 +518,37 @@ function deletecategorys($table, $id_brands) {
     }
 }
 
+function brand_exists($detail) {
+    try {
+        $bd = database();
+        $query = "SELECT COUNT(*) FROM brands WHERE detail = :detail";
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':detail', $detail, PDO::PARAM_STR);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        
+        // Devolver true si existe al menos una marca con el mismo nombre, de lo contrario false
+        return $count > 0;
+    } catch (PDOException $e) {
+        // Imprimir mensaje de error si ocurre una excepción
+        echo "Error al verificar la marca: " . $e->getMessage();
+        return false;
+    }
+}
+function category_exists($name_category) {
+    try {
+        $bd = database();
+        $query = "SELECT COUNT(*) FROM categorys WHERE detail = :detail";
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':detail', $name_category, PDO::PARAM_STR);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        return $count > 0;
+    } catch (PDOException $e) {
+        echo "Error al verificar la categoría: " . $e->getMessage();
+        return false;
+    }
+}
+
+
 ?>
