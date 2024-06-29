@@ -28,7 +28,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     </Link>
-    
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     </script>
@@ -39,6 +39,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
     </script>
     <!-- Theme style -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -108,7 +109,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <?php echo $row->phone_supplier ?>
                                         </td>
 
-                                        <td> <a class="btn btn-success viewBtn long_letter text-white"                                                
+                                        <td> <a class="btn btn-success viewBtn long_letter text-white"
                                                 data-id="<?php echo $row->id_supplier ?>"
                                                 data-name="<?php echo $row->name_supplier?>"
                                                 data-phone="<?php echo $row->phone_supplier ?>"
@@ -120,8 +121,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-floor="<?php echo $row->floor ?>"
                                                 data-departament="<?php echo $row->departament?>"
                                                 data-location="<?php echo $row->location ?>">
-                                                <i
-                                                    class="fa fa-binoculars"></i></a>
+                                                <i class="fa fa-binoculars"></i></a>
                                             <a class="btn btn-warning editBtn long_letter text-white"
                                                 data-id="<?php echo $row->id_supplier ?>"
                                                 data-name="<?php echo $row->name_supplier?>"
@@ -135,7 +135,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-departament="<?php echo $row->departament?>"
                                                 data-location="<?php echo $row->location ?>">
                                                 <i style="width: 10px; height: 10px;" class="fas fa-edit"></i></a>
-                                                   <a class="btn btn-danger delete_Btn long_letter text-white"
+                                            <a class="btn btn-danger delete_Btn long_letter text-white"
                                                 data-id_suppliers="<?php echo $row->id_supplier ?>"><i
                                                     class="fas fa-trash-alt"></i></a>
                                         </td>
@@ -173,7 +173,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name">Nombre </label>
-                            <input type="text" name="name_Proveedor" class="form-control" pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
+                            <input type="text" name="name_Proveedor" class="form-control" pattern="[A-Za-z]+"
+                                minlength="2" maxlength="30" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -182,18 +183,20 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="cuil">CUIL/CUIT</label>
 
-                            <input type="text" name="cuil" class="form-control" required pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos">
+                            <input type="text" name="cuil" class="form-control" required pattern="^\d{11}$"
+                                maxlength="11" title="Debe contener exactamente 11 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
-                            <input type="text" name="telefono" class="form-control" required pattern="^\d{10}$" maxlength="10"
-                                title="Debe contener exactamente 10 dígitos">
+                            <input type="text" name="telefono" class="form-control" required pattern="^\d{10}$"
+                                maxlength="10" title="Debe contener exactamente 10 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="direction">Dirección</label>
-                            <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required>
+                            <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                                minlength="2" maxlength="30" required>
 
                         </div>
                         <div class="form-row">
@@ -204,30 +207,31 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="piso">Piso</label>
-                                <input type="text" name="piso" class="form-control" >
+                                <input type="text" name="piso" class="form-control">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="numero_de_piso">Departamento</label>
-                                <input type="text" name="numero_de_piso" class="form-control" >
+                                <input type="text" name="numero_de_piso" class="form-control">
 
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="ciudad">Localidad</label>
-                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-z]+" minlength="2" maxlength="20" required>
+                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-z]+" minlength="2"
+                                maxlength="20" required>
 
                         </div>
                         <div class="form-group">
                             <label for="observaciones">Observaciones</label>
-                            <textarea type="text" name="observaciones" class="form-control" ></textarea>
+                            <textarea type="text" name="observaciones" class="form-control"></textarea>
                         </div>
 
 
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name="agregar" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
 
                     </div>
                 </form>
@@ -242,7 +246,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title text-white">Editar un Proveedor</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white;">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+                        style="color: white;">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -256,7 +261,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit_phone">Telefono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
+                            <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$"
+                                title="Debe contener exactamente 10 dígitos">
                         </div>
                         <div class="form-group">
                             <label for="edit_directiòn">Email</label>
@@ -264,36 +270,38 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit_heigth">Observaciones</label>
-                            <input type="text" class="form-control" id="obs" name="observaciones"  value="">
+                            <input type="text" class="form-control" id="obs" name="observaciones" value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_heigth">Cuil</label>
-                            <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{10}$" title="Debe contener exactamente 10 dígitos">
+                            <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{10}$"
+                                title="Debe contener exactamente 10 dígitos">
                         </div>
 
                         <div class="form-row">
-                        <div class="form-group col-md-3">
+                            <div class="form-group col-md-3">
                                 <label for="street">calle</label>
-                                <input type="text" id="street" name="street"  class="form-control" required>
+                                <input type="text" id="street" name="street" class="form-control" required>
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
-                                <input type="text" id="height" name="height"  class="form-control" required>
+                                <input type="text" id="height" name="height" class="form-control" required>
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="floor">piso</label>
-                                <input type="text" id="floor" name="floor" class="form-control" >
+                                <input type="text" id="floor" name="floor" class="form-control">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="departament">Departamento</label>
-                                <input type="text" id="departament" name="departament" id="departament" class="form-control" >
+                                <input type="text" id="departament" name="departament" id="departament"
+                                    class="form-control">
 
                             </div>
                         </div>
-                     <div class="form-group">
+                        <div class="form-group">
                             <label for="location">Localidad</label>
                             <input type="text" class="form-control" id="location" name="location" value="">
                         </div>
@@ -301,8 +309,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" name="save_data">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        
-                        
+
+
                     </div>
                 </form>
             </div>
@@ -314,61 +322,62 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!--Modal de Ver Proveedores-->
     <div id="viewModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-        <div class="modal-content">
-    <div class="modal-header bg-primary">
-        <h4 class="modal-title text-white">Detalles del Proveedor</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white;">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <label for="view_name">Nombre</label>
-            <span id="view_name" class="form-control-static"></span>
-        </div>
-        <div class="form-group">
-            <label for="view_phone">Teléfono</label>
-            <span id="view_phone" class="form-control-static"></span>
-        </div>
-        <div class="form-group">
-            <label for="view_email">Email</label>
-            <span id="view_email" class="form-control-static"></span>
-        </div>
-        <div class="form-group">
-            <label for="view_obs">Observaciones</label>
-            <span id="view_obs" class="form-control-static"></span>
-        </div>
-        <div class="form-group">
-            <label for="view_tax">CUIL</label>
-            <span id="view_tax" class="form-control-static"></span>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                <label for="view_street">Calle</label>
-                <span id="view_street" class="form-control-static"></span>
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title text-white">Detalles del Proveedor</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+                        style="color: white;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="view_name">Nombre</label>
+                        <span id="view_name" class="form-control-static"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="view_phone">Teléfono</label>
+                        <span id="view_phone" class="form-control-static"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="view_email">Email</label>
+                        <span id="view_email" class="form-control-static"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="view_obs">Observaciones</label>
+                        <span id="view_obs" class="form-control-static"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="view_tax">CUIL</label>
+                        <span id="view_tax" class="form-control-static"></span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="view_street">Calle</label>
+                            <span id="view_street" class="form-control-static"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="view_height">Altura</label>
+                            <span id="view_height" class="form-control-static"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="view_floor">Piso</label>
+                            <span id="view_floor" class="form-control-static"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="view_departament">Departamento</label>
+                            <span id="view_departament" class="form-control-static"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view_location">Localidad</label>
+                        <span id="view_location" class="form-control-static"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="view_height">Altura</label>
-                <span id="view_height" class="form-control-static"></span>
-            </div>
-            <div class="form-group col-md-3">
-                <label for="view_floor">Piso</label>
-                <span id="view_floor" class="form-control-static"></span>
-            </div>
-            <div class="form-group col-md-3">
-                <label for="view_departament">Departamento</label>
-                <span id="view_departament" class="form-control-static"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="view_location">Localidad</label>
-            <span id="view_location" class="form-control-static"></span>
-        </div>
-    </div>
-</div>
 
         </div>
-    </div> 
+    </div>
 
     <!-- Eliminar Proveedor -->
     <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
@@ -376,7 +385,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h4 class="modal-title text-white">Deshabilitar un Proveedor</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white" ;>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white"
+                        ;>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -389,13 +399,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-group col-md-6" style="text-align:center">
                                 <input type="text" class="form-control" id="view-name" name="view-name" readonly
-                                value="<?php echo $row->name_supplier?>"    
-                                style="text-align:center">
+                                    value="<?php echo $row->name_supplier?>" style="text-align:center">
                             </div>
-                        </div>                     
-                                <input type="hidden" name="id_supplier" id="id_supplier_eliminate"
-                                    value="<?php echo $row->id_supplier ?>">                                
-                        
+                        </div>
+                        <input type="hidden" name="id_supplier" id="id_supplier_eliminate"
+                            value="<?php echo $row->id_supplier ?>">
+
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
@@ -408,6 +417,21 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     </div>
 
 
+    <script>
+    // Verifica si hay un mensaje en el almacenamiento local
+    if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
+        Swal.fire({
+            title: 'Mensaje',
+            text: localStorage.getItem('mensaje'),
+            icon: localStorage.getItem('tipo'),
+            confirmButtonText: 'Aceptar'
+        });
+
+        // Limpia el mensaje después de mostrarlo
+        localStorage.removeItem('mensaje');
+        localStorage.removeItem('tipo');
+    }
+    </script>
     <!-- ./wrapper -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js">
@@ -432,7 +456,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
-    
+
 
     <!--        <script src="../js.modal/paginated.js"></script> -->
 

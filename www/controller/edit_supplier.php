@@ -25,9 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $updated = updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax, $street, $height, $floor, $departament, $location);
         
             if ($updated) {
-                // Redirigir a la página de gestión de proveedores con un mensaje de éxito en la URL
-                echo '<script>alert("Se actualizo exitosamente");</script>';
-                echo '<script>window.location.href = "../views/crud_suppliers_new.php";</script>';
+                echo '<script>
+                localStorage.setItem("mensaje", "Proveedor editado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_suppliers_new.php";
+                    </script>';          
             } else {
                 // Mostrar un mensaje de error si falla la actualización
                 echo "Error al actualizar los datos.";

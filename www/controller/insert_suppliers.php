@@ -24,8 +24,11 @@ if(isset($_POST['agregar'])){
     } else {
         // Llamada a la función insert_suppliers
         $insert = insert_suppliers($name_Proveedor,$telefono,$email_Proveedor,$direccion,$altura,$piso,$numero_de_piso,$ciudad,$observaciones,$cuil);
-        echo '<script>alert("Se creó exitosamente");</script>';
-    echo '<script>window.location.href = "../views/crud_suppliers_new.php";</script>';
+        echo '<script>
+                localStorage.setItem("mensaje", "Proveedor creado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_suppliers_new.php";
+                    </script>';      
         if (!$insert) {
             echo "Error en la inserción.";
         }
