@@ -13,8 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Verificar si la eliminación fue exitosa
         if ($eliminated) {
-            echo '<script>alert("Se borro exitosamente");</script>';
-            echo '<script>window.location.href = "../views/crud_suppliers_new.php";</script>';
+            echo '<script>
+                localStorage.setItem("mensaje", "Proveedor deshabilitado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_suppliers_new.php";
+                    </script>';      
             exit(); // Salir del script después de la redirección
         } else {
             // Mostrar un mensaje de error específico si la eliminación falla

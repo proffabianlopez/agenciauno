@@ -14,12 +14,16 @@ $location = $_POST['edit-location'];
 $observaciones = $_POST['edit-observaciones'];
 $status=1;
 
+
 if (!Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)) {
             
-        echo '<script>window.location.href = "../views/crud_cliente.php?mensaje=Usuario%20editado%20con%20éxito&tipo=success";</script>';
-       
+    echo '<script>
+    localStorage.setItem("mensaje", "Cliente editado con éxito");
+    localStorage.setItem("tipo", "success");
+    window.location.href = "../views/crud_cliente.php";
+        </script>';            
     } else {
         echo 'Error al actualizar.';
     }
-
+    
 ?>

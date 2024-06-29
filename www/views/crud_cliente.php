@@ -33,7 +33,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- Icons -->
     <link rel="stylesheet" href="../assets/bootstrap/icons-1.9.1/bootstrap-icons.css">
 
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
@@ -42,7 +42,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
@@ -64,7 +64,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#createEmployeeModal" data-action="add" data-placement="right"
                                             title="Nuevo"><i class="fas fa-plus-circle fa-lg"></i></button>
-                                          
+
                                     </h4>
                                 </div><!-- /.col -->
                             </div><!-- /.col -->
@@ -118,7 +118,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-departament="<?php echo $cliente['departament']; ?>"
                                                 data-location="<?php echo $cliente['location']; ?>"
                                                 data-observaciones="<?php echo $cliente['observaciones']; ?>"><i
-                                                style="width: 19px; height: 10px;" class="fas fa-binoculars"></i></a>
+                                                    style="width: 19px; height: 10px;"
+                                                    class="fas fa-binoculars"></i></a>
 
 
                                             <a href="#editEmployeeModal"
@@ -137,14 +138,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                     style="width: 19px; height: 10px;" class="fas fa-edit"></i></a>
 
 
-            
+
                                             <a href="#deleteEmployeeModal"
-                                                 class="delete btn btn-danger delete_Btn long_letter text-white" data-toggle="modal"
-                                                  data-id="<?php echo $cliente['id_customer']; ?>" 
-                                                  data-name="<?php echo $cliente['customer_name']; ?>">
-                                                   <i class="fas fa-trash-alt"></i>
-</a>
-                                    </td>
+                                                class="delete btn btn-danger delete_Btn long_letter text-white"
+                                                data-toggle="modal" data-id="<?php echo $cliente['id_customer']; ?>"
+                                                data-name="<?php echo $cliente['customer_name']; ?>">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
 
                                     </tr>
                                     <?php endif; ?>
@@ -176,7 +177,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <div class="form-group">
                             <label for="edit-name">Nombre</label>
-                            <input type="text" id="edit-name" name="name_cliente" class="form-control" pattern="^[a-zA-Z ]+$" minlength="2" maxlength="30" required title="Debe contenter solo letras">
+                            <input type="text" id="edit-name" name="name_cliente" class="form-control"
+                                pattern="^[a-zA-Z ]+$" minlength="2" maxlength="30" required
+                                title="Debe contenter solo letras">
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
@@ -185,25 +188,30 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
 
-                            <input type="text" class="form-control" id="edit-cuit" name="identifier"  required pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos">
+                            <input type="text" class="form-control" id="edit-cuit" name="identifier" required
+                                pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos">
 
 
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
 
-                            <input type="text" class="form-control" id="edit-phone" name="telefono" required pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 11 dígitos">
+                            <input type="text" class="form-control" id="edit-phone" name="telefono" required
+                                pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 11 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
-                            <input type="text" class="form-control" id="edit-street" name="direccion" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" required title="Ingrese solo letras, sin puntos ni comas">
+                            <input type="text" class="form-control" id="edit-street" name="direccion"
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" required
+                                title="Ingrese solo letras, sin puntos ni comas">
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="edit-height">Altura</label>
-                                <input type="number" class="form-control" id="edit-height" name="altura" min="1" required title="solo se permiten números">
+                                <input type="number" class="form-control" id="edit-height" name="altura" min="1"
+                                    required title="solo se permiten números">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-floor">Piso</label>
@@ -216,7 +224,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit-location">Localidad</label>
-                            <input type="text" class="form-control" id="edit-location" name="ciudad" pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
+                            <input type="text" class="form-control" id="edit-location" name="ciudad" pattern="[A-Za-z]+"
+                                minlength="2" maxlength="30" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-observaciones">Observaciones</label>
@@ -246,7 +255,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- Edit Modal HTML -->
     <div id="editEmployeeModal" class="modal fade">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-            <div class="modal-content">            
+            <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title text-white">Editar un Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -266,11 +275,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
+
                             <input type="text" class="form-control" id="edit-cuit" name="edit-cuit" pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos"></input>
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
                             <input type="text" class="form-control" id="edit-phone" name="edit-phone"  pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 11 dígitos">
+
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
@@ -386,45 +397,54 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     </div>
 
 
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
-    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h4 class="modal-title text-white">Deshabilitar un Cliente</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <form action="../controller/eliminar_cliente.php" method="post">
-                <div class="modal-body" style="text-align:center">
-                    <h3>¿Estás seguro que deseas Deshabilitar al Cliente?</h3>
-                    <br>
-                    <div class="form-row">
-                        <div class="form-group col-md-3"></div>
-                        <div class="form-group col-md-6" style="text-align:center">
-                            <input type="text" class="form-control" id="view-name" name="view-name" readonly style="text-align:center">
+    <!-- Delete Modal HTML -->
+    <div id="deleteEmployeeModal" class="modal fade">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h4 class="modal-title text-white">Deshabilitar un Cliente</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form action="../controller/eliminar_cliente.php" method="post">
+                    <div class="modal-body" style="text-align:center">
+                        <h3>¿Estás seguro que deseas Deshabilitar al Cliente?</h3>
+                        <br>
+                        <div class="form-row">
+                            <div class="form-group col-md-3"></div>
+                            <div class="form-group col-md-6" style="text-align:center">
+                                <input type="text" class="form-control" id="view-name" name="view-name" readonly
+                                    style="text-align:center">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="hidden" name="edit-id_customer" id="edit-id_customer">
-                    <input type="button" class="btn btn-success" data-dismiss="modal" value="Volver">
-                    <input type="submit" class="btn btn-danger" value="Deshabilitar">
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <input type="hidden" name="edit-id_customer" id="edit-id_customer">
+                        <input type="button" class="btn btn-success" data-dismiss="modal" value="Volver">
+                        <input type="submit" class="btn btn-danger" value="Deshabilitar">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<?php if (isset($_GET['mensaje']) && isset($_GET['tipo'])): ?>
-        <script>
-            Swal.fire({
-                title: 'Mensaje',
-                text: "<?php echo htmlspecialchars($_GET['mensaje']); ?>",
-                icon: "<?php echo htmlspecialchars($_GET['tipo']); ?>",
-                confirmButtonText: 'Aceptar'
-            });
-        </script>
-    <?php endif; ?>
+
+    <script>
+    // Verifica si hay un mensaje en el almacenamiento local
+    if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
+        Swal.fire({
+            title: 'Mensaje',
+            text: localStorage.getItem('mensaje'),
+            icon: localStorage.getItem('tipo'),
+            confirmButtonText: 'Aceptar'
+        });
+
+        // Limpia el mensaje después de mostrarlo
+        localStorage.removeItem('mensaje');
+        localStorage.removeItem('tipo');
+    }
+    </script>
+
+
 
 
     <!-- ./wrapper -->
@@ -435,7 +455,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <script src="../assets/js/accions.js"></script>
-    
+
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
