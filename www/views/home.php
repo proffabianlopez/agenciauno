@@ -1,3 +1,15 @@
+<?php
+session_start();
+include_once "../models/functions.php";
+$show=show_state("brands");
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+    
+} else {
+    header("Location: login.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 

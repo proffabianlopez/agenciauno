@@ -1,12 +1,14 @@
 <?php
 include_once "../models/functions.php";
 
+
 $name_category = $_POST["name_category"];
 $status = 1;
 
 // Verificar si la categoría ya existe
 if (category_exists($name_category)) {
     echo '<script>alert("La categoría ya existe. Por favor, elija un nombre diferente.");</script>';
+
     echo '<script>window.location.href = "../views/crud_category.php";</script>';
 } else {
     // Insertar la nueva categoría

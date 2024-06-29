@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "../controller/insert_products.php";
 include_once "../controller/edit_product.php";
 include_once "../controller/delete_product.php";
@@ -6,6 +7,12 @@ include_once "../models/functions.php";
 $show=show_state("products");
 $brandData=show_state("brands");
 $categoryData=show_state("categorys");
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+    
+} else {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">

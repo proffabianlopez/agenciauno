@@ -15,8 +15,8 @@ $observaciones = $_POST['edit-observaciones'];
 $status=1;
 
 if (!Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)) {
-    echo '<script>alert("Actualizado exitosamente");</script>';
-        echo '<script>window.location.href = "../views/crud_cliente.php";</script>';
+            
+        echo '<script>window.location.href = "../views/crud_cliente.php?mensaje=Usuario%20editado%20con%20éxito&tipo=success";</script>';
        
     } else {
         echo 'Error al actualizar.';

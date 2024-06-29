@@ -1,7 +1,16 @@
 <?php
+session_start();
 include_once "../models/functions.php";
 $usuarios = obtenerusuarios();
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+    
+} else {
+    header("Location: login.php");
+    exit();
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -94,11 +103,16 @@ $usuarios = obtenerusuarios();
                                                         data-name="<?php echo $usuario['email_user']; ?>"
                                                         data-phone="<?php echo $usuario['phone']; ?>"
                                                         data-password="<?php echo $usuario['password']; ?>">
+                                                       
                                                         <i style="width: 19px; height: 10px;" class="fas fa-edit"></i>
                                                     </a>
                                                     <a href="#deleteEmployeeModal" class="btn btn-danger float-center deleteBtn text-white" data-bs-toggle="modal"
                                                         data-id="<?php echo $usuario['id_user']; ?>"
-                                                        data-name="<?php echo $usuario['email_user']; ?>"><i class="fas fa-trash-alt"></i>
+                                                        data-name="<?php echo $usuario['email_user']; ?>"
+                                                        data-rol="<?php echo $usuario['id_rol']; ?>">
+                                                        <i class="fas fa-trash-alt">
+                                                      
+                                                        </i>
                                                     </a>
                                                     </td>
                                         
@@ -151,6 +165,7 @@ $usuarios = obtenerusuarios();
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="edit-id_user" id="edit-id_user">
+                    
                     <div class="form-group">
                         <label for="edit-name">Email de usuario</label>
                         <input type="email" class="form-control" id="edit-name" name="edit-name">
@@ -216,6 +231,7 @@ $usuarios = obtenerusuarios();
                                         <p>¿Está seguro que desea deshabilitar este usuario?</p>
                                     </div>
                                     <div class="modal-footer">
+                                    <input type="hidden" name="delete-id_rol" id="delete-id_rol">
                                         <input type="hidden" name="delete-id_user" id="delete-id_user">
                                         <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
                                         <button type="submit" class="btn btn-danger">Eliminar</button>

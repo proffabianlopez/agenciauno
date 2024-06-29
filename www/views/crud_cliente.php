@@ -1,7 +1,14 @@
 <?php
+session_start();
 include_once "../models/functions.php";
 
 $clientes = obtenerclientes();
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+    
+} else {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,7 +33,7 @@ $clientes = obtenerclientes();
     <!-- Icons -->
     <link rel="stylesheet" href="../assets/bootstrap/icons-1.9.1/bootstrap-icons.css">
 
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
@@ -34,10 +41,8 @@ $clientes = obtenerclientes();
     <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
-
-    <style>
-
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
@@ -171,7 +176,7 @@ $clientes = obtenerclientes();
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <div class="form-group">
                             <label for="edit-name">Nombre</label>
-                            <input type="text" id="edit-name" name="name_cliente" class="form-control" pattern="[A-Za-z]+" minlength="2" maxlength="30" required title="Debe contenter solo letras">
+                            <input type="text" id="edit-name" name="name_cliente" class="form-control" pattern="^[a-zA-Z ]+$" minlength="2" maxlength="30" required title="Debe contenter solo letras">
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
@@ -410,7 +415,16 @@ $clientes = obtenerclientes();
     </div>
 </div>
 
-
+<?php if (isset($_GET['mensaje']) && isset($_GET['tipo'])): ?>
+        <script>
+            Swal.fire({
+                title: 'Mensaje',
+                text: "<?php echo htmlspecialchars($_GET['mensaje']); ?>",
+                icon: "<?php echo htmlspecialchars($_GET['tipo']); ?>",
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    <?php endif; ?>
 
 
     <!-- ./wrapper -->
