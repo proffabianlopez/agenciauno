@@ -167,12 +167,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <input type="hidden" name="edit-id_user" id="edit-id_user">
                     
                     <div class="form-group">
-                        <label for="edit-name">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="edit-name" name="edit-name">
+                        <label for="edit-name">Email de usuario</label>
+                        <input type="email" class="form-control" id="edit-name" name="edit-name">
                     </div>
                     <div class="form-group">
                         <label for="edit-phone">Teléfono</label>
-                        <input type="text" class="form-control" id="edit-phone" name="edit-phone">
+                        <input type="text" class="form-control" id="edit-phone" name="edit-phone" pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10 dígitos" >
                     </div>
                     <div class="form-group">
                         <label for="edit-password">Contraseña</label>

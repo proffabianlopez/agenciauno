@@ -173,8 +173,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name">Nombre </label>
+
                             <input type="text" name="name_Proveedor" class="form-control" pattern="[A-Za-z]+"
                                 minlength="2" maxlength="30" required>
+
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -218,8 +220,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="ciudad">Localidad</label>
+
                             <input type="text" name="ciudad" class="form-control" pattern="[A-Za-z]+" minlength="2"
                                 maxlength="20" required>
+
 
                         </div>
                         <div class="form-group">
@@ -257,12 +261,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="id_supplier" id="id_supplier" class="form-control" value="">
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
-                            <input type="text" class="form-control" id="name_supplier" name="name" required value="">
+                            <input type="text" class="form-control" id="name_supplier" name="name" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30"  required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_phone">Telefono</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$"
                                 title="Debe contener exactamente 10 dígitos">
+
                         </div>
                         <div class="form-group">
                             <label for="edit_directiòn">Email</label>
@@ -274,6 +279,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit_heigth">Cuil</label>
+
                             <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{10}$"
                                 title="Debe contener exactamente 10 dígitos">
                         </div>
@@ -283,10 +289,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <label for="street">calle</label>
                                 <input type="text" id="street" name="street" class="form-control" required>
 
+
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
-                                <input type="text" id="height" name="height" class="form-control" required>
+
+                                <input type="number" id="height" name="height"  class="form-control" required min="1">
+
 
                             </div>
                             <div class="form-group col-md-3">
@@ -296,14 +305,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="departament">Departamento</label>
-                                <input type="text" id="departament" name="departament" id="departament"
-                                    class="form-control">
+
+                                <input type="text" id="departament" name="departament" class="form-control" >
+
 
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="location">Localidad</label>
-                            <input type="text" class="form-control" id="location" name="location" value="">
+                            <input type="text" class="form-control" id="location" name="location" value="" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="20">
                         </div>
                     </div>
                     <div class="modal-footer">
