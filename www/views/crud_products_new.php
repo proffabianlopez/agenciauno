@@ -150,7 +150,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name_product">Nombre</label>
-                            <input type="text" name="name_product" class="form-control" required>
+                            <input type="text" name="name_product" class="form-control" required  maxlength="30">
 
                         </div>
                         <div class="form-group">
@@ -161,18 +161,18 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name_product">Número de Serie</label>
-                            <input type="text" name="number_serial" class="form-control" required>
+                            <input type="text" name="number_serial" class="form-control" required min-height="2" maxlength="25">
 
                         </div>
                         <div class="form-group">
                             <label for="name_product">Número de Producto</label>
-                            <input type="text" name="number_product" class="form-control" required>
+                            <input type="text" name="number_product" class="form-control" required min-height="1" maxlength="25">
 
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="stock">Stock</label>
-                            <input type="number" name="stock" class="form-control" required>
+                            <input type="number" name="stock" class="form-control" required  min="0">
 
                         </div>
 
@@ -228,8 +228,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
-                            <input type="text" class="form-control" id="name_product" name="name_product" required
-                                value="">
+                            <input type="text" class="form-control" id="name_product" name="name_product" maxlength="30" required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_description">Descripcion</label>
@@ -237,17 +236,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit_name">Numero de serie</label>
-                            <input type="text" class="form-control" id="number_serial" name="number_serial" required
-                                value="">
+                            <input type="text" class="form-control" id="number_serial" name="number_serial"  minlength="2" maxlength="20" required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_name">Numero de producto</label>
-                            <input type="text" class="form-control" id="number_product" name="number_product" required
-                                value="">
+                            <input type="text" class="form-control" id="number_product" name="number_product"  minlength="2" maxlength="20"required value="">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="edit_stock">Stock</label>
-                            <input type="number" class="form-control" id="stock" name="stock" required value="">
+                            <input type="number" class="form-control" id="stock" name="stock" min="0" required value="">
                         </div>
                     </div>
                     <div class="modal-footer">
