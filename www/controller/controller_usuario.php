@@ -7,9 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_status=1;
     $id_rol=1;
     if (addUsuario($email_user, $phone, $password,$id_status,$id_rol)) {
-        header("Location: ../views/crud_usuarios.php"); 
+        echo '<script>
+                localStorage.setItem("mensaje", "Usuario creado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_usuarios.php";
+                    </script>';    
     } else {
-        header("Location: ../views/usuarios.php?error=1"); 
+        header("Location: ../views/crud_usuarios.php?error=1"); 
     }
 }
 ?>

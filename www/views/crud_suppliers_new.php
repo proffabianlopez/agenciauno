@@ -72,6 +72,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.row -->
+                   
                     <div class="table-responsive">
                         <div class="table-wrapper">
                             <table id="table_proveedores" class="table table-striped table-hover">
@@ -80,7 +81,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Email</th>
-                                        <th>Cuil</th>
+                                        <th>CUIL/CUIT</th>
                                         <th>Telefono</th>
 
                                         <!--<th class="text-center long_letter">Observaciones</th>-->
@@ -91,6 +92,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
 
                                 </thead>
+                                
                                 <tbody>
 
                                     <?php foreach ($show as $row) { ?>
@@ -196,6 +198,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         </div>
                         <div class="form-group">
+                            <label for="ciudad">Localidad</label>
+
+                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-z]+" minlength="2"
+                                maxlength="20" required>
+
+
+                        </div>
+                        <div class="form-group">
                             <label for="direction">Dirección</label>
                             <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
                                 minlength="2" maxlength="30" required>
@@ -218,14 +228,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="ciudad">Localidad</label>
-
-                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-z]+" minlength="2"
-                                maxlength="20" required>
-
-
-                        </div>
+                        
                         <div class="form-group">
                             <label for="observaciones">Observaciones</label>
                             <textarea type="text" name="observaciones" class="form-control"></textarea>
@@ -261,8 +264,20 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="id_supplier" id="id_supplier" class="form-control" value="">
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
-                            <input type="text" class="form-control" id="name_supplier" name="name" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30"  required value="">
+                            <input type="text" class="form-control" id="name_supplier" name="name"
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required value="">
                         </div>
+                        <div class="form-group">
+                            <label for="edit_directiòn">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_heigth">CUIL/CUIT</label>
+
+                            <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{11}$"
+                                title="Debe contener exactamente 11 dígitos">
+                        </div>
+                        
                         <div class="form-group">
                             <label for="edit_phone">Telefono</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$"
@@ -270,23 +285,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         </div>
                         <div class="form-group">
-                            <label for="edit_directiòn">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_heigth">Observaciones</label>
-                            <input type="text" class="form-control" id="obs" name="observaciones" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_heigth">Cuil</label>
-
-                            <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{10}$"
-                                title="Debe contener exactamente 10 dígitos">
-                        </div>
+                            <label for="location">Localidad</label>
+                            <input type="text" class="form-control" id="location" name="location" value=""
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="20">
+                        </div>                        
+                        
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="street">calle</label>
+                                <label for="street">Dirección</label>
                                 <input type="text" id="street" name="street" class="form-control" required>
 
 
@@ -294,26 +301,27 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
 
-                                <input type="number" id="height" name="height"  class="form-control" required min="1">
+                                <input type="number" id="height" name="height" class="form-control" required min="1">
 
 
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="floor">piso</label>
+                                <label for="floor">Piso</label>
                                 <input type="text" id="floor" name="floor" class="form-control">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="departament">Departamento</label>
 
-                                <input type="text" id="departament" name="departament" class="form-control" >
+                                <input type="text" id="departament" name="departament" class="form-control">
 
 
                             </div>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="location">Localidad</label>
-                            <input type="text" class="form-control" id="location" name="location" value="" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="20">
+                            <label for="edit_heigth">Observaciones</label>
+                            <textarea type="text" class="form-control" id="obs" name="observaciones" value=""></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -333,7 +341,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <div id="viewModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
-                <div class="modal-header bg-primary">
+                <div class="modal-header bg-success">
                     <h4 class="modal-title text-white">Detalles del Proveedor</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                         style="color: white;">
@@ -341,49 +349,59 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="view_name">Nombre</label>
-                        <span id="view_name" class="form-control-static"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="view_phone">Teléfono</label>
-                        <span id="view_phone" class="form-control-static"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="view_email">Email</label>
-                        <span id="view_email" class="form-control-static"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="view_obs">Observaciones</label>
-                        <span id="view_obs" class="form-control-static"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="view_tax">CUIL</label>
-                        <span id="view_tax" class="form-control-static"></span>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="view_name">Nombre</label>
+                            <span id="view_name" class="form-control" readonly></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="view_email">Email</label>
+                            <span id="view_email" class="form-control" readonly></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="view_tax">CUIL/CUIT</label>
+                            <span id="view_tax" class="form-control" readonly></span>
+                        </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
+                            <label for="view_phone">Teléfono</label>
+                            <span id="view_phone" class="form-control" readonly></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="view_location">Localidad</label>
+                            <span id="view_location" class="form-control" readonly></span>
+                        </div>
+                    </div>
+                   
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
                             <label for="view_street">Calle</label>
-                            <span id="view_street" class="form-control-static"></span>
+                            <span id="view_street" class="form-control" readonly></span>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="view_height">Altura</label>
-                            <span id="view_height" class="form-control-static"></span>
+                            <span id="view_height" class="form-control" readonly></span>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="view_floor">Piso</label>
-                            <span id="view_floor" class="form-control-static"></span>
+                            <span id="view_floor" class="form-control" readonly></span>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="view_departament">Departamento</label>
-                            <span id="view_departament" class="form-control-static"></span>
+                            <span id="view_departament" class="form-control" readonly></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="view_location">Localidad</label>
-                        <span id="view_location" class="form-control-static"></span>
+                        <label for="view_obs">Observaciones</label>
+                        <span id="view_obs" class="form-control" readonly></span>
                     </div>
+
                 </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Volver</button>
+                    </div>
             </div>
 
         </div>

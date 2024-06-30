@@ -15,8 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verificar si la eliminación fue exitosa
         if ($eliminated) {
             // Redireccionar de vuelta a la página de CRUD con un mensaje de éxito
-            header("Location: ../views/crud_products_new.php?borrado=correcto");
-            exit(); // Salir del script después de la redirección
+            echo '<script>
+                localStorage.setItem("mensaje", "Producto deshabilitado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_products_new.php";
+                    </script>';      
         } else {
             // Mostrar un mensaje de error específico si la eliminación falla
             echo "Error al intentar eliminar el producto.";

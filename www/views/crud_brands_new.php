@@ -23,22 +23,23 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback"></Link>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css"></Link>
+    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css"></Link>
     <!--<Link rel="stylesheet" href="../assets/dist/css/agencia1.css">-->
-    </Link>
-    <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="../assets/css/style_lista_cliente.css"></Link>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <!-- Icons -->
-    <link rel="stylesheet" href="../assets/bootstrap/icons-1.9.1/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
-    <!-- Theme style -->
+    <!--<link rel="stylesheet" href="../assets/bootstrap/icons-1.9.1/bootstrap-icons.css"></Link>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"></Link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css"></Link>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -132,7 +133,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name_product">Nombre</label>
-                            <input type="text" name="detail" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required>
+                            <input type="text" name="detail" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                                minlength="2" maxlength="30" required>
 
                         </div>
                     </div>
@@ -169,7 +171,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="id_brand" id="id_brand" class="form-control" value="">
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
-                            <input type="text" class="form-control" id="detail" name="detail" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required value="">
+                            <input type="text" class="form-control" id="detail" name="detail"
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required value="">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" name="save_data">Guardar</button>
@@ -200,7 +203,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-row">
                             <div class="form-group col-md-3">
                             </div>
-                         
+
                         </div>
                     </div>
 
@@ -217,8 +220,23 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
     </div>
-    </div>
-    <!-- ./wrapper -->
+    
+    <script>
+    // Verifica si hay un mensaje en el almacenamiento local
+    if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
+        Swal.fire({
+            title: 'Mensaje',
+            text: localStorage.getItem('mensaje'),
+            icon: localStorage.getItem('tipo'),
+            confirmButtonText: 'Aceptar'
+        });
+
+        // Limpia el mensaje después de mostrarlo
+        localStorage.removeItem('mensaje');
+        localStorage.removeItem('tipo');
+    }
+    </script>
+
 
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>

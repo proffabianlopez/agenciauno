@@ -26,13 +26,24 @@ if(isset($_POST['enviar'])){
         if ($id_status == 1) {
             $_SESSION['id_status'] = $id_status;
             if ($id_rol == 1 || $id_rol == 4) {
-                header("Location: ../views/home.php");
-                exit();
-            }
-        
+                echo '<script>
+                  window.location.href = "../views/home.php";
+                    </script>';  
+            }       
         
     }
-    } header("Location: ../views/login.php?noingreso=check");
-    exit();
+    } 
+    echo '<script>
+                localStorage.setItem("mensaje", "Existe algún error, Intente nuevamente!");
+                localStorage.setItem("tipo", "error");
+                window.location.href = "../views/login.php";
+                    </script>';     
+    
+    //header("Location: ../views/login.php?noingreso=check");
+    //exit();
+}
+{
+
 }
 ?>
+

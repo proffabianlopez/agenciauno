@@ -10,8 +10,11 @@ if (isset($_POST['edit-id_user'], $_POST['edit-phone'], $_POST['edit-name'],$_PO
 
 
     if (Updateusuario($id, $email, $phone, $status,$password)) {
-        echo '<script>alert("Usuario actualizado exitosamente");</script>';
-        echo '<script>window.location.href = "../views/crud_usuarios.php";</script>';
+        echo '<script>
+                localStorage.setItem("mensaje", "Usuario editado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_usuarios.php";
+                    </script>';     
     } else {
         echo '<script>alert("Error al actualizar usuario");</script>';
         echo '<script>window.location.href = "../views/crud_usuarios.php";</script>';

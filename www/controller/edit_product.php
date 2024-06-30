@@ -24,8 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
         if ($updated) {
             // Redirigir a la página de gestión de proveedores con un mensaje de éxito en la URL
-            header("Location:../views/crud_products_new.php?editado=correcto");
-            exit();
+            echo '<script>
+                localStorage.setItem("mensaje", "Producto editado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_products_new.php";
+                    </script>';      
         } else {
             // Mostrar un mensaje de error si falla la actualización
             echo "Error al actualizar los datos.";
