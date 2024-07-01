@@ -14,8 +14,11 @@ if(isset($_POST['edit-id_category'])) {
         
         if ($eliminated) {
             
-            echo '<script>alert("Se borro exitosamente");</script>';
-    echo '<script>window.location.href = "../views/crud_category.php";</script>';
+            echo '<script>
+            localStorage.setItem("mensaje", "Categoría deshabilitada con éxito");
+            localStorage.setItem("tipo", "success");
+            window.location.href = "../views/crud_category.php";
+                </script>';    
             
         } else {
            //

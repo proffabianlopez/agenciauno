@@ -15,8 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($eliminated) {
             
-            echo '<script>alert("Se borro exitosamente");</script>';
-    echo '<script>window.location.href = "../views/crud_brands_new.php";</script>';
+            echo '<script>
+                localStorage.setItem("mensaje", "Marca deshabilitada con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_brands_new.php";
+                    </script>';     
             
         } else {
            //

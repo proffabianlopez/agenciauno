@@ -16,8 +16,11 @@ if (isset($_POST['enviar'])) {
         $insert = insert_brand($detail_uppercase);
        
         if ($insert) {
-            echo '<script>alert("Se creó exitosamente");</script>';
-            echo '<script>window.location.href = "../views/crud_brands_new.php";</script>';
+            echo '<script>
+            localStorage.setItem("mensaje", "Marca creada con éxito");
+            localStorage.setItem("tipo", "success");
+            window.location.href = "../views/crud_brands_new.php";
+                </script>';     
         } else {
             echo '<script>alert("Error en la inserción");</script>';
         }

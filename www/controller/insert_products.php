@@ -20,7 +20,11 @@ if(isset($_POST['enviar'])){
         $insert = insert_products($number_serial,$number_product,$name_product,$description,$stock,$id_brand,$id_category);
        
         if ($insert) {
-            header("Location: ../views/crud_products_new.php?ingreso=check");
+            echo '<script>
+                localStorage.setItem("mensaje", "Producto creado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_products_new.php";
+                    </script>';      
         }else
         {
             echo "error en la insersion";

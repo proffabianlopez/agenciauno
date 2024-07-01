@@ -30,6 +30,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     </Link>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
@@ -39,6 +41,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
     </script>
     <!-- Theme style -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 </head>
 
@@ -48,12 +53,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <div class="wrapper">
         <!-- HEADER -->
         <?php include "header.php"?>
-        <!-- HEADER -->
 
         <!-- MENU -->
         <?php include "menu.php"?>
-        <!-- Content Wrapper. Contains page content -->
-        <!-- Content Wrapper. Contains page content -->
+
         <div class="content-wrapper" style="min-height: 1604.8px;">
             <main>
                 <div class="container-fluid" style="padding:50px;">
@@ -75,7 +78,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="table-responsive">
                         <div class="table-wrapper">
 
-                            <table class="table table-striped table-hover" id="table_products">
+                            <table id="table_products" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <!--<th>Numero De Serie</th>-->
@@ -94,7 +97,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <td><?php echo $row->name_product; ?></td>
                                         <td><?php echo $row->description; ?></td>
                                         <td><?php echo $row->stock; ?></td>
-
 
                                         <td>
                                             <a class="btn btn-success viewBtn long_letter text-white"
@@ -117,21 +119,17 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                     class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
-
                                     <?php } ?>
                                 </tbody>
                             </table>
-
-
                         </div>
                     </div>
                 </div>
             </main>
-            <!-- Main content -->
         </div>
-
         <?php include "footer.php"?>
     </div>
+
 
     <!-- Modal para Crear Productos-->
     <div id="create_Modal" class="modal fade" tabindex="-1" role="dialog">
@@ -150,7 +148,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name_product">Nombre</label>
-                            <input type="text" name="name_product" class="form-control" required  maxlength="30">
+                            <input type="text" name="name_product" class="form-control" required maxlength="30">
 
                         </div>
                         <div class="form-group">
@@ -161,18 +159,20 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name_product">Número de Serie</label>
-                            <input type="text" name="number_serial" class="form-control" required min-height="2" maxlength="25">
+                            <input type="text" name="number_serial" class="form-control" required min-height="2"
+                                maxlength="25">
 
                         </div>
                         <div class="form-group">
                             <label for="name_product">Número de Producto</label>
-                            <input type="text" name="number_product" class="form-control" required min-height="1" maxlength="25">
+                            <input type="text" name="number_product" class="form-control" required min-height="1"
+                                maxlength="25">
 
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="stock">Stock</label>
-                            <input type="number" name="stock" class="form-control" required  min="0">
+                            <input type="number" name="stock" class="form-control" required min="0">
 
                         </div>
 
@@ -228,7 +228,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
-                            <input type="text" class="form-control" id="name_product" name="name_product" maxlength="30" required value="">
+                            <input type="text" class="form-control" id="name_product" name="name_product" maxlength="30"
+                                required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_description">Descripcion</label>
@@ -236,11 +237,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit_name">Numero de serie</label>
-                            <input type="text" class="form-control" id="number_serial" name="number_serial"  minlength="2" maxlength="20" required value="">
+                            <input type="text" class="form-control" id="number_serial" name="number_serial"
+                                minlength="2" maxlength="20" required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_name">Numero de producto</label>
-                            <input type="text" class="form-control" id="number_product" name="number_product"  minlength="2" maxlength="20"required value="">
+                            <input type="text" class="form-control" id="number_product" name="number_product"
+                                minlength="2" maxlength="20" required value="">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="edit_stock">Stock</label>
@@ -315,7 +318,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </form>
         </div>
     </div>
-    </div> <!-- Fin Modal para Ver Productos-->
+    <!-- Fin Modal para Ver Productos-->
 
 
 
@@ -357,10 +360,24 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     </div>
 
 
+    <script>
+    // Verifica si hay un mensaje en el almacenamiento local
+    if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
+        Swal.fire({
+            title: 'Mensaje',
+            text: localStorage.getItem('mensaje'),
+            icon: localStorage.getItem('tipo'),
+            confirmButtonText: 'Aceptar'
+        });
 
-    <!-- ./wrapper -->
+        // Limpia el mensaje después de mostrarlo
+        localStorage.removeItem('mensaje');
+        localStorage.removeItem('tipo');
+    }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js">
     </script>
+
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -380,9 +397,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
-
-    <!--        <script src="../js.modal/paginated.js"></script> -->
-
     <script>
     $("#table_products").DataTable({
         pageLength: 5,

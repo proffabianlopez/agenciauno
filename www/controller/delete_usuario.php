@@ -8,8 +8,11 @@ if(isset($_POST['delete-id_user'])) {
     if($id_rol==1){
     if (!$resultado) {
         
-        echo '<script>alert("Usuario eliminado exitosamente");</script>';
-        echo '<script>window.location.href = "../views/crud_usuarios.php";</script>';
+        echo '<script>
+                localStorage.setItem("mensaje", "Usuario deshabilitado con éxito");
+                localStorage.setItem("tipo", "success");
+                window.location.href = "../views/crud_usuarios.php";
+                    </script>';    
     } else {
         
         echo '<script>alert("Error al intentar eliminar el usuario");</script>';
