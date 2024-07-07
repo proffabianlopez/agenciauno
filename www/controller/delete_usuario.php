@@ -5,7 +5,7 @@ if(isset($_POST['delete-id_user'])) {
     $id = $_POST['delete-id_user'];
     $id_rol=$_POST['delete-id_rol'];
     $resultado = deleteusuarios($id,$id_rol);
-    if($id_rol==1){
+    if($id_rol==2){
     if (!$resultado) {
         
         echo '<script>
