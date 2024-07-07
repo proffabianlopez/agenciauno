@@ -148,7 +148,7 @@
    }
    function deleteusuarios($id, $id_rol)
    {
-       if ($id_rol != 4) {
+       if ($id_rol != 1) {
            $bd = database();
            $query = $bd->prepare("UPDATE users SET id_status = 2 WHERE id_user = :id");
            $query->bindParam(':id', $id);
