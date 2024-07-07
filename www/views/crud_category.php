@@ -2,7 +2,7 @@
 session_start();
 include_once "../models/functions.php";
 $categorys = obtenercategorys();
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
     
 } else {
     header("Location: login.php");
@@ -16,7 +16,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia 1</title>
-    < <!-- Google Font: Source Sans Pro -->
+    <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
         </Link>
@@ -46,11 +46,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="row mb-12">
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Categorias</b>
+                                    <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> 
                                         <a type="button"
                                             class="btn btn-success btn btn-primary btn-lg create_brands_Btn text-white"
                                             data-bs-toggle="modal" data-bs-target="#createEmployeeModal"
                                             data-action="add" data-placement="right" title="Nuevo"><i
                                                 class="fas fa-plus-circle fa-lg"></i></a>
+                                                <?php }} ?> 
                                     </h4>
                                 </div>
                             </div>
@@ -63,7 +66,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <thead>
                                     <tr>
                                         <th>Categorias</th>
-                                        <th>Acciones</th>
+                                        <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?>   <th>Acciones</th><?php }} ?> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +76,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <tr>
                                         <td><?php echo $categoria['detail']; ?></td>
                                         <td>
+                                        <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> 
                                             <a class="btn btn-warning float-center editBtn text-white"
                                                 data-bs-toggle="modal"
                                                 data-id="<?php echo $categoria['id_category']; ?>"
@@ -83,6 +89,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-detail="<?php echo $categoria['detail']; ?>"><i
                                                     class="fas fa-trash-alt"></i></a>
                                         </td>
+                                        <?php }} ?> 
                                     </tr>
                                     <?php endif; ?>
                                     <?php endforeach; ?>

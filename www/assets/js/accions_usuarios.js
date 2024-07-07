@@ -5,14 +5,15 @@ $(document).ready(function () {
         var name = $(this).data('name');
         var phone = $(this).data('phone');
         var password = $(this).data('password');
-        
+        var rol = $(this).data('rol');
+
         $editModal.find('#edit-id_user').val(id);
         $editModal.find('#edit-name').val(name);
         $editModal.find('#edit-phone').val(phone);
         $editModal.find('#edit-password').val(password);
-
+        $editModal.find('#edit-role').val(rol);
         $editModal.modal('show');
-    });
+    })
     $(document).ready(function () {
         $('.view').on('click', function () {
             var $viewModal = $('#viewEmployeeModal');

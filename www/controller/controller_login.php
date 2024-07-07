@@ -25,7 +25,7 @@ if(isset($_POST['enviar'])){
        
         if ($id_status == 1) {
             $_SESSION['id_status'] = $id_status;
-            if ($id_rol == 1 || $id_rol == 4) {
+            if ($id_rol == 1 || $id_rol == 2) {
                 echo '<script>
                   window.location.href = "../views/home.php";
                     </script>';  

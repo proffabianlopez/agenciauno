@@ -5,7 +5,7 @@ include_once "../controller/edit_supplier.php";
 include_once "../controller/delete_supplier.php";
 include_once "../models/functions.php";
 $show=show_state("suppliers");
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
     
 } else {
     header("Location: login.php");
@@ -60,10 +60,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="row mb-12">
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Proveedores&nbsp&nbsp</b>
+                                    <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?>
                                         <button type="button" class="btn btn-success create_suppliers_Btn"
                                             data-toggle="modal" data-target="#create_suppliers_Bt" data-action="add"
                                             data-placement="right" title="Nuevo"><i
                                                 class="fas fa-plus-circle fa-lg"></i></button>
+                                                <?php }} ?> 
                                     </h4>
                                 </div><!-- /.col -->
                                 <div class="col-sm-6" id="botones" style="text-align: center;">
@@ -125,6 +128,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-departament="<?php echo $row->departament?>"
                                                 data-location="<?php echo $row->location ?>">
                                                 <i class="fa fa-binoculars"></i></a>
+                                                <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?>
                                             <a class="btn btn-warning editBtn long_letter text-white"
                                                 data-id="<?php echo $row->id_supplier ?>"
                                                 data-name="<?php echo $row->name_supplier?>"
@@ -141,6 +146,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <a class="btn btn-danger delete_Btn long_letter text-white"
                                                 data-id_suppliers="<?php echo $row->id_supplier ?>"><i
                                                     class="fas fa-trash-alt"></i></a>
+                                                    <?php }} ?> 
                                         </td>
                                     </tr>
                                     <?php } ?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "../models/functions.php";
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
     
 } else {
     header("Location: login.php");
@@ -97,12 +97,14 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
 
                         </li>
                         <li class="nav-item">
-
+                        <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> 
                             <a href="crud_usuarios.php" class="nav-link">
 
                                 <i class="fa fa-user nav-icon"></i>
                                 <p>Usuarios</p>
                             </a>
+                            <?php }} ?> 
                         </li>
 
 

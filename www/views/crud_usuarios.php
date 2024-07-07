@@ -2,7 +2,9 @@
 session_start();
 include_once "../models/functions.php";
 $usuarios = obtenerusuarios();
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+$roles = obtenerroles();
+
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
     
 } else {
     header("Location: login.php");
@@ -88,8 +90,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-bs-toggle="modal" data-id="<?php echo $usuario['id_user']; ?>"
                                                 data-name="<?php echo $usuario['email_user']; ?>"
                                                 data-phone="<?php echo $usuario['phone']; ?>"
-                                                data-password="<?php echo $usuario['password']; ?>">
-
+                                                data-password="<?php echo $usuario['password']; ?>"
+                                                data-rol="<?php echo $usuario['id_rol']; ?>">
                                                 <i style="width: 19px; height: 10px;" class="fas fa-edit"></i>
                                             </a>
                                             <a href="#deleteEmployeeModal"
@@ -118,71 +120,101 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <?php include "footer.php"?>
     </div>
 
-    <div id="createEmployeeModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-            <div class="modal-content">
-                <form action="../controller/controller_usuario.php" method="post">
-                    <div class="modal-header bg-primary">
-                        <h4 class="modal-title text-white">Crear Usuario</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ <!-- createEmployeeModal -->
+<div id="createEmployeeModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+        <div class="modal-content">
+            <form action="../controller/controller_usuario.php" method="post">
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title text-white">Crear Usuario</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="create-user">Email de usuario</label>
+                        <input type="email" class="form-control" id="create-user" name="name_user">
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="create-user">Email de usuario</label>
-                            <input type="email" class="form-control" id="create-user" name="name_user">
-                        </div>
-                        <div class="form-group">
-                            <label for="create-phone">Teléfono</label>
-                            <input type="number" class="form-control" id="create-phone" name="phone" required
-                                pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10 dígitos">
-                        </div>
-                        <div class="form-group">
-                            <label for="create-password">Contraseña</label>
-                            <input type="password" class="form-control" id="create-password" name="password">
-                        </div>
+                    <div class="form-group">
+                        <label for="create-phone">Teléfono</label>
+                        <input type="number" class="form-control" id="create-phone" name="phone" required
+                            pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10 dígitos">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    <div class="form-group">
+                        <label for="create-password">Contraseña</label>
+                        <input type="password" class="form-control" id="create-password" name="password">
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="create-role">Rol</label>
+                        <select class="form-control" id="create-role" name="role">     <div class="form-group">
+                        
+                           
+                           <?php
+                           
+                            foreach ($roles as $role) {
+                                echo '<option value="'.$role['id_rol'].'">'.$role['detail'].'</option>';
+                            }
+                            ?>
+                        
+                    </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <div id="editEmployeeModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-            <div class="modal-content">
-                <form action="../controller/edit_usuario.php" method="post">
-                    <div class="modal-header bg-primary">
-                        <h4 class="modal-title text-white">Editar Usuario</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="edit-id_user" id="edit-id_user">
 
-                        <div class="form-group">
-                            <label for="edit-name">Email de usuario</label>
-                            <input type="email" class="form-control" id="edit-name" name="edit-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit-phone">Teléfono</label>
-                            <input type="text" class="form-control" id="edit-phone" name="edit-phone" pattern="^\d{10}$"
-                                maxlength="10" title="Debe contener exactamente 10 dígitos">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit-password">Contraseña</label>
-                            <input type="text" class="form-control" id="edit-password" name="edit-password">
-                        </div>
+   <!-- editEmployeeModal -->
+<div id="editEmployeeModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+        <div class="modal-content">
+            <form action="../controller/edit_usuario.php" method="post">
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title text-white">Editar Usuario</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="edit-id_user" id="edit-id_user">
+
+                    <div class="form-group">
+                        <label for="edit-name">Email de usuario</label>
+                        <input type="email" class="form-control" id="edit-name" name="edit-name">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    <div class="form-group">
+                        <label for="edit-phone">Teléfono</label>
+                        <input type="text" class="form-control" id="edit-phone" name="edit-phone" pattern="^\d{10}$"
+                            maxlength="10" title="Debe contener exactamente 10 dígitos">
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="edit-password">Contraseña</label>
+                        <input type="text" class="form-control" id="edit-password" name="edit-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-role">Rol</label>
+                        <select class="form-control" id="edit-role" name="edit-role">
+                           
+                           <?php
+                           
+                            foreach ($roles as $role) {
+                                echo '<option value="'.$role['id_rol'].'">'.$role['detail'].'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
     <!-- View Modal HTML -->
     <div id="viewEmployeeModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">

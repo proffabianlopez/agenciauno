@@ -3,7 +3,7 @@ session_start();
 include_once "../models/functions.php";
 
 $clientes = obtenerclientes();
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
     
 } else {
     header("Location: login.php");
@@ -61,10 +61,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="row mb-12">
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Clientes&nbsp&nbsp</b>
-                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                    <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?>  <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#createEmployeeModal" data-action="add" data-placement="right"
                                             title="Nuevo"><i class="fas fa-plus-circle fa-lg"></i></button>
-
+                                            <?php }} ?> 
                                     </h4>
                                 </div><!-- /.col -->
                                 <div class="col-sm-6" id="botones" style="text-align: center;">
@@ -124,9 +125,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                     style="width: 19px; height: 10px;"
                                                     class="fas fa-binoculars"></i></a>
 
-
+                                                    <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?>
                                             <a href="#editEmployeeModal"
-                                                class="edit btn btn-warning long_letter text-white" data-toggle="modal"
+                                          class="edit btn btn-warning long_letter text-white" data-toggle="modal" 
                                                 data-id="<?php echo $cliente['id_customer']; ?>"
                                                 data-name="<?php echo $cliente['customer_name']; ?>"
                                                 data-email="<?php echo $cliente['email_customer']; ?>"
@@ -141,13 +143,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                     style="width: 19px; height: 10px;" class="fas fa-edit"></i></a>
 
 
-
+                                                   
                                             <a href="#deleteEmployeeModal"
                                                 class="delete btn btn-danger delete_Btn long_letter text-white"
                                                 data-toggle="modal" data-id="<?php echo $cliente['id_customer']; ?>"
                                                 data-name="<?php echo $cliente['customer_name']; ?>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
+                                            <?php }} ?> 
                                         </td>
 
                                     </tr>

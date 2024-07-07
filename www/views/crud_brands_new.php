@@ -5,7 +5,7 @@ include_once "../controller/edit_brand.php";
 include_once "../controller/delete_brand.php";
 include_once "../models/functions.php";
 $show=show_state("brands");
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 4)) {
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
     
 } else {
     header("Location: login.php");
@@ -63,10 +63,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="row mb-12">
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Marcas &nbsp&nbsp&nbsp</b>
+                                    <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> 
                                         <a type="button"
                                             class="btn btn-success btn btn-primary btn-lg create_brands_Btn text-white"
                                             data-toggle="modal" data-target="#" data-action="add" data-placement="right"
                                             title="Nuevo"><i class="fas fa-plus-circle fa-lg"></i></a>
+                                            <?php }} ?> 
                                     </h4>
                                 </div><!-- /.col -->
                             </div><!-- /.col -->
@@ -80,7 +83,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                                     <tr>
                                         <th>Nombre</th>
-                                        <th>Acciones</th>
+                                        <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?>     <th>Acciones</th><?php }} ?> 
                                     </tr>
 
 
@@ -92,12 +96,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <tr>
                                         <td><?php echo $row->detail ?>
                                         </td>
-                                        <td><a class="btn btn-warning float-center editBtn text-white"
+                                        <td><?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> <a class="btn btn-warning float-center editBtn text-white"
                                                 data-id_brand="<?php echo $row->id_brand ?>"
                                                 data-detail="<?php echo $row->detail?>"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-danger float-center delete_Btn text-white"
                                                 data-id_brands="<?php echo $row->id_brand ?>"><i
-                                                    class="fas fa-trash-alt"></i></a>
+                                                    class="fas fa-trash-alt"></i></a><?php }} ?> 
                                         </td>
 
 

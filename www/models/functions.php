@@ -61,6 +61,12 @@
        $sentence = $bd->query("SELECT id_user,email_user,password,phone,date,id_status,id_rol FROM users");
        return $sentence->fetchAll(PDO::FETCH_ASSOC); 
    }
+   function obtenerroles()
+   { 
+       $bd = database();
+       $sentence = $bd->query("SELECT id_rol,detail FROM roles");
+       return $sentence->fetchAll(PDO::FETCH_ASSOC); 
+   }
    function Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)
    {
        $bd = database();
@@ -106,28 +112,26 @@
        $query->bindParam(':id_status', $status);
        $query->execute();
    }
-   function Updateusuario($id, $email, $phone, $status,$password) {
-    
-        $bd = database(); 
-        $query = $bd->prepare("UPDATE users 
-                               SET email_user = :email, 
-                                   phone = :phone, 
-                                   id_status = :status,
-                                   password = :password
-                               WHERE id_user = :id");
+   function Updateusuario($id, $email, $phone, $status, $password, $id_rol) {
+    $bd = database(); 
+    $query = $bd->prepare("UPDATE users 
+                           SET email_user = :email, 
+                               phone = :phone, 
+                               id_status = :status,
+                               password = :password,
+                               id_rol = :id_rol
+                           WHERE id_user = :id");
 
-        
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
-        $query->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $query->bindParam(':status', $status, PDO::PARAM_INT);
-        $query->bindParam(':password', $password, PDO::PARAM_STR);
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->bindParam(':phone', $phone, PDO::PARAM_STR);
+    $query->bindParam(':status', $status, PDO::PARAM_INT);
+    $query->bindParam(':password', $password, PDO::PARAM_STR);
+    $query->bindParam(':id_rol', $id_rol, PDO::PARAM_INT);
 
-        
-        $query->execute();
-
-        return true; 
+    return $query->execute();
 }
+
    function deletecliente($id)
    {
        $bd = database();
@@ -155,7 +159,7 @@
        }
    }
    
-   function addUsuario($email_user, $phone, $password,$id_status) {
+   function addUsuario($email_user, $phone, $password,$id_status,$id_rol) {
     $bd = database(); 
     $sql = "INSERT INTO users (email_user, phone, password,id_status,id_rol) VALUES (:email_user, :phone, :password, :id_status, :id_rol)";
     $stmt = $bd->prepare($sql);
@@ -163,7 +167,7 @@
     $stmt->bindParam(':phone', $phone);
     $stmt->bindParam(':password', $password);
     $stmt->bindParam(':id_status', $id_status);
-    $stmt->bindParam(':id_rol', $id_status);
+    $stmt->bindParam(':id_rol', $id_rol);
 
     if ($stmt->execute()) {
         return true;
