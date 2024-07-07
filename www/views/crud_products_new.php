@@ -20,7 +20,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agencia 1</title>
+    <title>Agencia UNO</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -30,8 +30,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     </Link>
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
@@ -62,15 +60,18 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 <div class="container-fluid" style="padding:50px;">
                     <div class="card" style="margin-top:5px">
                         <div class="card-header">
-                            <div class="row mb-6">
+                            <div class="row mb-12">
                                 <div class="col-sm-6">
-                                    <h4><b>Listado de Productos &nbsp&nbsp&nbsp</b>
+                                    <h4><b>Listado de Productos&nbsp&nbsp</b>
                                         <button type="button" class="btn btn-success create_products_Btn"
                                             data-toggle="modal" data-target="#create_products_Bt" data-action="add"
                                             data-placement="right" title="Nuevo"><i
                                                 class="fas fa-plus-circle fa-lg"></i></button>
                                     </h4>
                                 </div><!-- /.col -->
+                                <div class="col-sm-6" id="botones" style="text-align: center;">
+                                    <!-- Aquí se colocarán los botones de exportación de DataTables -->
+                                </div>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.row -->
@@ -375,47 +376,83 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         localStorage.removeItem('tipo');
     }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js">
-    </script>
 
-    <!-- jQuery -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ <!-- jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Modal Products JS -->
     <script src="../js.modal/modal_products.js"></script>
 
-    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- DataTables -->
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
+
+    <!-- DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
+
+
+
+
     <script>
-    $("#table_products").DataTable({
-        pageLength: 5,
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
-        },
-        columns: [{
-            width: '20%'
-        }, {
-            width: '25%'
-        }, {
-            width: '25%'
-        }, {
-            width: '10%'
-        }, {
-            width: '20%'
-        }, ]
+    $(document).ready(function() {
+        var table = $('#table_products').DataTable({
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50, 75, 100], // Opciones de cantidad de registros a mostrar
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+            },
+            columns: [{
+                    width: '20%'
+                },
+                {
+                    width: '25%'
+                },
+                {
+                    width: '25%'
+                },
+                {
+                    width: '10%'
+                },
+                {
+                    width: '20%'
+                }
+            ],
+            dom: '<"top"lf><"table-responsive"t><"bottom"ip>',
+            buttons: [{
+                    extend: 'excel',
+                    className: 'btn btn-success',
+                    text: '<i class="far fa-file-excel"></i> Excel'
+                },
+                {
+                    extend: 'pdf',
+                    className: 'btn btn-danger',
+                    text: '<i class="far fa-file-pdf"></i> PDF'
+                }
+            ],
+            initComplete: function() {
+                // Mover los botones al contenedor personalizado
+                table.buttons().container().appendTo('#botones');
+            }
+        });
     });
     </script>
+
 </body>
 
 </html>
