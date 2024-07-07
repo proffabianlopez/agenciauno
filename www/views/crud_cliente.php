@@ -177,8 +177,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <div class="form-group">
                             <label for="edit-name">Nombre</label>
-                            <input type="text" id="edit-name" name="name_cliente" class="form-control"
-                                pattern="^[a-zA-Z ]+$" minlength="2" maxlength="30" required
+                            <input type="text" id="edit-name" name="name_cliente" class="form-control" minlength="2" maxlength="100" required
                                 title="Debe contenter solo letras">
                         </div>
                         <div class="form-group">
@@ -188,7 +187,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
 
-                            <input type="text" class="form-control" id="edit-cuit" name="identifier" required
+                            <input type="text" class="form-control" id="edit-cuit" name="identifier"
                                 pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos">
 
 
@@ -197,7 +196,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <label for="edit-phone">Teléfono</label>
 
                             <input type="text" class="form-control" id="edit-phone" name="telefono" required
-                                pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 11 dígitos">
+                                pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
 
                         </div>
                         <div class="form-group">
@@ -224,8 +223,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit-location">Localidad</label>
-                            <input type="text" class="form-control" id="edit-location" name="ciudad" pattern="[A-Za-z]+"
-                                minlength="2" maxlength="30" required>
+                            <input type="text" class="form-control" id="edit-location" name="ciudad" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                                minlength="2" maxlength="100" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-observaciones">Observaciones</label>
@@ -267,7 +266,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <div class="form-group">
                             <label for="edit-name">Nombre</label>
-                            <input type="text" class="form-control" id="edit-name" name="edit-name" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" title="Debe contenter solo letras">
+                            <input type="text" class="form-control" id="edit-name" name="edit-name" minlength="2" maxlength="50" title="Debe contenter solo letras">
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
@@ -303,7 +302,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit-location">Localidad</label>
-                            <input type="text" class="form-control" id="edit-location" name="edit-location" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30">
+                            <input type="text" class="form-control" id="edit-location" name="edit-location" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="100">
 
                         </div>
                         <div class="form-group">
