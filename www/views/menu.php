@@ -7,6 +7,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     header("Location: login.php");
     exit();
 }
+$email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'Usuario no autenticado';
+
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -34,10 +36,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 <img src="../assets/img/app/person-circle.svg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <h5 class="d-block" style="color:white">Usuario Principal</h5>
-            </div>
+                <h7 class="d-block" style="color:white"><?php echo htmlspecialchars($email_usuario_autenticado); ?></h7>
+            </div>            
         </div>
-
+        
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
