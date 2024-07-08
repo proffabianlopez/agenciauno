@@ -30,6 +30,7 @@ $config = getConfig();
     <!--<Link rel="stylesheet" href="../assets/dist/css/agencia1.css"-->
     </Link>
     <!-- Theme style -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -49,9 +50,9 @@ $config = getConfig();
             <div class="container-fluid" style="padding:50px;">
 
                 <div class="card" style="margin-top:5px;">
-                    
+
                     <div class="card-header" style="text-align:center">
-                        
+
                         <div class="row mb-12">
                             <div class="col-sm-12">
                                 <h4><b>Formulario de Actualización de Correo / SMTP</b>
@@ -139,8 +140,26 @@ $config = getConfig();
         </div>
         <?php include "footer.php"?>
     </div>
-    
+
     </div>
+
+
+    <script>
+    // Verifica si hay un mensaje en el almacenamiento local
+    if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
+        Swal.fire({
+            title: 'Mensaje',
+            text: localStorage.getItem('mensaje'),
+            icon: localStorage.getItem('tipo'),
+            confirmButtonText: 'Aceptar'
+        });
+
+        // Limpia el mensaje después de mostrarlo
+        localStorage.removeItem('mensaje');
+        localStorage.removeItem('tipo');
+    }
+    </script>
+
     <script>
     function validateForm() {
         const email = document.getElementById('email').value.trim();
@@ -161,6 +180,9 @@ $config = getConfig();
         return true;
     }
     </script>
+
+
+
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
