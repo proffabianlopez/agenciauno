@@ -559,6 +559,32 @@ function category_exists($name_category) {
         return false;
     }
 }
-
-
+function clients_exists($email_cliente) {
+    try {
+        $bd = database();
+        $query = "SELECT COUNT(*) FROM customers WHERE email_customer = :detail";
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':detail', $email_cliente, PDO::PARAM_STR);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        return $count > 0;
+    } catch (PDOException $e) {
+        echo "Error al verificar al cliente: " . $e->getMessage();
+        return false;
+    }
+}
+function user_exists($email_user) {
+    try {
+        $bd = database();
+        $query = "SELECT COUNT(*) FROM users WHERE email_user = :detail";
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':detail', $email_user, PDO::PARAM_STR);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        return $count > 0;
+    } catch (PDOException $e) {
+        echo "Error al verificar el usuario: " . $e->getMessage();
+        return false;
+    }
+}
 ?>

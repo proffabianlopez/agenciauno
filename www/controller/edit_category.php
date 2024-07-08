@@ -3,6 +3,7 @@ include_once "../models/functions.php";
 
 $id = $_POST['edit-id'];
 $detail = $_POST['edit-detail'];
+$detail=strtoupper($detail);
 $status = 1;
  if (!Updatecategory($id, $detail, $status)) {
    echo '<script>
