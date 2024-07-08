@@ -96,7 +96,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         </li>
                         <!-- Add the "Salida" button here -->
                         <li class="nav-item">
-                            <a href="index.html" class="nav-link">
+                            <a href="../index.html" class="nav-link">
                                 <i class="fa fa-globe nav-icon"></i>
                                 <p>Sitio Web</p>
                             </a>
