@@ -19,8 +19,12 @@ if(isset($_POST['delete-id_user'])) {
         echo '<script>window.location.href = "../views/crud_usuarios.php";</script>';
     }
     }else{
-        echo '<script>alert("No se puede borrar el ADMINISTRADOR");</script>';
-        echo '<script>window.location.href = "../views/crud_usuarios.php";</script>';
+        echo '<script>
+        localStorage.setItem("mensaje", "No se puede borrar al ADMINISTRADOR");
+        localStorage.setItem("tipo", "error");
+        window.location.href = "../views/crud_usuarios.php";
+            </script>'; 
+        
         }
 } else {
     echo '<script>alert("Error: ID de usuario no proporcionado");</script>';
