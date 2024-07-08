@@ -654,6 +654,4 @@ function obtenerUsuarioPorEmail($email)
     $sentence->execute();
     return $sentence->fetch(PDO::FETCH_ASSOC);
 }
-
-
 ?>

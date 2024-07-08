@@ -25,6 +25,4 @@ $usuario = obtenerUsuarioPorEmail($userEmail);
                 <span class="nav-link" style=" font-weight: bold; margin-right: 20px;">Rol: <?php echo htmlspecialchars($usuario['rol']); ?></span>
             </li>
         </ul>
-
-
   </nav>
