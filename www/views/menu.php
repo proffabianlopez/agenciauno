@@ -107,6 +107,16 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             <?php }} ?> 
                         </li>
 
+                        <li class="nav-item">
+                        <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> 
+                            <a href="email_config.php" class="nav-link">
+
+                                <i class="fa fa-envelope nav-icon"></i>
+                                <p>Config. Correo</p>
+                            </a>
+                            <?php }} ?> 
+                        </li>
 
                     </ul>
                 </li>

@@ -561,4 +561,56 @@ function category_exists($name_category) {
 }
 
 
+//Email-Config
+
+function getConnection() {
+    $user_password = getenv("MYSQLPASSWORD");
+    $user_name = getenv("MYSQLUSER");
+    $databasename = getenv("MYSQLDB");
+    $hostname = getenv("MYSQLSERVER");
+
+    try {
+        $database = new PDO("mysql:host=" . $hostname. ";dbname=" . $databasename, $user_name, $user_password);
+        $database->query("set names utf8;");
+        $database->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
+        $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $database->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+        return $database;
+    } catch (PDOException $e) {
+        echo "Error en la conexión: " . $e->getMessage();
+        die();
+    }
+}
+
+function saveConfig($email, $email_password, $smtp_address, $smtp_port) {
+    $db = getConnection();
+    $config = getConfig();
+
+    if ($config) {
+        // Actualizar configuración existente
+        $query = "UPDATE email_config SET email = :email, email_password = :email_password, smtp_address = :smtp_address, smtp_port = :smtp_port WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $config->id);
+    } else {
+        // Insertar nueva configuración
+        $query = "INSERT INTO email_config (email, email_password, smtp_address, smtp_port) VALUES (:email, :email_password, :smtp_address, :smtp_port)";
+        $stmt = $db->prepare($query);
+    }
+
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':email_password', $email_password);
+    $stmt->bindParam(':smtp_address', $smtp_address);
+    $stmt->bindParam(':smtp_port', $smtp_port);
+
+    return $stmt->execute();
+}
+
+function getConfig() {
+    $db = getConnection();
+    $query = "SELECT * FROM email_config ORDER BY id DESC LIMIT 1";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+
 ?>
