@@ -136,12 +136,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     </div>
                     <div class="form-group">
                         <label for="create-phone">Teléfono</label>
-                        <input type="number" class="form-control" id="create-phone" name="phone" required
+                        <input type="text" class="form-control" id="create-phone" name="phone" required
                             pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10 dígitos">
                     </div>
                     <div class="form-group">
                         <label for="create-password">Contraseña</label>
-                        <input type="password" class="form-control" id="create-password" name="password">
+                        <input type="password" class="form-control" id="create-password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
+       title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos un número, una letra mayúscula, una letra minúscula y un carácter especial." minlength="8" required>
                     </div>
                     <div class="form-group">
                         <label for="create-role">Rol</label>
@@ -191,7 +192,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     </div>
                     <div class="form-group">
                         <label for="edit-password">Contraseña</label>
-                        <input type="text" class="form-control" id="edit-password" name="edit-password">
+                        <input type="text" class="form-control" id="edit-password" name="edit-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
+       title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos un número, una letra mayúscula, una letra minúscula y un carácter especial." minlength="8">
                     </div>
                     <div class="form-group">
                         <label for="edit-role">Rol</label>
