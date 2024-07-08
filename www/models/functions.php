@@ -643,5 +643,11 @@ function user_exists($email_user) {
         return false;
     }
 }
-
+function check_existing_cliente($cuil, $email_Proveedor) {
+    $bd = database(); 
+    $sentence = $bd->prepare("SELECT COUNT(*) AS count FROM customers WHERE (tax_identifier = ? OR email_customer = ?) AND id_status != 0");
+    $sentence->execute([$cuil, $email_Proveedor]);
+    $row = $sentence->fetch(PDO::FETCH_ASSOC);
+    return $row['count'] > 0;
+}
 ?>
