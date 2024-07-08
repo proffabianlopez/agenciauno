@@ -22,8 +22,11 @@ if(isset($_POST['edit-id_category'])) {
             
         } else {
            //
-            echo '<script>alert("Eroor esta Marca Pertenece a un Producto");</script>';
-    echo '<script>window.location.href = "../views/crud_category.php";</script>'; // Salir del script después de la redirección
+           echo '<script>
+           localStorage.setItem("mensaje", "La categoria pertenece a una marca");
+           localStorage.setItem("tipo", "error");
+           window.location.href = "../views/crud_category.php";
+               </script>'; 
         }
     }
 

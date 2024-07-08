@@ -23,8 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         } else {
            //
-            echo '<script>alert("Eroor esta Marca Pertenece a un Producto");</script>';
-    echo '<script>window.location.href = "../views/crud_brands_new.php";</script>'; // Salir del script después de la redirección
+           echo '<script>
+           localStorage.setItem("mensaje", "La marca pertenece a un Producto");
+           localStorage.setItem("tipo", "error");
+           window.location.href = "../views/crud_category.php";
+               </script>'; 
         }
     }
 } 
