@@ -108,12 +108,15 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         </li>
 
 
-                        <!-- Add the "Salida" button here -->
+                       
                         <li class="nav-item">
+                        <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> 
                             <a href="../index.html" class="nav-link">
                                 <i class="fa fa-globe nav-icon"></i>
                                 <p>Sitio Web</p>
                             </a>
+                            <?php }} ?> 
                         </li>
 
                     </ul>
