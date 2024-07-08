@@ -117,7 +117,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="create-detail">Nombre</label>
                             <input type="text" class="form-control" id="create-detail" name="name_category"
-                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required>
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="50" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -144,7 +144,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="edit-detail">Nombre</label>
                             <input type="text" class="form-control" id="edit-detail" name="edit-detail"
-                                pattern="[A-Za-z]+" minlength="2" maxlength="30" required>
+                                pattern="[A-Za-z]+" minlength="2" maxlength="50" required>
                         </div>
                     </div>
                     <div class="modal-footer">
