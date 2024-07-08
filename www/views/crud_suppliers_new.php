@@ -293,7 +293,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="location">Localidad</label>
                             <input type="text" class="form-control" id="location" name="location" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
-                            minlength="2" maxlength="100" required>>
+                            minlength="2" maxlength="100" required>
                         </div>
 
 
