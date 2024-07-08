@@ -7,9 +7,12 @@ $status = 1;
 
 // Verificar si la categoría ya existe
 if (category_exists($name_category)) {
-    echo '<script>alert("La categoría ya existe. Por favor, elija un nombre diferente.");</script>';
-
-    echo '<script>window.location.href = "../views/crud_category.php";</script>';
+    
+    echo '<script>
+    localStorage.setItem("mensaje", "La categoria ya existe. Por favor, elija un nombre diferente");
+    localStorage.setItem("tipo", "error");
+    window.location.href = "../views/crud_category.php";
+        </script>';  
 } else {
     // Insertar la nueva categoría
     if (add_category($name_category, $status)) {
@@ -19,8 +22,11 @@ if (category_exists($name_category)) {
                 window.location.href = "../views/crud_category.php";
                     </script>';     
     } else {
-        echo '<script>alert("Error en la inserción");</script>';
-        echo '<script>window.location.href = "../views/crud_category.php";</script>';
+        echo '<script>
+        localStorage.setItem("mensaje", "Error al crear la categoria");
+        localStorage.setItem("tipo", "error");
+        window.location.href = "../views/crud_category.php";
+            </script>';
     }
 }
 ?>

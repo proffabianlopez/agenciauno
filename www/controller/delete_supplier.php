@@ -21,7 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit(); // Salir del script después de la redirección
         } else {
             // Mostrar un mensaje de error específico si la eliminación falla
-            echo "Error al intentar eliminar el proveedor.";
+            echo '<script>
+                localStorage.setItem("mensaje", "Error al eliminar el prooveedor");
+                localStorage.setItem("tipo", "error");
+                window.location.href = "../views/crud_suppliers_new.php";
+                    </script>'; 
         }
     }
 } 

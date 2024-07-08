@@ -19,8 +19,11 @@ if(isset($_POST['agregar'])){
     
     // Verificar si el cuil o el email ya existen en la base de datos
     if (check_existing_supplier($cuil, $email_Proveedor)) {
-        echo '<script>alert("el mail o cuil ya existen");</script>';
-    echo '<script>window.location.href = "../views/crud_suppliers_new.php";</script>';
+        echo '<script>
+        localStorage.setItem("mensaje", "El mail o el cuil ya existen");
+        localStorage.setItem("tipo", "error");
+        window.location.href = "../views/crud_suppliers_new.php";
+            </script>'; 
     } else {
         // Llamada a la función insert_suppliers
         $insert = insert_suppliers($name_Proveedor,$telefono,$email_Proveedor,$direccion,$altura,$piso,$numero_de_piso,$ciudad,$observaciones,$cuil);
@@ -30,7 +33,11 @@ if(isset($_POST['agregar'])){
                 window.location.href = "../views/crud_suppliers_new.php";
                     </script>';      
         if (!$insert) {
-            echo "Error en la inserción.";
+            echo '<script>
+            localStorage.setItem("mensaje", "Error al crear el prooveedor");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/crud_suppliers_new.php";
+                </script>';  
         }
     }
 }

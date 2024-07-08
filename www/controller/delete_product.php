@@ -22,7 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </script>';      
         } else {
             // Mostrar un mensaje de error específico si la eliminación falla
-            echo "Error al intentar eliminar el producto.";
+            echo '<script>
+                localStorage.setItem("mensaje", "error al eliminar el producto");
+                localStorage.setItem("tipo", "error");
+                window.location.href = "../views/crud_products_new.php";
+                    </script>'; 
         }
     }
 } 
