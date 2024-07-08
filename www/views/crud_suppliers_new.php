@@ -181,8 +181,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="name">Nombre </label>
 
-                            <input type="text" name="name_Proveedor" class="form-control" pattern="[A-Za-z]+"
-                                minlength="2" maxlength="30" required>
+                            <input type="text" name="name_Proveedor" class="form-control"
+                                minlength="2" maxlength="50" required>
 
                         </div>
                         <div class="form-group">
@@ -205,15 +205,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="ciudad">Localidad</label>
 
-                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-z]+" minlength="2"
-                                maxlength="20" required>
+                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2"
+                                maxlength="80" required>
 
 
                         </div>
                         <div class="form-group">
                             <label for="direction">Dirección</label>
                             <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
-                                minlength="2" maxlength="30" required>
+                                minlength="2" maxlength="50" required>
 
                         </div>
                         <div class="form-row">
@@ -270,7 +270,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
                             <input type="text" class="form-control" id="name_supplier" name="name"
-                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required value="">
+                             minlength="2" maxlength="100" required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_directiòn">Email</label>
@@ -279,27 +279,28 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="edit_heigth">CUIL/CUIT</label>
 
-                            <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{11}$"
+                            <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{11}$" maxlength="11"
                                 title="Debe contener exactamente 11 dígitos">
                         </div>
 
                         <div class="form-group">
                             <label for="edit_phone">Telefono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$"
+                            <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$"maxlength="10"
                                 title="Debe contener exactamente 10 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="location">Localidad</label>
                             <input type="text" class="form-control" id="location" name="location" value=""
-                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="20">
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"  minlength="2" maxlength="80">
                         </div>
 
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="street">Dirección</label>
-                                <input type="text" id="street" name="street" class="form-control" required>
+                                <input type="text" id="street" name="street" class="form-control"  pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                                minlength="2" maxlength="50" required>
 
 
                             </div>
