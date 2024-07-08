@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            echo '<script>
            localStorage.setItem("mensaje", "La marca pertenece a un Producto");
            localStorage.setItem("tipo", "error");
-           window.location.href = "../views/crud_category.php";
+           window.location.href = "../views/crud_brands_newphp";
                </script>'; 
         }
     }
