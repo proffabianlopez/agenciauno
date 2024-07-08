@@ -132,12 +132,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="create-user">Email de usuario</label>
-                        <input type="email" class="form-control" id="create-user" name="name_user">
+                        <input type="email" class="form-control" id="create-user" name="name_user" minlength="2" maxlength="200" required
+                        title="Debe contenter solo letras">
                     </div>
                     <div class="form-group">
                         <label for="create-phone">Teléfono</label>
                         <input type="text" class="form-control" id="create-phone" name="phone" required
-                            pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10 dígitos">
+                            pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
                     </div>
                     <div class="form-group">
                         <label for="create-password">Contraseña</label>
@@ -183,12 +184,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                     <div class="form-group">
                         <label for="edit-name">Email de usuario</label>
-                        <input type="email" class="form-control" id="edit-name" name="edit-name">
+                        <input type="email" class="form-control" id="edit-name" name="edit-name" minlength="2" maxlength="200" required
+                        title="Debe contenter solo letras">
                     </div>
                     <div class="form-group">
                         <label for="edit-phone">Teléfono</label>
                         <input type="text" class="form-control" id="edit-phone" name="edit-phone" pattern="^\d{10}$"
-                            maxlength="10" title="Debe contener exactamente 10 dígitos">
+                            maxlength="10" title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
                     </div>
                     <div class="form-group">
                         <label for="edit-password">Contraseña</label>
