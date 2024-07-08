@@ -11,6 +11,10 @@ $status = 1;
    window.location.href = "../views/crud_category.php";
        </script>';    
 } else {
-     echo 'Error al actualizar.';
+     echo '<script>
+   localStorage.setItem("mensaje", "Error al actualizar la categoria");
+   localStorage.setItem("tipo", "error");
+   window.location.href = "../views/crud_category.php";
+       </script>';   
 }
 ?>

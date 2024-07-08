@@ -27,7 +27,11 @@ if(isset($_POST['enviar'])){
                     </script>';      
         }else
         {
-            echo "error en la insersion";
+            echo '<script>
+            localStorage.setItem("mensaje", "Error al crear el producto");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/crud_products_new.php";
+                </script>';   
         }
 }
 

@@ -31,7 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </script>';      
         } else {
             // Mostrar un mensaje de error si falla la actualización
-            echo "Error al actualizar los datos.";
+            echo '<script>
+            localStorage.setItem("mensaje", "Error al actualizar los datos");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/crud_products_new.php";
+                </script>';   
         }
     }
 }

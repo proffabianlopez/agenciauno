@@ -15,8 +15,11 @@ if(isset($_POST['delete-id_user'])) {
                     </script>';    
     } else {
         
-        echo '<script>alert("Error al intentar eliminar el usuario");</script>';
-        echo '<script>window.location.href = "../views/crud_usuarios.php";</script>';
+        echo '<script>
+        localStorage.setItem("mensaje", "Error al eliminar al usuario");
+        localStorage.setItem("tipo", "error");
+        window.location.href = "../views/crud_usuarios.php";
+            </script>'; 
     }
     }else{
         echo '<script>
