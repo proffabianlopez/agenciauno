@@ -8,7 +8,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     exit();
 }
 $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'Usuario no autenticado';
-
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -17,10 +16,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
         <div class="container text-center">
             <div class="col-xs-9">
                 <div class="card-header text-center">
-
-                    <a href="home.php"
-                        style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;">
-
+                    <a href="home.php" style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;">
                         <h3 class="h3"><b>Agencia</b>UNO</h3>
                     </a>
                 </div>
@@ -66,12 +62,9 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             </a>
                         </li>
                         <li class="nav-item">
-
-
                             <a href="#" class="nav-link">
                                 <i class="fa fa-building nav-icon"></i>
                                 <p>Artículos <i class="fas fa-angle-left right"></i></p>
-
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -79,10 +72,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                                         <i class="fa fa-microchip nav-icon"></i>
                                         <p>Productos</p>
                                     </a>
-
-
                                     <a href="crud_brands_new.php" class="nav-link">
-
                                         <i class="fa fa-indent nav-icon"></i>
                                         <p>Marcas</p>
                                     </a>
@@ -94,35 +84,36 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                                     </a>
                                 </li>
                             </ul>
-
                         </li>
                         <li class="nav-item">
-                        <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?> 
-                            <a href="crud_usuarios.php" class="nav-link">
-
-                                <i class="fa fa-user nav-icon"></i>
-                                <p>Usuarios</p>
-                            </a>
+                            <?php if (isset($_SESSION["id_rol"])) {
+                                if ($_SESSION["id_rol"] === 1) { ?> 
+                                    <a href="crud_usuarios.php" class="nav-link">
+                                        <i class="fa fa-user nav-icon"></i>
+                                        <p>Usuarios</p>
+                                    </a>
                             <?php }} ?> 
                         </li>
-
-
+                        <!-- Add the "Salida" button here -->
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link">
+                                <i class="fa fa-globe nav-icon"></i>
+                                <p>Sitio Web</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-
+            </ul>
         </nav>
         <br><br>
-        <div class="info">
+        <!-- Make the "Cerrar Sesión" link fixed at the bottom -->
+        <div class="info position-absolute fixed-bottom mb-3">
             <a href="../controller/logout.php" style="text-decoration: none !important">
                 <h5 class="d-block" style="color:white">&#128274; Cerrar Sesión</h5>
             </a>
-
         </div>
         <!-- /.sidebar-menu -->
     </div>
-
-
     <!-- /.sidebar -->
 </aside>
 
