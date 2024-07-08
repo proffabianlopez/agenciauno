@@ -644,22 +644,5 @@ function user_exists($email_user) {
     }
 }
 
-function check_existing_cliente($cuil, $email_Proveedor) {
-    $bd = database(); 
-    $sentence = $bd->prepare("SELECT COUNT(*) AS count FROM customers WHERE (tax_identifier = ? OR email_customer = ?) AND id_status != 0");
-    $sentence->execute([$cuil, $email_Proveedor]);
-    $row = $sentence->fetch(PDO::FETCH_ASSOC);
-    return $row['count'] > 0;
 
-function obtenerUsuarioPorEmail($email)
-{
-    $bd = database();
-    $sentence = $bd->prepare("SELECT u.id_user, u.email_user, u.id_rol, r.detail as rol
-                              FROM users u
-                              JOIN roles r ON u.id_rol = r.id_rol
-                              WHERE u.email_user = :email");
-    $sentence->bindParam(':email', $email, PDO::PARAM_STR);
-    $sentence->execute();
-    return $sentence->fetch(PDO::FETCH_ASSOC);
-}
 ?>
