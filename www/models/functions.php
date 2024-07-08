@@ -643,5 +643,17 @@ function user_exists($email_user) {
         return false;
     }
 }
+function obtenerUsuarioPorEmail($email)
+{
+    $bd = database();
+    $sentence = $bd->prepare("SELECT u.id_user, u.email_user, u.id_rol, r.detail as rol
+                              FROM users u
+                              JOIN roles r ON u.id_rol = r.id_rol
+                              WHERE u.email_user = :email");
+    $sentence->bindParam(':email', $email, PDO::PARAM_STR);
+    $sentence->execute();
+    return $sentence->fetch(PDO::FETCH_ASSOC);
+}
+
 
 ?>
