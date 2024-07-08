@@ -182,12 +182,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <label for="name">Nombre </label>
 
                             <input type="text" name="name_Proveedor" class="form-control"
-                                minlength="2" maxlength="50" required>
+                                minlength="2" maxlength="200" required>
 
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" name="email_Proveedor" class="form-control" required>
+                            <input type="email" name="email_Proveedor" class="form-control" minlength="2" maxlength="200" required>
                         </div>
                         <div class="form-group">
                             <label for="cuil">CUIL/CUIT</label>
@@ -199,37 +199,38 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
                             <input type="text" name="telefono" class="form-control" required pattern="^\d{10}$"
-                                maxlength="10" title="Debe contener exactamente 10 dígitos">
+                                maxlength="10"  title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="ciudad">Localidad</label>
 
-                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2"
-                                maxlength="80" required>
+                            <input type="text" name="ciudad" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                            minlength="2" maxlength="100" required>
 
 
                         </div>
                         <div class="form-group">
                             <label for="direction">Dirección</label>
-                            <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
-                                minlength="2" maxlength="50" required>
+                            <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
+                            title="Ingrese solo letras y números, sin puntos ni comas">
 
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
-                                <input type="number" name="altura" class="form-control" required min="1">
+                                <input type="number" name="altura" class="form-control" max="100000000"
+                                required title="solo se permiten números">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="piso">Piso</label>
-                                <input type="text" name="piso" class="form-control">
+                                <input type="text" name="piso" class="form-control" maxlength="4">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="numero_de_piso">Departamento</label>
-                                <input type="text" name="numero_de_piso" class="form-control">
+                                <input type="text" name="numero_de_piso" class="form-control" maxlength="4">
 
                             </div>
                         </div>
@@ -270,11 +271,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
                             <input type="text" class="form-control" id="name_supplier" name="name"
-                             minlength="2" maxlength="100" required value="">
+                             minlength="2" maxlength="200" required value="">
                         </div>
                         <div class="form-group">
                             <label for="edit_directiòn">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required value="">
+                            <input type="email" class="form-control" id="email" name="email" minlength="2" maxlength="200" required>
                         </div>
                         <div class="form-group">
                             <label for="edit_heigth">CUIL/CUIT</label>
@@ -291,35 +292,36 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="location">Localidad</label>
-                            <input type="text" class="form-control" id="location" name="location" value=""
-                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"  minlength="2" maxlength="80">
+                            <input type="text" class="form-control" id="location" name="location" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                            minlength="2" maxlength="100" required>>
                         </div>
 
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="street">Dirección</label>
-                                <input type="text" id="street" name="street" class="form-control"  pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
-                                minlength="2" maxlength="50" required>
+                                <input type="text" id="street" name="street" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
+                                title="Ingrese solo letras y números, sin puntos ni comas">
 
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
 
-                                <input type="number" id="height" name="height" class="form-control" required min="1">
+                                <input type="number" id="height" name="height" class="form-control" max="100000000"
+                                required title="solo se permiten números">
 
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="floor">Piso</label>
-                                <input type="text" id="floor" name="floor" class="form-control">
+                                <input type="text" id="floor" name="floor" class="form-control" maxlength="4">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="departament">Departamento</label>
 
-                                <input type="text" id="departament" name="departament" class="form-control">
+                                <input type="text" id="departament" name="departament" class="form-control" maxlength="4">
 
 
                             </div>

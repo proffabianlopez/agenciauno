@@ -3,6 +3,7 @@ include_once "../models/functions.php";
 
 $id = $_POST['edit-id'];
 $detail = $_POST['edit-detail'];
+$detail=strtoupper($detail);
 $status = 1;
  if (!Updatecategory($id, $detail, $status)) {
    echo '<script>
@@ -11,6 +12,10 @@ $status = 1;
    window.location.href = "../views/crud_category.php";
        </script>';    
 } else {
-     echo 'Error al actualizar.';
+     echo '<script>
+   localStorage.setItem("mensaje", "Error al actualizar la categoria");
+   localStorage.setItem("tipo", "error");
+   window.location.href = "../views/crud_category.php";
+       </script>';   
 }
 ?>

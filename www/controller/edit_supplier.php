@@ -32,7 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </script>';          
             } else {
                 // Mostrar un mensaje de error si falla la actualización
-                echo "Error al actualizar los datos.";
+                echo '<script>
+                localStorage.setItem("mensaje", "Error al editar al prooveedor");
+                localStorage.setItem("tipo", "error");
+                window.location.href = "../views/crud_suppliers_new.php";
+                    </script>';  
             }
         } else {
             echo "ID de proveedor inválido.";

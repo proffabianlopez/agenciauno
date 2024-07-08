@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $id_brand = $_POST["id_brand"];
         $detail = isset($_POST["detail"]) ? $_POST["detail"] : null;
+        $detail=strtoupper($detail);
       
         // Actualizar los datos del proveedor en la base de datos
         $updated = update_brands($id_brand,$detail);
@@ -27,7 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </script>';     
         } else {
             // Mostrar un mensaje de error si falla la actualización
-            echo "Error al actualizar los datos.";
+            echo '<script>
+            localStorage.setItem("mensaje", "Error al editar marca");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/crud_brands_new.php";
+                </script>'; 
         }
     }
 }

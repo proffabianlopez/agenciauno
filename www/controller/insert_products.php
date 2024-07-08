@@ -15,7 +15,7 @@ if(isset($_POST['enviar'])){
     $id_brand = $_POST['id_brand'];
     $id_category = $_POST['id_category'];
     
-    
+    //ACA NO VALIDO SI EXISTE EL PRODUCTO POR QUE PUEDE TENER VARIOS PRODUCTOS CON DISTINTAS DESCRIPCIONES
        
         $insert = insert_products($number_serial,$number_product,$name_product,$description,$stock,$id_brand,$id_category);
        
@@ -27,7 +27,11 @@ if(isset($_POST['enviar'])){
                     </script>';      
         }else
         {
-            echo "error en la insersion";
+            echo '<script>
+            localStorage.setItem("mensaje", "Error al crear el producto");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/crud_products_new.php";
+                </script>';   
         }
 }
 

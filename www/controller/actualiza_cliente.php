@@ -23,7 +23,11 @@ if (!Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, 
     window.location.href = "../views/crud_cliente.php";
         </script>';            
     } else {
-        echo 'Error al actualizar.';
+        echo '<script>
+        localStorage.setItem("mensaje", "Error al editar el cliente");
+        localStorage.setItem("tipo", "success");
+        window.location.href = "../views/crud_cliente.php";
+            </script>';   
     }
     
 ?>
