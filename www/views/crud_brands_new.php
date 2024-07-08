@@ -138,8 +138,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="form-group">
                             <label for="name_product">Nombre</label>
-                            <input type="text" name="detail" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
-                                minlength="2" maxlength="30" required>
+                            <input type="text" name="detail" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+"
+                                minlength="2" maxlength="200" required>
 
                         </div>
                     </div>
@@ -177,7 +177,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
                             <input type="text" class="form-control" id="detail" name="detail"
-                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="30" required value="">
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" minlength="2" maxlength="200" required value="">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" name="save_data">Guardar</button>
