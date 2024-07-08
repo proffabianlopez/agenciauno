@@ -7,7 +7,7 @@ if(isset($_POST['enviar'])){
 
 
     $email_user = $_POST['email_user'];
-    
+    $email_user=strtoupper($email_user);
     $password = $_POST['password'];
     $compare= login($email_user,$password);
    
