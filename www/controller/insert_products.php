@@ -17,9 +17,9 @@ if(isset($_POST['enviar'])){
     
     //ACA NO VALIDO SI EXISTE EL PRODUCTO POR QUE PUEDE TENER VARIOS PRODUCTOS CON DISTINTAS DESCRIPCIONES
        
-        $insert = insert_products($number_serial,$number_product,$name_product,$description,$stock,$id_brand,$id_category);
+        $insert = insert_products($number_product,$name_product,$description,$stock,$id_brand,$id_category);
        
-        if ($insert) {
+       if ($insert) {
             echo '<script>
                 localStorage.setItem("mensaje", "Producto creado con éxito");
                 localStorage.setItem("tipo", "success");
