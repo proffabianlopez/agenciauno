@@ -373,12 +373,11 @@ function getproducts($id_product)
         return null;
     }
 }
-function update_products($number_serial,$number_product,$id_product, $name_product, $description, $stock)
+function update_products($number_product,$id_product, $name_product, $description, $stock)
 {
     try {
         $bd = database();
         $query = "UPDATE products SET
-        number_serial = :number_serial,
         number_product = :number_product,
         name_product = :name_product, 
         description = :description, 
@@ -387,7 +386,7 @@ function update_products($number_serial,$number_product,$id_product, $name_produ
 
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
-        $consulta->bindParam(':number_serial', $number_serial, PDO::PARAM_STR);
+       
         $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
         $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
         $consulta->bindParam(':description', $description, PDO::PARAM_STR);
