@@ -15,7 +15,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agencia 1</title>
+    <title>Agencia UNO</title>
     <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
@@ -45,7 +45,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="card-header">
                             <div class="row mb-12">
                                 <div class="col-sm-6">
-                                    <h4><b>Listado de Categorias</b>
+                                    <h4><b>Listado de Categorías</b>
                                     <?php if (isset($_SESSION["id_rol"])) {
             if($_SESSION["id_rol"]=== 1) {?> 
                                         <a type="button"
@@ -65,7 +65,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <table class="table table-striped table-hover" id="table_products">
                                 <thead>
                                     <tr>
-                                        <th>Categorias</th>
+                                        <th>Categorías</th>
                                         <?php if (isset($_SESSION["id_rol"])) {
             if($_SESSION["id_rol"]=== 1) {?>   <th>Acciones</th><?php }} ?> 
                                     </tr>
@@ -107,7 +107,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Crear Categoria</h4>
+                    <h4 class="modal-title text-white">Crear Categoría</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" style="color: white;">&times;</span>
                     </button>
@@ -133,7 +133,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Editar Categoria</h4>
+                    <h4 class="modal-title text-white">Editar Categoría</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" style="color: white;">&times;</span>
                     </button>
@@ -160,14 +160,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h4 class="modal-title text-white">Deshabilitar</h4>
+                    <h4 class="modal-title text-white">Deshabilitar Categoría</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" style="color: white;">&times;</span>
                     </button>
                 </div>
                 <form action="../controller/delete_category.php" method="post">
                     <div class="modal-body">
-                        <p>¿Está seguro que desea Deshabilitar esta categoria?</p>
+                        <p>¿Está seguro que desea Deshabilitar esta categoría?</p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="edit-id_category" id="edit-id_category">

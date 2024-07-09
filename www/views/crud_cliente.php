@@ -61,11 +61,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="row mb-12">
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Clientes&nbsp&nbsp</b>
-                                    <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?>  <button type="button" class="btn btn-success" data-toggle="modal"
+                                        <?php if (isset($_SESSION["id_rol"])) {
+            if($_SESSION["id_rol"]=== 1) {?> <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#createEmployeeModal" data-action="add" data-placement="right"
                                             title="Nuevo"><i class="fas fa-plus-circle fa-lg"></i></button>
-                                            <?php }} ?> 
+                                        <?php }} ?>
                                     </h4>
                                 </div><!-- /.col -->
                                 <div class="col-sm-6" id="botones" style="text-align: center;">
@@ -91,7 +91,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <!-- <th>departamento</th> -->
                                         <!-- <th>Localidad</th> -->
                                         <!-- <th>Observaciones</th> -->
-                                        <th>Acción</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,10 +125,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                     style="width: 19px; height: 10px;"
                                                     class="fas fa-binoculars"></i></a>
 
-                                                    <?php if (isset($_SESSION["id_rol"])) {
+                                            <?php if (isset($_SESSION["id_rol"])) {
             if($_SESSION["id_rol"]=== 1) {?>
                                             <a href="#editEmployeeModal"
-                                          class="edit btn btn-warning long_letter text-white" data-toggle="modal" 
+                                                class="edit btn btn-warning long_letter text-white" data-toggle="modal"
                                                 data-id="<?php echo $cliente['id_customer']; ?>"
                                                 data-name="<?php echo $cliente['customer_name']; ?>"
                                                 data-email="<?php echo $cliente['email_customer']; ?>"
@@ -143,14 +143,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                     style="width: 19px; height: 10px;" class="fas fa-edit"></i></a>
 
 
-                                                   
+
                                             <a href="#deleteEmployeeModal"
                                                 class="delete btn btn-danger delete_Btn long_letter text-white"
                                                 data-toggle="modal" data-id="<?php echo $cliente['id_customer']; ?>"
                                                 data-name="<?php echo $cliente['customer_name']; ?>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
-                                            <?php }} ?> 
+                                            <?php }} ?>
                                         </td>
 
                                     </tr>
@@ -173,7 +173,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Dar de Alta un Cliente</h4>
+                    <h4 class="modal-title text-white">Crear Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -183,18 +183,19 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <div class="form-group">
                             <label for="edit-name">Nombre</label>
-                            <input type="text" id="edit-name" name="name_cliente" class="form-control" minlength="2" maxlength="200" required
-                                title="Debe contenter solo letras">
+                            <input type="text" id="edit-name" name="name_cliente" class="form-control" minlength="2"
+                                maxlength="200" required title="Debe contenter solo letras">
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
-                            <input type="email" class="form-control" id="edit-email" name="email_cliente" maxlength="200" required>
+                            <input type="email" class="form-control" id="edit-email" name="email_cliente"
+                                maxlength="200" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
 
-                            <input type="text" class="form-control" id="edit-cuit" name="identifier"
-                                pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos">
+                            <input type="text" class="form-control" id="edit-cuit" name="identifier" pattern="^\d{11}$"
+                                maxlength="11" title="Debe contener exactamente 11 dígitos">
 
 
                         </div>
@@ -202,21 +203,22 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <label for="edit-phone">Teléfono</label>
 
                             <input type="text" class="form-control" id="edit-phone" name="telefono" required
-                                pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
+                                pattern="^\d{10}$" maxlength="10"
+                                title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
 
                         </div>
                         <div class="form-group">
-    <label for="edit-street">Dirección</label>
-    <input type="text" class="form-control" id="edit-street" name="direccion"
-           pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
-           title="Ingrese solo letras y números, sin puntos ni comas">
-</div>
+                            <label for="edit-street">Dirección</label>
+                            <input type="text" class="form-control" id="edit-street" name="direccion"
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
+                                title="Ingrese solo letras y números, sin puntos ni comas">
+                        </div>
 
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="edit-height">Altura</label>
-                                <input type="number" class="form-control" id="edit-height" name="altura"  max="100000000"
+                                <input type="number" class="form-control" id="edit-height" name="altura" max="100000000"
                                     required title="solo se permiten números">
                             </div>
                             <div class="form-group col-md-3">
@@ -225,13 +227,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-department">Departamento</label>
-                                <input type="text" class="form-control" id="edit-department" name="department" maxlength="4">
+                                <input type="text" class="form-control" id="edit-department" name="department"
+                                    maxlength="4">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="edit-location">Localidad</label>
-                            <input type="text" class="form-control" id="edit-location" name="ciudad" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
-                                minlength="2" maxlength="100" required>
+                            <input type="text" class="form-control" id="edit-location" name="ciudad"
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="100" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-observaciones">Observaciones</label>
@@ -263,7 +266,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Editar un Cliente</h4>
+                    <h4 class="modal-title text-white">Editar Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -273,46 +276,52 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <input type="hidden" name="edit-id_customer" id="edit-id_customer">
                         <div class="form-group">
                             <label for="edit-name">Nombre</label>
-                            <input type="text" class="form-control" id="edit-name" name="edit-name" minlength="2" maxlength="200" required title="Debe contenter solo letras">
+                            <input type="text" class="form-control" id="edit-name" name="edit-name" minlength="2"
+                                maxlength="200" required title="Debe contenter solo letras">
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
-                            <input type="email" class="form-control" id="edit-email" name="edit-email" maxlength="200" required>
+                            <input type="email" class="form-control" id="edit-email" name="edit-email" maxlength="200"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="edit-cuit">CUIL/CUIT</label>
 
-                            <input type="text" class="form-control" id="edit-cuit" name="edit-cuit" pattern="^\d{11}$" maxlength="11" title="Debe contener exactamente 11 dígitos"></input>
+                            <input type="text" class="form-control" id="edit-cuit" name="edit-cuit" pattern="^\d{11}$"
+                                maxlength="11" title="Debe contener exactamente 11 dígitos"></input>
                         </div>
                         <div class="form-group">
                             <label for="edit-phone">Teléfono</label>
-                            <input type="text" class="form-control" id="edit-phone" name="edit-phone"  pattern="^\d{10}$" maxlength="10" title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
+                            <input type="text" class="form-control" id="edit-phone" name="edit-phone" pattern="^\d{10}$"
+                                maxlength="10" title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
 
                         </div>
                         <div class="form-group">
                             <label for="edit-street">Dirección</label>
-                            <input type="text" class="form-control" id="edit-street" name="edit-street"  pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
-                            title="Ingrese solo letras y números, sin puntos ni comas">
+                            <input type="text" class="form-control" id="edit-street" name="edit-street"
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
+                                title="Ingrese solo letras y números, sin puntos ni comas">
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="edit-height">Altura</label>
-                                <input type="number" class="form-control" id="edit-height" name="edit-height" max="100000000"
-                                required title="solo se permiten números">
+                                <input type="number" class="form-control" id="edit-height" name="edit-height"
+                                    max="100000000" required title="solo se permiten números">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-floor">Piso</label>
                                 <input type="text" class="form-control" id="edit-floor" name="edit-floor" maxlength="4">
-                            </div >
+                            </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-department">Departamento</label>
-                                <input type="text" class="form-control" id="edit-department" name="edit-department" maxlength="4">
+                                <input type="text" class="form-control" id="edit-department" name="edit-department"
+                                    maxlength="4">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="edit-location">Localidad</label>
-                            <input type="text" class="form-control" id="edit-location" name="edit-location" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
-                            minlength="2" maxlength="100" required>
+                            <input type="text" class="form-control" id="edit-location" name="edit-location"
+                                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" minlength="2" maxlength="100" required>
 
                         </div>
                         <div class="form-group">
@@ -336,7 +345,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             <div class="modal-content">
 
                 <div class="modal-header bg-success">
-                    <h4 class="modal-title text-white">Detalles del Cliente</h4>
+                    <h4 class="modal-title text-white">Detalles Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -411,7 +420,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h4 class="modal-title text-white">Deshabilitar un Cliente</h4>
+                    <h4 class="modal-title text-white">Deshabilitar Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <form action="../controller/eliminar_cliente.php" method="post">
@@ -459,16 +468,16 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- ./wrapper -->
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
-    
-    
+
+
     <!-- Bootstrap 4 -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <script src="../assets/js/accions.js"></script>
 
-     <!-- DataTables JS -->
-     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
@@ -488,7 +497,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
 
     <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
         var table = $('#table_clientes').DataTable({
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 75, 100], // Opciones de cantidad de registros a mostrar

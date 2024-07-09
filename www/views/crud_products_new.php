@@ -86,9 +86,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <thead>
                                     <tr>
                                         <!--<th>Numero De Serie</th>-->
-                                        <th>Numero De Producto</th>
+                                        <th>Número De Producto</th>
                                         <th>Nombre Producto</th>
-                                        <th>Descripcion</th>
+                                        <th>Descripción</th>
                                         <th>Stock</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -145,7 +145,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             <div class="modal-content">
                 <div class="modal-header bg-primary">
 
-                    <h4 class="modal-title text-white">Dar de Alta Un Producto</h4>
+                    <h4 class="modal-title text-white">Crear Producto</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -217,7 +217,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Editar un Producto</h4>
+                    <h4 class="modal-title text-white">Editar Producto</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                         style="color: white;">
                         <span aria-hidden="true">&times;</span>
@@ -233,12 +233,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 required value="">
                         </div>
                         <div class="form-group">
-                            <label for="edit_description">Descripcion</label>
+                            <label for="edit_description">Descripción</label>
                             <input type="text" class="form-control" id="description" name="description" value="">
                         </div>
                 
                         <div class="form-group">
-                            <label for="edit_name">Numero de producto</label>
+                            <label for="edit_name">Número de producto</label>
                             <input type="text" class="form-control" id="number_product" name="number_product"
                                 minlength="2" maxlength="200" value="">
                         </div>
@@ -266,7 +266,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h4 class="modal-title text-white">Detalles del Producto</h4>
+                    <h4 class="modal-title text-white">Detalles Producto</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -287,7 +287,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="view_number_product">Numero de producto</label>
+                                    <label for="view_number_product">Número de producto</label>
                                     <input type="text" class="form-control" id="view_number_product" readonly
                                         name="view_number_product" value="">
                                 </div>
@@ -319,7 +319,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h4 class="modal-title text-white">Deshabilitar un Producto</h4>
+                    <h4 class="modal-title text-white">Deshabilitar Producto</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white"
                         ;>
                         <span aria-hidden="true">&times;</span>
