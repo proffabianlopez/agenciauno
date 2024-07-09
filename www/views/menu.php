@@ -112,7 +112,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         <li class="nav-item">
                         <?php if (isset($_SESSION["id_rol"])) {
             if($_SESSION["id_rol"]=== 1) {?> 
-                            <a href="../index.html" class="nav-link">
+                            <a href="../index.html" class="nav-link" target="_blank">
                                 <i class="fa fa-globe nav-icon"></i>
                                 <p>Sitio Web</p>
                             </a>

@@ -19,7 +19,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agencia 1</title>
+    <title>Agencia UNO</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -128,7 +128,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             <div class="modal-content">
                 <div class="modal-header bg-primary">
 
-                    <h4 class="modal-title text-white">Dar de Alta Una Marca</h4>
+                    <h4 class="modal-title text-white">Crear Marca</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -203,7 +203,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
                 <form action="../controller/delete_brand.php" method="post">
                     <div class="modal-body">
-                        <h4>Estas seguro que desea Deshabilitar la Marca: </h4>
+                        <h4>Estas seguro que desea Deshabilitar la Marca </h4>
                         <br>
                         <div class="form-row">
                             <div class="form-group col-md-3">

@@ -66,7 +66,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <th>Usuario</th>
                                         <th>Teléfono</th>
                                         <th>Contraseña</th>
-                                        <th>Accion</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -131,7 +131,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="create-user">Email de usuario</label>
+                        <label for="create-user">Email de Usuario</label>
                         <input type="email" class="form-control" id="create-user" name="name_user" minlength="2" maxlength="200" required
                         title="Debe contenter solo letras">
                     </div>
@@ -224,7 +224,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h4 class="modal-title text-white">Detalles del Usuario</h4>
+                    <h4 class="modal-title text-white">Detalles Usuario</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

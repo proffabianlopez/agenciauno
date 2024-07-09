@@ -170,7 +170,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Dar de Alta un Proveedor</h4>
+                    <h4 class="modal-title text-white">Crear Proveedor</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -258,7 +258,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Editar un Proveedor</h4>
+                    <h4 class="modal-title text-white">Editar Proveedor</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                         style="color: white;">
                         <span aria-hidden="true">&times;</span>
@@ -285,7 +285,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
 
                         <div class="form-group">
-                            <label for="edit_phone">Telefono</label>
+                            <label for="edit_phone">Teléfono</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$"maxlength="10"
                                 title="Debe contener exactamente 10 dígitos">
 
@@ -351,7 +351,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h4 class="modal-title text-white">Detalles del Proveedor</h4>
+                    <h4 class="modal-title text-white">Detalles Proveedor</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                         style="color: white;">
                         <span aria-hidden="true">&times;</span>
@@ -421,7 +421,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h4 class="modal-title text-white">Deshabilitar un Proveedor</h4>
+                    <h4 class="modal-title text-white">Deshabilitar Proveedor</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="color: white"
                         ;>
                         <span aria-hidden="true">&times;</span>
@@ -429,7 +429,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
                 <form action="../controller/delete_supplier.php" method="post">
                     <div class="modal-body" style="text-align:center">
-                        <h3>Estas seguro que desea Deshabilitar al Proveedor: </h3>
+                        <h3>Estas seguro que desea Deshabilitar al Proveedor </h3>
                         <br>
                         <div class="form-row">
                             <div class="form-group col-md-3">
