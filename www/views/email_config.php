@@ -92,12 +92,12 @@ $config = getConfig();
                                 onsubmit="return validateForm()">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="email">Correo</label>
+                                        <label for="email">Correo para SMTP</label>
                                         <input type="email" class="form-control" id="email" name="email"
                                             value="<?php echo $config ? htmlspecialchars($config->email) : ''; ?>"
                                             placeholder="Ingrese el correo">
                                     </div>
-
+                                    
                                     <div class="mb-3">
                                         <label for="email_password" class="form-label">Contraseña</label>
                                         <div class="input-group">
@@ -109,6 +109,12 @@ $config = getConfig();
                                                 <i class="far fa-eye" id="eyeIcon"></i>
                                             </button>
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email_receive">Correo Recepción</label>
+                                        <input type="email" class="form-control" id="email_receive" name="email_receive"
+                                            value="<?php echo $config ? htmlspecialchars($config->email_receive) : ''; ?>"
+                                            placeholder="Ingrese el correo">
                                     </div>
                                     <div class="form-group">
                                         <label for="smtp_address">Dirección SMTP</label>

@@ -583,23 +583,24 @@ function getConnection() {
     }
 }
 
-function saveConfig($email, $email_password, $smtp_address, $smtp_port) {
+function saveConfig($email, $email_password, $email_receive, $smtp_address, $smtp_port) {
     $db = getConnection();
     $config = getConfig();
 
     if ($config) {
         // Actualizar configuración existente
-        $query = "UPDATE email_config SET email = :email, email_password = :email_password, smtp_address = :smtp_address, smtp_port = :smtp_port WHERE id = :id";
+        $query = "UPDATE email_config SET email = :email, email_password = :email_password, email_receive= :email_receive, smtp_address = :smtp_address, smtp_port = :smtp_port WHERE id = :id";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':id', $config->id);
     } else {
         // Insertar nueva configuración
-        $query = "INSERT INTO email_config (email, email_password, smtp_address, smtp_port) VALUES (:email, :email_password, :smtp_address, :smtp_port)";
+        $query = "INSERT INTO email_config (email, email_password, email_receive, smtp_address, smtp_port) VALUES (:email, :email_password, :smtp_address, :smtp_port)";
         $stmt = $db->prepare($query);
     }
 
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':email_password', $email_password);
+    $stmt->bindParam(':email_receive', $email_receive);
     $stmt->bindParam(':smtp_address', $smtp_address);
     $stmt->bindParam(':smtp_port', $smtp_port);
 

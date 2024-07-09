@@ -9,8 +9,11 @@ $message = '';
 if ($_POST) {
     $email = trim($_POST['email']);
     $email_password = trim($_POST['email_password']);
+    $email_receive = trim($_POST['email_receive']);
     $smtp_address = trim($_POST['smtp_address']);
     $smtp_port = trim($_POST['smtp_port']);
+
+    
 
     $errors = [];
 
@@ -31,7 +34,7 @@ if ($_POST) {
     }
 
     if (empty($errors)) {
-        if (saveConfig($email, $email_password, $smtp_address, $smtp_port)) {
+        if (saveConfig($email, $email_password,$email_receive,$smtp_address, $smtp_port)) {
             // Mensaje para SweetAlert
             echo '<script>
                     localStorage.setItem("mensaje", "Configuración de correo guardada correctamente.");
@@ -57,6 +60,7 @@ $message = '';
 if ($_POST) {
     $email = trim($_POST['email']);
     $email_password = trim($_POST['email_password']);
+    $email_receive = trim($_POST['email_receive']);
     $smtp_address = trim($_POST['smtp_address']);
     $smtp_port = trim($_POST['smtp_port']);
 
@@ -79,7 +83,7 @@ if ($_POST) {
     }
 
     if (empty($errors)) {
-        if (saveConfig($email, $email_password, $smtp_address, $smtp_port)) {
+        if (saveConfig($email, $email_password,$email_receive, $smtp_address, $smtp_port)) {
             // Mensaje para SweetAlert
             echo '<script>
                     localStorage.setItem("mensaje", "Configuración de correo guardada correctamente.");
