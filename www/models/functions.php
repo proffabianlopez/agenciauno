@@ -410,14 +410,13 @@ function eliminated_Suppliers($table, $id_user) {
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
 
-  function insert_products($number_serial,$number_product,$name_product, $description, $stock, $id_brand,$id_category) {
+  function insert_products($number_product,$name_product, $description, $stock, $id_brand,$id_category) {
     $bd = database();
-    $query = "INSERT INTO products (number_serial,number_product,name_product, description, stock, id_status, id_brand ,id_category) VALUES (:number_serial,:number_product,:name_product, :description, :stock, 1, :id_brand, :id_category)";
+    $query = "INSERT INTO products (number_product,name_product, description, stock, id_status, id_brand ,id_category) VALUES (:number_product,:name_product, :description, :stock, 1, :id_brand, :id_category)";
     
     $consulta = $bd->prepare($query);
 
     // Asociar los parámetros
-    $consulta->bindParam(':number_serial', $number_serial, PDO::PARAM_STR);
     $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
     $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
     $consulta->bindParam(':description', $description, PDO::PARAM_STR);
