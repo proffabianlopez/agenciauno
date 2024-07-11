@@ -11,7 +11,7 @@ if (isset($_POST['edit-id_user'], $_POST['edit-phone'], $_POST['edit-name'], $_P
 
 
 
-    if(user_exists($email_user))
+    if(user_exists($email))
     {
         echo '<script>
     localStorage.setItem("mensaje", "El usuario ya existe");
