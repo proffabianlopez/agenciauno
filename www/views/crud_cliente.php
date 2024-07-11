@@ -219,7 +219,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="form-group col-md-3">
                                 <label for="edit-height">Altura</label>
                                 <input type="number" class="form-control" id="edit-height" name="altura" max="100000000"
-                                    required title="solo se permiten números">
+                                    required title="solo se permiten números" value="0">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="edit-floor">Piso</label>
