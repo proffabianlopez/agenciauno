@@ -18,28 +18,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $departament = isset($_POST["departament"]) ? trim($_POST["departament"]) : null;
         $location = isset($_POST["location"]) ? trim($_POST["location"]) : null;
 
-     
         // Verificar que id_supplier no sea null
         if ($id_supplier !== null) {
             // Actualizar los datos del proveedor en la base de datos
-            $updated = updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax, $street, $height, $floor, $departament, $location);
+            $result = updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax, $street, $height, $floor, $departament, $location);
         
-            if ($updated) {
+            if ($result['success']) {
                 echo '<script>
-                localStorage.setItem("mensaje", "Proveedor editado con éxito");
+                localStorage.setItem("mensaje", "' . $result['message'] . '");
                 localStorage.setItem("tipo", "success");
                 window.location.href = "../views/crud_suppliers_new.php";
                     </script>';          
             } else {
                 // Mostrar un mensaje de error si falla la actualización
                 echo '<script>
-                localStorage.setItem("mensaje", "Error al editar al prooveedor");
+                localStorage.setItem("mensaje", "' . $result['message'] . '");
                 localStorage.setItem("tipo", "error");
                 window.location.href = "../views/crud_suppliers_new.php";
                     </script>';  
             }
         } else {
-            echo "ID de proveedor inválido.";
+            echo '<script>
+            localStorage.setItem("mensaje", "ID de proveedor inválido.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/crud_suppliers_new.php";
+                </script>';
         }
     }
 }
