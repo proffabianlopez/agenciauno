@@ -675,7 +675,7 @@ function saveConfig($email, $email_password, $email_receive, $smtp_address, $smt
         $stmt->bindParam(':id', $config->id);
     } else {
         // Insertar nueva configuración
-        $query = "INSERT INTO email_config (email, email_password, email_receive, smtp_address, smtp_port) VALUES (:email, :email_password, :smtp_address, :smtp_port)";
+        $query = "INSERT INTO email_config (email, email_password, email_receive, smtp_address, smtp_port) VALUES (:email, :email_password,:email_receive, :smtp_address, :smtp_port)";
         $stmt = $db->prepare($query);
     }
 
