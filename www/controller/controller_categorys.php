@@ -3,10 +3,11 @@ include_once "../models/functions.php";
 
 
 $name_category = $_POST["name_category"];
+$category_uppercase = strtoupper($name_category);
 $status = 1;
 
 // Verificar si la categoría ya existe
-if (category_exists($name_category)) {
+if (category_exists($category_uppercase)) {
     
     echo '<script>
     localStorage.setItem("mensaje", "La categoria ya existe. Por favor, elija un nombre diferente");
@@ -15,7 +16,7 @@ if (category_exists($name_category)) {
         </script>';  
 } else {
     // Insertar la nueva categoría
-    if (add_category($name_category, $status)) {
+    if (add_category($category_uppercase, $status)) {
         echo '<script>
                 localStorage.setItem("mensaje", "Categoría creada con éxito");
                 localStorage.setItem("tipo", "success");

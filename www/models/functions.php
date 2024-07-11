@@ -69,36 +69,77 @@
    }
    function Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)
    {
-       $bd = database();
-       $query = $bd->prepare("UPDATE customers SET 
-           tax_identifier = :tax_identifier, 
-           customer_name = :customer_name, 
-           email_customer = :email_customer, 
-           phone_customer = :phone_customer, 
-           street = :street, 
-           height = :height, 
-           location = :location, 
-           observaciones = :observations, 
-           floor = :floor, 
-           departament = :departament,
-           id_status = :id_status 
-       WHERE id_customer = :id");
+       try {
+           $bd = database();
    
-       $query->bindParam(':id', $id);
-       $query->bindParam(':tax_identifier', $cuil);
-       $query->bindParam(':customer_name', $name);
-       $query->bindParam(':email_customer', $email);
-       $query->bindParam(':phone_customer', $phone);
-       $query->bindParam(':street', $street);
-       $query->bindParam(':height', $height);
-       $query->bindParam(':floor', $floor);
-       $query->bindParam(':departament', $departament);
-       $query->bindParam(':location', $location);
-       $query->bindParam(':observations', $observaciones);
-       $query->bindParam(':id_status', $status);
+           // Verificar si el email o el CUIL están en uso por otro cliente
+           if (emailExistsCliente($email, $id, $bd)) {
+               return ['success' => false, 'message' => 'El email ya está en uso.'];
+           }
    
-       $query->execute();
+           if (cuilExistsCliente($cuil, $id, $bd)) {
+               return ['success' => false, 'message' => 'El CUIL ya está en uso.'];
+           }
+   
+           $query = $bd->prepare("UPDATE customers SET 
+               tax_identifier = :tax_identifier, 
+               customer_name = :customer_name, 
+               email_customer = :email_customer, 
+               phone_customer = :phone_customer, 
+               street = :street, 
+               height = :height, 
+               location = :location, 
+               observaciones = :observations, 
+               floor = :floor, 
+               departament = :departament,
+               id_status = :id_status 
+           WHERE id_customer = :id");
+   
+           $query->bindParam(':id', $id, PDO::PARAM_INT);
+           $query->bindParam(':tax_identifier', $cuil, PDO::PARAM_STR);
+           $query->bindParam(':customer_name', $name, PDO::PARAM_STR);
+           $query->bindParam(':email_customer', $email, PDO::PARAM_STR);
+           $query->bindParam(':phone_customer', $phone, PDO::PARAM_STR);
+           $query->bindParam(':street', $street, PDO::PARAM_STR);
+           $query->bindParam(':height', $height, PDO::PARAM_INT);
+           $query->bindParam(':floor', $floor, PDO::PARAM_STR);
+           $query->bindParam(':departament', $departament, PDO::PARAM_STR);
+           $query->bindParam(':location', $location, PDO::PARAM_STR);
+           $query->bindParam(':observations', $observaciones, PDO::PARAM_STR);
+           $query->bindParam(':id_status', $status, PDO::PARAM_INT);
+   
+           $result = $query->execute();
+   
+           if ($result) {
+               return ['success' => true, 'message' => 'Cliente editado con éxito.'];
+           } else {
+               return ['success' => false, 'message' => 'Error al editar el cliente.'];
+           }
+       } catch (PDOException $e) {
+           return ['success' => false, 'message' => 'Error al actualizar el cliente: ' . $e->getMessage()];
+       }
    }
+   
+   // Verifica si el email ya está en uso por otro cliente
+   function emailExistsCliente($email, $id, $bd) {
+       $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE email_customer = ? AND id_customer != ?");
+       $stmt->bindParam(1, $email, PDO::PARAM_STR);
+       $stmt->bindParam(2, $id, PDO::PARAM_INT);
+       $stmt->execute();
+       $count = $stmt->fetchColumn();
+       return $count > 0;
+   }
+   
+   // Verifica si el CUIL ya está en uso por otro cliente
+   function cuilExistsCliente($cuil, $id, $bd) {
+       $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE tax_identifier = ? AND id_customer != ?");
+       $stmt->bindParam(1, $cuil, PDO::PARAM_STR);
+       $stmt->bindParam(2, $id, PDO::PARAM_INT);
+       $stmt->execute();
+       $count = $stmt->fetchColumn();
+       return $count > 0;
+   }
+   
    function Updatecategory($id, $detail,$status)
    {
        $bd = database();
@@ -257,11 +298,41 @@ function getSupplier($id_supplier)
     }
 }
 
+// Verifica si el email ya está en uso por otro proveedor
+function emailExists($email, $id_supplier, $bd) {
+    $stmt = $bd->prepare("SELECT COUNT(*) FROM suppliers WHERE email_supplier = ? AND id_supplier != ?");
+    $stmt->bindParam(1, $email, PDO::PARAM_STR);
+    $stmt->bindParam(2, $id_supplier, PDO::PARAM_INT);
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+    return $count > 0;
+}
+
+// Verifica si el CUIL ya está en uso por otro proveedor
+function cuilExists($cuil, $id_supplier, $bd) {
+    $stmt = $bd->prepare("SELECT COUNT(*) FROM suppliers WHERE tax_identifier = ? AND id_supplier != ?");
+    $stmt->bindParam(1, $cuil, PDO::PARAM_STR);
+    $stmt->bindParam(2, $id_supplier, PDO::PARAM_INT);
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+    return $count > 0;
+}
+
 // Función para actualizar los datos de un proveedor en la base de datos
 function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax, $street, $height, $floor, $departament, $location)
 {
     try {
         $bd = database();
+
+        // Verificar si el email o el CUIL están en uso por otro proveedor
+        if (emailExists($email, $id_supplier, $bd)) {
+            return ['success' => false, 'message' => 'El email ya está en uso.'];
+        }
+
+        if (cuilExists($tax, $id_supplier, $bd)) {
+            return ['success' => false, 'message' => 'El CUIL ya está en uso.'];
+        }
+
         $query = "UPDATE suppliers SET
         name_supplier = :name_supplier, 
         phone_supplier = :phone_supplier, 
@@ -290,12 +361,16 @@ function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,
 
         $result = $statement->execute();
 
-        return $result; 
+        if ($result) {
+            return ['success' => true, 'message' => 'Proveedor editado con éxito.'];
+        } else {
+            return ['success' => false, 'message' => 'Error al editar al proveedor.'];
+        }
     } catch (PDOException $e) {
-        echo "Error al actualizar el proveedor: " . $e->getMessage();
-        return false;
+        return ['success' => false, 'message' => 'Error al actualizar el proveedor: ' . $e->getMessage()];
     }
 }
+
 
 
 function eliminated_Suppliers($table, $id_user) {
@@ -335,13 +410,14 @@ function eliminated_Suppliers($table, $id_user) {
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
 
-  function insert_products($number_product,$name_product, $description, $stock, $id_brand,$id_category) {
+  function insert_products($number_serial,$number_product,$name_product, $description, $stock, $id_brand,$id_category) {
     $bd = database();
-    $query = "INSERT INTO products (number_product,name_product, description, stock, id_status, id_brand ,id_category) VALUES (:number_product,:name_product, :description, :stock, 1, :id_brand, :id_category)";
+    $query = "INSERT INTO products (number_serial,number_product,name_product, description, stock, id_status, id_brand ,id_category) VALUES (:number_serial,:number_product,:name_product, :description, :stock, 1, :id_brand, :id_category)";
     
     $consulta = $bd->prepare($query);
 
     // Asociar los parámetros
+    $consulta->bindParam(':number_serial', $number_serial, PDO::PARAM_STR);
     $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
     $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
     $consulta->bindParam(':description', $description, PDO::PARAM_STR);
@@ -373,11 +449,12 @@ function getproducts($id_product)
         return null;
     }
 }
-function update_products($number_product,$id_product, $name_product, $description, $stock)
+function update_products($number_serial,$number_product,$id_product, $name_product, $description, $stock)
 {
     try {
         $bd = database();
         $query = "UPDATE products SET
+        number_serial = :number_serial,
         number_product = :number_product,
         name_product = :name_product, 
         description = :description, 
@@ -386,7 +463,7 @@ function update_products($number_product,$id_product, $name_product, $descriptio
 
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
-       
+        $consulta->bindParam(':number_serial', $number_serial, PDO::PARAM_STR);
         $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
         $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
         $consulta->bindParam(':description', $description, PDO::PARAM_STR);
@@ -641,6 +718,14 @@ function user_exists($email_user) {
         return false;
     }
 }
+
+function check_existing_cliente($cuil, $email_Proveedor) {
+    $bd = database(); 
+    $sentence = $bd->prepare("SELECT COUNT(*) AS count FROM customers WHERE (tax_identifier = ? OR email_customer = ?) AND id_status != 0");
+    $sentence->execute([$cuil, $email_Proveedor]);
+    $row = $sentence->fetch(PDO::FETCH_ASSOC);
+    return $row['count'] > 0;
+}
 function obtenerUsuarioPorEmail($email)
 {
     $bd = database();
@@ -652,6 +737,4 @@ function obtenerUsuarioPorEmail($email)
     $sentence->execute();
     return $sentence->fetch(PDO::FETCH_ASSOC);
 }
-
-
 ?>
