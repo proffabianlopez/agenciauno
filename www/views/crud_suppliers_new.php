@@ -192,7 +192,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="form-group">
                             <label for="cuil">CUIL/CUIT</label>
 
-                            <input type="text" name="cuil" class="form-control" required pattern="^\d{11}$"
+                            <input type="text" name="cuil" class="form-control" pattern="^\d{11}$"
                                 maxlength="11" title="Debe contener exactamente 11 dígitos">
 
                         </div>
