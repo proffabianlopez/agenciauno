@@ -68,78 +68,85 @@
        return $sentence->fetchAll(PDO::FETCH_ASSOC); 
    }
    function Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)
-   {
-       try {
-           $bd = database();
-   
-           // Verificar si el email o el CUIL están en uso por otro cliente
-           if (emailExistsCliente($email, $id, $bd)) {
-               return ['success' => false, 'message' => 'El email ya está en uso.'];
-           }
-   
-           if (cuilExistsCliente($cuil, $id, $bd)) {
-               return ['success' => false, 'message' => 'El CUIL ya está en uso.'];
-           }
-   
-           $query = $bd->prepare("UPDATE customers SET 
-               tax_identifier = :tax_identifier, 
-               customer_name = :customer_name, 
-               email_customer = :email_customer, 
-               phone_customer = :phone_customer, 
-               street = :street, 
-               height = :height, 
-               location = :location, 
-               observaciones = :observations, 
-               floor = :floor, 
-               departament = :departament,
-               id_status = :id_status 
-           WHERE id_customer = :id");
-   
-           $query->bindParam(':id', $id, PDO::PARAM_INT);
-           $query->bindParam(':tax_identifier', $cuil, PDO::PARAM_STR);
-           $query->bindParam(':customer_name', $name, PDO::PARAM_STR);
-           $query->bindParam(':email_customer', $email, PDO::PARAM_STR);
-           $query->bindParam(':phone_customer', $phone, PDO::PARAM_STR);
-           $query->bindParam(':street', $street, PDO::PARAM_STR);
-           $query->bindParam(':height', $height, PDO::PARAM_INT);
-           $query->bindParam(':floor', $floor, PDO::PARAM_STR);
-           $query->bindParam(':departament', $departament, PDO::PARAM_STR);
-           $query->bindParam(':location', $location, PDO::PARAM_STR);
-           $query->bindParam(':observations', $observaciones, PDO::PARAM_STR);
-           $query->bindParam(':id_status', $status, PDO::PARAM_INT);
-   
-           $result = $query->execute();
-   
-           if ($result) {
-               return ['success' => true, 'message' => 'Cliente editado con éxito.'];
-           } else {
-               return ['success' => false, 'message' => 'Error al editar el cliente.'];
-           }
-       } catch (PDOException $e) {
-           return ['success' => false, 'message' => 'Error al actualizar el cliente: ' . $e->getMessage()];
-       }
-   }
-   
-   // Verifica si el email ya está en uso por otro cliente
-   function emailExistsCliente($email, $id, $bd) {
-       $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE email_customer = ? AND id_customer != ?");
-       $stmt->bindParam(1, $email, PDO::PARAM_STR);
-       $stmt->bindParam(2, $id, PDO::PARAM_INT);
-       $stmt->execute();
-       $count = $stmt->fetchColumn();
-       return $count > 0;
-   }
-   
-   // Verifica si el CUIL ya está en uso por otro cliente
-   function cuilExistsCliente($cuil, $id, $bd) {
-       $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE tax_identifier = ? AND id_customer != ?");
-       $stmt->bindParam(1, $cuil, PDO::PARAM_STR);
-       $stmt->bindParam(2, $id, PDO::PARAM_INT);
-       $stmt->execute();
-       $count = $stmt->fetchColumn();
-       return $count > 0;
-   }
-   
+{
+    try {
+        $bd = database();
+
+        // Obtener el email y el CUIL actuales del cliente
+        $stmt = $bd->prepare("SELECT email_customer, tax_identifier FROM customers WHERE id_customer = ?");
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $currentData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $currentEmail = $currentData['email_customer'];
+        $currentCuil = $currentData['tax_identifier'];
+
+        // Verificar si el email o el CUIL han cambiado antes de hacer la validación
+        if ($email !== $currentEmail && emailExistsCliente($email, $id, $bd)) {
+            return ['success' => false, 'message' => 'El email ya está en uso.'];
+        }
+
+        if ($cuil !== $currentCuil && cuilExistsCliente($cuil, $id, $bd)) {
+            return ['success' => false, 'message' => 'El CUIL ya está en uso.'];
+        }
+
+        $query = $bd->prepare("UPDATE customers SET 
+            tax_identifier = :tax_identifier, 
+            customer_name = :customer_name, 
+            email_customer = :email_customer, 
+            phone_customer = :phone_customer, 
+            street = :street, 
+            height = :height, 
+            location = :location, 
+            observaciones = :observations, 
+            floor = :floor, 
+            departament = :departament,
+            id_status = :id_status 
+        WHERE id_customer = :id");
+
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->bindParam(':tax_identifier', $cuil, PDO::PARAM_STR);
+        $query->bindParam(':customer_name', $name, PDO::PARAM_STR);
+        $query->bindParam(':email_customer', $email, PDO::PARAM_STR);
+        $query->bindParam(':phone_customer', $phone, PDO::PARAM_STR);
+        $query->bindParam(':street', $street, PDO::PARAM_STR);
+        $query->bindParam(':height', $height, PDO::PARAM_INT);
+        $query->bindParam(':floor', $floor, PDO::PARAM_STR);
+        $query->bindParam(':departament', $departament, PDO::PARAM_STR);
+        $query->bindParam(':location', $location, PDO::PARAM_STR);
+        $query->bindParam(':observations', $observaciones, PDO::PARAM_STR);
+        $query->bindParam(':id_status', $status, PDO::PARAM_INT);
+
+        $result = $query->execute();
+
+        if ($result) {
+            return ['success' => true, 'message' => 'Cliente editado con éxito.'];
+        } else {
+            return ['success' => false, 'message' => 'Error al editar el cliente.'];
+        }
+    } catch (PDOException $e) {
+        return ['success' => false, 'message' => 'Error al actualizar el cliente: ' . $e->getMessage()];
+    }
+}
+// Verifica si el email ya está en uso por otro cliente
+function emailExistsCliente($email, $id, $bd) {
+    $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE email_customer = ? AND id_customer != ?");
+    $stmt->bindParam(1, $email, PDO::PARAM_STR);
+    $stmt->bindParam(2, $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+    return $count > 0;
+}
+
+// Verifica si el CUIL ya está en uso por otro cliente
+function cuilExistsCliente($cuil, $id, $bd) {
+    $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE tax_identifier = ? AND id_customer != ?");
+    $stmt->bindParam(1, $cuil, PDO::PARAM_STR);
+    $stmt->bindParam(2, $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+    return $count > 0;
+}
    function Updatecategory($id, $detail,$status)
    {
        $bd = database();
