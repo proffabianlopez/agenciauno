@@ -521,15 +521,35 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 }
             ],
             dom: '<"top"lf><"table-responsive"t><"bottom"ip>',
-            buttons: [{
-                    extend: 'excel',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
                     className: 'btn btn-success',
-                    text: '<i class="far fa-file-excel"></i> Excel'
+                    text: '<i class="far fa-file-excel"></i> Excel',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Excluye la última columna (Acciones)
+                    },
+                    customize: function (xlsx) {
+                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                        $('row c[r^="A"]', sheet).each(function () {
+                            $(this).attr('s', '2'); // Agrega estilo a la primera columna
+                        });
+                    }
                 },
                 {
-                    extend: 'pdf',
+                    extend: 'pdfHtml5',
                     className: 'btn btn-danger',
-                    text: '<i class="far fa-file-pdf"></i> PDF'
+                    text: '<i class="far fa-file-pdf"></i> PDF',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Excluye la última columna (Acciones)
+                    },
+                    
+                    pageSize: 'A4',
+                    customize: function (doc) {
+                                          
+                        
+                        doc.content[1].table.widths = ['25%', '25%', '25%', '25%']; // Ajusta los anchos de columna
+                    }
                 }
             ],
             initComplete: function() {
