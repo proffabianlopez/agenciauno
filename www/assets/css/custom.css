@@ -1,3 +1,58 @@
 /*
 Custom Css
 */
+.carousel-image {
+  width: 560px;
+  height: 350px;
+  object-fit: cover;
+}
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rounded-circle {
+  object-fit: cover;
+  width: 200px; /* Ajusta este valor según el tamaño deseado */
+  height: 200px; /* Ajusta este valor según el tamaño deseado */
+}
+
+.highlighted-font {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.description-font {
+  font-family: "Lora", serif;
+  font-weight: 400;
+  font-size: 1.1em; /* Ajusta según tus necesidades */
+}
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  width: 50px;
+  height: 50px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  outline: none; /* Evita el borde negro al hacer clic */
+}
+
+.scroll-to-top i {
+  line-height: 50px;
+}
+
+/* Asegúrate de que el botón no muestre el borde de enfoque */
+.scroll-to-top:focus {
+  outline: none;
+  box-shadow: none; /* Quita cualquier sombra adicional que pueda aparecer */
+}
