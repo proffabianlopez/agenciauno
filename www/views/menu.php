@@ -16,7 +16,8 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
         <div class="container text-center">
             <div class="col-xs-9">
                 <div class="card-header text-center">
-                    <a href="home.php" style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;">
+                    <a href="home.php"
+                        style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;">
                         <h3 class="h3"><b>Agencia</b>UNO</h3>
                     </a>
                 </div>
@@ -33,13 +34,38 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
             </div>
             <div class="info">
                 <h7 class="d-block" style="color:white"><?php echo htmlspecialchars($email_usuario_autenticado); ?></h7>
-            </div>            
+            </div>
         </div>
-        
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-briefcase"></i>
+                        <p>
+                            Actividades Diarias
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="purchase.php" class="nav-link">
+                                <i class="fa fa-truck nav-icon"></i>
+
+                                <p>Compras</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="sales.php" class="nav-link">
+                                <i class="fa fa-address-card nav-icon"></i>
+                                <p>Ventas</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-cubes"></i>
@@ -87,36 +113,36 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         </li>
                         <li class="nav-item">
                             <?php if (isset($_SESSION["id_rol"])) {
-                                if ($_SESSION["id_rol"] === 1) { ?> 
-                                    <a href="crud_usuarios.php" class="nav-link">
-                                        <i class="fa fa-user nav-icon"></i>
-                                        <p>Usuarios</p>
-                                    </a>
-                            <?php }} ?> 
+                                if ($_SESSION["id_rol"] === 1) { ?>
+                            <a href="crud_usuarios.php" class="nav-link">
+                                <i class="fa fa-user nav-icon"></i>
+                                <p>Usuarios</p>
+                            </a>
+                            <?php }} ?>
                         </li>
 
 
                         <li class="nav-item">
-                        <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?> 
+                            <?php if (isset($_SESSION["id_rol"])) {
+                        if($_SESSION["id_rol"]=== 1) {?>
                             <a href="email_config.php" class="nav-link">
 
                                 <i class="fa fa-envelope nav-icon"></i>
                                 <p>Config. Correo</p>
                             </a>
-                            <?php }} ?> 
+                            <?php }} ?>
                         </li>
 
 
-                       
+
                         <li class="nav-item">
-                        <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?> 
+                            <?php if (isset($_SESSION["id_rol"])) {
+                        if($_SESSION["id_rol"]=== 1) {?>
                             <a href="../index.html" class="nav-link" target="_blank">
                                 <i class="fa fa-globe nav-icon"></i>
                                 <p>Sitio Web</p>
                             </a>
-                            <?php }} ?> 
+                            <?php }} ?>
                         </li>
 
                     </ul>
