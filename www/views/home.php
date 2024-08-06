@@ -45,10 +45,62 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <div class="content-wrapper" style="min-height: 1604.8px;">
 
             <div class="container-fluid" style="padding:125px;">
-                
+
+            <div class="row">
+                    
+                    <div class="col-md-3">
+                        <div class="card card-primary">
+                            <div class="card-header" style="display: block;text-align:center">
+                                <h2 class="card-title"><b>Compras</b></h2>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                            class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body" style="display: block;text-align:center">
+
+                                <a href="purchase.php">
+
+                                    <img src="../assets/img/app/items_2.png" class="col-md-4" alt=""></a>
+                            </div>
+                            <!-- /.card-body -->
+
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="card card-primary">
+                            <div class="card-header" style="display: block;text-align:center">
+                                <h2 class="card-title"><b>Ventas</b></h2>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                            class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body" style="display: block;text-align:center">
+                                <a href="sales.php">
+                                    <img src="../assets/img/app/transacciones.png" class="col-md-4" alt=""></a>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+
+                <br><br>
+
                 <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
                                 <h2 class="card-title"><b>Clientes</b></h2>
@@ -69,8 +121,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <!-- /.card -->
                     </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-4">
+
+                    <div class="col-md-3">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
                                 <h2 class="card-title"><b>Proveedores</b></h2>
@@ -95,12 +147,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                     </div>
 
-                </div>
-                <br><br><br><br>
-
-                <div class="row">
-
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
                                 <h2 class="card-title"><b>Productos</b></h2>
@@ -117,38 +164,20 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                                 <a href="crud_products_new.php">
 
-                                    <img src="../assets/img/app/items_2.png" class="col-md-4" alt=""></a>
+                                    <img src="../assets/img/app/producto22.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
 
                         </div>
                         <!-- /.card -->
                     </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-4">
-                        <div class="card card-primary">
-                            <div class="card-header" style="display: block;text-align:center">
-                                <h2 class="card-title"><b>Marcas</b></h2>
 
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                            class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body" style="display: block;text-align:center">
-                                <a href="crud_brands_new.php">
-                                    <img src="../assets/img/app/transacciones.png" class="col-md-4" alt=""></a>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
                 </div>
-
                 
+
+               
+
+
             </div>
         </div>
 

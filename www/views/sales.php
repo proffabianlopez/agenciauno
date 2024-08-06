@@ -1,9 +1,9 @@
 <?php
 session_start();
 include_once "../models/functions.php";
-$show=show_state("suppliers");
-$showP=show_state("products");
 
+$showP=show_state("products");
+$clientes = obtenerclientes();
 if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
     
 } else {
@@ -62,7 +62,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="card-header">
                         <div class="row mb-12">
                             <div class="col-sm-6">
-                                <h4><b>Recepción de Compras</b>
+                                <h4><b>Venta de Productos</b>
                                 </h4>
                             </div>
                         </div>
@@ -70,7 +70,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
 
 
-                <form action="../controller/controllerxxxxx.php" method="post">
+                <form action="../contderoller/controllerxxxxx.php" method="post">
                     <div class="card">
 
                         <div class="card-header" style="display: block;text-align:center">
@@ -85,11 +85,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="card-body" style="display: block;">
                             <div class="form-group">
 
-                                <label for="id_supplier">Proveedor: <sup style="color:red">*</sup></label>
-                                <select name="id_supplier" class="form-control">
-                                    <?php foreach ($show as $supplier) : ?>
-                                    <option value="<?php echo $supplier->id_supplier; ?>">
-                                        <?php echo $supplier->name_supplier; ?></option>
+                                <label for="id_customer">Cliente: <sup style="color:red">*</sup></label>
+                                <select name="id_customer" class="form-control">
+                                    <?php foreach ($clientes as $cliente) : ?>
+                                    <option value="<?php echo $cliente->id_customer; ?>">
+                                        <?php echo $cliente['customer_name']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -111,12 +111,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="purchase_number">Número de Remito: <sup
-                                            style="color:red">*</sup></label>
+                                    <label for="purchase_number">Número de Venta: <sup style="color:red">*</sup></label>
                                     <input type="text" name="purchase_number" class="form-control" value="">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="purchase_date">Fecha de Remito: <sup style="color:red">*</sup></label>
+                                    <label for="purchase_date">Fecha de Venta: <sup style="color:red">*</sup></label>
                                     <input type="date" name="purchase_date" class="form-control"
                                         value="<?php echo date('Y-m-d'); ?>">
                                 </div>
@@ -127,7 +126,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                     <div class="card">
                         <div class="card-header" style="display: block;">
-                            <h5>Detalle del Remito</h5>
+                            <h5>Detalle</h5>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
                                         class="fas fa-minus"></i>
@@ -171,10 +170,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <input type="text" name="serial_number" class="form-control"
                                         placeholder="Número de Serie">
                             </div>
-
                         </div>
 
-
+                        </div>
+                       
                         <div class="table-responsive">
                             <div class="table-wrapper">
 
@@ -192,21 +191,21 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <tbody>
                                         <tr>
                                             <td>PRODUCTO001</td>
-                                            <td>Primer Prodcuto</td>
+                                            <td>Primer Producto</td>
                                             <td>5</td>
                                             <td>S/N:001230012</td>
                                             <td><i class="fas fa-trash-alt"></i></td>
                                         </tr>
                                         <tr>
                                             <td>PRODUCTO002</td>
-                                            <td>Segundo Prodcuto</td>
+                                            <td>Segundo Producto</td>
                                             <td>10</td>
                                             <td>S/N:001230013</td>
                                             <td><i class="fas fa-trash-alt"></i></td>
                                         </tr>
                                         <tr>
                                             <td>PRODUCTO003</td>
-                                            <td>Tercer Prodcuto</td>
+                                            <td>Tercer Producto</td>
                                             <td>10</td>
                                             <td>S/N:001230014</td>
                                             <td><i class="fas fa-trash-alt"></i></td>
@@ -216,7 +215,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                         </div>
                         <div class="card-footer" style="text-align:right">
-                            <input type="submit" class="btn btn-success" value="Ingresar Remito">
+                            <input type="submit" class="btn btn-success" value="Registrar Venta">
                         </div>
                     </div>
                 </form>
