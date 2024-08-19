@@ -43,10 +43,25 @@
        
        return $sentence->execute();
    }
+   function getCustomer($id_customer) {
+    try {
+        $bd = database();
+        $query = "SELECT id_customer, tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament FROM customers WHERE id_customer = :id_customer";
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':id_customer', $id_customer, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error al obtener el cliente: " . $e->getMessage();
+        return null;
+    }
+}
+
    function obtenerclientes()
    { 
        $bd = database();
-       $sentence = $bd->query("SELECT id_customer, tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament FROM customers");
+       $sentence = $bd->query("SELECT id_customer, tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament FROM customers  WHERE id_status=1");
        return $sentence->fetchAll(PDO::FETCH_ASSOC); 
    }
    function obtenercategorys()
