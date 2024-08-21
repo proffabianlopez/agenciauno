@@ -56,3 +56,22 @@ Custom Css
   outline: none;
   box-shadow: none; /* Quita cualquier sombra adicional que pueda aparecer */
 }
+/* Asegura que todas las imágenes de las tarjetas tengan el mismo tamaño */
+.card-img-top {
+  width: 100%;
+  height: 300px; /* Ajusta la altura de la imagen */
+  object-fit: cover; /* Cubre el contenedor manteniendo las proporciones */
+  background-color: #f8f9fa; /* Color de fondo para las imágenes que no tienen suficiente contenido */
+}
+
+/* Estiliza la tarjeta para que todas tengan el mismo tamaño */
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Asegura que el contenido de la tarjeta se expanda para llenar el espacio disponible */
+.card-body {
+  flex: 1;
+}
