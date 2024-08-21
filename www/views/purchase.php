@@ -121,22 +121,29 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                             </div>    
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="purchase_number">Número de Remito: <sup
-                                            style="color:red">*</sup></label>
-                                   
-                                 <input type="text" name="purchase_number" class="form-control" value="">
-                                </div>
-                                <div class="form-group col-md-6"> 
-                                <label for="purchase_number">&nbsp;</label>
+    <div class="form-group col-md-6">
+        <label for="purchase_number">Número de Remito: <sup style="color:red">*</sup></label>
+        <div class="input-group">
+            <!-- Select para el año -->
+            <select name="purchase_year" id="purchase_year" class="form-control">
+                <?php
+                $currentYear = date('Y');
+                for ($year = $currentYear; $year >= 2000; $year--) {
+                    echo "<option value='$year'>$year</option>";
+                }
+                /*$purchase_year = $_POST['purchase_year'];
+                $purchase_number = $_POST['purchase_number'];
+                $full_purchase_number = $purchase_year . '-' . $purchase_number;
+                */
+                ?>
+            </select>
+            
+            <!-- Input para los 6 dígitos -->
+            <input type="text" name="purchase_number" id="purchase_number" class="form-control" maxlength="6" value="000456" pattern="\d{6}">
+        </div>
+    </div>
+</div>
 
-                                <input type="text" name="purchase_number2" class="form-control" value="">
-
-                                </div>
-                            
-
-                             
-                            </div>
                         </div>
                     </div>
                     <!-- /.card-body -->
