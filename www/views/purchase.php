@@ -105,18 +105,37 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="view_phone">Teléfono</label>
                                     <span id="view_phone" class="form-control" readonly></span>
                                 </div>
-                            </div>
+                            </div>  
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="purchase_number">Número de Remito: <sup
+                            <div class="form-group col-md-4">
+                                    <label for="purchase_date">Número de factura: <sup
                                             style="color:red">*</sup></label>
-                                    <input type="text" name="purchase_number" class="form-control" value="">
-                                </div>
-                                <div class="form-group col-md-4">
+                                    <input type="text" name="number_factura" class="form-control">
+                            </div>
+                                    
+                            <div class="form-group col-md-4">
+
                                     <label for="purchase_date">Fecha de Remito: <sup style="color:red">*</sup></label>
                                     <input type="date" name="purchase_date" class="form-control"
                                         value="<?php echo date('Y-m-d'); ?>">
                                 </div>
+                            </div>    
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="purchase_number">Número de Remito: <sup
+                                            style="color:red">*</sup></label>
+                                   
+                                 <input type="text" name="purchase_number" class="form-control" value="">
+                                </div>
+                                <div class="form-group col-md-6"> 
+                                <label for="purchase_number">&nbsp;</label>
+
+                                <input type="text" name="purchase_number2" class="form-control" value="">
+
+                                </div>
+                            
+
+                             
                             </div>
                         </div>
                     </div>
