@@ -153,13 +153,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body" style="display: block;">
-
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="items">Producto: <sup style="color:red">*</sup></label>
                                     <div id="products">
                                         <div class="product">
-                                            <select name="items[0][id_product]" class="form-control">
+                                            <select name="id_product" class="form-control select2" id="id_product">
+                                            <option></option>
                                                 <?php foreach ($showP as $product) : ?>
                                                 <option value="<?php echo $product->id_product; ?>">
                                                     <?php echo $product->name_product; ?></option>
@@ -304,7 +304,16 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 });
 
 </script>
+<script>
+   $(document).ready(function() {
+    $('#id_product').select2({
+        placeholder: "Seleccione un Producto",
+        allowClear: true,
+        width: '100%'
+    });
+});
 
+</script>
 
     <!-- Otros scripts que necesites -->
     <!-- DataTables JS -->
