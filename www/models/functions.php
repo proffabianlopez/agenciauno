@@ -759,4 +759,22 @@ function obtenerUsuarioPorEmail($email)
     $sentence->execute();
     return $sentence->fetch(PDO::FETCH_ASSOC);
 }
+
+function add_serial_number($id_product, $serial_number, $remito_number, $line_number, $id_supplier) {
+    $bd = database();
+    $sentence = $bd->prepare("INSERT INTO serial_numbers (id_product, serial_number, remito_number, line_number, id_supplier)
+        VALUES (:id_product, :serial_number, :remito_number, :line_number, :id_supplier)
+    ");
+
+    $sentence->bindParam(':id_product', $id_product);
+    $sentence->bindParam(':serial_number', $serial_number);
+    $sentence->bindParam(':remito_number', $remito_number);
+    $sentence->bindParam(':line_number', $line_number);
+    $sentence->bindParam(':id_supplier', $id_supplier);  // Agregar esta línea
+
+    return $sentence->execute();
+}
+
+
+
 ?>
