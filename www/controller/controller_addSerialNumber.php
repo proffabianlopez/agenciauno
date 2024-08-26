@@ -1,36 +1,33 @@
 <?php
 include_once "../models/functions.php";
 
-function save_serial_numbers() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $id_product = $_POST['id_product_modal'];
-        $remito_number = $_POST['remito_number'];
-        $id_supplier = $_POST['id_supplier_modal'];  // Obtener id_supplier
-        $serial_numbers = $_POST['items'][0]['serial_numbers'];
+// Verifica si la solicitud es POST
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Obtén los datos del formulario
+    $id_product = $_POST['id_product_modal'];
+    $remito_number = $_POST['remito_number'];
+    $id_supplier = $_POST['id_supplier_modal'];
+    $serial_numbers = $_POST['items'][0]['serial_numbers'];
 
-        // Depuración
-        if (empty($id_product)) {
-            die("Error: El ID del producto está vacío.");
-        }
-
-        foreach ($serial_numbers as $line_number => $serial_number) {
-            add_serial_number($id_product, $serial_number, $remito_number, $line_number + 1, $id_supplier);  // Pasar id_supplier
-        }
-
-        echo '<script>
-        localStorage.setItem("mensaje", "Agregado con éxito");
-        localStorage.setItem("tipo", "success");
-        window.location.href = "../views/purchase.php";
-            </script>';
-    } else {
-        echo '<script>
-           localStorage.setItem("mensaje", "Error");
-           localStorage.setItem("tipo", "error");
-           window.location.href = "../views/purchase.php";
-               </script>';
+    // Validación básica
+    if (empty($id_product)) {
+        echo json_encode(['error' => 'El ID del producto está vacío.']);
+        exit;
     }
-}
 
-// Llamar la función
-save_serial_numbers();
-?>
+    try {
+        // Insertar los números de serie en la base de datos
+        foreach ($serial_numbers as $line_number => $serial_number) {
+            add_serial_number($id_product, $serial_number, $remito_number, $line_number + 1, $id_supplier);
+        }
+
+        // Si la inserción es exitosa, devuelve un mensaje de éxito
+        echo json_encode(['success' => true, 'message' => 'Números de serie agregados con éxito.']);
+    } catch (Exception $e) {
+        // Si ocurre un error, devuelve un mensaje de error
+        echo json_encode(['error' => 'Error al guardar los números de serie.']);
+    }
+} else {
+    // Si la solicitud no es POST, devuelve un error
+    echo json_encode(['error' => 'Solicitud inválida.']);
+}
