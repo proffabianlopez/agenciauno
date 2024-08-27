@@ -61,7 +61,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="card-header">
                         <div class="row mb-12">
                             <div class="col-sm-6">
-                                <h4><b>Recepción de Compras</b>
+                                <h4><b>Compras</b>
                                 </h4>
                             </div>
                         </div>
@@ -87,7 +87,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="id_supplier" class="form-label">Proveedor: <sup
                                             style="color:red">*</sup></label>
                                     <select name="id_supplier" class="form-control select2" id="id_supplier">
-                                        <option></option> <!-- Placeholder -->
+                                        <option></option> 
                                         <?php foreach ($show as $supplier) : ?>
                                         <option value="<?php echo $supplier->id_supplier; ?>">
                                             <?php echo $supplier->name_supplier; ?>
@@ -114,38 +114,34 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-1">
-                                    <label for="purchase_number">Número de </label>
-                                    <!-- Select para el año -->
-                                    <select name="purchase_year" id="purchase_year" class="form-control">
-                                        <?php
-                                                $currentYear = date('Y');
-                                                for ($year = $currentYear; $year >= 2000; $year--) {
-                                                echo "<option value='$year'>$year</option>";
-                                                }
-                                        /*$purchase_year = $_POST['purchase_year'];
-                                        $purchase_number = $_POST['purchase_number'];
-                                        $full_purchase_number = $purchase_year . '-' . $purchase_number;
-                                            */
-                                         ?>
-                                    </select>
+                                    <label for="purchase_remito">Número de </label>
+                                    <input type="text" name="number_remito" class="form-control" maxlength="4" value="1234">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <!-- Input para los 6 dígitos -->
-                                    <label for="">Remito: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="purchase_number" id="purchase_number" class="form-control"
+                                    <label for="remito">Remito: <sup style="color:red">*</sup></label>
+                                    <input type="text" name="remito" id="remito" class="form-control"
                                         maxlength="6" value="000456" pattern="\d{6}">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="purchase_date">Fecha de Remito: <sup style="color:red">*</sup></label>
-                                    <input type="date" name="purchase_date" class="form-control"
+                                    <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
+                                    <input type="date" name="date_remito" class="form-control"
                                         value="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
 
                             <div class="form-row">
+                            <div class="form-group col-md-1">
+                                    <label for="purchase_factura">Número de </label>
+                                    <input type="text" name="purchase_factura" class="form-control" maxlength="4" value="1234">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="factura">Factura: <sup style="color:red">*</sup></label>
+                                    <input type="text" name="factura" class="form-control" maxlength="6" value="000456" >
+                                </div>
                                 <div class="form-group col-md-4">
-                                    <label for="purchase_date">Número de Factura: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="number_factura" class="form-control">
+                                    <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
+                                    <input type="date" name="date_factura" class="form-control"
+                                        value="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -213,46 +209,25 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
 
 
-                            <div class="table-responsive">
-                                <div class="table-wrapper">
+                                                                <div class="table-responsive">
+                                        <div class="table-wrapper">
+                                            <table id="table_products" class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Producto</th>
+                                                        <th>Nombre</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Número de Series</th>
+                                                        <th>Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Filas dinámicas se agregarán aquí -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
-                                    <table id="table_products" class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th>Nombre</th>
-                                                <th>Cantidad</th>
-                                                <th>Número de Series</th>
-                                                <th>Eliminar</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>PRODUCTO001</td>
-                                                <td>Primer Prodcuto</td>
-                                                <td>5</td>
-                                                <td><i class="fa fa-binoculars"></i></td>
-                                                <td><i class="fas fa-trash-alt"></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td>PRODUCTO002</td>
-                                                <td>Segundo Prodcuto</td>
-                                                <td>10</td>
-                                                <td><i class="fa fa fa-binoculars"></i></td>
-                                                <td><i class="fas fa-trash-alt"></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td>PRODUCTO003</td>
-                                                <td>Tercer Prodcuto</td>
-                                                <td>10</td>
-                                                <td><i class="fa fa-binoculars"></i></td>
-                                                <td><i class="fas fa-trash-alt"></i></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                             <div class="card-footer" style="text-align:right">
                                 <input type="submit" class="btn btn-success" value="Ingresar Remito">
                             </div>
@@ -329,7 +304,47 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
+<script>
 
+$(document).ready(function() {
+    let productCounter = 0;
+
+    const table = $('#table_products').DataTable();
+
+    $('#addProduct').on('click', function() {
+        const productId = $('#id_product').val();
+        const productName = $('#id_product option:selected').text();
+        const quantity = $('input[name="items[0][quantity]"]').val();
+
+        if (productId && quantity) {
+            table.row.add([
+                `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productId}`,
+                `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
+                `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
+                `<button type="button"  data-product-id="${productId}" data-bs-toggle="modal" data-bs-target="#serialNumberModal"><i class="fa fa-binoculars"></i></button>`,
+                `<button type="button" class=" delete-row"><i class="fas fa-trash-alt"></i></button>`
+            ]).draw();
+
+            productCounter++;
+
+            $('#id_product').val('').trigger('change');
+            $('input[name="items[0][quantity]"]').val('');
+        } else {
+            Swal.fire('Error', 'Debe seleccionar un producto y una cantidad', 'error');
+        }
+    });
+
+    $('#table_products tbody').on('click', '.delete-row', function() {
+        table.row($(this).parents('tr')).remove().draw();
+    });
+
+    $('#table_products tbody').on('click', '.view-serial', function() {
+        const productId = $(this).data('product-id');
+        $('#id_product_modal').val(productId);
+    });
+});
+
+</script>
 </body>
 
 </html>
