@@ -775,5 +775,4 @@ function add_serial_number($id_product, $serial_number, $remito_number, $line_nu
     return $sentence->execute();
 }
 
-
 ?>

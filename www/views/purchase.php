@@ -329,7 +329,31 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
+    <script>
+// Escuchar el evento submit del formulario
+document.getElementById('serialForm').addEventListener('submit', function(event) {
+    const serialNumbers = new Set();
+    let hasDuplicates = false;
 
+    document.querySelectorAll('#serialTable tbody tr').forEach(function(row) {
+        const serialNumber = row.querySelector('input[name="serial_number[]"]').value.trim();
+        
+        // Verificar si el número de serie ya está en el set
+        if (serialNumbers.has(serialNumber)) {
+            hasDuplicates = true;
+            row.querySelector('input[name="serial_number[]"]').classList.add('is-invalid');
+        } else {
+            serialNumbers.add(serialNumber);
+            row.querySelector('input[name="serial_number[]"]').classList.remove('is-invalid');
+        }
+    });
+
+    if (hasDuplicates) {
+        alert("Hay números de serie duplicados. Por favor, revise la lista.");
+        event.preventDefault(); // Prevenir que el formulario se envíe si hay duplicados
+    }
+});
+</script>
 </body>
 
 </html>
