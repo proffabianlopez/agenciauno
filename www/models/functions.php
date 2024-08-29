@@ -797,6 +797,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fecha_remito = $_POST['date_remito'];
     $fecha_actual = date('Y-m-d');
 
+
     if ($fecha_remito < $fecha_actual) {
         // Mostrar un mensaje de error o realizar la acción correspondiente
         echo "La fecha del remito no puede ser anterior a la fecha actual.";
@@ -817,3 +818,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Aquí iría tu código para guardar los datos en la base de datos o lo que sea necesario.
     }
 }
+
