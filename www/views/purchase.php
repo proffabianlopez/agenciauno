@@ -1,11 +1,10 @@
 <?php
 session_start();
 include_once "../models/functions.php";
-$show=show_state("suppliers");
-$showP=show_state("products");
+$show = show_state("suppliers");
+$showP = show_state("products");
 
 if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
-    
 } else {
     header("Location: login.php");
     exit();
@@ -48,11 +47,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- HEADER -->
-        <?php include "header.php"?>
+        <?php include "header.php" ?>
         <!-- HEADER -->
 
         <!-- MENU -->
-        <?php include "menu.php"?>
+        <?php include "menu.php" ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="min-height: 1604.8px;">
 
@@ -61,7 +60,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="card-header">
                         <div class="row mb-12">
                             <div class="col-sm-6">
-                                <h4><b>Recepción de Compras</b>
+                                <h4><b>Compras</b>
                                 </h4>
                             </div>
                         </div>
@@ -87,11 +86,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="id_supplier" class="form-label">Proveedor: <sup
                                             style="color:red">*</sup></label>
                                     <select name="id_supplier" class="form-control select2" id="id_supplier">
-                                        <option></option> <!-- Placeholder -->
+                                        <option></option>
                                         <?php foreach ($show as $supplier) : ?>
-                                        <option value="<?php echo $supplier->id_supplier; ?>">
-                                            <?php echo $supplier->name_supplier; ?>
-                                        </option>
+                                            <option value="<?php echo $supplier->id_supplier; ?>">
+                                                <?php echo $supplier->name_supplier; ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -114,38 +113,36 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-1">
-                                    <label for="purchase_number">Número de </label>
-                                    <!-- Select para el año -->
-                                    <select name="purchase_year" id="purchase_year" class="form-control">
-                                        <?php
-                                                $currentYear = date('Y');
-                                                for ($year = $currentYear; $year >= 2000; $year--) {
-                                                echo "<option value='$year'>$year</option>";
-                                                }
-                                        /*$purchase_year = $_POST['purchase_year'];
-                                        $purchase_number = $_POST['purchase_number'];
-                                        $full_purchase_number = $purchase_year . '-' . $purchase_number;
-                                            */
-                                         ?>
-                                    </select>
+                                    <label for="purchase_remito">Número de </label>
+                                    <input type="text" name="number_remito" class="form-control" maxlength="4" value="1234">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <!-- Input para los 6 dígitos -->
-                                    <label for="">Remito: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="purchase_number" id="purchase_number" class="form-control"
+                                    <label for="remito">Remito: <sup style="color:red">*</sup></label>
+                                    <input type="text" name="remito" id="remito" class="form-control"
                                         maxlength="6" value="000456" pattern="\d{6}">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="purchase_date">Fecha de Remito: <sup style="color:red">*</sup></label>
-                                    <input type="date" name="purchase_date" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>">
+                                    <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
+                                    <input type="date" name="date_remito" class="form-control"
+                                        value="<?php echo date('Y-m-d'); ?>"
+                                        min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
 
                             <div class="form-row">
+                                <div class="form-group col-md-1">
+                                    <label for="purchase_factura">Número de </label>
+                                    <input type="text" name="purchase_factura" class="form-control" maxlength="4" value="1234">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="factura">Factura: <sup style="color:red">*</sup></label>
+                                    <input type="text" name="factura" class="form-control" maxlength="6" value="000456">
+                                </div>
                                 <div class="form-group col-md-4">
-                                    <label for="purchase_date">Número de Factura: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="number_factura" class="form-control">
+                                    <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
+                                    <input type="date" name="date_factura" class="form-control"
+                                        value="<?php echo date('Y-m-d'); ?>"
+                                        min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -173,9 +170,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <select name="items[0][id_product]" id="id_product" class="form-control">
                                                 <option value=""></option>
                                                 <?php foreach ($showP as $product) : ?>
-                                                <option value="<?php echo $product->id_product; ?>">
-                                                    <?php echo $product->name_product; ?>
-                                                </option>
+                                                    <option value="<?php echo $product->id_product; ?>">
+                                                        <?php echo $product->name_product; ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
 
@@ -186,10 +183,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-                                    <input type="number" name="items[0][quantity]" class="form-control"
-                                        placeholder="Cantidad">
+                                    <input type="number" name="items[0][quantity]" class="form-control" placeholder="Cantidad" min="1">
                                 </div>
-
                                 <div class="form-group col-md-2">
                                     <div class="info mb-3">
                                         <label for="items">&nbsp;</label>
@@ -215,7 +210,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                             <div class="table-responsive">
                                 <div class="table-wrapper">
-
                                     <table id="table_products" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
@@ -224,35 +218,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 <th>Cantidad</th>
                                                 <th>Número de Series</th>
                                                 <th>Eliminar</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>PRODUCTO001</td>
-                                                <td>Primer Prodcuto</td>
-                                                <td>5</td>
-                                                <td><i class="fa fa-binoculars"></i></td>
-                                                <td><i class="fas fa-trash-alt"></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td>PRODUCTO002</td>
-                                                <td>Segundo Prodcuto</td>
-                                                <td>10</td>
-                                                <td><i class="fa fa fa-binoculars"></i></td>
-                                                <td><i class="fas fa-trash-alt"></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td>PRODUCTO003</td>
-                                                <td>Tercer Prodcuto</td>
-                                                <td>10</td>
-                                                <td><i class="fa fa-binoculars"></i></td>
-                                                <td><i class="fas fa-trash-alt"></i></td>
-                                            </tr>
+                                            <!-- Filas dinámicas se agregarán aquí -->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+
                             <div class="card-footer" style="text-align:right">
                                 <input type="submit" class="btn btn-success" value="Ingresar Remito">
                             </div>
@@ -265,7 +239,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
         </div>
         <!-- FOOTER -->
-        <?php include "footer.php"?>
+        <?php include "footer.php" ?>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="serialNumberModal" tabindex="-1" aria-labelledby="serialNumberModalLabel"
@@ -330,30 +304,46 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
     <script>
-// Escuchar el evento submit del formulario
-document.getElementById('serialForm').addEventListener('submit', function(event) {
-    const serialNumbers = new Set();
-    let hasDuplicates = false;
 
-    document.querySelectorAll('#serialTable tbody tr').forEach(function(row) {
-        const serialNumber = row.querySelector('input[name="serial_number[]"]').value.trim();
-        
-        // Verificar si el número de serie ya está en el set
-        if (serialNumbers.has(serialNumber)) {
-            hasDuplicates = true;
-            row.querySelector('input[name="serial_number[]"]').classList.add('is-invalid');
-        } else {
-            serialNumbers.add(serialNumber);
-            row.querySelector('input[name="serial_number[]"]').classList.remove('is-invalid');
-        }
-    });
+        $(document).ready(function() {
+            let productCounter = 0;
 
-    if (hasDuplicates) {
-        alert("Hay números de serie duplicados. Por favor, revise la lista.");
-        event.preventDefault(); // Prevenir que el formulario se envíe si hay duplicados
-    }
-});
-</script>
+            const table = $('#table_products').DataTable();
+
+            $('#addProduct').on('click', function() {
+                const productId = $('#id_product').val();
+                const productName = $('#id_product option:selected').text();
+                const quantity = $('input[name="items[0][quantity]"]').val();
+
+                if (productId && quantity) {
+                    table.row.add([
+                        `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productId}`,
+                        `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
+                        `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
+                        `<button type="button"  data-product-id="${productId}" data-bs-toggle="modal" data-bs-target="#serialNumberModal"><i class="fa fa-binoculars"></i></button>`,
+                        `<button type="button" class=" delete-row"><i class="fas fa-trash-alt"></i></button>`
+                    ]).draw();
+
+                    productCounter++;
+
+                    $('#id_product').val('').trigger('change');
+                    $('input[name="items[0][quantity]"]').val('');
+                } else {
+                    Swal.fire('Error', 'Debe seleccionar un producto y una cantidad', 'error');
+                }
+            });
+
+            $('#table_products tbody').on('click', '.delete-row', function() {
+                table.row($(this).parents('tr')).remove().draw();
+            });
+
+            $('#table_products tbody').on('click', '.view-serial', function() {
+                const productId = $(this).data('product-id');
+                $('#id_product_modal').val(productId);
+            });
+        });
+    </script>
+
 </body>
 
 </html>
