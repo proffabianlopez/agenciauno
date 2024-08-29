@@ -124,7 +124,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_remito" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo date('Y-m-d'); ?>"
+                                        min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
 
@@ -140,7 +141,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-4">
                                     <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_factura" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo date('Y-m-d'); ?>"
+                                        min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                         </div>
