@@ -12,6 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode(['error' => 'El ID del producto está vacío.']);
         exit;
     }
+
+    //verifica numeros repetidos en la lista
+    if (count($serial_numbers) !== count(array_unique($serial_numbers))) {
+        echo json_encode(['error' => 'Hay números de serie repetidos en la lista. Por favor, revisa los números e inténtalo de nuevo.']);
+        exit;
+    }
+
     try {
         // Insertar los números de serie en la base de datos
         foreach ($serial_numbers as $line_number => $serial_number) {
@@ -21,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode(['success' => true, 'message' => 'Números de serie agregados con éxito.']);
     } catch (Exception $e) {
         // Si ocurre un error, devuelve un mensaje de error
-        echo json_encode(['error' => 'Error al guardar los números de serie.']);
+        echo json_encode(['error' => 'Error en guardar el numero de serie']);
     }
 } else {
     // Si la solicitud no es POST, devuelve un error

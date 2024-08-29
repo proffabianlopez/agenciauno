@@ -1,9 +1,11 @@
 <?php
 session_start();
 include_once "../models/functions.php";
+
 $show=show_state("suppliers");
 $showP=show_state("products");
 if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {   
+
 } else {
     header("Location: login.php");
     exit();
@@ -34,10 +36,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- HEADER -->
-        <?php include "header.php"?>
+        <?php include "header.php" ?>
         <!-- HEADER -->
         <!-- MENU -->
-        <?php include "menu.php"?>
+        <?php include "menu.php" ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="min-height: 1604.8px;">
             <div class="container-fluid" style="padding:50px;">
@@ -68,11 +70,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="id_supplier" class="form-label">Proveedor: <sup
                                             style="color:red">*</sup></label>
                                     <select name="id_supplier" class="form-control select2" id="id_supplier">
-                                        <option></option> 
+                                        <option></option>
                                         <?php foreach ($show as $supplier) : ?>
-                                        <option value="<?php echo $supplier->id_supplier; ?>">
-                                            <?php echo $supplier->name_supplier; ?>
-                                        </option>
+                                            <option value="<?php echo $supplier->id_supplier; ?>">
+                                                <?php echo $supplier->name_supplier; ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -104,22 +106,24 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_remito" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo date('Y-m-d'); ?>"
+                                        min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                             <div class="form-row">
-                            <div class="form-group col-md-1">
+                                <div class="form-group col-md-1">
                                     <label for="purchase_factura">Número de </label>
                                     <input type="text" name="purchase_factura" class="form-control" maxlength="4" value="1234">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="factura">Factura: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="factura" class="form-control" maxlength="6" value="000456" >
+                                    <input type="text" name="factura" class="form-control" maxlength="6" value="000456">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_factura" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo date('Y-m-d'); ?>"
+                                        min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -145,9 +149,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <select name="items[0][id_product]" id="id_product" class="form-control">
                                                 <option value=""></option>
                                                 <?php foreach ($showP as $product) : ?>
-                                                <option value="<?php echo $product->id_product; ?>">
-                                                    <?php echo $product->name_product; ?>
-                                                </option>
+                                                    <option value="<?php echo $product->id_product; ?>">
+                                                        <?php echo $product->name_product; ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -155,8 +159,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-                                    <input type="number" name="items[0][quantity]" class="form-control"
-                                        placeholder="Cantidad">
+                                    <input type="number" name="items[0][quantity]" class="form-control" placeholder="Cantidad" min="1">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <div class="info mb-3">
@@ -176,6 +179,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     </button>
                                 </div>
                             </div>
+
                                     <div class="table-responsive">
                                         <div class="table-wrapper">
                                             <table id="table_products" class="table table-striped table-hover">
@@ -194,6 +198,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             </table>
                                         </div>
                                     </div>
+
                             <div class="card-footer" style="text-align:right">
                                 <input type="submit" class="btn btn-success" value="Ingresar Remito">
                             </div>
@@ -202,7 +207,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
         <!-- FOOTER -->
-        <?php include "footer.php"?>
+        <?php include "footer.php" ?>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="serialNumberModal" tabindex="-1" aria-labelledby="serialNumberModalLabel"
@@ -250,6 +255,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- Otros scripts que necesites -->
     <!-- DataTables JS -->
+
     <script src="../assets/js/jquery.datatables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.js"></script>
@@ -297,6 +303,7 @@ $(document).ready(function() {
 });
 
 </script>
+
 </body>
 
 </html>

@@ -1,49 +1,50 @@
 <?php
-   date_default_timezone_set('America/Argentina/Buenos_Aires');
-   function database()
-   {
-       $user_password = getenv("MYSQLPASSWORD");
-       $user_name = getenv("MYSQLUSER");
-       $databasename = getenv("MYSQLDB");
-       $hostname = getenv("MYSQLSERVER");
-       $database = new PDO("mysql:host=" . $hostname. ";dbname=" . $databasename, $user_name, $user_password);
-       $database->query("set names utf8;");
-       $database->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
-       $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-       $database->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-       return $database;
-   }
-  
-   function add_cliente($identifier, $name_cliente, $email_cliente, $telefono, $direccion, $Altura, $ciudad, $observaciones, $status, $piso, $numero_de_piso)
-   {
-       $bd = database();
-       $sentence = $bd->prepare("INSERT INTO customers (tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament) VALUES (:identifier, :name_cliente, :email_cliente, :telefono, :direccion, :Altura, :ciudad, :observaciones, :status, :piso, :numero_de_piso)");
-       
-       $sentence->bindParam(':identifier', $identifier);
-       $sentence->bindParam(':name_cliente', $name_cliente);
-       $sentence->bindParam(':email_cliente', $email_cliente);
-       $sentence->bindParam(':telefono', $telefono);
-       $sentence->bindParam(':direccion', $direccion);
-       $sentence->bindParam(':Altura', $Altura);
-       $sentence->bindParam(':ciudad', $ciudad);
-       $sentence->bindParam(':observaciones', $observaciones);
-       $sentence->bindParam(':status', $status);
-       $sentence->bindParam(':piso', $piso);
-       $sentence->bindParam(':numero_de_piso', $numero_de_piso);
-       
-       return $sentence->execute();
-   }
-   function add_category($name_category, $status)
-   {
-       $bd = database();
-       $sentence = $bd->prepare("INSERT INTO categorys (detail, id_status) VALUES (:detail, :id_status)");
-       
-       $sentence->bindParam(':detail', $name_category);
-       $sentence->bindParam(':id_status', $status);
-       
-       return $sentence->execute();
-   }
-   function getCustomer($id_customer) {
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+function database()
+{
+    $user_password = getenv("MYSQLPASSWORD");
+    $user_name = getenv("MYSQLUSER");
+    $databasename = getenv("MYSQLDB");
+    $hostname = getenv("MYSQLSERVER");
+    $database = new PDO("mysql:host=" . $hostname . ";dbname=" . $databasename, $user_name, $user_password);
+    $database->query("set names utf8;");
+    $database->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
+    $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $database->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+    return $database;
+}
+
+function add_cliente($identifier, $name_cliente, $email_cliente, $telefono, $direccion, $Altura, $ciudad, $observaciones, $status, $piso, $numero_de_piso)
+{
+    $bd = database();
+    $sentence = $bd->prepare("INSERT INTO customers (tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament) VALUES (:identifier, :name_cliente, :email_cliente, :telefono, :direccion, :Altura, :ciudad, :observaciones, :status, :piso, :numero_de_piso)");
+
+    $sentence->bindParam(':identifier', $identifier);
+    $sentence->bindParam(':name_cliente', $name_cliente);
+    $sentence->bindParam(':email_cliente', $email_cliente);
+    $sentence->bindParam(':telefono', $telefono);
+    $sentence->bindParam(':direccion', $direccion);
+    $sentence->bindParam(':Altura', $Altura);
+    $sentence->bindParam(':ciudad', $ciudad);
+    $sentence->bindParam(':observaciones', $observaciones);
+    $sentence->bindParam(':status', $status);
+    $sentence->bindParam(':piso', $piso);
+    $sentence->bindParam(':numero_de_piso', $numero_de_piso);
+
+    return $sentence->execute();
+}
+function add_category($name_category, $status)
+{
+    $bd = database();
+    $sentence = $bd->prepare("INSERT INTO categorys (detail, id_status) VALUES (:detail, :id_status)");
+
+    $sentence->bindParam(':detail', $name_category);
+    $sentence->bindParam(':id_status', $status);
+
+    return $sentence->execute();
+}
+function getCustomer($id_customer)
+{
     try {
         $bd = database();
         $query = "SELECT id_customer, tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament FROM customers WHERE id_customer = :id_customer";
@@ -58,31 +59,31 @@
     }
 }
 
-   function obtenerclientes()
-   { 
-       $bd = database();
-       $sentence = $bd->query("SELECT id_customer, tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament FROM customers  WHERE id_status=1");
-       return $sentence->fetchAll(PDO::FETCH_ASSOC); 
-   }
-   function obtenercategorys()
-   { 
-       $bd = database();
-       $sentence = $bd->query("SELECT id_category, detail, id_status FROM categorys");
-       return $sentence->fetchAll(PDO::FETCH_ASSOC); 
-   }
-   function obtenerusuarios()
-   { 
-       $bd = database();
-       $sentence = $bd->query("SELECT id_user,email_user,password,phone,date,id_status,id_rol FROM users");
-       return $sentence->fetchAll(PDO::FETCH_ASSOC); 
-   }
-   function obtenerroles()
-   { 
-       $bd = database();
-       $sentence = $bd->query("SELECT id_rol,detail FROM roles");
-       return $sentence->fetchAll(PDO::FETCH_ASSOC); 
-   }
-   function Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)
+function obtenerclientes()
+{
+    $bd = database();
+    $sentence = $bd->query("SELECT id_customer, tax_identifier, customer_name, email_customer, phone_customer, street, height, location, observaciones, id_status, floor, departament FROM customers  WHERE id_status=1");
+    return $sentence->fetchAll(PDO::FETCH_ASSOC);
+}
+function obtenercategorys()
+{
+    $bd = database();
+    $sentence = $bd->query("SELECT id_category, detail, id_status FROM categorys");
+    return $sentence->fetchAll(PDO::FETCH_ASSOC);
+}
+function obtenerusuarios()
+{
+    $bd = database();
+    $sentence = $bd->query("SELECT id_user,email_user,password,phone,date,id_status,id_rol FROM users");
+    return $sentence->fetchAll(PDO::FETCH_ASSOC);
+}
+function obtenerroles()
+{
+    $bd = database();
+    $sentence = $bd->query("SELECT id_rol,detail FROM roles");
+    return $sentence->fetchAll(PDO::FETCH_ASSOC);
+}
+function Updatecliente($id, $name, $email, $cuil, $phone, $street, $height, $floor, $departament, $status, $location, $observaciones)
 {
     try {
         $bd = database();
@@ -144,7 +145,8 @@
     }
 }
 // Verifica si el email ya está en uso por otro cliente
-function emailExistsCliente($email, $id, $bd) {
+function emailExistsCliente($email, $id, $bd)
+{
     $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE email_customer = ? AND id_customer != ?");
     $stmt->bindParam(1, $email, PDO::PARAM_STR);
     $stmt->bindParam(2, $id, PDO::PARAM_INT);
@@ -154,7 +156,8 @@ function emailExistsCliente($email, $id, $bd) {
 }
 
 // Verifica si el CUIL ya está en uso por otro cliente
-function cuilExistsCliente($cuil, $id, $bd) {
+function cuilExistsCliente($cuil, $id, $bd)
+{
     $stmt = $bd->prepare("SELECT COUNT(*) FROM customers WHERE tax_identifier = ? AND id_customer != ?");
     $stmt->bindParam(1, $cuil, PDO::PARAM_STR);
     $stmt->bindParam(2, $id, PDO::PARAM_INT);
@@ -162,21 +165,22 @@ function cuilExistsCliente($cuil, $id, $bd) {
     $count = $stmt->fetchColumn();
     return $count > 0;
 }
-   function Updatecategory($id, $detail,$status)
-   {
-       $bd = database();
-       $query = $bd->prepare("UPDATE categorys SET 
+function Updatecategory($id, $detail, $status)
+{
+    $bd = database();
+    $query = $bd->prepare("UPDATE categorys SET 
            detail = :detail, 
            id_status = :id_status 
        WHERE id_category = :id");
-   
-       $query->bindParam(':id', $id);
-       $query->bindParam(':detail', $detail);
-       $query->bindParam(':id_status', $status);
-       $query->execute();
-   }
-   function Updateusuario($id, $email, $phone, $status, $password, $id_rol) {
-    $bd = database(); 
+
+    $query->bindParam(':id', $id);
+    $query->bindParam(':detail', $detail);
+    $query->bindParam(':id_status', $status);
+    $query->execute();
+}
+function Updateusuario($id, $email, $phone, $status, $password, $id_rol)
+{
+    $bd = database();
     $query = $bd->prepare("UPDATE users 
                            SET email_user = :email, 
                                phone = :phone, 
@@ -195,35 +199,35 @@ function cuilExistsCliente($cuil, $id, $bd) {
     return $query->execute();
 }
 
-   function deletecliente($id)
-   {
-       $bd = database();
-       $query = $bd->prepare("UPDATE customers SET id_status = 2 WHERE id_customer = :id");
-       $query->bindParam(':id', $id);
-       $query->execute();
-   }
-   function deletecategory($id)
-   {
-       $bd = database();
-       $query = $bd->prepare("UPDATE categorys SET id_status = 2 WHERE id_category = :id");
-       $query->bindParam(':id', $id);
-       $query->execute();
-   }
-   function deleteusuarios($id, $id_rol)
-   {
-       if ($id_rol != 1) {
-           $bd = database();
-           $query = $bd->prepare("UPDATE users SET id_status = 2 WHERE id_user = :id");
-           $query->bindParam(':id', $id);
-           $query->execute();
-       }
-       else{
+function deletecliente($id)
+{
+    $bd = database();
+    $query = $bd->prepare("UPDATE customers SET id_status = 2 WHERE id_customer = :id");
+    $query->bindParam(':id', $id);
+    $query->execute();
+}
+function deletecategory($id)
+{
+    $bd = database();
+    $query = $bd->prepare("UPDATE categorys SET id_status = 2 WHERE id_category = :id");
+    $query->bindParam(':id', $id);
+    $query->execute();
+}
+function deleteusuarios($id, $id_rol)
+{
+    if ($id_rol != 1) {
+        $bd = database();
+        $query = $bd->prepare("UPDATE users SET id_status = 2 WHERE id_user = :id");
+        $query->bindParam(':id', $id);
+        $query->execute();
+    } else {
         echo "no";
-       }
-   }
-   
-   function addUsuario($email_user, $phone, $password,$id_status,$id_rol) {
-    $bd = database(); 
+    }
+}
+
+function addUsuario($email_user, $phone, $password, $id_status, $id_rol)
+{
+    $bd = database();
     $sql = "INSERT INTO users (email_user, phone, password,id_status,id_rol) VALUES (:email_user, :phone, :password, :id_status, :id_rol)";
     $stmt = $bd->prepare($sql);
     $stmt->bindParam(':email_user', $email_user);
@@ -246,7 +250,7 @@ function login($email, $password)
     $sentence->execute([$email]);
     // Obtiene la fila asociada al correo electrónico proporcionado
     $row = $sentence->fetch(PDO::FETCH_ASSOC);
-    
+
     if ($row) {
         if ($password == $row['password']) {
             return $row;
@@ -254,14 +258,16 @@ function login($email, $password)
     }
     return false;
 }
-function check_existing_supplier($cuil, $email_Proveedor) {
-    $bd = database(); 
+function check_existing_supplier($cuil, $email_Proveedor)
+{
+    $bd = database();
     $sentence = $bd->prepare("SELECT COUNT(*) AS count FROM suppliers WHERE (tax_identifier = ? OR email_supplier = ?) AND id_status != 0");
     $sentence->execute([$cuil, $email_Proveedor]);
     $row = $sentence->fetch(PDO::FETCH_ASSOC);
     return $row['count'] > 0;
 }
-function insert_suppliers($name_Proveedor, $telefono, $email_Proveedor, $direccion, $altura, $piso, $numero_de_piso, $ciudad, $observaciones, $cuil) {
+function insert_suppliers($name_Proveedor, $telefono, $email_Proveedor, $direccion, $altura, $piso, $numero_de_piso, $ciudad, $observaciones, $cuil)
+{
     try {
         $bd = database();
         $sentence = $bd->prepare("INSERT INTO suppliers (name_supplier, phone_supplier, email_supplier, street, height, floor, departament, location, id_status, observations, tax_identifier) VALUES (:name_Proveedor, :telefono, :email_Proveedor, :direccion, :altura, :piso, :numero_de_piso, :ciudad, 1, :observaciones, :cuil)");
@@ -284,14 +290,14 @@ function insert_suppliers($name_Proveedor, $telefono, $email_Proveedor, $direcci
     }
 }
 
-function show_state($table){
+function show_state($table)
+{
     $bd = database();
-    $query= $bd->prepare("SELECT * FROM $table WHERE id_status = 1");
+    $query = $bd->prepare("SELECT * FROM $table WHERE id_status = 1");
     $query->execute();
-    $list_data=$query->fetchAll();
-    
+    $list_data = $query->fetchAll();
+
     return $list_data;
-    
 }
 
 function getSupplier($id_supplier)
@@ -311,7 +317,8 @@ function getSupplier($id_supplier)
 }
 
 // Verifica si el email ya está en uso por otro proveedor
-function emailExists($email, $id_supplier, $bd) {
+function emailExists($email, $id_supplier, $bd)
+{
     $stmt = $bd->prepare("SELECT COUNT(*) FROM suppliers WHERE email_supplier = ? AND id_supplier != ?");
     $stmt->bindParam(1, $email, PDO::PARAM_STR);
     $stmt->bindParam(2, $id_supplier, PDO::PARAM_INT);
@@ -321,7 +328,8 @@ function emailExists($email, $id_supplier, $bd) {
 }
 
 // Verifica si el CUIL ya está en uso por otro proveedor
-function cuilExists($cuil, $id_supplier, $bd) {
+function cuilExists($cuil, $id_supplier, $bd)
+{
     $stmt = $bd->prepare("SELECT COUNT(*) FROM suppliers WHERE tax_identifier = ? AND id_supplier != ?");
     $stmt->bindParam(1, $cuil, PDO::PARAM_STR);
     $stmt->bindParam(2, $id_supplier, PDO::PARAM_INT);
@@ -385,8 +393,10 @@ function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,
 
 
 
-function eliminated_Suppliers($table, $id_user) {
+function eliminated_Suppliers($table, $id_user)
+{
     try {
+
         $bd = database(); 
         
         $query = "UPDATE $table SET id_status = 0 WHERE id_supplier = :id_supplier";
@@ -394,8 +404,8 @@ function eliminated_Suppliers($table, $id_user) {
         $updateStatement->bindParam(':id_supplier', $id_user, PDO::PARAM_INT);
         $updateStatement->execute();
         $rowCount = $updateStatement->rowCount();
+
         return ($rowCount > 0);
-        
     } catch (PDOException $e) {
         // Manejar errores de base de datos
         echo "Error al actualizar: " . $e->getMessage();
@@ -403,8 +413,8 @@ function eliminated_Suppliers($table, $id_user) {
     }
 }
 
-  function getSuppliers($id_supplier)
-  {
+function getSuppliers($id_supplier)
+{
     $bd = database();
     $query = "SELECT * FROM suppliers WHERE id_supplier = :id_supplier and id_status=1";
     $statement = $bd->prepare($query);
@@ -412,12 +422,13 @@ function eliminated_Suppliers($table, $id_user) {
     $statement->execute();
 
     return $statement->fetch(PDO::FETCH_ASSOC);
-  }
+}
 
-  function insert_products($number_product,$name_product, $description, $stock, $id_brand,$id_category) {
+function insert_products($number_product, $name_product, $description, $stock, $id_brand, $id_category)
+{
     $bd = database();
     $query = "INSERT INTO products (number_product,name_product, description, stock, id_status, id_brand ,id_category) VALUES (:number_product,:name_product, :description, :stock, 1, :id_brand, :id_category)";
-    
+
     $consulta = $bd->prepare($query);
 
     $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
@@ -426,7 +437,7 @@ function eliminated_Suppliers($table, $id_user) {
     $consulta->bindParam(':stock', $stock, PDO::PARAM_INT);
     $consulta->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
     $consulta->bindParam(':id_category', $id_category, PDO::PARAM_INT);
-    
+
     try {
         if ($consulta->execute()) {
             return true; // Devuelve verdadero si la inserción fue exitosa
@@ -451,7 +462,7 @@ function getproducts($id_product)
         return null;
     }
 }
-function update_products($number_product,$id_product, $name_product, $description, $stock)
+function update_products($number_product, $id_product, $name_product, $description, $stock)
 {
     try {
         $bd = database();
@@ -465,7 +476,7 @@ function update_products($number_product,$id_product, $name_product, $descriptio
 
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
-        
+
         $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
         $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
         $consulta->bindParam(':description', $description, PDO::PARAM_STR);
@@ -473,14 +484,16 @@ function update_products($number_product,$id_product, $name_product, $descriptio
 
         $result = $consulta->execute();
 
-        return $result; 
+        return $result;
     } catch (PDOException $e) {
         echo "Error al actualizar el proveedor: " . $e->getMessage();
         return false;
     }
 }
-function eliminated_product($table, $id_user) {
+function eliminated_product($table, $id_user)
+{
     try {
+
        
         $bd = database();
         $query = "UPDATE $table SET id_status = 0 WHERE id_product = :id_product";
@@ -488,20 +501,21 @@ function eliminated_product($table, $id_user) {
         $updateStatement->bindParam(':id_product', $id_user, PDO::PARAM_INT);
         $updateStatement->execute();
         $rowCount = $updateStatement->rowCount();
+
         return ($rowCount > 0);
-        
     } catch (PDOException $e) {
         // Manejar errores de base de datos
         echo "Error al actualizar: " . $e->getMessage();
         return false;
     }
 }
-function insert_brand($detail) {
+function insert_brand($detail)
+{
     $bd = database();
     $query = "INSERT INTO brands (detail,id_status) VALUES (:detail, 1)";
     $consulta = $bd->prepare($query);
     $consulta->bindParam(':detail', $detail, PDO::PARAM_STR);
-    
+
     try {
         if ($consulta->execute()) {
             return true; // Devuelve verdadero si la inserción fue exitosa
@@ -537,26 +551,28 @@ function update_brands($id_brand, $detail)
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
         $consulta->bindParam(':detail', $detail, PDO::PARAM_STR);
-       
+
 
         $result = $consulta->execute();
 
-        return $result; 
+        return $result;
     } catch (PDOException $e) {
         echo "Error al actualizar el proveedor: " . $e->getMessage();
         return false;
     }
 }
-function eliminated_brand($table, $id_brand) {
+function eliminated_brand($table, $id_brand)
+{
     try {
+
         $bd = database();
         $query = "DELETE FROM $table WHERE id_brand = :id_brand";
         $deleteStatement = $bd->prepare($query);
         $deleteStatement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
         $deleteStatement->execute();
         $rowCount = $deleteStatement->rowCount();
+
         return ($rowCount > 0);
-        
     } catch (PDOException $e) {
         // Manejar errores de base de datos
         return false;
@@ -564,25 +580,28 @@ function eliminated_brand($table, $id_brand) {
 }
 
 
-function deletecategorys($table, $id_brands) {
+function deletecategorys($table, $id_brands)
+{
     try {
-        
-        $bd = database(); 
-        
+
+        $bd = database();
+
         $query = "DELETE FROM $table WHERE id_category = :id_category";
         $deleteStatement = $bd->prepare($query);
         $deleteStatement->bindParam(':id_category', $id_brands, PDO::PARAM_INT);
+
         $deleteStatement->execute();
         $rowCount = $deleteStatement->rowCount();
+
         return ($rowCount > 0);
-        
     } catch (PDOException $e) {
         // Manejar errores de base de datos
         return false;
     }
 }
 
-function brand_exists($detail) {
+function brand_exists($detail)
+{
     try {
         $bd = database();
         $query = "SELECT COUNT(*) FROM brands WHERE detail = :detail";
@@ -590,13 +609,15 @@ function brand_exists($detail) {
         $statement->bindParam(':detail', $detail, PDO::PARAM_STR);
         $statement->execute();
         $count = $statement->fetchColumn();
+
         return $count > 0;
     } catch (PDOException $e) {
         echo "Error al verificar la marca: " . $e->getMessage();
         return false;
     }
 }
-function category_exists($name_category) {
+function category_exists($name_category)
+{
     try {
         $bd = database();
         $query = "SELECT COUNT(*) FROM categorys WHERE detail = :detail";
@@ -615,14 +636,15 @@ function category_exists($name_category) {
 
 //Email-Config
 
-function getConnection() {
+function getConnection()
+{
     $user_password = getenv("MYSQLPASSWORD");
     $user_name = getenv("MYSQLUSER");
     $databasename = getenv("MYSQLDB");
     $hostname = getenv("MYSQLSERVER");
 
     try {
-        $database = new PDO("mysql:host=" . $hostname. ";dbname=" . $databasename, $user_name, $user_password);
+        $database = new PDO("mysql:host=" . $hostname . ";dbname=" . $databasename, $user_name, $user_password);
         $database->query("set names utf8;");
         $database->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
         $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -634,7 +656,8 @@ function getConnection() {
     }
 }
 
-function saveConfig($email, $email_password, $email_receive, $smtp_address, $smtp_port) {
+function saveConfig($email, $email_password, $email_receive, $smtp_address, $smtp_port)
+{
     $db = getConnection();
     $config = getConfig();
 
@@ -658,7 +681,8 @@ function saveConfig($email, $email_password, $email_receive, $smtp_address, $smt
     return $stmt->execute();
 }
 
-function getConfig() {
+function getConfig()
+{
     $db = getConnection();
     $query = "SELECT * FROM email_config ORDER BY id DESC LIMIT 1";
     $stmt = $db->prepare($query);
@@ -667,7 +691,8 @@ function getConfig() {
 }
 
 
-function clients_exists($email_cliente) {
+function clients_exists($email_cliente)
+{
     try {
         $bd = database();
         $query = "SELECT COUNT(*) FROM customers WHERE email_customer = :detail";
@@ -681,7 +706,8 @@ function clients_exists($email_cliente) {
         return false;
     }
 }
-function user_exists($email_user) {
+function user_exists($email_user)
+{
     try {
         $bd = database();
         $query = "SELECT COUNT(*) FROM users WHERE email_user = :detail";
@@ -696,8 +722,9 @@ function user_exists($email_user) {
     }
 }
 
-function check_existing_cliente($cuil, $email_Proveedor) {
-    $bd = database(); 
+function check_existing_cliente($cuil, $email_Proveedor)
+{
+    $bd = database();
     $sentence = $bd->prepare("SELECT COUNT(*) AS count FROM customers WHERE (tax_identifier = ? OR email_customer = ?) AND id_status != 0");
     $sentence->execute([$cuil, $email_Proveedor]);
     $row = $sentence->fetch(PDO::FETCH_ASSOC);
@@ -715,7 +742,8 @@ function obtenerUsuarioPorEmail($email)
     return $sentence->fetch(PDO::FETCH_ASSOC);
 }
 
-function add_serial_number($id_product, $serial_number, $remito_number, $line_number, $id_supplier) {
+function add_serial_number($id_product, $serial_number, $remito_number, $line_number, $id_supplier)
+{
     $bd = database();
     $sentence = $bd->prepare("INSERT INTO serial_numbers (id_product, serial_number, remito_number, line_number, id_supplier)
         VALUES (:id_product, :serial_number, :remito_number, :line_number, :id_supplier)
@@ -729,6 +757,29 @@ function add_serial_number($id_product, $serial_number, $remito_number, $line_nu
 
     return $sentence->execute();
 }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $fecha_remito = $_POST['date_remito'];
+    $fecha_actual = date('Y-m-d');
 
 
-?>
+    if ($fecha_remito < $fecha_actual) {
+        // Mostrar un mensaje de error o realizar la acción correspondiente
+        echo "La fecha del remito no puede ser anterior a la fecha actual.";
+    } else {
+        // Procesar el remito
+        // Aquí iría tu código para guardar los datos en la base de datos o lo que sea necesario.
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $fecha_factura = $_POST['date_factura'];
+    $fecha_actual = date('Y-m-d');
+
+    if ($fecha_factura < $fecha_actual) {
+        // Mostrar un mensaje de error o realizar la acción correspondiente
+        echo "La fecha de la factura no puede ser anterior a la fecha actual.";
+    } else {
+        // Procesar la factura
+        // Aquí iría tu código para guardar los datos en la base de datos o lo que sea necesario.
+    }
+}
+
