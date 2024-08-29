@@ -1,10 +1,8 @@
 $(document).ready(function() {
     $('.select2').select2();
-
     $('#id_customer').on('change', function() {
         var customerId = $(this).val();
         console.log('Cliente seleccionado:', customerId); 
-
         if (customerId) {
             $.ajax({
                 url: '../controller/get_sales_details.php',

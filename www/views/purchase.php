@@ -1,60 +1,47 @@
 <?php
 session_start();
 include_once "../models/functions.php";
-$show = show_state("suppliers");
-$showP = show_state("products");
 
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
+$show=show_state("suppliers");
+$showP=show_state("products");
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {   
+
 } else {
     header("Location: login.php");
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
-
+    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css"></link>
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css"></Link>
     <!-- SweetAlert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/sweetalert2@11.js"></script>
     <!-- Incluir el CSS de Select2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <!-- Tu hoja de estilo personalizada -->
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     <script src="../assets/js/purchase.js"></script>
-
-
 </head>
-
 <body class="sidebar-mini" style="height: auto;">
-
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- HEADER -->
         <?php include "header.php" ?>
         <!-- HEADER -->
-
         <!-- MENU -->
         <?php include "menu.php" ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="min-height: 1604.8px;">
-
             <div class="container-fluid" style="padding:50px;">
                 <div class="card" style="margin-top:5px">
                     <div class="card-header">
@@ -66,11 +53,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                     </div>
                 </div>
-
-
                 <form action="../controller/controllerxxxxx.php" method="post">
                     <div class="card">
-
                         <div class="card-header" style="display: block;text-align:center">
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
@@ -95,7 +79,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     </select>
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="view_tax">CUIL/CUIT</label>
@@ -105,7 +88,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="view_email">Email</label>
                                     <span id="view_email" class="form-control" readonly></span>
                                 </div>
-
                                 <div class="form-group col-md-4">
                                     <label for="view_phone">Teléfono</label>
                                     <span id="view_phone" class="form-control" readonly></span>
@@ -128,7 +110,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group col-md-1">
                                     <label for="purchase_factura">Número de </label>
@@ -147,9 +128,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                         </div>
                     </div>
-
                     <!-- /.card-body -->
-
                     <div class="card">
                         <div class="card-header" style="display: block;">
                             <h5>Detalle del Remito</h5>
@@ -175,12 +154,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
-
-
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
                                     <input type="number" name="items[0][quantity]" class="form-control" placeholder="Cantidad" min="1">
@@ -204,28 +180,24 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                             </div>
 
-
-
-
-
-                            <div class="table-responsive">
-                                <div class="table-wrapper">
-                                    <table id="table_products" class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th>Nombre</th>
-                                                <th>Cantidad</th>
-                                                <th>Número de Series</th>
-                                                <th>Eliminar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Filas dinámicas se agregarán aquí -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                    <div class="table-responsive">
+                                        <div class="table-wrapper">
+                                            <table id="table_products" class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Producto</th>
+                                                        <th>Nombre</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Número de Series</th>
+                                                        <th>Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Filas dinámicas se agregarán aquí -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
                             <div class="card-footer" style="text-align:right">
                                 <input type="submit" class="btn btn-success" value="Ingresar Remito">
@@ -233,10 +205,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                 </form>
             </div>
-
-
-
-
         </div>
         <!-- FOOTER -->
         <?php include "footer.php" ?>
@@ -272,77 +240,69 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 <div class="modal-footer">
                     <button type="submit" form="serialForm" class="btn btn-success">Guardar</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-
                 </div>
             </div>
         </div>
     </div>
-
-
     </div>
     <!-- Incluir jQuery una sola vez -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- Incluir el JS de Select2 -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <script src="../assets/js/select2.js"></script>
     <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
-
-
-
     <!-- Otros scripts que necesites -->
     <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
-    <script>
 
-        $(document).ready(function() {
-            let productCounter = 0;
+    <script src="../assets/js/jquery.datatables.min.js"></script>
+    <script src="../assets/js/dataTables.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.js"></script>
+    <script src="../assets/js/dataTables.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.searchPanes.js"></script>
+    <script src="../assets/js/searchPanes.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.select.js"></script>
+    <script src="../assets/js/select.bootstra5.js"></script>
+<script>
 
-            const table = $('#table_products').DataTable();
+$(document).ready(function() {
+    
+    let productCounter = 0;
+    const table = $('#table_products').DataTable();
+    $('#addProduct').on('click', function() {
+        const productId = $('#id_product').val();
+        const productName = $('#id_product option:selected').text();
+        const quantity = $('input[name="items[0][quantity]"]').val();
+        if (productId && quantity) {
+            table.row.add([
+                `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productId}`,
+                `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
+                `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
+                `<button type="button"  data-product-id="${productId}" data-bs-toggle="modal" data-bs-target="#serialNumberModal"><i class="fa fa-binoculars"></i></button>`,
+                `<button type="button" class=" delete-row"><i class="fas fa-trash-alt"></i></button>`
+            ]).draw();
 
-            $('#addProduct').on('click', function() {
-                const productId = $('#id_product').val();
-                const productName = $('#id_product option:selected').text();
-                const quantity = $('input[name="items[0][quantity]"]').val();
+            productCounter++;
 
-                if (productId && quantity) {
-                    table.row.add([
-                        `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productId}`,
-                        `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
-                        `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
-                        `<button type="button"  data-product-id="${productId}" data-bs-toggle="modal" data-bs-target="#serialNumberModal"><i class="fa fa-binoculars"></i></button>`,
-                        `<button type="button" class=" delete-row"><i class="fas fa-trash-alt"></i></button>`
-                    ]).draw();
+            $('#id_product').val('').trigger('change');
+            $('input[name="items[0][quantity]"]').val('');
+        } else {
+            Swal.fire('Error', 'Debe seleccionar un producto y una cantidad', 'error');
+        }
+    });
 
-                    productCounter++;
+    $('#table_products tbody').on('click', '.delete-row', function() {
+        table.row($(this).parents('tr')).remove().draw();
+    });
 
-                    $('#id_product').val('').trigger('change');
-                    $('input[name="items[0][quantity]"]').val('');
-                } else {
-                    Swal.fire('Error', 'Debe seleccionar un producto y una cantidad', 'error');
-                }
-            });
+    $('#table_products tbody').on('click', '.view-serial', function() {
+        const productId = $(this).data('product-id');
+        $('#id_product_modal').val(productId);
+    });
+});
 
-            $('#table_products tbody').on('click', '.delete-row', function() {
-                table.row($(this).parents('tr')).remove().draw();
-            });
-
-            $('#table_products tbody').on('click', '.view-serial', function() {
-                const productId = $(this).data('product-id');
-                $('#id_product_modal').val(productId);
-            });
-        });
-    </script>
+</script>
 
 </body>
 

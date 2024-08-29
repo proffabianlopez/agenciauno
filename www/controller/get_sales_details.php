@@ -1,7 +1,5 @@
 <?php
 include_once "../models/functions.php";
-var_dump($_POST['id_customer']);
-exit();
 if (isset($_POST['id_customer'])) {
     $id_customer = $_POST['id_customer'];
     $cliente = obtenerClientePorId($id_customer);

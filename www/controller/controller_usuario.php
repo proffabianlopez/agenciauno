@@ -1,7 +1,5 @@
 <?php
 include_once "../models/functions.php"; 
-//var_dump($_POST['role']);
-//exit();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email_user = $_POST['name_user'];
     $email_user=strtoupper($email_user);
@@ -9,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password']; 
     $id_status = 1;
     $id_rol = $_POST['role']; // Obtener el rol seleccionado del formulario
-
     if(user_exists($email_user))
     {
         echo '<script>
