@@ -1,6 +1,5 @@
 <?php
 include_once "../models/functions.php";
-
 $id = $_POST['edit-id'];
 $detail = $_POST['edit-detail'];
 $detail=strtoupper($detail);

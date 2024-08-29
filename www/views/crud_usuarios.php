@@ -3,38 +3,28 @@ session_start();
 include_once "../models/functions.php";
 $usuarios = obtenerusuarios();
 $roles = obtenerroles();
-
 if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
-    
 } else {
     header("Location: login.php");
     exit();
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia 1</title>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css"></link>
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css"></Link>
     <!-- SweetAlert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="../assets/js/sweetalert2@11.js"></script>
 </head>
-
 <body class="sidebar-mini" style="height: auto;">
     <div class="wrapper">
         <?php include "header.php"?>
@@ -57,7 +47,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                         </div>
                     </div>
-
                     <div class="table-responsive">
                         <div class="table-wrapper">
                             <table id="table_usuarios" class="table table-striped table-hover">
@@ -76,7 +65,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <td><?php echo $usuario['email_user']; ?></td>
                                         <td><?php echo $usuario['phone']; ?></td>
                                         <td><?php echo $usuario['password']; ?></td>
-
                                         <td> <a href="#viewEmployeeModal"
                                                 class="view btn btn-success long_letter text-white"
                                                 data-bs-toggle="modal" data-id="<?php echo $usuario['id_user']; ?>"
@@ -100,11 +88,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-name="<?php echo $usuario['email_user']; ?>"
                                                 data-rol="<?php echo $usuario['id_rol']; ?>">
                                                 <i class="fas fa-trash-alt">
-
                                                 </i>
                                             </a>
                                         </td>
-
                                     </tr>
                                     <?php endif; ?>
                                     <?php endforeach; ?>
@@ -112,14 +98,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </table>
                         </div>
                     </div>
-
-
                 </div>
             </main>
         </div>
         <?php include "footer.php"?>
     </div>
-
  <!-- createEmployeeModal -->
 <div id="createEmployeeModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
@@ -143,20 +126,16 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="form-group">
                         <label for="create-password">Contraseña</label>
                         <input type="password" class="form-control" id="create-password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
-       title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos un número, una letra mayúscula, una letra minúscula y un carácter especial." minlength="8" required>
+                            title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos un número, una letra mayúscula, una letra minúscula y un carácter especial." minlength="8" required>
                     </div>
                     <div class="form-group">
                         <label for="create-role">Rol</label>
                         <select class="form-control" id="create-role" name="role">     <div class="form-group">
-                        
-                           
                            <?php
-                           
                             foreach ($roles as $role) {
                                 echo '<option value="'.$role['id_rol'].'">'.$role['detail'].'</option>';
                             }
                             ?>
-                        
                     </select>
                     </div>
                 </div>
@@ -168,8 +147,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         </div>
     </div>
 </div>
-
-
    <!-- editEmployeeModal -->
 <div id="editEmployeeModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
@@ -181,7 +158,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="edit-id_user" id="edit-id_user">
-
                     <div class="form-group">
                         <label for="edit-name">Email de usuario</label>
                         <input type="email" class="form-control" id="edit-name" name="edit-name" minlength="2" maxlength="200" required
@@ -195,14 +171,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="form-group">
                         <label for="edit-password">Contraseña</label>
                         <input type="text" class="form-control" id="edit-password" name="edit-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
-       title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos un número, una letra mayúscula, una letra minúscula y un carácter especial." minlength="8">
+                            title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos un número, una letra mayúscula, una letra minúscula y un carácter especial." minlength="8">
                     </div>
                     <div class="form-group">
                         <label for="edit-role">Rol</label>
                         <select class="form-control" id="edit-role" name="edit-role">
-                           
                            <?php
-                           
                             foreach ($roles as $role) {
                                 echo '<option value="'.$role['id_rol'].'">'.$role['detail'].'</option>';
                             }
@@ -228,7 +202,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group">
                         <label for="view-email">Email</label>
                         <input type="email" class="form-control" id="view-name" readonly>
@@ -248,8 +221,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
     </div>
-
-
 
     <div id="deleteEmployeeModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
@@ -290,23 +261,24 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
+<script src="../assets/plugins/jquery/jquery.min.js"></script>
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <script src="../assets/js/accions_usuarios.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.js"></script>
+    <script src="../assets/js/dataTables.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.searchPanes.js"></script>
+    <script src="../assets/js/searchPanes.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.select.js"></script>
+    <script src="../assets/js/select.bootstrap5.js"></script>
 
     <script>
     $('#table_usuarios').DataTable({
         pageLength: 4,
         language: {
-            url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+            url: "../assets/lang/spanish.json",
+
         },
         columns: [{
             width: '20%'

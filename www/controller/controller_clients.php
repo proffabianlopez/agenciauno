@@ -9,11 +9,9 @@ $direccion=$_POST["direccion"];
 $Altura=$_POST["altura"];
 $ciudad=$_POST["ciudad"];
 $piso=$_POST["piso"];
-
 $observaciones=$_POST["observaciones"];
 $status=1;
 $department=$_POST["department"];
-
 if(clients_exists($email_cliente))
     {
         echo '<script>
@@ -26,7 +24,6 @@ if(clients_exists($email_cliente))
     {
 if(add_cliente($identifier, $name_cliente, $email_cliente, $telefono, $direccion, $Altura, $ciudad, $observaciones, $status,$piso,$department))
 {
-    
     echo '<script>
     localStorage.setItem("mensaje", "Cliente creado con éxito");
     localStorage.setItem("tipo", "success");

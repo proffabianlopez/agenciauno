@@ -3,9 +3,7 @@ $(document).ready(function() {
     // Evento para capturar el cambio en el select de proveedores
     $('select[name="id_supplier"]').change(function() {
         var id_supplier = $(this).val(); // Obtengo el ID del proveedor seleccionado
-
         if (id_supplier) {
-          
             $.ajax({
                 url: '../controller/get_supplier_details.php', 
                 type: 'POST',

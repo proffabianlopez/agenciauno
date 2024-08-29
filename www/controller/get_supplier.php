@@ -1,11 +1,8 @@
 <?php
 include_once "../models/functions.php";
-
 if (isset($_POST['id_supplier'])) {
     $id_supplier = $_POST['id_supplier'];
-
     $supplier = getSupplier($id_supplier);
-
     if ($supplier) {
         echo json_encode([
             'name_supplier' => $supplier['name_supplier'],

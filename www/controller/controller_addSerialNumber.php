@@ -1,6 +1,5 @@
 <?php
 include_once "../models/functions.php";
-
 // Verifica si la solicitud es POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtén los datos del formulario
@@ -8,19 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $remito_number = $_POST['remito_number'];
     $id_supplier = $_POST['id_supplier_modal'];
     $serial_numbers = $_POST['items'][0]['serial_numbers'];
-
     // Validación básica
     if (empty($id_product)) {
         echo json_encode(['error' => 'El ID del producto está vacío.']);
         exit;
     }
-
     try {
         // Insertar los números de serie en la base de datos
         foreach ($serial_numbers as $line_number => $serial_number) {
             add_serial_number($id_product, $serial_number, $remito_number, $line_number + 1, $id_supplier);
         }
-
         // Si la inserción es exitosa, devuelve un mensaje de éxito
         echo json_encode(['success' => true, 'message' => 'Números de serie agregados con éxito.']);
     } catch (Exception $e) {

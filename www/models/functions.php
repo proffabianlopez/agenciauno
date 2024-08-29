@@ -239,16 +239,6 @@ function cuilExistsCliente($cuil, $id, $bd) {
     }
 }
 
-/*
-function UpdateBook($id_book, $titulo, $genero, $anio, $synopsis, $lenguaje, $page)
-{
-    $bd = database();
-    $query = $bd->prepare("UPDATE Books SET book_title = :titulo, id_gender = :genero, published_year = :anio, synopsis = :synopsis, book_language = :lenguaje, page_number = :page WHERE id_book = :id");
-    $query->execute(array(':id' => $id_book, ':titulo' => $titulo, ':genero'=> $genero, ':anio' => $anio, ':synopsis' => $synopsis, ':lenguaje' => $lenguaje, ':page' => $page));
-}
-/*  EJEMPLO DE SELECT!!!!! COMO POR EJ UN LOGIN*/
-
-
 function login($email, $password)
 {
     $bd = database();
@@ -397,21 +387,13 @@ function updateSupplier($id_supplier, $name, $phone, $email, $observation, $tax,
 
 function eliminated_Suppliers($table, $id_user) {
     try {
-        // Obtener la conexión a la base de datos
-        $bd = database(); // Asumiendo que la función database() está definida en functions.php
+        $bd = database(); 
         
-        // Preparar la consulta de actualización
         $query = "UPDATE $table SET id_status = 0 WHERE id_supplier = :id_supplier";
         $updateStatement = $bd->prepare($query);
         $updateStatement->bindParam(':id_supplier', $id_user, PDO::PARAM_INT);
-        
-        // Ejecutar la actualización
         $updateStatement->execute();
-        
-        // Verificar si se actualizó al menos una fila
         $rowCount = $updateStatement->rowCount();
-        
-        // Devolver verdadero si se actualizó correctamente
         return ($rowCount > 0);
         
     } catch (PDOException $e) {
@@ -438,7 +420,6 @@ function eliminated_Suppliers($table, $id_user) {
     
     $consulta = $bd->prepare($query);
 
-    // Asociar los parámetros
     $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
     $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
     $consulta->bindParam(':description', $description, PDO::PARAM_STR);
@@ -500,21 +481,13 @@ function update_products($number_product,$id_product, $name_product, $descriptio
 }
 function eliminated_product($table, $id_user) {
     try {
-        // Obtener la conexión a la base de datos
-        $bd = database(); // Asumiendo que la función database() está definida en functions.php
-        
-        // Preparar la consulta de actualización
+       
+        $bd = database();
         $query = "UPDATE $table SET id_status = 0 WHERE id_product = :id_product";
         $updateStatement = $bd->prepare($query);
         $updateStatement->bindParam(':id_product', $id_user, PDO::PARAM_INT);
-        
-        // Ejecutar la actualización
         $updateStatement->execute();
-        
-        // Verificar si se actualizó al menos una fila
         $rowCount = $updateStatement->rowCount();
-        
-        // Devolver verdadero si se actualizó correctamente
         return ($rowCount > 0);
         
     } catch (PDOException $e) {
@@ -576,21 +549,12 @@ function update_brands($id_brand, $detail)
 }
 function eliminated_brand($table, $id_brand) {
     try {
-        // Obtener la conexión a la base de datos
-        $bd = database(); // Asumiendo que la función database() está definida en functions.php
-        
-        // Preparar la consulta de eliminación
+        $bd = database();
         $query = "DELETE FROM $table WHERE id_brand = :id_brand";
         $deleteStatement = $bd->prepare($query);
         $deleteStatement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
-        
-        // Ejecutar la eliminación
         $deleteStatement->execute();
-        
-        // Verificar si se eliminó al menos una fila
         $rowCount = $deleteStatement->rowCount();
-        
-        // Devolver verdadero si se eliminó correctamente
         return ($rowCount > 0);
         
     } catch (PDOException $e) {
@@ -608,14 +572,8 @@ function deletecategorys($table, $id_brands) {
         $query = "DELETE FROM $table WHERE id_category = :id_category";
         $deleteStatement = $bd->prepare($query);
         $deleteStatement->bindParam(':id_category', $id_brands, PDO::PARAM_INT);
-        
-        
         $deleteStatement->execute();
-        
-        // Verificar si se eliminó al menos una fila
         $rowCount = $deleteStatement->rowCount();
-        
-        // Devolver verdadero si se eliminó correctamente
         return ($rowCount > 0);
         
     } catch (PDOException $e) {
@@ -632,11 +590,8 @@ function brand_exists($detail) {
         $statement->bindParam(':detail', $detail, PDO::PARAM_STR);
         $statement->execute();
         $count = $statement->fetchColumn();
-        
-        // Devolver true si existe al menos una marca con el mismo nombre, de lo contrario false
         return $count > 0;
     } catch (PDOException $e) {
-        // Imprimir mensaje de error si ocurre una excepción
         echo "Error al verificar la marca: " . $e->getMessage();
         return false;
     }

@@ -7,8 +7,7 @@ include_once "../models/functions.php";
 $show=show_state("products");
 $brandData=show_state("brands");
 $categoryData=show_state("categorys");
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
-    
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {  
 } else {
     header("Location: login.php");
     exit();
@@ -16,45 +15,28 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
-    </Link>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css">
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
-    </script>
+   <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css"></link>
+    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css"></link>
+    <link rel="stylesheet" href="../assets/css/style_lista_cliente.css"></link>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css"></link>
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css"></Link>
     <!-- Theme style -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-
+    <script src="../assets/js/sweetalert2@11.js"></script>
 </head>
-
 <body class="sidebar-mini" style="height: auto;">
-
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- HEADER -->
         <?php include "header.php"?>
-
         <!-- MENU -->
         <?php include "menu.php"?>
-
         <div class="content-wrapper" style="min-height: 1604.8px;">
             <main>
                 <div class="container-fluid" style="padding:50px;">
@@ -64,7 +46,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Productos&nbsp&nbsp</b>
                                     <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?>
+                                        if($_SESSION["id_rol"]=== 1) {?>
                                         <button type="button" class="btn btn-success create_products_Btn"
                                             data-toggle="modal" data-target="#create_products_Bt" data-action="add"
                                             data-placement="right" title="Nuevo"><i
@@ -78,14 +60,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.row -->
-
                     <div class="table-responsive">
                         <div class="table-wrapper">
-
                             <table id="table_products" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <!--<th>Numero De Serie</th>-->
                                         <th>Número De Producto</th>
                                         <th>Nombre Producto</th>
                                         <th>Descripción</th>
@@ -96,12 +75,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <tbody>
                                     <?php foreach ($show as $row) { ?>
                                     <tr>
-                                        <!--<td><?php echo $row->number_serial; ?></td>-->
                                         <td><?php echo $row->number_product; ?></td>
                                         <td><?php echo $row->name_product; ?></td>
                                         <td><?php echo $row->description; ?></td>
                                         <td><?php echo $row->stock; ?></td>
-
                                         <td>
                                             <a class="btn btn-success viewBtn long_letter text-white"
                                                 data-id_product="<?php echo $row->id_product ?>"
@@ -112,7 +89,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-stock="<?php echo $row->stock ?>"><i
                                                     class="fa fa-binoculars"></i></a>
                                                     <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?> 
+                                                if($_SESSION["id_rol"]=== 1) {?> 
                                             <a class="btn btn-warning editBtn long_letter text-white"
                                                 data-id_product="<?php echo $row->id_product ?>"
                                                 data-number_serial="<?php echo $row->number_serial ?>"
@@ -136,15 +113,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         </div>
         <?php include "footer.php"?>
     </div>
-
-
     <!-- Modal para Crear Productos-->
     <div id="create_Modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-
                     <h4 class="modal-title text-white">Crear Producto</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -152,37 +125,28 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
                 <form action="../controller/insert_products.php" method="post">
                     <div class="modal-body">
-
                         <div class="form-group">
                             <label for="name_product">Nombre</label>
                             <input type="text" name="name_product" class="form-control" required maxlength="200">
-
                         </div>
                         <div class="form-group">
                             <label for="description">Descripción</label>
                             <input type="text" name="description" class="form-control" required>
-
                         </div>
-
                         <div class="form-group">
                             <label for="name_product">Número de Producto</label>
                             <input type="text" name="number_product" class="form-control"  min-height="1"
                                 maxlength="200">
-
                         </div>
-
                         <div class="form-group col-md-3">
                             <label for="stock">Stock</label>
                             <input type="number" name="stock" class="form-control" required min="0" max="100000000">
-
                         </div>
-
                         <div class="form-group">
                             <label for="brand">Marca</label>
                             <select name="id_brand" id="brand" class="form-select" required>
                                 <option option value="" selected disabled>-- Seleccione Marca --</option>
                                 <?php foreach ($brandData as $brand) { ?>
-
                                 <option value="<?php echo $brand->id_brand; ?>">
                                     <?php echo $brand->detail; ?>
                                 </option>
@@ -199,18 +163,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <?php } ?>
                             </select>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name="enviar" class="btn btn-success">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
 
     <!--Modal de Editar Productos-->
     <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
@@ -251,15 +212,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <button type="submit" name="save_data" class="btn btn-success">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-
-
                     </div>
                 </form>
             </div>
         </div>
     </div> <!-- Fin Modal para Editar Productos-->
-
-
 
     <!--Modal de Ver Productos-->
     <div id="viewModal" class="modal fade" tabindex="-1" role="dialog">
@@ -304,15 +261,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Volver</button>
                     </div>
-
-
             </div>
             </form>
         </div>
     </div>
     <!-- Fin Modal para Ver Productos-->
-
-
 
     <!-- Eliminar Producto -->
     <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
@@ -336,7 +289,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="form-group col-md-6" style="text-align:center">
                                 <input type="hidden" name="id_product" id="id_product_eliminate"
                                     value="<?php echo $row->id_product?>">
-
                             </div>
                         </div>
                         <!-- number_product_eliminate-->
@@ -350,7 +302,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
     </div>
-
 
     <script>
     // Verifica si hay un mensaje en el almacenamiento local
@@ -367,46 +318,38 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         localStorage.removeItem('tipo');
     }
     </script>
-
-
- <!-- jQuery -->
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery -->
+    <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- Modal Products JS -->
     <script src="../js.modal/modal_products.js"></script>
-
     <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
-
+    <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/datatables.bootstrap5.min.js"></script>
+    <script src="../assets/js/dataTables.js"></script>
+    <script src="../assets/js/dataTables.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.searchPanes.js"></script>
+    <script src="../assets/js/searchPanes.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.select.js"></script>
+    <script src="../assets/js/select.bootstrap5.js"></script>
     <!-- DataTables Buttons JS -->
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
-
-
-
-
+    <script src="../assets/js/datatable.buttons2.1.1.js"></script>
+    <script src="../assets/js/buttons.bootstrap5.min.js"></script>
+    <script src="../assets/plugins/jszip/jszip.min.js"></script>
+    <script src="../assets/plugins/pdfmake/pdfmakev0.1.js"></script>
+    <script src="../assets/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="../assets/js/buttons.html5.min.js"></script>
+    <script src="../assets/js/buttons.print.min.js"></script>
     <script>
     $(document).ready(function() {
         var table = $('#table_products').DataTable({
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 75, 100], // Opciones de cantidad de registros a mostrar
             language: {
-                url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                url: "../assets/lang/spanish.json",
             },
             columns: [{
                     width: '20%'

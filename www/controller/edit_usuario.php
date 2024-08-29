@@ -1,16 +1,12 @@
 <?php
 include_once "../models/functions.php";
-if (isset($_POST['edit-id_user'], $_POST['edit-phone'], $_POST['edit-name'], $_POST['edit-password'], $_POST['edit-role'])) {
-    
+if (isset($_POST['edit-id_user'], $_POST['edit-phone'], $_POST['edit-name'], $_POST['edit-password'], $_POST['edit-role'])) {  
     $id = $_POST['edit-id_user'];
     $phone = $_POST['edit-phone'];
     $email = $_POST['edit-name'];
     $password = $_POST['edit-password'];
     $status = 1; 
     $id_rol = $_POST['edit-role']; // Obtener el rol seleccionado del formulario
-
-
-
     if(user_exists($email))
     {
         echo '<script>
