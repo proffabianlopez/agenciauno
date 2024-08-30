@@ -2,8 +2,7 @@
 session_start();
 include_once "../models/functions.php";
 $categorys = obtenercategorys();
-if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
-    
+if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {  
 } else {
     header("Location: login.php");
     exit();
@@ -11,29 +10,22 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
-    <!-- Google Font: Source Sans Pro -->
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
-        </Link>
+    <!-- Google Font: Source Sans Pro --> 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css"></Link>
         <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css"></Link>
         <link rel="stylesheet" href="../assets/css/style_lista_cliente.css"></Link>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"></Link>
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"></Link>
-        <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css"></Link>
-        <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css"></Link>
-
+        <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css"></Link>
+        <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css"></Link>
+        <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css"></Link>
+        <link rel="stylesheet" href="../assets/css/select.bootstrap5.css"></Link>
         <!-- SweetAlert -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        <script src="../assets/js/sweetalert2@11.js"></script>
 </head>
-
 <body class="sidebar-mini" style="height: auto;">
     <div class="wrapper">
         <?php include "header.php"?>
@@ -47,7 +39,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Categorías</b>
                                     <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?> 
+                                    if($_SESSION["id_rol"]=== 1) {?> 
                                         <a type="button"
                                             class="btn btn-success btn btn-primary btn-lg create_brands_Btn text-white"
                                             data-bs-toggle="modal" data-bs-target="#createEmployeeModal"
@@ -59,7 +51,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                         </div>
                     </div>
-
                     <div class="table-responsive">
                         <div class="table-wrapper">
                             <table class="table table-striped table-hover" id="table_products">
@@ -67,7 +58,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <tr>
                                         <th>Categorías</th>
                                         <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?>   <th>Acciones</th><?php }} ?> 
+                                        if($_SESSION["id_rol"]=== 1) {?> 
+                                          <th>Acciones</th><?php }} ?> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,7 +69,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <td><?php echo $categoria['detail']; ?></td>
                                         <td>
                                         <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?> 
+                                        if($_SESSION["id_rol"]=== 1) {?> 
                                             <a class="btn btn-warning float-center editBtn text-white"
                                                 data-bs-toggle="modal"
                                                 data-id="<?php echo $categoria['id_category']; ?>"
@@ -193,9 +185,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         localStorage.removeItem('tipo');
     }
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js">
-    </script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
+<script src="../assets/js/accions_categorys.js"></script>
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -203,25 +194,20 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="../js.modal/modal_products.js"></script>
-
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- DataTables -->
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
-
+    <script src="../assets/js/dataTables.js"></script>
+    <script src="../assets/js/dataTables.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.searchPanes.js"></script>
+    <script src="../assets/js/searchPanes.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.select.js"></script>
+    <script src="../assets/js/select.bootstrap5.js"></script>
     <script>
     $("#table_products").DataTable({
         pageLength: 5,
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
-        },
+     
         columns: [{
             width: '50%'
         }, {
@@ -229,7 +215,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         }, ]
     });
     </script>
-
     <script>
     $(document).on("click", ".editBtn", function() {
         var id_category = $(this).data('id');
@@ -238,7 +223,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         $("#editEmployeeModal #edit-detail").val(detail);
         $("#editEmployeeModal").modal("show");
     });
-
     $(document).on("click", ".delete_Btn", function() {
         var id_category = $(this).data('id');
         var detail = $(this).data('detail');

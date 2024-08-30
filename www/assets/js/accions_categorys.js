@@ -9,9 +9,6 @@ $(document).ready(function () {
         $editModal.find('#edit-detail').val(detail);
         $editModal.modal('show');
     });
-
-
-
         $('.delete').on('click', function () {
             var $deleteModal = $('#deleteEmployeeModal');
             var id = $(this).data('id');

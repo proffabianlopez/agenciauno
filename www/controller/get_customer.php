@@ -1,11 +1,8 @@
 <?php
 include_once "../models/functions.php";
-
 if (isset($_POST['id_customer'])) {
     $id_customer = $_POST['id_customer'];
-
     $cliente = getCustomer($id_customer);
-
     if ($cliente) {
         echo json_encode([
             'tax_identifier' => $cliente['tax_identifier'],

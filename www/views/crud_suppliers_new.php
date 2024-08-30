@@ -14,40 +14,27 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
- <!-- Google Font: Source Sans Pro -->
- <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
-    </Link>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.bootstrap5.css">
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.3/css/select.bootstrap5.css">
-    </script>
+    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css"></link>
+    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css"></link>
+    <link rel="stylesheet" href="../assets/css/style_lista_cliente.css"></link>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css"></link>
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css"></Link>
     <!-- Theme style -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="../assets/js/sweetalert2@11.js"></script>
 </head>
-
 <body class="sidebar-mini" style="height: auto;">
-
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- HEADER -->
         <?php include "header.php"?>
         <!-- HEADER -->
-
         <!-- MENU -->
         <?php include "menu.php"?>
         <!-- Content Wrapper. Contains page content -->
@@ -61,7 +48,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="col-sm-6">
                                     <h4><b>Listado de Proveedores&nbsp&nbsp</b>
                                     <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?>
+                                        if($_SESSION["id_rol"]=== 1) {?>
                                         <button type="button" class="btn btn-success create_suppliers_Btn"
                                             data-toggle="modal" data-target="#create_suppliers_Bt" data-action="add"
                                             data-placement="right" title="Nuevo"><i
@@ -75,46 +62,31 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.row -->
-
                     <div class="table-responsive">
-
                         <div class="table-wrapper">
                             <table id="table_proveedores" class="table table-striped table-hover">
                                 <thead>
-
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Email</th>
                                         <th>CUIL/CUIT</th>
                                         <th>Telefono</th>
-
-                                        <!--<th class="text-center long_letter">Observaciones</th>-->
-
                                         <th>Acciones</th>
-
                                     </tr>
-
-
                                 </thead>
-
                                 <tbody>
-
                                     <?php foreach ($show as $row) { ?>
                                     <tr>
                                         <td>
                                             <?php echo $row->name_supplier ?>
                                         </td>
                                         <td><?php echo $row->email_supplier ?></td>
-                                        <!--<td class="text-center long_letter align-middle">-->
-                                        <!--<?php echo $row->observations ?>-->
-                                        <!--</td>-->
                                         <td>
                                             <?php echo $row->tax_identifier  ?>
                                         </td>
                                         <td>
                                             <?php echo $row->phone_supplier ?>
                                         </td>
-
                                         <td> <a class="btn btn-success viewBtn long_letter text-white"
                                                 data-id="<?php echo $row->id_supplier ?>"
                                                 data-name="<?php echo $row->name_supplier?>"
@@ -129,7 +101,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 data-location="<?php echo $row->location ?>">
                                                 <i class="fa fa-binoculars"></i></a>
                                                 <?php if (isset($_SESSION["id_rol"])) {
-            if($_SESSION["id_rol"]=== 1) {?>
+                                                if($_SESSION["id_rol"]=== 1) {?>
                                             <a class="btn btn-warning editBtn long_letter text-white"
                                                 data-id="<?php echo $row->id_supplier ?>"
                                                 data-name="<?php echo $row->name_supplier?>"
@@ -150,24 +122,19 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         </td>
                                     </tr>
                                     <?php } ?>
-
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
-                    
                 </div>
             </main>
         </div>
-
         <!-- FOOTER -->
         <?php include "footer.php"?>
     </div>
     <!-- Modal para Crear Proveedores-->
     <div id="create_Modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title text-white">Crear Proveedor</h4>
@@ -177,13 +144,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
                 <form action="../controller/insert_suppliers.php" method="post">
                     <div class="modal-body">
-
                         <div class="form-group">
                             <label for="name">Nombre </label>
-
                             <input type="text" name="name_Proveedor" class="form-control"
                                 minlength="2" maxlength="200" required>
-
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -191,67 +155,52 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="cuil">CUIL/CUIT</label>
-
                             <input type="text" name="cuil" class="form-control" pattern="^\d{11}$"
                                 maxlength="11" title="Debe contener exactamente 11 dígitos">
-
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
                             <input type="text" name="telefono" class="form-control" required pattern="^\d{10}$"
                                 maxlength="10"  title="Debe contener exactamente 10, sin el 0 ni el 15 dígitos">
-
                         </div>
                         <div class="form-group">
                             <label for="ciudad">Localidad</label>
-
                             <input type="text" name="ciudad" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
                             minlength="2" maxlength="100" required>
-
-
                         </div>
                         <div class="form-group">
                             <label for="direction">Dirección</label>
                             <input type="text" name="direccion" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
                             title="Ingrese solo letras y números, sin puntos ni comas">
-
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
                                 <input type="number" name="altura" class="form-control" max="100000000"
                                 required title="solo se permiten números" value="0">
-
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="piso">Piso</label>
                                 <input type="text" name="piso" class="form-control" maxlength="4">
-
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="numero_de_piso">Departamento</label>
                                 <input type="text" name="numero_de_piso" class="form-control" maxlength="4">
-
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="observaciones">Observaciones</label>
                             <textarea type="text" name="observaciones" class="form-control"></textarea>
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name="agregar" class="btn btn-success">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
 
     <!--Modal de Editar Proveedores-->
     <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
@@ -266,7 +215,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </div>
                 <form action="../controller/edit_supplier.php" method="post">
                     <div class="modal-body">
-
                         <input type="hidden" name="id_supplier" id="id_supplier" class="form-control" value="">
                         <div class="form-group">
                             <label for="edit_name">Nombre</label>
@@ -279,54 +227,39 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                         <div class="form-group">
                             <label for="edit_heigth">CUIL/CUIT</label>
-
                             <input type="text" class="form-control" id="tax" name="cuil" value="" pattern="^\d{11}$" maxlength="11"
                                 title="Debe contener exactamente 11 dígitos">
                         </div>
-
                         <div class="form-group">
                             <label for="edit_phone">Teléfono</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="" pattern="^\d{10}$"maxlength="10"
                                 title="Debe contener exactamente 10 dígitos">
-
                         </div>
                         <div class="form-group">
                             <label for="location">Localidad</label>
                             <input type="text" class="form-control" id="location" name="location" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
                             minlength="2" maxlength="100" required>
                         </div>
-
-
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="street">Dirección</label>
                                 <input type="text" id="street" name="street" class="form-control" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9\s]+" required
                                 title="Ingrese solo letras y números, sin puntos ni comas">
-
-
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="height">Altura</label>
-
                                 <input type="number" id="height" name="height" class="form-control" max="100000000"
                                 required title="solo se permiten números">
-
-
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="floor">Piso</label>
                                 <input type="text" id="floor" name="floor" class="form-control" maxlength="4">
-
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="departament">Departamento</label>
-
                                 <input type="text" id="departament" name="departament" class="form-control" maxlength="4">
-
-
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="edit_heigth">Observaciones</label>
                             <textarea type="text" class="form-control" id="obs" name="observaciones"
@@ -336,15 +269,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" name="save_data">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-
-
                     </div>
                 </form>
             </div>
         </div>
     </div> <!-- Fin Modal para Editar Proveedor-->
-
-
 
     <!--Modal de Ver Proveedores-->
     <div id="viewModal" class="modal fade" tabindex="-1" role="dialog">
@@ -382,8 +311,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <span id="view_location" class="form-control" readonly></span>
                         </div>
                     </div>
-
-
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="view_street">Calle</label>
@@ -406,7 +333,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <label for="view_obs">Observaciones</label>
                         <span id="view_obs" class="form-control" readonly></span>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">Volver</button>
@@ -453,7 +379,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         </div>
     </div>
 
-
     <script>
     // Verifica si hay un mensaje en el almacenamiento local
     if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
@@ -470,35 +395,34 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     }
     </script>
     
- <!-- jQuery -->
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery -->
+    <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
+
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- Modal Suppliers JS -->
     <script src="../js.modal/modal_suppliers.js"></script>
 
     <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/searchPanes.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
-    <script src="https://cdn.datatables.net/select/2.0.3/js/select.bootstrap5.js"></script>
-
+    <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/datatables.bootstrap5.min.js"></script>
+    <script src="../assets/js/dataTables.js"></script>
+    <script src="../assets/js/dataTables.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.searchPanes.js"></script>
+    <script src="../assets/js/searchPanes.bootstrap5.js"></script>
+    <script src="../assets/js/dataTables.select.js"></script>
+    <script src="../assets/js/select.bootstrap5.js"></script>
     <!-- DataTables Buttons JS -->
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
-
-
+    <script src="../assets/js/datatable.buttons2.1.1.js"></script>
+    <script src="../assets/js/buttons.bootstrap5.min.js"></script>
+    <script src="../assets/plugins/jszip/jszip.min.js"></script>
+    <script src="../assets/plugins/pdfmake/pdfmakev0.1.js"></script>
+    <script src="../assets/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="../assets/js/buttons.html5.min.js"></script>
+    <script src="../assets/js/buttons.print.min.js"></script>
 
     <script>
     $(document).ready(function() {
@@ -506,7 +430,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50, 75, 100], // Opciones de cantidad de registros a mostrar
             language: {
-                url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                url: "../assets/lang/spanish.json",
             },
             columns: [{
                     width: '20%'
