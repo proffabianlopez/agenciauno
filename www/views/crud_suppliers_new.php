@@ -398,6 +398,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
+
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
