@@ -185,8 +185,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         localStorage.removeItem('tipo');
     }
     </script>
-    <script src="..assets/js/bootstrap.bundle5.3.min.js">
-    </script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
+<script src="../assets/js/accions_categorys.js"></script>
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
