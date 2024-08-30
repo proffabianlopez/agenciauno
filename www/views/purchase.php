@@ -288,6 +288,7 @@ $(document).ready(function() {
 
             productCounter++;
 
+            $('#id_supplier').prop('disabled',true);
             $('#id_product').val('').trigger('change');
             $('input[name="items[0][quantity]"]').val('');
         } else {
@@ -297,6 +298,11 @@ $(document).ready(function() {
 
     $('#table_products tbody').on('click', '.delete-row', function() {
         table.row($(this).parents('tr')).remove().draw();
+
+        if (table.rows().count() === 0) {
+            // Rehabilitar el select del proveedor si no hay productos
+            $('#id_supplier').prop('disabled', false);
+        }
     });
 
     $('#table_products tbody').on('click', '.view-serial', function() {
