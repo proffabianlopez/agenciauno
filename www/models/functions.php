@@ -757,29 +757,4 @@ function add_serial_number($id_product, $serial_number, $remito_number, $line_nu
 
     return $sentence->execute();
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fecha_remito = $_POST['date_remito'];
-    $fecha_actual = date('Y-m-d');
-
-
-    if ($fecha_remito < $fecha_actual) {
-        // Mostrar un mensaje de error o realizar la acción correspondiente
-        echo "La fecha del remito no puede ser anterior a la fecha actual.";
-    } else {
-        // Procesar el remito
-        // Aquí iría tu código para guardar los datos en la base de datos o lo que sea necesario.
-    }
-}
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fecha_factura = $_POST['date_factura'];
-    $fecha_actual = date('Y-m-d');
-
-    if ($fecha_factura < $fecha_actual) {
-        // Mostrar un mensaje de error o realizar la acción correspondiente
-        echo "La fecha de la factura no puede ser anterior a la fecha actual.";
-    } else {
-        // Procesar la factura
-        // Aquí iría tu código para guardar los datos en la base de datos o lo que sea necesario.
-    }
-}
 
