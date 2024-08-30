@@ -17,6 +17,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
@@ -31,6 +32,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- Tu hoja de estilo personalizada -->
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     <script src="../assets/js/purchase.js"></script>
+
 </head>
 <body class="sidebar-mini" style="height: auto;">
     <!-- Site wrapper -->
@@ -96,12 +98,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="form-row">
                                 <div class="form-group col-md-1">
                                     <label for="purchase_remito">Número de </label>
-                                    <input type="text" name="number_remito" class="form-control" maxlength="4" value="1234">
+                                    <input type="text" name="number_remito" id="number_remito" class="form-control" maxlength="4"
+                                        value="1234">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="remito">Remito: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="remito" id="remito" class="form-control"
-                                        maxlength="6" value="000456" pattern="\d{6}">
+                                    <input type="text" name="remito" id="remito" class="form-control" maxlength="6"
+                                        value="000456" pattern="\d{6}">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
@@ -113,7 +116,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="form-row">
                                 <div class="form-group col-md-1">
                                     <label for="purchase_factura">Número de </label>
-                                    <input type="text" name="purchase_factura" class="form-control" maxlength="4" value="1234">
+                                    <input type="text" name="purchase_factura" class="form-control" maxlength="4"
+                                        value="1234">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="factura">Factura: <sup style="color:red">*</sup></label>
@@ -180,24 +184,27 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                             </div>
 
-                                    <div class="table-responsive">
-                                        <div class="table-wrapper">
-                                            <table id="table_products" class="table table-striped table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Producto</th>
-                                                        <th>Nombre</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Número de Series</th>
-                                                        <th>Eliminar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Filas dinámicas se agregarán aquí -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                            <div class="table-responsive">
+                                <div class="table-wrapper">
+                                    <table id="table_products" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Nombre</th>
+                                                <th>Cantidad</th>
+                                                
+                                                <th>Número de Series</th>
+                                                <th>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Filas dinámicas se agregarán aquí -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
 
                             <div class="card-footer" style="text-align:right">
                                 <input type="submit" class="btn btn-success" value="Ingresar Remito">
@@ -206,9 +213,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </form>
             </div>
         </div>
-        <!-- FOOTER -->
-        <?php include "footer.php" ?>
+
     </div>
+    <!-- FOOTER -->
+    <?php include "footer.php"?>
+
     <!-- Modal -->
     <div class="modal fade" id="serialNumberModal" tabindex="-1" aria-labelledby="serialNumberModalLabel"
         aria-hidden="true">
@@ -244,12 +253,50 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
     </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="productDetailsModalLabel">Detalles del Producto</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    <form id="serialForm" action="../controller/controller_addSerialNumber.php" method="POST">
+                        <table class="table" id="productDetailsTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Código de Serie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Filas dinámicas se agregarán aquí -->
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="" form="serialFormxxx" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
     </div>
+
     <!-- Incluir jQuery una sola vez -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+
+
     <!-- Incluir el JS de Select2 -->
     <script src="../assets/js/select2.js"></script>
-    
+
+
     <!-- Bootstrap JS -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
 
@@ -258,6 +305,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- Otros scripts que necesites -->
     <!-- DataTables JS -->
+
 
     <script src="../assets/js/jquery.datatables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>
@@ -312,6 +360,7 @@ $(document).ready(function() {
 });
 
 </script>
+
 
 </body>
 

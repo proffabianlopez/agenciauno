@@ -758,3 +758,29 @@ function add_serial_number($id_product, $serial_number, $remito_number, $line_nu
     return $sentence->execute();
 }
 
+function get_serial_numbers($id_product, $remito_number, $id_supplier) {
+    $bd = database();
+    $sentence = $bd->prepare("SELECT id_product, serial_number, remito_number, id_supplier
+                              FROM serial_numbers
+                              WHERE id_product = :id_product 
+                              AND remito_number = :remito_number 
+                              AND id_supplier = :id_supplier");
+
+    $sentence->bindParam(':id_product', $id_product);
+    $sentence->bindParam(':remito_number', $remito_number);
+    $sentence->bindParam(':id_supplier', $id_supplier);
+    
+    $sentence->execute();
+    
+    // Verificar si se obtuvieron resultados
+    $results = $sentence->fetchAll(PDO::FETCH_ASSOC);
+    error_log(print_r($results, true));  // Imprimir en el log para verificar
+    
+    return $results;
+}
+
+
+
+
+?>
+
