@@ -240,6 +240,7 @@ $('#addProduct').on('click', function() {
         productCounter++;
 
         // Limpia los campos después de agregar el producto
+        $('#id_supplier').prop('disabled',true);
         $('#id_product').val('').trigger('change');
         $('input[name="items[0][quantity]"]').val('');
     } else {
@@ -250,13 +251,20 @@ $('#addProduct').on('click', function() {
     
     $('#table_products tbody').on('click', '.delete-row', function() {
         table.row($(this).parents('tr')).remove().draw();
+        if (table.rows().count() === 0) {
+            // Rehabilitar el select del proveedor si no hay productos
+            $('#id_supplier').prop('disabled', false);
+        }
     });
 
     $('#table_products tbody').on('click', '.view-details', function() {
+
         const productId = $(this).data('product-id');
         const supplierId = $(this).data('supplier-id');  // Obtén el ID del proveedor desde el botón
-        const remitoNumber = document.querySelector('input[name="remito"]').value;
-    
+        const remitoNumber = document.querySelector('input[name="remito_number"]').value;
+        console.log(productId);
+        console.log(supplierId);
+        console.log(remitoNumber);
         const dataToSend = {
             id_product: productId,
             remito_number: remitoNumber,

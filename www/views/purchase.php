@@ -271,7 +271,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Código de Series</th>
+                                    <th scope="col">Código de Serie</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -315,51 +315,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
     <script src="../assets/js/select.bootstra5.js"></script>
-<script>
 
-$(document).ready(function() {
-    
-    let productCounter = 0;
-    const table = $('#table_products').DataTable();
-    $('#addProduct').on('click', function() {
-        const productId = $('#id_product').val();
-        const productName = $('#id_product option:selected').text();
-        const quantity = $('input[name="items[0][quantity]"]').val();
-        if (productId && quantity) {
-            table.row.add([
-                `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productId}`,
-                `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
-                `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
-                `<button type="button"  data-product-id="${productId}" data-bs-toggle="modal" data-bs-target="#serialNumberModal"><i class="fa fa-binoculars"></i></button>`,
-                `<button type="button" class=" delete-row"><i class="fas fa-trash-alt"></i></button>`
-            ]).draw();
-
-            productCounter++;
-
-            $('#id_supplier').prop('disabled',true);
-            $('#id_product').val('').trigger('change');
-            $('input[name="items[0][quantity]"]').val('');
-        } else {
-            Swal.fire('Error', 'Debe seleccionar un producto y una cantidad', 'error');
-        }
-    });
-
-    $('#table_products tbody').on('click', '.delete-row', function() {
-        table.row($(this).parents('tr')).remove().draw();
-
-        if (table.rows().count() === 0) {
-            // Rehabilitar el select del proveedor si no hay productos
-            $('#id_supplier').prop('disabled', false);
-        }
-    });
-
-    $('#table_products tbody').on('click', '.view-serial', function() {
-        const productId = $(this).data('product-id');
-        $('#id_product_modal').val(productId);
-    });
-});
-
-</script>
 
 
 </body>
