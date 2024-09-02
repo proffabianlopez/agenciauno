@@ -255,39 +255,42 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     </div>
 
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="productDetailsModalLabel">Detalles del Producto</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="text-align:center">
-                    <form id="serialForm" action="../controller/controller_addSerialNumber.php" method="POST">
-                        <table class="table" id="productDetailsTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Código de Serie</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Filas dinámicas se agregarán aquí -->
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="" form="serialFormxxx" class="btn btn-success">Guardar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+<!-- Modal Vista Binoculares -->
+<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="productDetailsModalLabel">Detalles del Producto</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="text-align:center">
+                <form id="serialFormUpdate" action="../controller/controller_updateSerialNumber.php" method="POST">
+                    <!-- Campos ocultos -->
+                    <input type="hidden" id="id_product_modal" name="id_product">
+                    <input type="hidden" id="remito_number" name="remito_number">
+                    <input type="hidden" id="id_supplier_modal" name="id_supplier">
+                    <!-- Tabla de números de serie -->
+                    <table class="table" id="productDetailsTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Código de Serie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aquí es donde se agregarán las filas dinámicas -->
+                            <!-- Cada fila debe incluir su serial_number y su line_number -->
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="serialFormUpdate" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
-
     </div>
+</div>
 
     <!-- Incluir jQuery una sola vez -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
