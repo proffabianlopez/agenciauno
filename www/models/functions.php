@@ -760,7 +760,7 @@ function add_serial_number($id_product, $serial_number, $remito_number, $line_nu
 
 function get_serial_numbers($id_product, $remito_number, $id_supplier) {
     $bd = database();
-    $sentence = $bd->prepare("SELECT id_product, serial_number, remito_number, id_supplier
+    $sentence = $bd->prepare("SELECT id_product, serial_number, remito_number, id_supplier, line_number
                               FROM serial_numbers
                               WHERE id_product = :id_product 
                               AND remito_number = :remito_number 
@@ -778,9 +778,24 @@ function get_serial_numbers($id_product, $remito_number, $id_supplier) {
     
     return $results;
 }
+function update_serial_number($id_product, $serial_number, $remito_number, $id_supplier, $line_number) {
+    $bd = database();
+    $sentence = $bd->prepare("
+        UPDATE serial_numbers 
+        SET serial_number = :serial_number
+        WHERE id_product = :id_product 
+          AND remito_number = :remito_number 
+          AND id_supplier = :id_supplier
+          AND line_number = :line_number
+    ");
 
+    // Enlazar parámetros
+    $sentence->bindParam(':id_product', $id_product);
+    $sentence->bindParam(':serial_number', $serial_number);
+    $sentence->bindParam(':remito_number', $remito_number);
+    $sentence->bindParam(':id_supplier', $id_supplier);
+    $sentence->bindParam(':line_number', $line_number);
 
-
-
+    return $sentence->execute();
+}
 ?>
-
