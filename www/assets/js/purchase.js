@@ -296,28 +296,25 @@ document.getElementById("serialFormUpdate").addEventListener("submit", function(
     // Manejo de agregar productos a la tabla
     let productCounter = 0;
     const table = $('#table_products').DataTable();
-
     $('#addProduct').on('click', function() {
         const productId = $('#id_product').val();
         const productName = $('#id_product option:selected').text();
         const quantity = $('input[name="items[0][quantity]"]').val();
         const supplierId = $('#id_supplier').val();  // Obtén el ID del proveedor
     
-        if (productId && quantity && supplierId) {  // Asegúrate de que supplierId también esté presente
-            // Verifica si el producto ya existe en la tabla
+        if (productId && quantity && supplierId) {
             let productExists = false;
             $('#table_products tbody tr').each(function() {
                 const existingProductId = $(this).find('input[name^="items"][name$="[id_product]"]').val();
                 if (existingProductId === productId) {
                     productExists = true;
-                    return false;  // Detiene la iteración
+                    return false;
                 }
             });
     
             if (productExists) {
                 Swal.fire('Error', 'El producto ya ha sido agregado.', 'error');
             } else {
-                // Agrega el producto a la tabla si no existe
                 table.row.add([
                     `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productId}`,
                     `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
@@ -328,10 +325,19 @@ document.getElementById("serialFormUpdate").addEventListener("submit", function(
     
                 productCounter++;
     
-                // Limpia los campos después de agregar el producto
                 $('#id_supplier').prop('disabled', true);
                 $('#id_product').val('').trigger('change');
                 $('input[name="items[0][quantity]"]').val('');
+    
+                // Agrega un campo oculto con el valor del proveedor
+                if (!$('input[name="supplier_id"]').length) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        id: 'hidden_supplier_id',
+                        name: 'supplier_id',
+                        value: supplierId
+                    }).appendTo('form');
+                }
             }
         } else {
             Swal.fire('Error', 'Debe seleccionar un producto, un proveedor y una cantidad', 'error');

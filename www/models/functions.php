@@ -447,6 +447,32 @@ function insert_products($number_product, $name_product, $description, $stock, $
         return false;
     }
 }
+function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $date_invoice, $id_product, $quantity, $line_number = null)
+{
+    $bd = database();
+    $query = "INSERT INTO purchases (id_supplier, remito_number, remito_date, invoice_number, invoice_date, id_product, qty, line_number) VALUES (:id_supplier, :remito_number, :remito_date, :invoice_number, :invoice_date, :id_product, :qty, :line_number)";
+    
+    $consulta = $bd->prepare($query);
+    $consulta->bindParam(':id_supplier', $id_supplier, PDO::PARAM_INT);
+    $consulta->bindParam(':remito_number', $number_remito, PDO::PARAM_STR);
+    $consulta->bindParam(':remito_date', $date_remito, PDO::PARAM_STR);
+    $consulta->bindParam(':invoice_number', $number_invoice, PDO::PARAM_STR);
+    $consulta->bindParam(':invoice_date', $date_invoice, PDO::PARAM_STR);
+    $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
+    $consulta->bindParam(':qty', $quantity, PDO::PARAM_INT);
+    $consulta->bindParam(':line_number', $line_number, PDO::PARAM_INT);
+
+    try {
+        if ($consulta->execute()) {
+            return true; // Devuelve verdadero si la inserción fue exitosa
+        }
+    } catch (PDOException $e) {
+        echo "Error en la inserción: " . $e->getMessage();
+        return false;
+    }
+}
+
+
 function getproducts($id_product)
 {
     try {
