@@ -55,7 +55,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                     </div>
                 </div>
-                <form action="../controller/controllerxxxxx.php" method="post">
+                <form action="../controller/insert_purchase.php" method="post">
                     <div class="card">
                         <div class="card-header" style="display: block;text-align:center">
                             <div class="card-tools">
@@ -227,6 +227,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <h4 class="modal-title" id="serialNumberModalLabel">Ingresar Números de Serie</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body" style="text-align:center">
                     <form id="serialForm" action="../controller/controller_addSerialNumber.php" method="POST">
                         <input type="hidden" name="id_product_modal" id="id_product_modal" value="">
