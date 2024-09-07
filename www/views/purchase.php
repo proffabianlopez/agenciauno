@@ -13,6 +13,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,10 +22,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css"></link>
-    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css"></Link>
-    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css"></Link>
-    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css"></Link>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
+    </link>
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
+    </Link>
+    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">
+    </Link>
+    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
+    </Link>
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
     <!-- Incluir el CSS de Select2 -->
@@ -34,6 +39,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/js/purchase.js"></script>
 
 </head>
+
 <body class="sidebar-mini" style="height: auto;">
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -74,9 +80,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <select name="id_supplier" class="form-control select2" id="id_supplier">
                                         <option></option>
                                         <?php foreach ($show as $supplier) : ?>
-                                            <option value="<?php echo $supplier->id_supplier; ?>">
-                                                <?php echo $supplier->name_supplier; ?>
-                                            </option>
+                                        <option value="<?php echo $supplier->id_supplier; ?>">
+                                            <?php echo $supplier->name_supplier; ?>
+                                        </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -98,8 +104,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <div class="form-row">
                                 <div class="form-group col-md-1">
                                     <label for="purchase_remito">Número de </label>
-                                    <input type="text" name="number_remito" id="number_remito" class="form-control" maxlength="4"
-                                        value="1234">
+                                    <input type="text" name="number_remito" id="number_remito" class="form-control"
+                                        maxlength="4" value="1234">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="remito">Remito: <sup style="color:red">*</sup></label>
@@ -109,8 +115,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_remito" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>"
-                                        min="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -126,8 +131,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-4">
                                     <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_factura" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>"
-                                        min="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -153,9 +157,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <select name="items[0][id_product]" id="id_product" class="form-control">
                                                 <option value=""></option>
                                                 <?php foreach ($showP as $product) : ?>
-                                                    <option value="<?php echo $product->id_product; ?>">
-                                                        <?php echo $product->name_product; ?>
-                                                    </option>
+                                                <option value="<?php echo $product->id_product; ?>">
+                                                    <?php echo $product->name_product; ?>
+                                                </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -163,18 +167,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-                                    <input type="number" name="items[0][quantity]" class="form-control" placeholder="Cantidad" min="1">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <div class="info mb-3">
-                                        <label for="items">&nbsp;</label>
-                                        <button type="button" id="addProduct" class="btn btn-primary"><i
-                                                class="fas fa-plus-circle fa-lg"></i>&nbsp;Agregar Producto</button>
-                                    </div>
+                                    <input type="number" name="items[0][quantity]" class="form-control"
+                                        placeholder="Cantidad" min="1">
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-8 d-flex align-items-center">
+                                <div class="form-group col-md-3 d-flex align-items-center">
                                     <label for="serial_number" class="mb-0 me-2">Número de Serie:</label>
                                     <input type="checkbox" name="serial_number" id="serial_number"
                                         class="form-check me-2">
@@ -182,34 +180,43 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <i class="fas fa-plus-circle fa-lg"></i>&nbsp;Agregar N° Serie
                                     </button>
                                 </div>
-                            </div>
-
-                            <div class="table-responsive">
-                                <div class="table-wrapper">
-                                    <table id="table_products" class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th>Nombre</th>
-                                                <th>Cantidad</th>
-                                                
-                                                <th>Número de Series</th>
-                                                <th>Eliminar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Filas dinámicas se agregarán aquí -->
-                                        </tbody>
-                                    </table>
+                                <div class="form-group col-md-1 d-flex align-items-center">
+                                </div>
+                                <div class="form-group col-md-2 d-flex align-items-center">
+                                    <label for="items" class="mb-0">&nbsp;</label>
+                                    <button type="button" id="addProduct" class="btn btn-primary">
+                                        <i class="fas fa-plus-circle fa-lg"></i>&nbsp;Agregar Producto
+                                    </button>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="table-responsive">
+                            <div class="table-wrapper">
+                                <table id="table_products" class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Nombre</th>
+                                            <th>Cantidad</th>
 
-
-                            <div class="card-footer" style="text-align:right">
-                                <input type="submit" class="btn btn-success" value="Ingresar Remito">
+                                            <th>Número de Series</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Filas dinámicas se agregarán aquí -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+
+
+
+                        <div class="card-footer" style="text-align:right">
+                            <input type="submit" class="btn btn-success" value="Ingresar Remito">
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -256,42 +263,43 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     </div>
 
 
-<!-- Modal Vista Binoculares -->
-<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="productDetailsModalLabel">Detalles del Producto</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="text-align:center">
-                <form id="serialFormUpdate" action="../controller/controller_updateSerialNumber.php" method="POST">
-                    <!-- Campos ocultos -->
-                    <input type="hidden" id="id_product_modal" name="id_product">
-                    <input type="hidden" id="remito_number" name="remito_number">
-                    <input type="hidden" id="id_supplier_modal" name="id_supplier">
-                    <!-- Tabla de números de serie -->
-                    <table class="table" id="productDetailsTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Código de Serie</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Aquí es donde se agregarán las filas dinámicas -->
-                            <!-- Cada fila debe incluir su serial_number y su line_number -->
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" form="serialFormUpdate" class="btn btn-success">Guardar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+    <!-- Modal Vista Binoculares -->
+    <div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="productDetailsModalLabel">Detalles del Producto</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    <form id="serialFormUpdate" action="../controller/controller_updateSerialNumber.php" method="POST">
+                        <!-- Campos ocultos -->
+                        <input type="hidden" id="id_product_modal" name="id_product">
+                        <input type="hidden" id="remito_number" name="remito_number">
+                        <input type="hidden" id="id_supplier_modal" name="id_supplier">
+                        <!-- Tabla de números de serie -->
+                        <table class="table" id="productDetailsTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Código de Serie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aquí es donde se agregarán las filas dinámicas -->
+                                <!-- Cada fila debe incluir su serial_number y su line_number -->
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" form="serialFormUpdate" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Incluir jQuery una sola vez -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
