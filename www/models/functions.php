@@ -397,8 +397,8 @@ function eliminated_Suppliers($table, $id_user)
 {
     try {
 
-        $bd = database(); 
-        
+        $bd = database();
+
         $query = "UPDATE $table SET id_status = 0 WHERE id_supplier = :id_supplier";
         $updateStatement = $bd->prepare($query);
         $updateStatement->bindParam(':id_supplier', $id_user, PDO::PARAM_INT);
@@ -451,7 +451,7 @@ function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoi
 {
     $bd = database();
     $query = "INSERT INTO purchases (id_supplier, remito_number, remito_date, invoice_number, invoice_date, id_product, qty, line_number) VALUES (:id_supplier, :remito_number, :remito_date, :invoice_number, :invoice_date, :id_product, :qty, :line_number)";
-    
+
     $consulta = $bd->prepare($query);
     $consulta->bindParam(':id_supplier', $id_supplier, PDO::PARAM_INT);
     $consulta->bindParam(':remito_number', $number_remito, PDO::PARAM_STR);
@@ -520,7 +520,7 @@ function eliminated_product($table, $id_user)
 {
     try {
 
-       
+
         $bd = database();
         $query = "UPDATE $table SET id_status = 0 WHERE id_product = :id_product";
         $updateStatement = $bd->prepare($query);
@@ -784,7 +784,8 @@ function add_serial_number($id_product, $serial_number, $remito_number, $line_nu
     return $sentence->execute();
 }
 
-function get_serial_numbers($id_product, $remito_number, $id_supplier) {
+function get_serial_numbers($id_product, $remito_number, $id_supplier)
+{
     $bd = database();
     $sentence = $bd->prepare("SELECT id_product, serial_number, remito_number, id_supplier, line_number
                               FROM serial_numbers
@@ -795,16 +796,17 @@ function get_serial_numbers($id_product, $remito_number, $id_supplier) {
     $sentence->bindParam(':id_product', $id_product);
     $sentence->bindParam(':remito_number', $remito_number);
     $sentence->bindParam(':id_supplier', $id_supplier);
-    
+
     $sentence->execute();
-    
+
     // Verificar si se obtuvieron resultados
     $results = $sentence->fetchAll(PDO::FETCH_ASSOC);
     error_log(print_r($results, true));  // Imprimir en el log para verificar
-    
+
     return $results;
 }
-function update_serial_number($id_product, $serial_number, $remito_number, $id_supplier, $line_number) {
+function update_serial_number($id_product, $serial_number, $remito_number, $id_supplier, $line_number)
+{
     $bd = database();
     $sentence = $bd->prepare("
         UPDATE serial_numbers 
@@ -824,4 +826,13 @@ function update_serial_number($id_product, $serial_number, $remito_number, $id_s
 
     return $sentence->execute();
 }
-?>
+function obtenerFechasLimite()
+{
+    $today = date('Y-m-d');
+    $maxDate = date('Y-m-d', strtotime('+7 days'));
+
+    return [
+        'today' => $today,
+        'maxDate' => $maxDate
+    ];
+}
