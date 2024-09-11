@@ -11,6 +11,14 @@ if (isset($_POST)) {
 
     $insert = insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $date_invoice, $id_product, $quantity);
     
+    if (preg_match('/^0+(-0+)?$/', $number_remito)) {
+        echo '<script>
+            localStorage.setItem("mensaje", "Actualice el número de remitos, no pueden ser todos ceros.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/purchase.php";
+            </script>';
+        exit;
+    }
     if ($insert) {
         echo '<script>
             localStorage.setItem("mensaje", "Remito ingresado con éxito");
