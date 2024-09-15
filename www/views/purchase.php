@@ -18,13 +18,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
-    
+
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">    
-    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">    
-    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">    
-    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">    
+    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">
+    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
     <!-- Incluir el CSS de Select2 -->
@@ -109,9 +109,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
+                                    <?php
+                                    $fechas = obtenerFechasLimite();
+                                    ?>
                                     <input type="date" name="date_remito" class="form-control"
-                                        value="<?php echo $today; ?>" min="<?php echo $min_date; ?>"
-                                        max="<?php echo $max_date; ?>">
+                                        value="<?php echo $fechas['today']; ?>" min="<?php echo $fechas['minDate']; ?>"
+                                        max="<?php echo $fechas['maxDate']; ?>">
+                                    <small id="dateError" style="color:red; display:none;">La fecha debe ser +/-
+                                        7.</small>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -127,9 +132,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
+                                    <?php
+                                    $fechas = obtenerFechasLimite();
+                                    ?>
                                     <input type="date" name="date_factura" class="form-control"
-                                    value="<?php echo $today; ?>" min="<?php echo $min_date; ?>"
-                                    max="<?php echo $max_date; ?>">
+                                        value="<?php echo $fechas['today']; ?>" min="<?php echo $fechas['minDate']; ?>"
+                                        max="<?php echo $fechas['maxDate']; ?>">
+                                    <small id="dateError" style="color:red; display:none;">La fecha debe ser +/-
+                                        7.</small>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +308,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
     <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/dist/js/adminlte.min.js"></script>    
+    <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- DataTables JS -->
     <script src="../assets/js/jquery.datatables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>
