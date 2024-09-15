@@ -24,23 +24,18 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
-
-    <!-- Font Awesome -->
+    
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
-    </link>
-    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
-    </Link>
-    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">
-    </Link>
-    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
-    </Link>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">    
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">    
+    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">    
+    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">    
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
     <!-- Incluir el CSS de Select2 -->
     <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
-    <!-- Tu hoja de estilo personalizada -->
+    <!-- Hoja de estilo personalizada -->
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     <script src="../assets/js/purchase.js"></script>
 
