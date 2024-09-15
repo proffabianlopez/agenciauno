@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
         serialCheckbox.disabled = true;
         addSerialButton.disabled = true;
     }
-
     // Manejo del click en "Agregar Números de Serie"
     document.getElementById("addSerialNumber").addEventListener("click", function () {
         const serialCheckbox = document.getElementById("serial_number");
@@ -99,12 +98,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!serialCheckboxChecked) {
             errors.push('Debe marcar el checkbox de números de serie.');
         }
-        if (!remitoNumber) {
+        if (!remitoNumber ) {
             errors.push('Debe proporcionar un número de remito.');
         }
+      
         if (!supplier) {
             errors.push('Debe seleccionar un proveedor.');
         }
+       
     
         if (errors.length > 0) {
             Swal.fire({
