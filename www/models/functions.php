@@ -828,11 +828,13 @@ function update_serial_number($id_product, $serial_number, $remito_number, $id_s
 }
 function obtenerFechasLimite()
 {
-    $today = date('Y-m-d');
+    $today = date('Y-m-d');    
+    $minDate = date('Y-m-d', strtotime('-7 days'));
     $maxDate = date('Y-m-d', strtotime('+7 days'));
 
     return [
         'today' => $today,
-        'maxDate' => $maxDate
+        'maxDate' => $maxDate,
+        'minDate' => $minDate
     ];
 }
