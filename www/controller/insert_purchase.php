@@ -6,12 +6,23 @@ if (isset($_POST)) {
     $date_remito = $_POST["date_remito"];
     $number_invoice = $_POST["purchase_factura"] . "-" . $_POST["factura"];
     $date_invoice = $_POST["date_factura"];
-    $id_product = $_POST["items"][0]["id_product"]; 
-    $quantity = !empty($_POST["items"][0]["quantity"]) ? $_POST["items"][0]["quantity"] : 0; 
 
-    $insert = insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $date_invoice, $id_product, $quantity);
-    
-    if ($insert) {
+    $items = $_POST["items"];
+    $insertSuccess = true;
+
+    foreach ($items as $item) {
+        $id_product = $item["id_product"];
+        $quantity = !empty($item["quantity"]) ? $item["quantity"] : 0;
+
+        $insert = insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $date_invoice, $id_product, $quantity);
+
+        if (!$insert) {
+            $insertSuccess = false;
+            break;
+        }
+    }
+
+    if ($insertSuccess) {
         echo '<script>
             localStorage.setItem("mensaje", "Remito ingresado con éxito");
             localStorage.setItem("tipo", "success");

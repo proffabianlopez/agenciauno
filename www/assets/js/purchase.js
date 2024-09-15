@@ -66,95 +66,82 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Verificar si ya hay números de serie ingresados (Implementa esta lógica según tu caso)
-    const hasSerialNumbers = false; // Reemplaza con la lógica adecuada
-    if (hasSerialNumbers) {
-        const serialCheckbox = document.getElementById("serial_number");
-        const addSerialButton = document.getElementById("addSerialNumber");
-        
-        serialCheckbox.checked = true;
-        serialCheckbox.disabled = true;
-        addSerialButton.disabled = true;
-    }
+    const addSerialButton = document.getElementById("addSerialNumber");
 
-    // Manejo del click en "Agregar Números de Serie"
-    document.getElementById("addSerialNumber").addEventListener("click", function () {
-        const serialCheckbox = document.getElementById("serial_number");
-        const addSerialButton = document.getElementById("addSerialNumber");
-    
-        const product = $('#id_product').val();
-        const quantity = document.querySelector("input[name='items[0][quantity]']").value;
-        const serialCheckboxChecked = serialCheckbox.checked;
-        const remitoNumber = $('#number_remito').val() + '-' + $('#remito').val();
-        const supplier = $('#id_supplier').val();
-    
-        let errors = [];
-    
-        if (!product) {
-            errors.push('Debe seleccionar un producto.');
-        }
-        if (quantity <= 0) {
-            errors.push('Debe ingresar una cantidad mayor a 0.');
-        }
-        if (!serialCheckboxChecked) {
-            errors.push('Debe marcar el checkbox de números de serie.');
-        }
-        if (!remitoNumber) {
-            errors.push('Debe proporcionar un número de remito.');
-        }
-        if (!supplier) {
-            errors.push('Debe seleccionar un proveedor.');
-        }
-    
-        if (errors.length > 0) {
-            Swal.fire({
-                title: 'Error',
-                text: errors.join(' '),
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-        } else {
-            // Cargar datos y abrir el modal
-            document.getElementById("id_product_modal").value = product;
-            document.getElementById("remito_number").value = remitoNumber;
-            document.getElementById("id_supplier_modal").value = supplier;
-    
-            const tableBody = document.querySelector("#serialTable tbody");
-            tableBody.innerHTML = "";
-    
-            for (let i = 0; i < quantity; i++) {
-                const row = document.createElement("tr");
-    
-                const indexCell = document.createElement("th");
-                indexCell.scope = "row";
-                indexCell.textContent = i + 1;
-    
-                const serialInputCell = document.createElement("td");
-                const serialInput = document.createElement("input");
-                serialInput.type = "text";
-                serialInput.name = `items[0][serial_numbers][${i}]`;
-                serialInput.className = "form-control";
-                serialInput.placeholder = `Ingrese el número de serie ${i + 1}`;
-    
-                serialInputCell.appendChild(serialInput);
-                row.appendChild(indexCell);
-                row.appendChild(serialInputCell);
-    
-                tableBody.appendChild(row);
-            }
-    
-            const serialNumberModal = new bootstrap.Modal(document.getElementById("serialNumberModal"));
-            serialNumberModal.show();
-
-            // Deshabilitar los campos solo después de abrir el modal y validar que no haya errores
+    if (addSerialButton) {
+        addSerialButton.addEventListener("click", function() {
             const serialCheckbox = document.getElementById("serial_number");
-            const addSerialButton = document.getElementById("addSerialNumber");
+            const product = $('#id_product').val();
+            const quantity = document.querySelector("input[name='items[0][quantity]']").value;
+            const serialCheckboxChecked = serialCheckbox.checked;
+            const remitoNumber = $('#number_remito').val() + '-' + $('#remito').val();
+            const supplier = $('#id_supplier').val();
 
-            serialCheckbox.disabled = true; // Deshabilitar el checkbox
-            addSerialButton.disabled = true; // Deshabilitar el botón
-            disableProductEditing(); // Deshabilitar producto y cantidad
-        }
-    });  
+            let errors = [];
+
+            if (!product) {
+                errors.push('Debe seleccionar un producto.');
+            }
+            if (quantity <= 0) {
+                errors.push('Debe ingresar una cantidad mayor a 0.');
+            }
+            if (!serialCheckboxChecked) {
+                errors.push('Debe marcar el checkbox de números de serie.');
+            }
+            if (!remitoNumber) {
+                errors.push('Debe proporcionar un número de remito.');
+            }
+            if (!supplier) {
+                errors.push('Debe seleccionar un proveedor.');
+            }
+
+            if (errors.length > 0) {
+                Swal.fire({
+                    title: 'Error',
+                    text: errors.join(' '),
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            } else {
+                // Cargar datos y abrir el modal
+                document.getElementById("id_product_modal").value = product;
+                document.getElementById("remito_number").value = remitoNumber;
+                document.getElementById("id_supplier_modal").value = supplier;
+
+                const tableBody = document.querySelector("#serialTable tbody");
+                tableBody.innerHTML = "";
+
+                for (let i = 0; i < quantity; i++) {
+                    const row = document.createElement("tr");
+
+                    const indexCell = document.createElement("th");
+                    indexCell.scope = "row";
+                    indexCell.textContent = i + 1;
+
+                    const serialInputCell = document.createElement("td");
+                    const serialInput = document.createElement("input");
+                    serialInput.type = "text";
+                    serialInput.name = `items[0][serial_numbers][${i}]`;
+                    serialInput.className = "form-control";
+                    serialInput.placeholder = `Ingrese el número de serie ${i + 1}`;
+
+                    serialInputCell.appendChild(serialInput);
+                    row.appendChild(indexCell);
+                    row.appendChild(serialInputCell);
+
+                    tableBody.appendChild(row);
+                }
+
+                const serialNumberModal = new bootstrap.Modal(document.getElementById("serialNumberModal"));
+                serialNumberModal.show();
+
+                // Deshabilitar los campos solo después de abrir el modal y validar que no haya errores
+                serialCheckbox.disabled = true; // Deshabilitar el checkbox
+                addSerialButton.disabled = true; // Deshabilitar el botón
+                disableProductEditing(); // Deshabilitar producto y cantidad
+            }
+        });
+    }
     
     // Validación del formulario y envío con AJAX (Agregar números de serie)
     document.getElementById("serialForm").addEventListener("submit", function (event) {
@@ -242,6 +229,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }); 
 
+     //Verificar si ya hay números de serie ingresados
+    const hasSerialNumbers = false; // Reemplaza con la lógica adecuada
+    if (hasSerialNumbers) {
+        const serialCheckbox = document.getElementById("serial_number");
+        const addSerialButton = document.getElementById("addSerialNumber");
+        
+        serialCheckbox.checked = true;
+        serialCheckbox.disabled = true;
+        addSerialButton.disabled = true;
+    }
+
     document.getElementById("serialFormUpdate").addEventListener("submit", function(event) {
         event.preventDefault(); // Evita el envío normal del formulario
     
@@ -319,30 +317,32 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });   
-
-    // Manejo de agregar productos a la tabla
     let productCounter = 0;
-    const table = $('#table_products').DataTable();
-
+    const table = $('#table_products').DataTable();    
+    // Manejo del evento click en el botón para agregar el producto a la tabla
     $('#addProduct').on('click', function() {
-        const productId = $('#id_product').val();
-        const productName = $('#id_product option:selected').text();
-        const quantity = $('input[name="items[0][quantity]"]').val();
-        const supplierId = $('#id_supplier').val();
-
-        if (productId && quantity && supplierId) {
+        const productId = $('#id_product').val(); // ID del producto seleccionado
+        const productName = $('#id_product option:selected').text().trim(); // Nombre del producto seleccionado
+        const quantity = $('#quantity_input').val(); // Cantidad ingresada
+        const supplierId = $('#id_supplier').val(); // Suponiendo que también tengas un campo de proveedor
+    
+        // Verificar si se seleccionó un producto, se ingresó una cantidad y un proveedor
+        if (productId && quantity > 0 && supplierId) {
             let productExists = false;
+    
+            // Verificar si el producto ya ha sido agregado a la tabla
             $('#table_products tbody tr').each(function() {
                 const existingProductId = $(this).find('input[name^="items"][name$="[id_product]"]').val();
                 if (existingProductId === productId) {
                     productExists = true;
-                    return false;
+                    return false; // Salir del loop si el producto ya existe
                 }
             });
-
+    
             if (productExists) {
                 Swal.fire('Error', 'El producto ya ha sido agregado.', 'error');
             } else {
+                // Agregar la nueva fila a la tabla con los datos seleccionados
                 table.row.add([
                     `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productId}`,
                     `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
@@ -350,24 +350,29 @@ document.addEventListener("DOMContentLoaded", function () {
                     `<button type="button" class="view-details" data-product-id="${productId}" data-supplier-id="${supplierId}"><i class="fa fa-binoculars"></i></button>`,
                     `<button type="button" class="delete-row"><i class="fas fa-trash-alt"></i></button>`
                 ]).draw();
-
+    
+                // Incrementar el contador de productos
                 productCounter++;
-
-                $('#id_supplier').prop('disabled', true);
-                $('#id_product').val('').trigger('change');
-                $('input[name="items[0][quantity]"]').val('');
-
-                // Habilitar los campos de producto, cantidad, checkbox y botón de serie nuevamente
+    
+                // Limpiar los campos para la próxima entrada
+                $('#id_product').val('').trigger('change'); // Limpiar selección de producto
+                $('#quantity_input').val(''); // Limpiar el campo de cantidad
+    
+                // Manejar la lógica del proveedor
+                $('#id_supplier').prop('disabled', true); // Deshabilitar la selección de proveedor si es necesario
+    
+                // Habilitar la edición de productos o cualquier otra lógica
                 enableProductEditing();
-
+    
+                // Habilitar o deshabilitar el checkbox y botón de serie si corresponde
                 const serialCheckbox = document.getElementById("serial_number");
                 const addSerialButton = document.getElementById("addSerialNumber");
-
-                serialCheckbox.checked = false; // Desmarcar el checkbox
-                serialCheckbox.disabled = false; // Habilitar el checkbox
-                addSerialButton.disabled = false; // Habilitar el botón
-
-                // Agrega un campo oculto con el valor del proveedor
+    
+                serialCheckbox.checked = false;
+                serialCheckbox.disabled = false;
+                addSerialButton.disabled = false;
+    
+                // Si no existe el campo oculto de proveedor, agregarlo
                 if (!$('input[name="supplier_id"]').length) {
                     $('<input>').attr({
                         type: 'hidden',
@@ -378,10 +383,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         } else {
-            Swal.fire('Error', 'Debe seleccionar un producto, un proveedor y una cantidad', 'error');
+            Swal.fire('Error', 'Debe seleccionar un producto, un proveedor y una cantidad válida.', 'error');
         }
     });
-
     function disableProductEditing() {
         // Deshabilita el select de producto y el campo de cantidad
         $('#id_product').prop('disabled', true);
@@ -393,7 +397,6 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#id_product').prop('disabled', false);
         $('input[name="items[0][quantity]"]').prop('disabled', false);
     }
-
     // Manejo de la edición de códigos de serie al mostrar detalles del producto
     $('#table_products tbody').on('click', '.view-details', function() {
         const productId = $(this).data('product-id');
@@ -464,14 +467,36 @@ document.addEventListener("DOMContentLoaded", function () {
             tbody.appendChild(row);
         });
     }
+// Manejar el clic en el botón de eliminar fila
+$('#table_products tbody').on('click', '.delete-row', function (e) {
+    e.preventDefault(); // Evita la acción por defecto del enlace o botón
+    const row = table.row($(this).closest('tr')); // La fila que se va a eliminar
 
-    // Manejar el clic en el botón de eliminar fila
-    $('#table_products tbody').on('click', '.delete-row', function() {
-        table.row($(this).parents('tr')).remove().draw();
-        if (table.rows().count() === 0) {
-            // Rehabilitar el select del proveedor si no hay productos
-            $('#id_supplier').prop('disabled', false);
-            enableProductEditing(); // Habilitar la edición del producto y cantidad nuevamente
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Estás seguro de que deseas eliminar este producto?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Eliminar la fila solo si el usuario confirma
+            row.remove().draw();
+
+            // Si no hay filas restantes, permitir la selección del proveedor nuevamente
+            if (table.rows().count() === 0) {
+                $('#id_supplier').prop('disabled', false);
+                enableProductEditing(); // Habilitar edición de producto y cantidad nuevamente
+            }
+
+            Swal.fire(
+                'Eliminado',
+                'El producto ha sido eliminado.',
+                'success'
+            );
         }
     });
+});
+
 });

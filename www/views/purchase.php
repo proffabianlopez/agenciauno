@@ -10,6 +10,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     header("Location: login.php");
     exit();
 }
+
+$today = date('Y-m-d');
+// Fecha hace 7 días
+$min_date = date('Y-m-d', strtotime('-7 days'));
+// Fecha dentro de 7 días
+$max_date = date('Y-m-d', strtotime('+7 days'));
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -105,33 +111,36 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-1">
                                     <label for="purchase_remito">Número de </label>
                                     <input type="text" name="number_remito" id="number_remito" class="form-control"
-                                        maxlength="4" value="1234">
+                                        maxlength="4" value="" placeholder="0000">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="remito">Remito: <sup style="color:red">*</sup></label>
                                     <input type="text" name="remito" id="remito" class="form-control" maxlength="6"
-                                        value="000456" pattern="\d{6}">
+                                        value="" placeholder="000000" pattern="\d{6}">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_remito" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo $today; ?>" min="<?php echo $min_date; ?>"
+                                        max="<?php echo $max_date; ?>">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-1">
                                     <label for="purchase_factura">Número de </label>
                                     <input type="text" name="purchase_factura" class="form-control" maxlength="4"
-                                        value="1234">
+                                        value="" placeholder="0000">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="factura">Factura: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="factura" class="form-control" maxlength="6" value="000456">
+                                    <input type="text" name="factura" class="form-control" maxlength="6" value=""
+                                        placeholder="000000">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
                                     <input type="date" name="date_factura" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
+                                    value="<?php echo $today; ?>" min="<?php echo $min_date; ?>"
+                                    max="<?php echo $max_date; ?>">
                                 </div>
                             </div>
                         </div>
@@ -154,7 +163,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="items">Producto: <sup style="color:red">*</sup></label>
                                     <div id="products">
                                         <div class="product">
-                                            <select name="items[0][id_product]" id="id_product" class="form-control">
+                                            <select name="id_product" id="id_product" class="form-control">
                                                 <option value=""></option>
                                                 <?php foreach ($showP as $product) : ?>
                                                 <option value="<?php echo $product->id_product; ?>">
@@ -167,10 +176,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-                                    <input type="number" name="items[0][quantity]" class="form-control"
-                                        placeholder="Cantidad" min="1">
+                                    <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad"
+                                        min="1">
                                 </div>
                             </div>
+
                             <div class="form-row">
                                 <div class="form-group col-md-3 d-flex align-items-center">
                                     <label for="serial_number" class="mb-0 me-2">Número de Serie:</label>
@@ -220,10 +230,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </form>
             </div>
         </div>
-
+        <!-- FOOTER -->
+        <?php include "footer.php"?>
     </div>
-    <!-- FOOTER -->
-    <?php include "footer.php"?>
+
 
     <!-- Modal -->
     <div class="modal fade" id="serialNumberModal" tabindex="-1" aria-labelledby="serialNumberModalLabel"
@@ -322,7 +332,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/js/jquery.datatables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.js"></script>
-    <script src="../assets/js/dataTables.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.searchPanes.js"></script>
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
