@@ -19,22 +19,17 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
-    </link>
     <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
-    </Link>
     <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">
-    </Link>
     <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
-    </Link>
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
     <!-- Incluir el CSS de Select2 -->
     <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
-    <!-- Tu hoja de estilo personalizada -->
+    <!-- Hoja de estilo personalizada -->
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
     <script src="../assets/js/purchase.js"></script>
 
@@ -105,33 +100,52 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-1">
                                     <label for="purchase_remito">Número de </label>
                                     <input type="text" name="number_remito" id="number_remito" class="form-control"
-                                        maxlength="4" value="0000">
+
+                                        maxlength="4" value="" placeholder="0000">
+
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="remito">Remito: <sup style="color:red">*</sup></label>
                                     <input type="text" name="remito" id="remito" class="form-control" maxlength="6"
-                                        value="000000" pattern="\d{6}">
+
+                                        value="" placeholder="000000" pattern="\d{6}">
+
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
+                                    <?php
+                                    $fechas = obtenerFechasLimite();
+                                    ?>
                                     <input type="date" name="date_remito" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo $fechas['today']; ?>" min="<?php echo $fechas['minDate']; ?>"
+                                        max="<?php echo $fechas['maxDate']; ?>">
+                                    <small id="dateError" style="color:red; display:none;">La fecha debe ser +/-
+                                        7.</small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-1">
                                     <label for="purchase_factura">Número de </label>
                                     <input type="text" name="purchase_factura" class="form-control" maxlength="4"
-                                        value="0000">
+
+                                        value="" placeholder="0000">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="factura">Factura: <sup style="color:red">*</sup></label>
-                                    <input type="text" name="factura" class="form-control" maxlength="6" value="000000">
+                                    <input type="text" name="factura" class="form-control" maxlength="6" value=""
+                                        placeholder="000000">
+
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
+                                    <?php
+                                    $fechas = obtenerFechasLimite();
+                                    ?>
                                     <input type="date" name="date_factura" class="form-control"
-                                        value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
+                                        value="<?php echo $fechas['today']; ?>" min="<?php echo $fechas['minDate']; ?>"
+                                        max="<?php echo $fechas['maxDate']; ?>">
+                                    <small id="dateError" style="color:red; display:none;">La fecha debe ser +/-
+                                        7.</small>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +168,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="items">Producto: <sup style="color:red">*</sup></label>
                                     <div id="products">
                                         <div class="product">
-                                            <select name="items[0][id_product]" id="id_product" class="form-control">
+                                            <select name="id_product" id="id_product" class="form-control">
                                                 <option value=""></option>
                                                 <?php foreach ($showP as $product) : ?>
                                                 <option value="<?php echo $product->id_product; ?>">
@@ -167,8 +181,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-                                    <input type="number" name="items[0][quantity]" class="form-control"
-                                        placeholder="Cantidad" min="1">
+                                    <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad"
+                                        min="1">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -190,7 +204,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </div>
                             </div>
                         </div>
-
                         <div class="table-responsive">
                             <div class="table-wrapper">
                                 <table id="table_products" class="table table-striped table-hover">
@@ -199,7 +212,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <th>Producto</th>
                                             <th>Nombre</th>
                                             <th>Cantidad</th>
-
                                             <th>Número de Series</th>
                                             <th>Eliminar</th>
                                         </tr>
@@ -210,9 +222,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 </table>
                             </div>
                         </div>
-
-
-
                         <div class="card-footer" style="text-align:right">
                             <input type="submit" class="btn btn-success" value="Ingresar Remito">
                         </div>
@@ -220,11 +229,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </form>
             </div>
         </div>
-
+        <!-- FOOTER -->
+        <?php include "footer.php"?>
     </div>
-    <!-- FOOTER -->
-    <?php include "footer.php"?>
-
     <!-- Modal -->
     <div class="modal fade" id="serialNumberModal" tabindex="-1" aria-labelledby="serialNumberModalLabel"
         aria-hidden="true">
@@ -261,8 +268,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
     </div>
-
-
     <!-- Modal Vista Binoculares -->
     <div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel"
         aria-hidden="true">
@@ -301,35 +306,23 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         </div>
     </div>
 
-    <!-- Incluir jQuery una sola vez -->
+    <!-- Incluir jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
-
-
     <!-- Incluir el JS de Select2 -->
     <script src="../assets/js/select2.js"></script>
-
-
     <!-- Bootstrap JS -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
-
     <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
-    <!-- Otros scripts que necesites -->
     <!-- DataTables JS -->
-
-
     <script src="../assets/js/jquery.datatables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.js"></script>
-    <script src="../assets/js/dataTables.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.searchPanes.js"></script>
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
     <script src="../assets/js/select.bootstra5.js"></script>
-
-
-
 </body>
 
 </html>
