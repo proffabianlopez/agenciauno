@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+
     const addSerialButton = document.getElementById("addSerialNumber");
     if (addSerialButton) {
         addSerialButton.addEventListener("click", function() {
@@ -445,4 +446,5 @@ $('#table_products tbody').on('click', '.delete-row', function (e) {
         }
     });
 });
+
 });

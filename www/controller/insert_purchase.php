@@ -7,6 +7,7 @@ if (isset($_POST)) {
     $number_invoice = $_POST["purchase_factura"] . "-" . $_POST["factura"];
     $date_invoice = $_POST["date_factura"];
 
+
     $items = $_POST["items"];
     $insertSuccess = true;
 
@@ -23,6 +24,7 @@ if (isset($_POST)) {
     }
 
     if ($insertSuccess) {
+
         echo '<script>
             localStorage.setItem("mensaje", "Remito ingresado con éxito");
             localStorage.setItem("tipo", "success");

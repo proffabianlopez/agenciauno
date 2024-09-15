@@ -100,12 +100,16 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-1">
                                     <label for="purchase_remito">Número de </label>
                                     <input type="text" name="number_remito" id="number_remito" class="form-control"
+
                                         maxlength="4" value="" placeholder="0000">
+
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="remito">Remito: <sup style="color:red">*</sup></label>
                                     <input type="text" name="remito" id="remito" class="form-control" maxlength="6"
+
                                         value="" placeholder="000000" pattern="\d{6}">
+
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_remito">Fecha de Remito: <sup style="color:red">*</sup></label>
@@ -123,12 +127,14 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-1">
                                     <label for="purchase_factura">Número de </label>
                                     <input type="text" name="purchase_factura" class="form-control" maxlength="4"
+
                                         value="" placeholder="0000">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="factura">Factura: <sup style="color:red">*</sup></label>
                                     <input type="text" name="factura" class="form-control" maxlength="6" value=""
                                         placeholder="000000">
+
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="date_factura">Fecha de Factura: <sup style="color:red">*</sup></label>
