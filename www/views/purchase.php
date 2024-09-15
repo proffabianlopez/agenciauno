@@ -10,12 +10,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     header("Location: login.php");
     exit();
 }
-
-$today = date('Y-m-d');
-// Fecha hace 7 días
-$min_date = date('Y-m-d', strtotime('-7 days'));
-// Fecha dentro de 7 días
-$max_date = date('Y-m-d', strtotime('+7 days'));
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -175,7 +169,6 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
                                         min="1">
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group col-md-3 d-flex align-items-center">
                                     <label for="serial_number" class="mb-0 me-2">Número de Serie:</label>
@@ -195,7 +188,6 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
                                 </div>
                             </div>
                         </div>
-
                         <div class="table-responsive">
                             <div class="table-wrapper">
                                 <table id="table_products" class="table table-striped table-hover">
@@ -204,7 +196,6 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
                                             <th>Producto</th>
                                             <th>Nombre</th>
                                             <th>Cantidad</th>
-
                                             <th>Número de Series</th>
                                             <th>Eliminar</th>
                                         </tr>
@@ -215,9 +206,6 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
                                 </table>
                             </div>
                         </div>
-
-
-
                         <div class="card-footer" style="text-align:right">
                             <input type="submit" class="btn btn-success" value="Ingresar Remito">
                         </div>
@@ -228,8 +216,6 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
         <!-- FOOTER -->
         <?php include "footer.php"?>
     </div>
-
-
     <!-- Modal -->
     <div class="modal fade" id="serialNumberModal" tabindex="-1" aria-labelledby="serialNumberModalLabel"
         aria-hidden="true">
@@ -266,8 +252,6 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
             </div>
         </div>
     </div>
-
-
     <!-- Modal Vista Binoculares -->
     <div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel"
         aria-hidden="true">
@@ -306,24 +290,16 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
         </div>
     </div>
 
-    <!-- Incluir jQuery una sola vez -->
+    <!-- Incluir jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
-
-
     <!-- Incluir el JS de Select2 -->
     <script src="../assets/js/select2.js"></script>
-
-
     <!-- Bootstrap JS -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
-
     <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/dist/js/adminlte.min.js"></script>
-    <!-- Otros scripts que necesites -->
+    <script src="../assets/dist/js/adminlte.min.js"></script>    
     <!-- DataTables JS -->
-
-
     <script src="../assets/js/jquery.datatables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.js"></script>
@@ -331,9 +307,6 @@ $max_date = date('Y-m-d', strtotime('+7 days'));
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
     <script src="../assets/js/select.bootstra5.js"></script>
-
-
-
 </body>
 
 </html>
