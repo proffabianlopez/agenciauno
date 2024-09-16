@@ -828,7 +828,7 @@ function update_serial_number($id_product, $serial_number, $remito_number, $id_s
 }
 function obtenerFechasLimite()
 {
-    $today = date('Y-m-d');    
+    $today = date('Y-m-d');
     $minDate = date('Y-m-d', strtotime('-7 days'));
     $maxDate = date('Y-m-d', strtotime('+7 days'));
 
@@ -837,4 +837,25 @@ function obtenerFechasLimite()
         'maxDate' => $maxDate,
         'minDate' => $minDate
     ];
+}
+function insert_sales($id_customer, $sales_number, $date_sales, $id_product, $quantity)
+{
+    $bd = database();
+    $query = "INSERT INTO sales (id_customer, sales_number, date_sales,id_product, quantity) VALUES (:id_customer, :sales_number, :date_sales,:id_product, :quantity)";
+
+    $consulta = $bd->prepare($query);
+    $consulta->bindParam(':id_customer', $id_customer, PDO::PARAM_INT);
+    $consulta->bindParam(':sales_number', $sales_number, PDO::PARAM_STR);
+    $consulta->bindParam(':date_sales', $date_sales, PDO::PARAM_STR);
+    $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
+    $consulta->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+
+    try {
+        if ($consulta->execute()) {
+            return true; // Devuelve verdadero si la inserción fue exitosa
+        }
+    } catch (PDOException $e) {
+        echo "Error en la inserción: " . $e->getMessage();
+        return false;
+    }
 }
