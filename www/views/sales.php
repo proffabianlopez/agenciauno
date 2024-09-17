@@ -61,7 +61,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     </div>
                 </div>
 
-                <form action="../contderoller/controllerxxxxx.php" method="post">
+                <form action="../controller/insert_sales.php" method="post">
                     <div class="card">
 
                         <div class="card-header" style="display: block;text-align:center">
@@ -81,18 +81,18 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <select name="id_customer" class="form-control select2" id="id_customer">
                                         <option></option> <!-- Placeholder -->
                                         <?php foreach ($clientes as $cliente) : ?>
-                                        <option value="<?php echo $cliente['id_customer']; ?>">
-                                            <?php echo $cliente['customer_name']; ?>
-                                        </option>
+                                            <option value="<?php echo $cliente['id_customer']; ?>">
+                                                <?php echo $cliente['customer_name']; ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="purchase_date">Fecha de Venta: <sup style="color:red">*</sup></label>
+                                    <label for="date_sales">Fecha de Venta: <sup style="color:red">*</sup></label>
                                     <?php
                                     $fechas = obtenerFechasLimite();
                                     ?>
-                                    <input type="date" id="purchase_date" name="purchase_date" class="form-control"
+                                    <input type="date" id="date_sales" name="date_sales" class="form-control"
                                         value="<?php echo $fechas['today']; ?>" min="<?php echo $fechas['minDate']; ?>"
                                         max="<?php echo $fechas['maxDate']; ?>">
                                     <small id="dateError" style="color:red; display:none;">La fecha debe ser +/-
@@ -139,9 +139,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <select name="id_product" id="id_product" class="form-control">
                                                 <option value=""></option>
                                                 <?php foreach ($showP as $product) : ?>
-                                                <option value="<?php echo $product->id_product; ?>">
-                                                    <?php echo $product->name_product; ?>
-                                                </option>
+                                                    <option value="<?php echo $product->id_product; ?>">
+                                                        <?php echo $product->name_product; ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -171,7 +171,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                             <th>Producto</th>
                                             <th>Nombre</th>
                                             <th>Cantidad</th>
-
                                             <th>Número de Series</th>
                                             <th>Eliminar</th>
                                         </tr>
