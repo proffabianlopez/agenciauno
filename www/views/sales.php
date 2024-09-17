@@ -35,7 +35,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
         <!-- Hoja de estilo personalizada -->
         <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
-        <script src="../assets/js/sales.js"></script>
     </head>
 
 <body class="sidebar-mini" style="height: auto;">
@@ -87,6 +86,11 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
+                                <div class="form-group col-md-4 d-flex align-items-end">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+        <i class="fas fa-user-plus"></i>&nbsp;Cliente Nuevo
+    </button>
+</div>
                                 <div class="form-group col-md-4">
                                     <label for="date_sales">Fecha de Venta: <sup style="color:red">*</sup></label>
                                     <?php
@@ -116,6 +120,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                         </div>
                     </div>
+                    <?php if (isset($_GET['success'])): ?>
+        <div class="alert alert-success">
+            <?php echo htmlspecialchars($_GET['success']); ?>
+        </div>
+    <?php elseif (isset($_GET['error'])): ?>
+        <div class="alert alert-danger">
+            <?php echo htmlspecialchars($_GET['error']); ?>
+        </div>
+    <?php endif; ?>
                     <!-- /.card-body -->
 
                     <div class="card">
@@ -192,6 +205,75 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
 
         </div>
+
+
+
+    <!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+    Agregar Cliente
+</button>
+
+<!-- Modal para agregar clientes -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addCustomerModalLabel">Agregar cliente nuevo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body" style="text-align:center">
+                <form id="customerForm" action="../controller/insert_custommer_ventas.php" method="POST">
+                    <div class="mb-3">
+                        <label for="tax_identifier" class="form-label">CUIT/CUIL</label>
+                        <input type="text" class="form-control" name="tax_identifier" id="tax_identifier" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customer_name" class="form-label">Nombre del Cliente</label>
+                        <input type="text" class="form-control" name="customer_name" id="customer_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email_customer" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="email_customer" id="email_customer" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_customer" class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" name="phone_customer" id="phone_customer" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="street" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" name="street" id="street" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="height" class="form-label">Altura</label>
+                        <input type="text" class="form-control" name="height" id="height" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Ciudad</label>
+                        <input type="text" class="form-control" name="location" id="location" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="floor" class="form-label">Piso</label>
+                        <input type="text" class="form-control" name="floor" id="floor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Departamento</label>
+                        <input type="text" class="form-control" name="department" id="department">
+                    </div>
+                    <div class="mb-3">
+                        <label for="observaciones" class="form-label">Observaciones</label>
+                        <textarea class="form-control" name="observaciones" id="observaciones"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
         <!-- FOOTER -->
         <?php include "footer.php" ?>
     </div>
@@ -216,6 +298,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
     <script src="../assets/js/select.bootstra5.js"></script>
+    <script src="../assets/js/sales.js"></script>
+
 
 </body>
 
