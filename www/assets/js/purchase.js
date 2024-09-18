@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 // Agregar la nueva fila a la tabla con los datos seleccionados
                 table.row.add([
-                    `<input type="hidden" name="items[${productCounter}][id_product]" value="${productCounter+1}">${productCounter+1}`,
+                    `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productCounter+1}`,
                     `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
                     `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
                     `<button type="button" class="view-details" data-product-id="${productId}" data-supplier-id="${supplierId}"><i class="fa fa-binoculars"></i></button>`,

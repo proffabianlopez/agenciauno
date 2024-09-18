@@ -918,3 +918,28 @@ function obtener_number_sales()
     }
 
 }
+function update_product_stock($id_product, $quantity_sold) {
+    try {
+        $bd = database();
+        // convierto quantity_sold a entero por que en la bd esta en int 
+        $quantity_sold = (int)$quantity_sold;
+        $id_product = (int)$id_product;
+        if (empty($id_product) || $quantity_sold <= 0) {
+            throw new Exception("El ID del producto o la cantidad son inválidos.");
+        }
+
+        $query = "UPDATE products SET stock = stock - :quantity_sold WHERE id_product = :id_product AND stock >= :min_stock";
+        $stmt = $bd->prepare($query);
+        $stmt->bindValue(':quantity_sold', $quantity_sold, PDO::PARAM_INT);
+        $stmt->bindValue(':min_stock', $quantity_sold, PDO::PARAM_INT);
+        $stmt->bindValue(':id_product', $id_product, PDO::PARAM_INT);
+        if (!$stmt->execute()) {
+            $errorInfo = $stmt->errorInfo();
+            throw new PDOException("Error al ejecutar la consulta de actualización de stock: " . $errorInfo[2]);
+        }
+        return true;
+    } catch (Exception $e) {
+        echo "Error en la actualización del stock: " . $e->getMessage();
+        return false;
+    }
+}
