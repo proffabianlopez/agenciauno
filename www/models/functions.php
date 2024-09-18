@@ -859,3 +859,12 @@ function insert_sales($id_customer, $sales_number, $date_sales, $id_product, $qu
         return false;
     }
 }
+function check_remito_exists($number_remito) {
+
+    $bd = database();
+    $query = $bd->prepare("SELECT COUNT(*) FROM purchases WHERE remito_number = :remito_number");
+    $query->bindParam(':remito_number', $number_remito);
+    $query->execute();
+
+    return $query->fetchColumn() > 0; 
+}

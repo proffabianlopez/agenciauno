@@ -9,7 +9,44 @@ if (isset($_POST)) {
 
 
     $items = $_POST["items"];
-    $insertSuccess = true;
+    $insertSuccess = true;   
+    
+    if (empty($_POST["number_remito"]) || empty($_POST["remito"]) || preg_match('/^0+$/', $_POST["number_remito"]) || preg_match('/^0+$/', $_POST["remito"])) {
+        echo '<script>
+            localStorage.setItem("mensaje", "Actualice el número de remitos, no pueden estar vacíos ni ser todos ceros.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/purchase.php";
+            </script>';
+        exit;
+    }
+
+       if (check_remito_exists($number_remito)) {
+        echo '<script>
+            localStorage.setItem("mensaje", "El número de remito ya existe. Por favor, ingrese un número diferente.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/purchase.php";
+            </script>';
+        exit;
+    }
+
+    if (empty($_POST["purchase_factura"]) || empty($_POST["factura"])) {
+        echo '<script>
+            localStorage.setItem("mensaje", "Actualice el número de factura, no puede estar vacío.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/purchase.php";
+            </script>';
+        exit;
+    }
+
+ 
+    if (preg_match('/^0+$/', $_POST["purchase_factura"]) || preg_match('/^0+$/', $_POST["factura"])) {
+        echo '<script>
+            localStorage.setItem("mensaje", "Actualice el número de factura, no puede ser solo ceros.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/purchase.php";
+            </script>';
+        exit;
+    }
 
     foreach ($items as $item) {
         $id_product = $item["id_product"];
@@ -22,6 +59,7 @@ if (isset($_POST)) {
             break;
         }
     }
+ 
 
     if ($insertSuccess) {
 
