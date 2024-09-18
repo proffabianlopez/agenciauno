@@ -838,15 +838,14 @@ function obtenerFechasLimite()
         'minDate' => $minDate
     ];
 }
-function insert_sales($id_customer, $sales_number, $date_sales, $id_product, $quantity)
+function insert_sales($id_customer, $sales_number, $id_product, $quantity)
 {
     $bd = database();
-    $query = "INSERT INTO sales (id_customer, sales_number, date_sales,id_product, quantity) VALUES (:id_customer, :sales_number, :date_sales,:id_product, :quantity)";
+    $query = "INSERT INTO sales (id_customer, sales_number,id_product, quantity) VALUES (:id_customer, :sales_number,:id_product, :quantity)";
 
     $consulta = $bd->prepare($query);
     $consulta->bindParam(':id_customer', $id_customer, PDO::PARAM_INT);
     $consulta->bindParam(':sales_number', $sales_number, PDO::PARAM_STR);
-    $consulta->bindParam(':date_sales', $date_sales, PDO::PARAM_STR);
     $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
     $consulta->bindParam(':quantity', $quantity, PDO::PARAM_INT);
 
@@ -857,5 +856,55 @@ function insert_sales($id_customer, $sales_number, $date_sales, $id_product, $qu
     } catch (PDOException $e) {
         echo "Error en la inserción: " . $e->getMessage();
         return false;
+    }
+}
+function insert_date_sales($date_sales)
+{
+    $bd = database();
+
+    $query_sales = "SELECT id_sales FROM sales ORDER BY id_sales DESC LIMIT 1"; 
+    $consulta_sales = $bd->prepare($query_sales);
+    $consulta_sales->execute();
+    $id_sales = $consulta_sales->fetchColumn();
+
+    $query_type = "SELECT id_type FROM motions_type WHERE motion_type = 'Venta'";
+    $consulta_type = $bd->prepare($query_type);
+    $consulta_type->execute();
+    $id_type = $consulta_type->fetchColumn();
+
+    $query_purchase = "SELECT id_purchase FROM purchases ORDER BY id_purchase DESC LIMIT 1";
+    $consulta_purchase = $bd->prepare($query_purchase);
+    $consulta_purchase->execute();
+    $id_purchase = $consulta_purchase->fetchColumn();
+
+    $query = "INSERT INTO motions (date_sales, id_type, id_purchase, id_sales) 
+              VALUES (:date_sales, :id_type, :id_purchase, :id_sales)";
+    $consulta = $bd->prepare($query);
+    $consulta->bindParam(':date_sales', $date_sales, PDO::PARAM_STR);
+    $consulta->bindParam(':id_type', $id_type, PDO::PARAM_INT);
+    $consulta->bindParam(':id_purchase', $id_purchase, PDO::PARAM_INT);
+    $consulta->bindParam(':id_sales', $id_sales, PDO::PARAM_INT);
+
+    try {
+        if ($consulta->execute()) {
+            return true;
+        }
+    } catch (PDOException $e) {
+        echo "Error en la inserción: " . $e->getMessage();
+        return false;
+    }
+}
+function obtener_number_sales()
+{
+    $bd = database();
+    // Obtener el último número de venta
+    $sentence = $bd->query("SELECT sales_number FROM sales ORDER BY sales_number DESC LIMIT 1");
+    $result = $sentence->fetch(PDO::FETCH_ASSOC);
+
+    // Si no hay resultados (es decir, no hay ventas), comenzamos desde 1
+    if ($result && isset($result['sales_number'])) {
+        return $result['sales_number'] + 1;
+    } else {
+        return 1; // Si no hay ventas previas, empezamos desde 1
     }
 }
