@@ -47,5 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         }
     }
+    if ($insertSuccess) {
+        echo '<script>
+            localStorage.setItem("mensaje", "Venta ingresada con éxito");
+            localStorage.setItem("tipo", "success");
+            window.location.href = "../views/sales.php";
+            </script>';
+    } else {
+        echo '<script>
+            localStorage.setItem("mensaje", "Error al ingresar la venta. Verifique los datos ingresados.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/sales.php";
+            </script>';
+    }
 }    
 ?>
