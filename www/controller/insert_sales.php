@@ -1,26 +1,42 @@
 <?php
 include_once "../models/functions.php";
-if (isset($_POST)) {
-    $id_customer = $_POST["id_customer"];
-    $sales_number = $_POST["sales_number"];
-    $date_sales = $_POST["date_sales"];
-   
-    $items = $_POST["items"];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_customer = isset($_POST["id_customer"]) ? trim($_POST["id_customer"]) : null;
+    $sales_number = isset($_POST["sales_number"]) ? trim($_POST["sales_number"]) : null;
+    $date_sales = isset($_POST["date_sales"]) ? trim($_POST["date_sales"]) : null;
+    $items = isset($_POST["items"]) && is_array($_POST["items"]) ? $_POST["items"] : [];
+
+    if (empty($id_customer) || empty($sales_number) || empty($date_sales) || empty($items)) {
+        echo '<script>
+            localStorage.setItem("mensaje", "Todos los campos son obligatorios.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/sales.php";
+            </script>';
+        exit(); 
+    }
+
     $insertSuccess = true;
-  
-   foreach ($items as $item) {
-        $id_product = $item["id_product"];
-        $quantity = !empty($item["quantity"]) ? $item["quantity"] : 0;
+
+    foreach ($items as $item) {
+        $id_product = isset($item["id_product"]) ? trim($item["id_product"]) : null;
+        $quantity = isset($item["quantity"]) ? (int)$item["quantity"] : 0;
+
+        if (empty($id_product) || $quantity <= 0) {
+            $insertSuccess = false;
+            break;
+        }
+
         $date = insert_date_sales($date_sales);
         $insert = insert_sales($id_customer, $sales_number, $id_product, $quantity);
 
-        if (!$insert && !$date) {
+        if (!$insert || !$date) {
             $insertSuccess = false;
             break;
         }
     }
-    if ($insertSuccess) {
 
+    if ($insertSuccess) {
         echo '<script>
             localStorage.setItem("mensaje", "Venta ingresada con éxito");
             localStorage.setItem("tipo", "success");
@@ -28,9 +44,10 @@ if (isset($_POST)) {
             </script>';
     } else {
         echo '<script>
-            localStorage.setItem("mensaje", "Error al ingresar la venta");
+            localStorage.setItem("mensaje", "Error al ingresar la venta. Verifique los datos ingresados.");
             localStorage.setItem("tipo", "error");
             window.location.href = "../views/sales.php";
             </script>';
     }
 }
+?>
