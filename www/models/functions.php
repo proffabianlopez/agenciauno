@@ -907,15 +907,14 @@ function insert_date_sales($date_sales)
 function obtener_number_sales()
 {
     $bd = database();
-    // Obtener el último número de venta
+
     $sentence = $bd->query("SELECT sales_number FROM sales ORDER BY sales_number DESC LIMIT 1");
     $result = $sentence->fetch(PDO::FETCH_ASSOC);
 
-    // Si no hay resultados (es decir, no hay ventas), comenzamos desde 1
     if ($result && isset($result['sales_number'])) {
         return $result['sales_number'] + 1;
     } else {
-        return 1; // Si no hay ventas previas, empezamos desde 1
+        return 1; 
     }
 
 }
