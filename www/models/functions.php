@@ -867,7 +867,7 @@ function check_remito_exists($number_remito) {
     $query->execute();
 
     return $query->fetchColumn() > 0; 
-
+}
 function insert_date_sales($date_sales)
 {
     $bd = database();
