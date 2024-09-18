@@ -106,7 +106,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                             </div>
                         </div>
-
                         <div class="card-body" style="display: block;">
                             <div class="form-row">
                                 <div class="form-group col-md-4">    
@@ -114,15 +113,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <select name="id_product" id="id_product" class="form-control">
                                         <option value=""></option>
                                         <?php foreach ($showP as $product) : ?>
-                                            <option value="<?php echo $product->id_product; ?>" data-description="<?php echo $product->description; ?>">
+                                            <option value="<?php echo $product->id_product; ?>" data-description="<?php echo $product->description; ?>" data-stock="<?php echo $product->stock; ?>">
                                                 <?php echo $product->name_product; ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="product_description" class="form-label">Descripción del Producto:</label>
-                                    <input type="text" id="product_description" class="form-control" readonly>
+                                    <label for="product_info" class="form-label">Información del Producto:</label>
+                                    <input type="text" id="product_info" class="form-control" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>

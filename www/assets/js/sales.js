@@ -150,12 +150,16 @@ $('#table_products tbody').on('click', '.delete-row', function (e) {
 
 });
 $(document).ready(function() {
+  
     $('#id_product').on('change', function() {
         var selectedProduct = $(this).find('option:selected');
         var description = selectedProduct.data('description');
-        $('#product_description').val(description || 'No hay descripción.');
+        var stock = selectedProduct.data('stock');
+        var productInfo = "Descripción: " + description + " | Stock Disponible: " + stock;
+        document.getElementById('product_info').value = productInfo;
     });
 });
+
 
 // crear nuevo cliente desde ventas
 $('#addCustomerForm').on('submit', function (e) {
