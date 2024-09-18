@@ -858,6 +858,16 @@ function insert_sales($id_customer, $sales_number, $id_product, $quantity)
         return false;
     }
 }
+
+function check_remito_exists($number_remito) {
+
+    $bd = database();
+    $query = $bd->prepare("SELECT COUNT(*) FROM purchases WHERE remito_number = :remito_number");
+    $query->bindParam(':remito_number', $number_remito);
+    $query->execute();
+
+    return $query->fetchColumn() > 0; 
+
 function insert_date_sales($date_sales)
 {
     $bd = database();
@@ -907,4 +917,5 @@ function obtener_number_sales()
     } else {
         return 1; // Si no hay ventas previas, empezamos desde 1
     }
+
 }
