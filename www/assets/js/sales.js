@@ -160,6 +160,22 @@ $(document).ready(function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const productSelect = document.getElementById('id_product');
+    const productInfo = document.getElementById('product_info');
+
+    productSelect.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const description = selectedOption.getAttribute('data-description');
+        const stock = selectedOption.getAttribute('data-stock');
+
+        if (selectedOption.value) {
+            productInfo.value = `Descripción: ${description} | Stock: ${stock}`;
+        } else {
+            productInfo.value = '';
+        }
+    });
+});
 
 // crear nuevo cliente desde ventas
 $('#addCustomerForm').on('submit', function (e) {

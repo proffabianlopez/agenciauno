@@ -107,36 +107,40 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                         </div>
                         <div class="card-body" style="display: block;">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">    
-                                    <label for="id_product">Producto: <sup style="color:red">*</sup></label>
-                                    <select name="id_product" id="id_product" class="form-control">
-                                        <option value=""></option>
-                                        <?php foreach ($showP as $product) : ?>
-                                            <option value="<?php echo $product->id_product; ?>" data-description="<?php echo $product->description; ?>" data-stock="<?php echo $product->stock; ?>">
-                                                <?php echo $product->name_product; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="product_info" class="form-label">Información del Producto:</label>
-                                    <input type="text" id="product_info" class="form-control" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-                                    <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad" min="1">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-2 d-flex align-items-center">
-                                    <label for="items" class="mb-0">&nbsp;</label>
-                                    <button type="button" id="addProduct" class="btn btn-primary">
-                                        <i class="fas fa-plus-circle fa-lg"></i>&nbsp;Agregar Producto
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">    
+            <label for="id_product">Producto: <sup style="color:red">*</sup></label>
+            <select name="id_product" id="id_product" class="form-control">
+                <option value="">Selecciona un producto</option>
+                <?php foreach ($showP as $product) : ?>
+                    <?php if ($product->stock > 0) : ?>
+                        <option value="<?php echo $product->id_product; ?>" 
+                                data-description="<?php echo $product->description; ?>" 
+                                data-stock="<?php echo $product->stock; ?>">
+                            <?php echo $product->name_product; ?>
+                        </option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="product_info" class="form-label">Información del Producto:</label>
+            <input type="text" id="product_info" class="form-control" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="items">Cantidad: <sup style="color:red">*</sup></label>
+            <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad" min="1">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2 d-flex align-items-center">
+            <label for="items" class="mb-0">&nbsp;</label>
+            <button type="button" id="addProduct" class="btn btn-primary">
+                <i class="fas fa-plus-circle fa-lg"></i>&nbsp;Agregar Producto
+            </button>
+        </div>
+    </div>
+</div>
 
                         <div class="table-responsive">
                             <table id="table_products" class="table table-striped table-hover">
