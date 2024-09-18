@@ -11,9 +11,17 @@ if (isset($_POST)) {
     $items = $_POST["items"];
     $insertSuccess = true;   
     
-    if (empty($_POST["number_remito"]) || empty($_POST["remito"]) || preg_match('/^0+$/', $_POST["number_remito"]) || preg_match('/^0+$/', $_POST["remito"])) {
+    if (empty($_POST["number_remito"]) || empty($_POST["remito"])) {
         echo '<script>
-            localStorage.setItem("mensaje", "Actualice el número de remitos, no pueden estar vacíos ni ser todos ceros.");
+            localStorage.setItem("mensaje", "Actualice el número de remito, no pueden estar vacío.");
+            localStorage.setItem("tipo", "error");
+            window.location.href = "../views/purchase.php";
+            </script>';
+        exit;
+    }
+    if (preg_match('/^0+$/', $_POST["number_remito"]) || preg_match('/^0+$/', $_POST["remito"])) {
+        echo '<script>
+            localStorage.setItem("mensaje", "Actualice el número de remito, no pueden ser ceros.");
             localStorage.setItem("tipo", "error");
             window.location.href = "../views/purchase.php";
             </script>';
