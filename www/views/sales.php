@@ -109,16 +109,20 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
                         <div class="card-body" style="display: block;">
                             <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="items">Producto: <sup style="color:red">*</sup></label>
+                                <div class="form-group col-md-4">    
+                                    <label for="id_product">Producto: <sup style="color:red">*</sup></label>
                                     <select name="id_product" id="id_product" class="form-control">
                                         <option value=""></option>
                                         <?php foreach ($showP as $product) : ?>
-                                            <option value="<?php echo $product->id_product; ?>">
+                                            <option value="<?php echo $product->id_product; ?>" data-description="<?php echo $product->description; ?>">
                                                 <?php echo $product->name_product; ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="product_description" class="form-label">Descripción del Producto:</label>
+                                    <input type="text" id="product_description" class="form-control" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
