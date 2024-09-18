@@ -149,6 +149,14 @@ $('#table_products tbody').on('click', '.delete-row', function (e) {
 });
 
 });
+$(document).ready(function() {
+    $('#id_product').on('change', function() {
+        var selectedProduct = $(this).find('option:selected');
+        var description = selectedProduct.data('description');
+        $('#product_description').val(description || 'No hay descripción.');
+    });
+});
+
 // crear nuevo cliente desde ventas
 $('#addCustomerForm').on('submit', function (e) {
     e.preventDefault();
