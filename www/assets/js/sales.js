@@ -176,6 +176,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+$(document).ready(function() {
+    $('#id_product').change(function() {
+        // Obtener el stock y descripción del producto seleccionado
+        let selectedProduct = $(this).find(':selected');
+        let stock = selectedProduct.data('stock');
+        let description = selectedProduct.data('description');
+
+        // Mostrar la descripción del producto
+        $('#product_info').val(description);
+
+        // Establecer el valor máximo permitido en el input de cantidad
+        $('#quantity_input').attr('max', stock);
+
+        // Limpiar el campo de cantidad
+        $('#quantity_input').val('');
+    });
+
+    $('#quantity_input').on('input', function() {
+        // Obtener el valor ingresado y el stock máximo permitido
+        let quantity = parseInt($(this).val());
+        let maxQuantity = parseInt($(this).attr('max'));
+
+        // Verificar si la cantidad es mayor al stock disponible
+        if (quantity > maxQuantity) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Cantidad inválida',
+                text: 'La cantidad no puede ser mayor al stock disponible (' + maxQuantity + ').',
+            });
+            $(this).val(maxQuantity);  // Ajustar la cantidad al máximo disponible
+        }
+    });
+});
 
 // crear nuevo cliente desde ventas
 $('#addCustomerForm').on('submit', function (e) {
