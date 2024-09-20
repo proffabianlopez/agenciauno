@@ -447,17 +447,16 @@ function insert_products($number_product, $name_product, $description, $stock, $
         return false;
     }
 }
-function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $date_invoice, $id_product, $quantity, $line_number = null)
+function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $id_product, $quantity, $line_number = null)
 {
     $bd = database();
-    $query = "INSERT INTO purchases (id_supplier, remito_number, remito_date, invoice_number, invoice_date, id_product, qty, line_number) VALUES (:id_supplier, :remito_number, :remito_date, :invoice_number, :invoice_date, :id_product, :qty, :line_number)";
+    $query = "INSERT INTO purchases (id_supplier, remito_number, remito_date, invoice_number, id_product, qty, line_number) VALUES (:id_supplier, :remito_number, :remito_date, :invoice_number, :id_product, :qty, :line_number)";
 
     $consulta = $bd->prepare($query);
     $consulta->bindParam(':id_supplier', $id_supplier, PDO::PARAM_INT);
     $consulta->bindParam(':remito_number', $number_remito, PDO::PARAM_STR);
     $consulta->bindParam(':remito_date', $date_remito, PDO::PARAM_STR);
     $consulta->bindParam(':invoice_number', $number_invoice, PDO::PARAM_STR);
-    $consulta->bindParam(':invoice_date', $date_invoice, PDO::PARAM_STR);
     $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
     $consulta->bindParam(':qty', $quantity, PDO::PARAM_INT);
     $consulta->bindParam(':line_number', $line_number, PDO::PARAM_INT);
@@ -471,8 +470,36 @@ function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoi
         return false;
     }
 }
+function insert_date_sender($date_invoice)
+{
+    $bd = database();
 
+    $query_sales = "SELECT id_purchase FROM purchases ORDER BY id_purchase DESC LIMIT 1"; 
+    $consulta_sales = $bd->prepare($query_sales);
+    $consulta_sales->execute();
+    $id_purchase = $consulta_sales->fetchColumn();
 
+    $query_type = "SELECT id_type FROM motions_type WHERE motion_type = 'Compra'";
+    $consulta_type = $bd->prepare($query_type);
+    $consulta_type->execute();
+    $id_type = $consulta_type->fetchColumn();
+
+    $query = "INSERT INTO motions (date_sales, id_type, id_purchase) 
+              VALUES (:date_sales, :id_type, :id_purchase)";
+    $consulta = $bd->prepare($query);
+    $consulta->bindParam(':date_sales', $date_invoice, PDO::PARAM_STR);
+    $consulta->bindParam(':id_type', $id_type, PDO::PARAM_INT);
+    $consulta->bindParam(':id_purchase', $id_purchase, PDO::PARAM_INT);
+
+    try {
+        if ($consulta->execute()) {
+            return true;
+        }
+    } catch (PDOException $e) {
+        echo "Error en la inserción: " . $e->getMessage();
+        return false;
+    }
+}
 function getproducts($id_product)
 {
     try {
@@ -841,13 +868,28 @@ function obtenerFechasLimite()
 function insert_sales($id_customer, $sales_number, $id_product, $quantity)
 {
     $bd = database();
-    $query = "INSERT INTO sales (id_customer, sales_number,id_product, quantity) VALUES (:id_customer, :sales_number,:id_product, :quantity)";
+
+    // Seleccionamos el id_status correspondiente al estado 'Despacho'
+    $query_status = "SELECT id_status FROM status WHERE detail = 'Despacho'";
+    $consulta_status = $bd->prepare($query_status);
+    $consulta_status->execute();
+    $id_status = $consulta_status->fetchColumn();
+
+    if (!$id_status) {
+        echo "Error: No se encontró el estado 'Despacho'";
+        return false;
+    }
+
+    // Inserción en la tabla de ventas
+    $query = "INSERT INTO sales (id_customer, sales_number, id_product, quantity, id_status) 
+              VALUES (:id_customer, :sales_number, :id_product, :quantity, :id_status)";
 
     $consulta = $bd->prepare($query);
     $consulta->bindParam(':id_customer', $id_customer, PDO::PARAM_INT);
     $consulta->bindParam(':sales_number', $sales_number, PDO::PARAM_STR);
     $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
     $consulta->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+    $consulta->bindParam(':id_status', $id_status, PDO::PARAM_INT); // Se agrega el id_status
 
     try {
         if ($consulta->execute()) {
@@ -881,18 +923,11 @@ function insert_date_sales($date_sales)
     $consulta_type = $bd->prepare($query_type);
     $consulta_type->execute();
     $id_type = $consulta_type->fetchColumn();
-
-    $query_purchase = "SELECT id_purchase FROM purchases ORDER BY id_purchase DESC LIMIT 1";
-    $consulta_purchase = $bd->prepare($query_purchase);
-    $consulta_purchase->execute();
-    $id_purchase = $consulta_purchase->fetchColumn();
-
-    $query = "INSERT INTO motions (date_sales, id_type, id_purchase, id_sales) 
-              VALUES (:date_sales, :id_type, :id_purchase, :id_sales)";
+    $query = "INSERT INTO motions (date_sales, id_type, id_sales) 
+              VALUES (:date_sales, :id_type, :id_sales)";
     $consulta = $bd->prepare($query);
     $consulta->bindParam(':date_sales', $date_sales, PDO::PARAM_STR);
     $consulta->bindParam(':id_type', $id_type, PDO::PARAM_INT);
-    $consulta->bindParam(':id_purchase', $id_purchase, PDO::PARAM_INT);
     $consulta->bindParam(':id_sales', $id_sales, PDO::PARAM_INT);
 
     try {
