@@ -48,7 +48,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <h4><b>Registro de Ventas</b></h4>
                             </div>
                             <div class="col-sm-6">
-                            <h4><b>N° <?php echo str_pad($sales_number, 4, "0", STR_PAD_LEFT); ?></b></h4>
+                            <h4><b>N° <?php echo str_pad($sales_number, 6, "0", STR_PAD_LEFT); ?></b></h4>
                             </div>
                         </div>
                     </div>
@@ -149,7 +149,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <th>Producto</th>
                                         <th>Nombre</th>
                                         <th>Cantidad</th>
-                                        <th>Número de Series</th>
+                                        
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>
