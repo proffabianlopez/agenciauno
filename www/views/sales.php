@@ -149,7 +149,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <th>Producto</th>
                                         <th>Nombre</th>
                                         <th>Cantidad</th>
-                                        <th>Número de Series</th>
+                                        
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>
