@@ -1009,3 +1009,23 @@ function update_product_stock($id_product, $quantity_sold) {
         return false;
     }
 }
+function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefono = null, $direccion = null, $altura = null, $ciudad = null, $piso = null, $observaciones = null, $status, $departamento = null) {
+    $bd = database();
+
+    $sentence = $bd->prepare("INSERT INTO customers (tax_identifier, customer_name, email_customer, phone_customer, street, height, location, floor, observaciones, id_status, departament) 
+        VALUES (:identifier, :name_cliente, :email_cliente, :telefono, :direccion, :altura, :ciudad, :piso, :observaciones, :status, :departamento)");
+
+    $sentence->bindParam(':identifier', $identifier);
+    $sentence->bindParam(':name_cliente', $name_cliente);
+    $sentence->bindParam(':email_cliente', $email_cliente);
+    $sentence->bindValue(':telefono', !empty($telefono) ? $telefono : null, PDO::PARAM_STR);
+    $sentence->bindValue(':direccion', !empty($direccion) ? $direccion : null, PDO::PARAM_STR);
+    $sentence->bindValue(':altura', !empty($altura) ? $altura : null, PDO::PARAM_STR);
+    $sentence->bindValue(':ciudad', !empty($ciudad) ? $ciudad : null, PDO::PARAM_STR);
+    $sentence->bindValue(':piso', !empty($piso) ? $piso : null, PDO::PARAM_STR);
+    $sentence->bindValue(':observaciones', !empty($observaciones) ? $observaciones : null, PDO::PARAM_STR);
+    $sentence->bindValue(':status', !empty($status) ? (int)$status : 1, PDO::PARAM_INT);
+    $sentence->bindValue(':departamento', !empty($departamento) ? $departamento : null, PDO::PARAM_STR);
+
+    return $sentence->execute();
+}
