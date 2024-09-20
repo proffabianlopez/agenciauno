@@ -210,36 +210,5 @@ $(document).ready(function() {
     });
 });
 
-// crear nuevo cliente desde ventas
-$('#addCustomerForm').on('submit', function (e) {
-    e.preventDefault();
-    console.log("Formulario enviado");
 
-    var formData = $(this).serialize();
-
-    $.ajax({
-        type: "POST",
-        url: "../controllers/insert_custommer_ventas.php", 
-        data: formData,
-        success: function (response) {
-            console.log("Respuesta del servidor:", response);
-            Swal.fire({
-                icon: 'success',
-                title: 'Cliente agregado correctamente',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            $('#addCustomerModal').modal('hide');
-            // Actualizar la lista de clientes en el select
-        },
-        error: function (xhr, status, error) {
-            console.error("Error en el AJAX:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al agregar el cliente',
-                text: 'Por favor, intente nuevamente',
-            });
-        }
-    });
-});
 

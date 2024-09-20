@@ -166,6 +166,66 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </form>
             </div>
         </div>
+       <!-- Modal para agregar clientes -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addCustomerModalLabel">Agregar cliente nuevo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body" style="text-align:center">
+                <form id="customerForm" action="../controller/insert_custommer_ventas.php" method="POST">
+                    <div class="mb-3">
+                        <label for="tax_identifier" class="form-label">CUIT/CUIL <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="tax_identifier" id="tax_identifier" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customer_name" class="form-label">Nombre del Cliente <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="customer_name" id="customer_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email_customer" class="form-label">Correo Electrónico <span style="color: red;">*</span></label>
+                        <input type="email" class="form-control" name="email_customer" id="email_customer" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_customer" class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" name="phone_customer" id="phone_customer">
+                    </div>
+                    <div class="mb-3">
+                        <label for="street" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" name="street" id="street">
+                    </div>
+                    <div class="mb-3">
+                        <label for="height" class="form-label">Altura</label>
+                        <input type="text" class="form-control" name="height" id="height">
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Ciudad</label>
+                        <input type="text" class="form-control" name="location" id="location">
+                    </div>
+                    <div class="mb-3">
+                        <label for="floor" class="form-label">Piso</label>
+                        <input type="text" class="form-control" name="floor" id="floor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Departamento</label>
+                        <input type="text" class="form-control" name="department" id="department">
+                    </div>
+                    <div class="mb-3">
+                        <label for="observaciones" class="form-label">Observaciones</label>
+                        <textarea class="form-control" name="observaciones" id="observaciones"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
         <!-- FOOTER -->
         <?php include "footer.php" ?>
     </div>
