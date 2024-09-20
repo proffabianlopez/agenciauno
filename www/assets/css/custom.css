@@ -75,3 +75,101 @@ Custom Css
 .card-body {
   flex: 1;
 }
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #000;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+}
+
+.header-left {
+  width: 60%;
+}
+
+.header-left h1 {
+  font-size: 48px;
+  margin: 0;
+}
+
+.header-left p {
+  margin: 5px 0;
+}
+
+.header-right {
+  width: 35%;
+  text-align: right;
+}
+
+.header-right h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.info-table,
+.details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.info-table td,
+.details-table td {
+  border: 1px dotted #000;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.details-table td {
+  height: 40px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  border-top: 2px solid #000;
+  padding-top: 10px;
+}
+
+.footer-left,
+.footer-right {
+  width: 45%;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #000;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+}
+
+textarea {
+  height: 30px;
+}
