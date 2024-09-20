@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productCounter+1}`,
                     `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
                     `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
-                    `<button type="button" class="view-details" data-product-id="${productId}" data-supplier-id="${customerId}"><i class="fa fa-binoculars"></i></button>`,
                     `<button type="button" class="delete-row"><i class="fas fa-trash-alt"></i></button>`
                 ]).draw();
     
