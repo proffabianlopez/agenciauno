@@ -59,8 +59,8 @@ if (isset($_POST)) {
     foreach ($items as $item) {
         $id_product = $item["id_product"];
         $quantity = !empty($item["quantity"]) ? $item["quantity"] : 0;
-
-        $insert = insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $date_invoice, $id_product, $quantity);
+        $date = insert_date_sender($date_invoice);
+        $insert = insert_sender($id_supplier, $number_remito, $date_remito, $number_invoice, $id_product, $quantity);
 
         if (!$insert) {
             $insertSuccess = false;
