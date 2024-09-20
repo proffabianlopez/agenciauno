@@ -138,10 +138,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <input type="text" name="number_product" class="form-control"  min-height="1"
                                 maxlength="200">
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="stock">Stock</label>
-                            <input type="number" name="stock" class="form-control" required min="0" max="100000000">
-                        </div>
+                      
                         <div class="form-group">
                             <label for="brand">Marca</label>
                             <select name="id_brand" id="brand" class="form-select" required>
@@ -203,10 +200,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             <input type="text" class="form-control" id="number_product" name="number_product"
                                 minlength="2" maxlength="200" value="">
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="edit_stock">Stock</label>
-                            <input type="number" class="form-control" id="stock" name="stock" min="0" max="100000000" required value="">
-                        </div>
+                
                     </div>
                     <div class="modal-footer">
 
