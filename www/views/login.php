@@ -3,6 +3,7 @@ include_once "../controller/controller_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +16,7 @@ include_once "../controller/controller_login.php";
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <script src="../assets/js/sweetalert2@11.js"></script>
 </head>
+
 <body class="hold-transition login-page">
     <div class="login-box">
         <!-- /.login-logo -->
@@ -43,7 +45,7 @@ include_once "../controller/controller_login.php";
                     </div>
                     <!-- /.col -->
                     <div class="form-group" style="text-align: right;">
-                        <button type="submit" name="enviar" class="btn btn-primary"><b> Iniciar Sesión</b></button>
+                        <button type="submit" name="enviar" class="btn btn-primary"><b>Iniciar Sesión</b></button>
                         <!-- /.col -->
                     </div>
                 </form>
@@ -54,18 +56,18 @@ include_once "../controller/controller_login.php";
     </div>
     <!-- /.card -->
     <script>
-    // Verifica si hay un mensaje en el almacenamiento local
-    if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
-        Swal.fire({
-            title: 'Mensaje',
-            text: localStorage.getItem('mensaje'),
-            icon: localStorage.getItem('tipo'),
-            confirmButtonText: 'Aceptar'
-        });
-        // Limpia el mensaje después de mostrarlo
-        localStorage.removeItem('mensaje');
-        localStorage.removeItem('tipo');
-    }
+        // Verifica si hay un mensaje en el almacenamiento local
+        if (localStorage.getItem('mensaje') && localStorage.getItem('tipo')) {
+            Swal.fire({
+                title: 'Mensaje',
+                text: localStorage.getItem('mensaje'),
+                icon: localStorage.getItem('tipo'),
+                confirmButtonText: 'Aceptar'
+            });
+            // Limpia el mensaje después de mostrarlo
+            localStorage.removeItem('mensaje');
+            localStorage.removeItem('tipo');
+        }
     </script>
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
@@ -74,4 +76,5 @@ include_once "../controller/controller_login.php";
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
 </body>
+
 </html>
