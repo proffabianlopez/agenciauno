@@ -64,78 +64,6 @@
                     <td><input type="number" name="cantidad2"></td>
                     <td><textarea name="detalle2"></textarea></td>
                 </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad1"></td>
-                    <td><textarea name="detalle1"></textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="number" name="cantidad2"></td>
-                    <td><textarea name="detalle2"></textarea></td>
-                </tr>
             </table>
 
             <!-- Footer Section -->
@@ -160,7 +88,7 @@
     <script>
         function generarPDF() {
             // Selecciona el contenedor que deseas convertir a PDF
-            const contenido = document.querySelector('.container');
+            const contenido = document.querySelector('.remito_container');
 
             // Usa html2canvas para capturar la pantalla del contenido seleccionado
             html2canvas(contenido, {
