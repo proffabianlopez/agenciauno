@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="remito_container">
         <form action="#" method="POST">
             <!-- Header Section -->
             <div class="header">
