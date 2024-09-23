@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/custom.css">
     <title>Formulario de Remito</title>
+    <!-- Incluir las librerías html2canvas y jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -54,6 +57,13 @@
                     <td style="width: 20%;">CANTIDAD</td>
                     <td style="width: 80%;">DETALLE</td>
                 </tr>
+                <td><input type="number" name="cantidad1"></td>
+                <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
                 <tr>
                     <td><input type="number" name="cantidad1"></td>
                     <td><textarea name="detalle1"></textarea></td>
@@ -62,7 +72,70 @@
                     <td><input type="number" name="cantidad2"></td>
                     <td><textarea name="detalle2"></textarea></td>
                 </tr>
-                <!-- Additional rows can be added as needed -->
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad1"></td>
+                    <td><textarea name="detalle1"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="cantidad2"></td>
+                    <td><textarea name="detalle2"></textarea></td>
+                </tr>
             </table>
 
             <!-- Footer Section -->
@@ -73,12 +146,58 @@
                     <p>HAB. 395574 - TELEFAX: 0220-4820499<br>FECHA DE IMPRESIÓN: 07/2024 - NUMERACIÓN: 0002-0000251 AL 0002-0002750</p>
                 </div>
                 <div class="footer-right">
-                    <p>Firma _________________________</p>
                     <p>CAI Nro: 50309208236427<br>Fecha de Vto: 25/07/2025</p>
                 </div>
             </div>
         </form>
     </div>
+
+    <!-- Botón para generar el PDF (centrado y ubicado debajo del contenido) -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="btn-success" onclick="generarPDF()">Generar PDF</button>
+    </div>
+
+    <script>
+        function generarPDF() {
+            // Selecciona el contenedor que deseas convertir a PDF
+            const contenido = document.querySelector('.container');
+
+            // Usa html2canvas para capturar la pantalla del contenido seleccionado
+            html2canvas(contenido, {
+                scale: 2
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+
+                // Definir el tamaño de la página A4 en px
+                const pdfWidth = 598; // Ancho de A4 en px
+                const pdfHeight = 842; // Alto de A4 en px
+
+                // Calcular la relación de aspecto del canvas y ajustar la altura
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                const aspectRatio = canvasWidth / canvasHeight;
+
+                // Ajustar la escala del contenido para que quepa en A4
+                let imgWidth = pdfWidth;
+                let imgHeight = pdfWidth / aspectRatio;
+
+                // Si la imagen es más alta que el PDF, ajusta las dimensiones
+                if (imgHeight > pdfHeight) {
+                    imgHeight = pdfHeight;
+                    imgWidth = pdfHeight * aspectRatio;
+                }
+
+                // Crear un nuevo documento PDF con jsPDF
+                const pdf = new jspdf.jsPDF('portrait', 'pt', 'a4');
+
+                // Agrega la imagen capturada del canvas al PDF
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+                // Descarga el archivo PDF
+                pdf.save('remito.pdf');
+            });
+        }
+    </script>
 </body>
 
 </html>
