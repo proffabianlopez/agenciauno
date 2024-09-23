@@ -1029,3 +1029,15 @@ function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefon
 
     return $sentence->execute();
 }
+function get_purchase_history() {
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT p.id_purchase, p.remito_number, p.remito_date, p.invoice_number, p.line_number, s.name_supplier, prod.product_name, p.qty
+        FROM purchases p
+        JOIN suppliers s ON p.id_supplier = s.id
+        JOIN products prod ON p.id_product = prod.id
+        ORDER BY p.remito_date DESC
+    ");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}

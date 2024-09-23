@@ -68,6 +68,31 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-briefcase"></i>
+                        <p>
+                            Historicos
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="history_purchase.php" class="nav-link">
+                                <i class="fa fa-truck nav-icon"></i>
+
+                                <p>Compras</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="sales.php" class="nav-link">
+                                <i class="fa fa-address-card nav-icon"></i>
+                                <p>Ventas</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-cubes"></i>
                         <p>
                             Gestión Interna
