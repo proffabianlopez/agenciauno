@@ -79,7 +79,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.container {
+.remito_container {
   width: 800px;
   margin: 0 auto;
   padding: 20px;
@@ -162,6 +162,7 @@ textarea {
   box-sizing: border-box;
   font-size: 14px;
   background-color: transparent;
+  height: 39px;
 }
 
 input[type="text"],
@@ -172,4 +173,33 @@ input[type="date"] {
 
 textarea {
   height: 30px;
+}
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-success:active {
+  background-color: #1e7e34;
+}
+table {
+  table-layout: fixed;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+td,
+th {
+  white-space: normal;
+  overflow: hidden;
 }
