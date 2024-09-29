@@ -1032,12 +1032,24 @@ function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefon
 function get_purchase_history() {
     $bd = database();
     $query = $bd->prepare("
-        SELECT p.id_purchase, p.remito_number, p.remito_date, p.invoice_number, p.line_number, s.name_supplier, prod.product_name, p.qty
+        SELECT p.id_purchase, p.remito_number, p.remito_date, p.invoice_number, p.line_number, s.name_supplier, prod.name_product, p.qty
         FROM purchases p
-        JOIN suppliers s ON p.id_supplier = s.id
-        JOIN products prod ON p.id_product = prod.id
+        JOIN suppliers s ON p.id_supplier = s.id_supplier
+        JOIN products prod ON p.id_product = prod.id_product
         ORDER BY p.remito_date DESC
     ");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+function get_product_details($id_purchase) {
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT prod.name_product, dp.qty
+        FROM purchases dp
+        JOIN products prod ON dp.id_product = prod.id_product
+        WHERE dp.id_purchase = :id_purchase
+    ");
+    $query->bindParam(':id_purchase', $id_purchase);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
