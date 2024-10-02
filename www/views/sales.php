@@ -2,12 +2,10 @@
 session_start();
 include_once "../models/functions.php";
 
-// Obtener número de venta y otros datos necesarios
 $sales_number = obtener_number_sales();
 $showP = show_state("products");
 $clientes = obtenerclientes();
 
-// Verificar si el usuario tiene los permisos correctos
 if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
 } else {
     header("Location: login.php");
@@ -34,11 +32,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 
 <body class="sidebar-mini" style="height: auto;">
     <div class="wrapper">
-        <!-- HEADER -->
         <?php include "header.php" ?>
-        <!-- MENU -->
         <?php include "menu.php" ?>
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="min-height: 1604.8px;">
             <div class="container-fluid" style="padding:50px;">
                 <div class="card" style="margin-top:5px">
@@ -70,7 +65,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-8">
                                     <label for="id_customer" class="form-label">Cliente: <sup style="color:red">*</sup></label>
                                     <select name="id_customer" class="form-control select2" id="id_customer">
-                                        <option></option> <!-- Placeholder -->
+                                        <option></option> 
                                         <?php foreach ($clientes as $cliente) : ?>
                                             <option value="<?php echo $cliente['id_customer']; ?>">
                                                 <?php echo $cliente['customer_name']; ?>
@@ -94,11 +89,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <small id="dateError" style="color:red; display:none;">La fecha debe ser +/- 7.</small>
                                 </div>
                             </div>
-                            <!-- Más campos -->
                         </div>
                     </div>
 
-                    <!-- Tabla de productos -->
                     <div class="card">
                         <div class="card-header" style="display: block;">
                             <h5>Detalle</h5>
@@ -226,7 +219,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         </div>
     </div>
 </div>
-        <!-- FOOTER -->
         <?php include "footer.php" ?>
     </div>
 
