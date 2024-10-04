@@ -48,17 +48,18 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <h4><b>Registro de Ventas</b></h4>
                             </div>
                             <div class="col-sm-6">
-                            <h4><b>N° <?php echo str_pad($sales_number, 6, "0", STR_PAD_LEFT); ?></b></h4>
+                                <h4><b>N° <?php echo str_pad($sales_number, 6, "0", STR_PAD_LEFT); ?></b></h4>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <form action="../controller/insert_sales.php" method="post">
+                <form action="../controller/insert_sales.php" id="insertSalesForm" method="post">
                     <div class="card">
                         <div class="card-header" style="display: block;text-align:center">
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                        class="fas fa-minus"></i></button>
                             </div>
                         </div>
 
@@ -68,30 +69,35 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <input type="hidden" name="sales_number" value="<?php echo $sales_number; ?>">
 
                                 <div class="form-group col-md-8">
-                                    <label for="id_customer" class="form-label">Cliente: <sup style="color:red">*</sup></label>
+                                    <label for="id_customer" class="form-label">Cliente: <sup
+                                            style="color:red">*</sup></label>
                                     <select name="id_customer" class="form-control select2" id="id_customer">
                                         <option></option> <!-- Placeholder -->
                                         <?php foreach ($clientes as $cliente) : ?>
-                                            <option value="<?php echo $cliente['id_customer']; ?>">
-                                                <?php echo $cliente['customer_name']; ?>
-                                            </option>
+                                        <option value="<?php echo $cliente['id_customer']; ?>">
+                                            <?php echo $cliente['customer_name']; ?>
+                                        </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group col-md-4 d-flex align-items-end">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addCustomerModal">
                                         <i class="fas fa-user-plus"></i>&nbsp;Cliente Nuevo
                                     </button>
                                 </div>
-                                
+
                                 <div class="form-group col-md-4">
                                     <label for="date_sales">Fecha de Venta: <sup style="color:red">*</sup></label>
                                     <?php
                                     $fechas = obtenerFechasLimite();
                                     ?>
-                                    <input type="date" id="date_sales" name="date_sales" class="form-control" value="<?php echo $fechas['today']; ?>" min="<?php echo $fechas['minDate']; ?>" max="<?php echo $fechas['maxDate']; ?>">
-                                    <small id="dateError" style="color:red; display:none;">La fecha debe ser +/- 7.</small>
+                                    <input type="date" id="date_sales" name="date_sales" class="form-control"
+                                        value="<?php echo $fechas['today']; ?>" min="<?php echo $fechas['minDate']; ?>"
+                                        max="<?php echo $fechas['maxDate']; ?>">
+                                    <small id="dateError" style="color:red; display:none;">La fecha debe ser +/-
+                                        7.</small>
                                 </div>
                             </div>
                             <!-- Más campos -->
@@ -103,44 +109,46 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         <div class="card-header" style="display: block;">
                             <h5>Detalle</h5>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                        class="fas fa-minus"></i></button>
                             </div>
                         </div>
                         <div class="card-body" style="display: block;">
-    <div class="form-row">
-        <div class="form-group col-md-4">    
-            <label for="id_product">Producto: <sup style="color:red">*</sup></label>
-            <select name="id_product" id="id_product" class="form-control">
-                <option value="">Selecciona un producto</option>
-                <?php foreach ($showP as $product) : ?>
-                    <?php if ($product->stock > 0) : ?>
-                        <option value="<?php echo $product->id_product; ?>" 
-                                data-description="<?php echo $product->description; ?>" 
-                                data-stock="<?php echo $product->stock; ?>">
-                            <?php echo $product->name_product; ?>
-                        </option>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="product_info" class="form-label">Información del Producto:</label>
-            <input type="text" id="product_info" class="form-control" readonly>
-        </div>
-        <div class="form-group col-md-2">
-            <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-            <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad" min="1">
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-2 d-flex align-items-center">
-            <label for="items" class="mb-0">&nbsp;</label>
-            <button type="button" id="addProduct" class="btn btn-primary">
-                <i class="fas fa-plus-circle fa-lg"></i>&nbsp;Agregar Producto
-            </button>
-        </div>
-    </div>
-</div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="id_product">Producto: <sup style="color:red">*</sup></label>
+                                    <select name="id_product" id="id_product" class="form-control">
+                                        <option value="">Selecciona un producto</option>
+                                        <?php foreach ($showP as $product) : ?>
+                                        <?php if ($product->stock > 0) : ?>
+                                        <option value="<?php echo $product->id_product; ?>"
+                                            data-description="<?php echo $product->description; ?>"
+                                            data-stock="<?php echo $product->stock; ?>">
+                                            <?php echo $product->name_product; ?>
+                                        </option>
+                                        <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="product_info" class="form-label">Información del Producto:</label>
+                                    <input type="text" id="product_info" class="form-control" readonly>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="items">Cantidad: <sup style="color:red">*</sup></label>
+                                    <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad"
+                                        min="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-2 d-flex align-items-center">
+                                    <label for="items" class="mb-0">&nbsp;</label>
+                                    <button type="button" id="addProduct" class="btn btn-primary">
+                                        <i class="fas fa-plus-circle fa-lg"></i>&nbsp;Agregar Producto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="table-responsive">
                             <table id="table_products" class="table table-striped table-hover">
@@ -149,7 +157,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <th>Producto</th>
                                         <th>Nombre</th>
                                         <th>Cantidad</th>
-                                        
+
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>
@@ -166,66 +174,73 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                 </form>
             </div>
         </div>
-       <!-- Modal para agregar clientes -->
-<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="addCustomerModalLabel">Agregar cliente nuevo</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+        <!-- Modal para agregar clientes -->
+        <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="addCustomerModalLabel">Agregar cliente nuevo</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-            <div class="modal-body" style="text-align:center">
-                <form id="customerForm" action="../controller/insert_custommer_ventas.php" method="POST">
-                    <div class="mb-3">
-                        <label for="tax_identifier" class="form-label">CUIT/CUIL <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="tax_identifier" id="tax_identifier" required>
+                    <div class="modal-body" style="text-align:center">
+                        <form id="customerForm" action="../controller/insert_custommer_ventas.php" method="POST">
+                            <div class="mb-3">
+                                <label for="tax_identifier" class="form-label">CUIT/CUIL <span
+                                        style="color: red;">*</span></label>
+                                <input type="text" class="form-control" name="tax_identifier" id="tax_identifier"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="customer_name" class="form-label">Nombre del Cliente <span
+                                        style="color: red;">*</span></label>
+                                <input type="text" class="form-control" name="customer_name" id="customer_name"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email_customer" class="form-label">Correo Electrónico <span
+                                        style="color: red;">*</span></label>
+                                <input type="email" class="form-control" name="email_customer" id="email_customer"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone_customer" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" name="phone_customer" id="phone_customer">
+                            </div>
+                            <div class="mb-3">
+                                <label for="street" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" name="street" id="street">
+                            </div>
+                            <div class="mb-3">
+                                <label for="height" class="form-label">Altura</label>
+                                <input type="text" class="form-control" name="height" id="height">
+                            </div>
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" name="location" id="location">
+                            </div>
+                            <div class="mb-3">
+                                <label for="floor" class="form-label">Piso</label>
+                                <input type="text" class="form-control" name="floor" id="floor">
+                            </div>
+                            <div class="mb-3">
+                                <label for="department" class="form-label">Departamento</label>
+                                <input type="text" class="form-control" name="department" id="department">
+                            </div>
+                            <div class="mb-3">
+                                <label for="observaciones" class="form-label">Observaciones</label>
+                                <textarea class="form-control" name="observaciones" id="observaciones"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="customer_name" class="form-label">Nombre del Cliente <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="customer_name" id="customer_name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email_customer" class="form-label">Correo Electrónico <span style="color: red;">*</span></label>
-                        <input type="email" class="form-control" name="email_customer" id="email_customer" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone_customer" class="form-label">Teléfono</label>
-                        <input type="tel" class="form-control" name="phone_customer" id="phone_customer">
-                    </div>
-                    <div class="mb-3">
-                        <label for="street" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" name="street" id="street">
-                    </div>
-                    <div class="mb-3">
-                        <label for="height" class="form-label">Altura</label>
-                        <input type="text" class="form-control" name="height" id="height">
-                    </div>
-                    <div class="mb-3">
-                        <label for="location" class="form-label">Ciudad</label>
-                        <input type="text" class="form-control" name="location" id="location">
-                    </div>
-                    <div class="mb-3">
-                        <label for="floor" class="form-label">Piso</label>
-                        <input type="text" class="form-control" name="floor" id="floor">
-                    </div>
-                    <div class="mb-3">
-                        <label for="department" class="form-label">Departamento</label>
-                        <input type="text" class="form-control" name="department" id="department">
-                    </div>
-                    <div class="mb-3">
-                        <label for="observaciones" class="form-label">Observaciones</label>
-                        <textarea class="form-control" name="observaciones" id="observaciones"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
         <!-- FOOTER -->
         <?php include "footer.php" ?>
     </div>
@@ -245,4 +260,5 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/js/select.bootstra5.js"></script>
     <script src="../assets/js/sales.js"></script>
 </body>
+
 </html>

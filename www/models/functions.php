@@ -1029,3 +1029,172 @@ function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefon
 
     return $sentence->execute();
 }
+//DESPACHOS
+// Obtener ventas por id_status y mostrar el nombre del cliente en lugar del id_customer
+function get_sales_by_status($status_id) {
+    $bd = database();
+    $stmt = $bd->prepare("
+        SELECT sales.sales_number, customers.customer_name, SUM(sales.quantity) as total_qty 
+        FROM sales 
+        JOIN customers ON sales.id_customer = customers.id_customer
+        WHERE sales.id_status = :status_id 
+        GROUP BY sales.sales_number, customers.customer_name
+        ORDER BY customers.customer_name ASC, sales.sales_number ASC
+    ");
+    $stmt->bindParam(':status_id', $status_id, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    // Obtener los resultados
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    return $result ? $result : [];
+}
+// Obtener los detalles de una venta (incluyendo cantidad, producto y concatenación de nombre y descripción)
+function get_sale_details($sales_number) {
+    $bd = database();
+    $stmt = $bd->prepare("SELECT sales.id_product,CONCAT(products.name_product, ' - ', products.description) AS full_product_name, 
+            sales.quantity,sales.id_customer FROM sales
+        JOIN products ON sales.id_product = products.id_product
+        WHERE sales.sales_number = :sales_number
+    ");
+    $stmt->bindParam(':sales_number', $sales_number, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+// Actualizar números de serie para un producto
+function update_serial_numbers($id_product, $serial_numbers, $sales_number) {
+    $bd = database();
+    // Preparar la consulta SQL
+    $stmt = $bd->prepare("UPDATE serial_numbers 
+                           SET used = 1, sales_number = :sales_number, updated_at = NOW() 
+                           WHERE id_product = :id_product AND serial_number = :serial_number");
+
+    // Iterar sobre el array de números de serie y ejecutar la consulta para cada uno
+    foreach ($serial_numbers as $serial_number) {
+        $stmt->bindParam(':id_product', $id_product);
+        $stmt->bindParam(':serial_number', $serial_number);
+        $stmt->bindParam(':sales_number', $sales_number);
+        $stmt->execute();
+    }
+}
+// Actualizar el estado de una venta
+function update_sales_status($sales_number, $status) {
+    $bd = database();
+    // Preparar la consulta SQL para actualizar el id_status de la venta
+    $stmt = $bd->prepare("UPDATE sales SET id_status = :status WHERE sales_number = :sales_number");
+    
+    // Enlazar los parámetros a la consulta preparada
+    $stmt->bindParam(':status', $status, PDO::PARAM_INT); // Asegurarse de que es un entero
+    $stmt->bindParam(':sales_number', $sales_number, PDO::PARAM_STR); // Asumimos que sales_number es una cadena
+    
+    // Ejecutar la consulta y comprobar si tuvo éxito
+    if ($stmt->execute()) {
+        return true; // Retornar verdadero si la actualización fue exitosa
+    } else {
+        return false; // Retornar falso si hubo un error
+    }
+}
+// Obtener los seriales no utilizados para un producto
+function get_available_serials($product_id) {
+    $bd = database();
+    $stmt = $bd->prepare("SELECT serial_number, created_at FROM serial_numbers WHERE id_product = :id_product AND used = 0");
+    $stmt->bindParam(':id_product', $product_id);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Insertar un nuevo número de serie y marcarlo como utilizado
+function add_serial_numbers($product_id, $serial_number) {
+    $bd = database();
+    
+    // Obtiene la fecha actual en el formato adecuado
+    $created_at = date('Y-m-d H:i:s'); // Ajusta el formato según tu necesidad
+    $updated_at = $created_at; // Para 'updated_at', puedes usar la misma fecha
+
+    $stmt = $bd->prepare("INSERT INTO serial_numbers 
+        (id_product, serial_number, remito_number, line_number, id_supplier, created_at, updated_at, sales_number, used) 
+        VALUES (:id_product, :serial_number, 'Ingreso Manual', 1, 0, :created_at, :updated_at, NULL, 0)");
+    
+    $stmt->bindParam(':id_product', $product_id);
+    $stmt->bindParam(':serial_number', $serial_number);
+    $stmt->bindParam(':created_at', $created_at); // Vincula la fecha de creación
+    $stmt->bindParam(':updated_at', $updated_at); // Vincula la fecha de actualización
+
+    return $stmt->execute();
+}  
+// Función para registrar un nuevo despacho (una línea por producto)
+function insert_dispatch($sales_number, $customer_id, $qty, $product_name, $serial_numbers) {
+    $bd = database();
+
+    // Concatenar los números de serie en un solo string
+    $serial_numbers_string = implode(', ', $serial_numbers);
+
+    // Modificar el nombre del producto para incluir los números de serie
+    $full_product_name = $product_name . ' (Seriales: ' . $serial_numbers_string . ')';
+
+    // **Aquí nos aseguramos de que se inserte solo una línea con la cantidad correcta**
+    $stmt = $bd->prepare("INSERT INTO dispatches (sales_number, id_customer, qty, product_name) 
+                          VALUES (:sales_number, :id_customer, :qty, :product_name)");
+    
+    // Vincular los parámetros
+    $stmt->bindParam(':sales_number', $sales_number, PDO::PARAM_INT);
+    $stmt->bindParam(':id_customer', $customer_id, PDO::PARAM_INT);
+    $stmt->bindParam(':qty', $qty, PDO::PARAM_INT);  // Cantidad total vendida, no la cantidad de seriales
+    $stmt->bindParam(':product_name', $full_product_name, PDO::PARAM_STR);
+    
+    return $stmt->execute();
+}
+
+// Función para obtener los datos del remito
+function get_remito_data($sales_number) {
+    $bd = database();
+
+    // Consulta para obtener la información de dispatches
+    $stmt = $bd->prepare("
+        SELECT 
+            d.id_dispatch, 
+            d.sales_number, 
+            d.id_customer, 
+            d.dispatch_date, 
+            d.qty, 
+            d.product_name 
+        FROM dispatches d 
+        WHERE d.sales_number = :sales_number
+    ");
+    $stmt->bindParam(':sales_number', $sales_number, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    // Obtener los datos de dispatches
+    $dispatches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (empty($dispatches)) {
+        return null; // No se encontró información de dispatches
+    }
+
+    // Obtener el ID del cliente desde el primer despacho
+    $customer_id = $dispatches[0]['id_customer'];
+
+    // Consulta para obtener los datos del cliente
+    $stmt = $bd->prepare("
+        SELECT 
+            id_customer, 
+            tax_identifier, 
+            customer_name, 
+            email_customer, 
+            phone_customer, 
+            CONCAT(street, ' ', height) AS customer_address, 
+            location 
+        FROM customers 
+        WHERE id_customer = :id_customer
+    ");
+    $stmt->bindParam(':id_customer', $customer_id, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    // Obtener los datos del cliente
+    $customer = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return [
+        'dispatches' => $dispatches,
+        'customer' => $customer
+    ];
+}
