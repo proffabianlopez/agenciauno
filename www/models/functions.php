@@ -450,28 +450,16 @@ function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoi
 {
     $bd = database();
 
-    $query = "INSERT INTO purchases (id_supplier, remito_number, remito_date, invoice_number, id_product, qty, line_number) VALUES (:id_supplier, :remito_number, :remito_date, :invoice_number, :id_product, :qty, :line_number)";
-
-    $consulta = $bd->prepare($query);
-    $consulta->bindParam(':id_supplier', $id_supplier, PDO::PARAM_INT);
-    $consulta->bindParam(':remito_number', $number_remito, PDO::PARAM_STR);
-    $consulta->bindParam(':remito_date', $date_remito, PDO::PARAM_STR);
-    $consulta->bindParam(':invoice_number', $number_invoice, PDO::PARAM_STR);
-    $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
-    $consulta->bindParam(':qty', $quantity, PDO::PARAM_INT);
-    $consulta->bindParam(':line_number', $line_number, PDO::PARAM_INT);
-
-
     try {
-        // Insertar en la tabla purchases
-        $query = "INSERT INTO purchases (id_supplier, remito_number, remito_date, invoice_number, invoice_date, id_product, qty, line_number) 
-                  VALUES (:id_supplier, :remito_number, :remito_date, :invoice_number, :invoice_date, :id_product, :qty, :line_number)";
+        $bd->beginTransaction();
+
+        $query = "INSERT INTO purchases (id_supplier, remito_number, remito_date, invoice_number, id_product, qty, line_number) 
+                  VALUES (:id_supplier, :remito_number, :remito_date, :invoice_number, :id_product, :qty, :line_number)";
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_supplier', $id_supplier, PDO::PARAM_INT);
         $consulta->bindParam(':remito_number', $number_remito, PDO::PARAM_STR);
         $consulta->bindParam(':remito_date', $date_remito, PDO::PARAM_STR);
         $consulta->bindParam(':invoice_number', $number_invoice, PDO::PARAM_STR);
-        $consulta->bindParam(':invoice_date', $date_invoice, PDO::PARAM_STR);
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
         $consulta->bindParam(':qty', $quantity, PDO::PARAM_INT);
         $consulta->bindParam(':line_number', $line_number, PDO::PARAM_INT);
@@ -489,17 +477,16 @@ function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoi
             throw new Exception("Error al actualizar el stock en products.");
         }
 
-        
         $bd->commit();
         return true; 
 
     } catch (Exception $e) {
-      
         $bd->rollBack();
         echo "Error en la inserción/actualización: " . $e->getMessage();
         return false;
     }
 }
+
 function insert_date_sender($date_invoice)
 {
     $bd = database();
@@ -1029,6 +1016,7 @@ function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefon
 
     return $sentence->execute();
 }
+
 //DESPACHOS
 // Obtener ventas por id_status y mostrar el nombre del cliente en lugar del id_customer
 function get_sales_by_status($status_id) {
@@ -1198,3 +1186,29 @@ function get_remito_data($sales_number) {
         'customer' => $customer
     ];
 }
+
+function get_purchase_history() {
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT p.id_purchase, p.remito_number, p.remito_date, p.invoice_number, p.line_number, s.name_supplier, prod.name_product, p.qty
+        FROM purchases p
+        JOIN suppliers s ON p.id_supplier = s.id_supplier
+        JOIN products prod ON p.id_product = prod.id_product
+        ORDER BY p.remito_date DESC
+    ");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+function get_product_details($id_purchase) {
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT prod.name_product, dp.qty
+        FROM purchases dp
+        JOIN products prod ON dp.id_product = prod.id_product
+        WHERE dp.id_purchase = :id_purchase
+    ");
+    $query->bindParam(':id_purchase', $id_purchase);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
