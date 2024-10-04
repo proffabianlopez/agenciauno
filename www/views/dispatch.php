@@ -92,7 +92,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                                 <i class="fas fa-plus-circle fa-lg"></i>
                                             </button>
 
-                                            <!-- Campo oculto para los seriales seleccionados -->
+                                            <!-- Campo oculto para los seriales seleccionados ---->
                                             <input type="hidden"
                                                 name="serial_numbers[<?php echo $detail['id_product']; ?>]"
                                                 id="serials_<?php echo $detail['id_product']; ?>" />
