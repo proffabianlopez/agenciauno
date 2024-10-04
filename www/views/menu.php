@@ -2,15 +2,15 @@
 session_start();
 include_once "../models/functions.php";
 if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol"] == 2)) {
-    
 } else {
     header("Location: login.php");
     exit();
 }
 $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'Usuario no autenticado';
 ?>
-        <link rel="stylesheet" href="../assets/css/bootstrap.min5.3css"></Link>
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+<link rel="stylesheet" href="../assets/css/bootstrap.min5.3css">
+</Link>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <div class="card card-outline card-primary">
         <div class="container text-center">
@@ -67,8 +67,8 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
 
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-briefcase"></i>
+                    <a href="history_purchase.php" class="nav-link">
+                        <i class="nav-icon fa fa-clock"></i>
                         <p>
                             Historicos
                             <i class="fas fa-angle-left right"></i>
@@ -139,35 +139,38 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         <li class="nav-item">
                             <?php if (isset($_SESSION["id_rol"])) {
                                 if ($_SESSION["id_rol"] === 1) { ?>
-                            <a href="crud_usuarios.php" class="nav-link">
-                                <i class="fa fa-user nav-icon"></i>
-                                <p>Usuarios</p>
-                            </a>
-                            <?php }} ?>
+                                    <a href="crud_usuarios.php" class="nav-link">
+                                        <i class="fa fa-user nav-icon"></i>
+                                        <p>Usuarios</p>
+                                    </a>
+                            <?php }
+                            } ?>
                         </li>
 
 
                         <li class="nav-item">
                             <?php if (isset($_SESSION["id_rol"])) {
-                        if($_SESSION["id_rol"]=== 1) {?>
-                            <a href="email_config.php" class="nav-link">
+                                if ($_SESSION["id_rol"] === 1) { ?>
+                                    <a href="email_config.php" class="nav-link">
 
-                                <i class="fa fa-envelope nav-icon"></i>
-                                <p>Config. Correo</p>
-                            </a>
-                            <?php }} ?>
+                                        <i class="fa fa-envelope nav-icon"></i>
+                                        <p>Config. Correo</p>
+                                    </a>
+                            <?php }
+                            } ?>
                         </li>
 
 
 
                         <li class="nav-item">
                             <?php if (isset($_SESSION["id_rol"])) {
-                        if($_SESSION["id_rol"]=== 1) {?>
-                            <a href="../index.html" class="nav-link" target="_blank">
-                                <i class="fa fa-globe nav-icon"></i>
-                                <p>Sitio Web</p>
-                            </a>
-                            <?php }} ?>
+                                if ($_SESSION["id_rol"] === 1) { ?>
+                                    <a href="../index.html" class="nav-link" target="_blank">
+                                        <i class="fa fa-globe nav-icon"></i>
+                                        <p>Sitio Web</p>
+                                    </a>
+                            <?php }
+                            } ?>
                         </li>
 
                     </ul>
