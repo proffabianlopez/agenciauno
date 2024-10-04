@@ -79,11 +79,19 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/*
 .remito_container {
   width: 800px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #000;
+}*/
+.remito_container {
+  width: 210mm;
+  max-height: 297mm; /* Ajuste máximo para evitar problemas de desbordamiento */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .header {

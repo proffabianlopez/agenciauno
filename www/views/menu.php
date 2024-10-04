@@ -9,8 +9,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 }
 $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'Usuario no autenticado';
 ?>
-        <link rel="stylesheet" href="../assets/css/bootstrap.min5.3css"></Link>
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+<link rel="stylesheet" href="../assets/css/bootstrap.min5.3css">
+</Link>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <div class="card card-outline card-primary">
         <div class="container text-center">
@@ -52,8 +53,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="purchase.php" class="nav-link">
-                                <i class="fa fa-truck nav-icon"></i>
-
+                                <i class="fa fa-box-open nav-icon"></i>
                                 <p>Compras</p>
                             </a>
                         </li>
@@ -61,6 +61,12 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             <a href="sales.php" class="nav-link">
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Ventas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="sales_list.php" class="nav-link">
+                                <i class="fa fa-truck nav-icon"></i>
+                                <p>Despachos</p>
                             </a>
                         </li>
                     </ul>
