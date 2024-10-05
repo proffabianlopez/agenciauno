@@ -19,25 +19,24 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO - Compras</title>
 
+    <!-- Cargar jQuery antes de cualquier otro script -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- Estilos de AdminLTE y Bootstrap 5 -->
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
-    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
-    <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/history.css">
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/sweetalert2@11.js"></script>
-    <script src="../assets/js/purchase.js"></script>
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
     <div class="wrapper">
-        <?php include "header.php"; ?>
-        <?php include "menu.php"; ?>
+        <!-- Incluyendo el header y el menú -->
+        <?php include "../views/header.php"; ?>
+        <?php include "../views/menu.php"; ?>
 
         <div class="content-wrapper">
             <div class="container-fluid" style="padding:50px;">
@@ -67,14 +66,10 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                         <td><?= $purchase['remito_date']; ?></td>
                                         <td><?= $purchase['invoice_number']; ?></td>
                                         <td>
-                                        <button type="button" class="btn btn-info" onclick="loadProductDetails(<?php echo $purchase['id_purchase']; ?>)" data-bs-toggle="modal" data-bs-target="#productDetailsModal">
-    Ver Productos
-</button>
-
-</td>
-
-
-                                        
+                                            <button type="button" class="btn btn-info" onclick="loadProductDetails(<?= $purchase['id_purchase']; ?>)" data-bs-toggle="modal" data-bs-target="#productDetailsModal">
+                                                Ver Productos
+                                            </button>
+                                        </td>
                                         <td><?= $purchase['qty']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -85,36 +80,37 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
             </div>
         </div>
 
-    <!-- Modal para ver detalles de productos -->
-<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="productDetailsModalLabel">Detalles de Productos</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="productDetailsContent">
-                <!-- Los detalles del producto se cargarán aquí -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <!-- Modal para ver detalles de productos -->
+        <div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productDetailsModalLabel">Detalles de Productos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="productDetailsContent">
+                        <!-- Los detalles del producto se cargarán aquí -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-
 
         <!-- FOOTER -->
         <?php include "footer.php"; ?>
     </div>
 
     <!-- Scripts -->
+    <!-- Cargar primero Bootstrap y después otros scripts que dependan de él -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/history.js"></script>
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-   <script src="../assets/js/bootstrap.bundle.min.js"></script>
-   <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap5.min.js"></script>
+    <script src="../assets/plugins/select2/js/select2.full.min.js"></script>
+    <script src="../assets/dist/js/adminlte.min.js"></script>
+    <script src="../assets/js/sweetalert2@11.js"></script>
+    <script src="../assets/js/purchase.js"></script>
 
 </body>
 
