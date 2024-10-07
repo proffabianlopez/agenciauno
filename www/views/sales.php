@@ -117,16 +117,13 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <option value="<?php echo $product->id_product; ?>"
                                             data-description="<?php echo $product->description; ?>"
                                             data-stock="<?php echo $product->stock; ?>">
-                                            <?php echo $product->name_product; ?>
+                                            <?php echo $product->name_product." | ".$product->description." |Stock: ".$product->stock; ?>
                                         </option>
                                         <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="product_info" class="form-label">Información del Producto:</label>
-                                    <input type="text" id="product_info" class="form-control" readonly>
-                                </div>
+                          
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
                                     <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad"
