@@ -16,7 +16,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
         <div class="container text-center">
             <div class="col-xs-9">
                 <div class="card-header text-center">
-                    <a href="home.php"
+                    <a href="/views/home.php"  
                         style="color: #007bff !important; text-decoration: none !important; background-color: transparent !important;">
                         <h3 class="h3"><b>Agencia</b>UNO</h3>
                     </a>
@@ -51,19 +51,19 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="purchase.php" class="nav-link">
+                            <a href="/views/purchase.php" class="nav-link"> 
                                 <i class="fa fa-box-open nav-icon"></i>
                                 <p>Compras</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="sales.php" class="nav-link">
+                            <a href="/views/sales.php" class="nav-link"> 
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Ventas</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="sales_list.php" class="nav-link">
+                            <a href="/views/sales_list.php" class="nav-link">
                                 <i class="fa fa-truck nav-icon"></i>
                                 <p>Despachos</p>
                             </a>
@@ -72,7 +72,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
 
                 </li>
                 <li class="nav-item">
-                    <a href="history_purchase.php" class="nav-link">
+                    <a href="/views/history_purchase.php" class="nav-link">
                         <i class="nav-icon fa fa-clock"></i>
                         <p>
                             Historicos
@@ -81,14 +81,14 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="history_purchase.php" class="nav-link">
+                            <a href="/views/history_purchase.php" class="nav-link">
                                 <i class="fa fa-truck nav-icon"></i>
 
                                 <p>Compras</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="sales.php" class="nav-link">
+                            <a href="/views/sales.php" class="nav-link">
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Ventas</p>
                             </a>
@@ -106,13 +106,13 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="crud_cliente.php" class="nav-link">
+                            <a href="/views/crud_cliente.php" class="nav-link">
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Clientes</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="crud_suppliers_new.php" class="nav-link">
+                            <a href="/views/crud_suppliers_new.php" class="nav-link">
                                 <i class="fa fa-truck nav-icon"></i>
                                 <p>Proveedores</p>
                             </a>
@@ -124,17 +124,17 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="crud_products_new.php" class="nav-link">
+                                    <a href="/views/crud_products_new.php" class="nav-link">
                                         <i class="fa fa-microchip nav-icon"></i>
                                         <p>Productos</p>
                                     </a>
-                                    <a href="crud_brands_new.php" class="nav-link">
+                                    <a href="/views/crud_brands_new.php" class="nav-link"> 
                                         <i class="fa fa-indent nav-icon"></i>
                                         <p>Marcas</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="crud_category.php" class="nav-link">
+                                    <a href="/views/crud_category.php" class="nav-link"> 
                                         <i class="fa fa-indent nav-icon"></i>
                                         <p>Categorias</p>
                                     </a>
@@ -144,7 +144,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         <li class="nav-item">
                             <?php if (isset($_SESSION["id_rol"])) {
                                 if ($_SESSION["id_rol"] === 1) { ?>
-                                    <a href="crud_usuarios.php" class="nav-link">
+                                    <a href="/views/crud_usuarios.php" class="nav-link">  
                                         <i class="fa fa-user nav-icon"></i>
                                         <p>Usuarios</p>
                                     </a>
@@ -156,8 +156,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         <li class="nav-item">
                             <?php if (isset($_SESSION["id_rol"])) {
                                 if ($_SESSION["id_rol"] === 1) { ?>
-                                    <a href="email_config.php" class="nav-link">
-
+                                    <a href="/views/email_config.php" class="nav-link"> 
                                         <i class="fa fa-envelope nav-icon"></i>
                                         <p>Config. Correo</p>
                                     </a>
@@ -170,7 +169,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         <li class="nav-item">
                             <?php if (isset($_SESSION["id_rol"])) {
                                 if ($_SESSION["id_rol"] === 1) { ?>
-                                    <a href="../index.html" class="nav-link" target="_blank">
+                                    <a href="../index.html" class="nav-link" target="_blank"> 
                                         <i class="fa fa-globe nav-icon"></i>
                                         <p>Sitio Web</p>
                                     </a>
