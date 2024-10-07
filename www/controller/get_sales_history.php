@@ -2,20 +2,20 @@
 include_once "../models/functions.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Leer el remito_number del cuerpo de la solicitud
+    // Leer el sale_number del cuerpo de la solicitud
     $data = json_decode(file_get_contents("php://input"), true);
-    $remito_number = $data['remito_number'] ?? null;
-
-    if ($remito_number) {
-        // Obtener los detalles de los productos según el remito_number
-        $product_details = get_product_details_by_remito($remito_number);
-
-        if (!empty($product_details)) {
-            // Retornar los detalles y el remito_date
+    $sale_number = $data['sale_number'] ?? null; 
+    
+    if ($sale_number) {
+        // Obtener los detalles de los productos según el sale_number
+        $product_details = get_product_details_by_sale($sale_number); 
+        
+        exit();
+        if (!empty($product_details)) {         
+            // Retornar los detalles
             header('Content-Type: application/json');
             echo json_encode([
-                'remito_number' => $remito_number,
-                'remito_date' => $product_details[0]['remito_date'],  // Asumimos que todas las filas tienen el mismo remito_date
+                'sale_number' => $sale_number,                 
                 'products' => $product_details
             ]);
         } else {
@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(["error" => "No se encontraron detalles de productos."]);
         }
     } else {
-        // Responder con un error si falta el remito_number
+        // Responder con un error si falta el sale_number
         header('Content-Type: application/json');
-        echo json_encode(["error" => "Falta el parámetro remito_number."]);
+        echo json_encode(["error" => "Falta el parámetro sale_number."]);
     }
 } else {
     // Responder con un error si no es una solicitud POST
