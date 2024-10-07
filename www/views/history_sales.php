@@ -1,9 +1,8 @@
 <?php
 session_start();
 include_once "../models/functions.php";
-$purchases = get_purchase_history();
-$show = show_state("suppliers");
-$showP = show_state("products");
+
+$sales = get_sales_history();
 
 if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_rol"] != 2)) {
     header("Location: login.php");
@@ -39,38 +38,34 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
             <div class="container-fluid" style="padding:50px;">
                 <div class="card shadow-sm">
                     <div class="card-header bg-dark text-white">
-                        <h4><b>Historial de Compras</b></h4>
+                        <h4><b>Historial de Ventas</b></h4>
                     </div>
                     <div class="card-body p-4">
                         <div class="table-responsive">
                             <div class="table-wrapper">
-                                <table id="purchaseTable" class="table table-striped table-hover table-bordered">
+                                <table id="salesTable" class="table table-striped table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Proveedor</th>
-                                            <th>Número de Remito</th>
-                                            <th>Fecha de Remito</th>
-                                            <th>Número de Factura</th>
+                                            <th>Cliente</th>
+                                            <th>Número de Venta</th>
                                             <th>Productos</th>
                                             <th>Cantidad</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($purchases as $purchase) : ?>
+                                        <?php foreach ($sales as $sale) : ?>
                                         <tr>
-                                            <td><?= $purchase['name_supplier']; ?></td>
-                                            <td><?= $purchase['remito_number']; ?></td>
-                                            <td><?= $purchase['remito_date']; ?></td>
-                                            <td><?= $purchase['invoice_number']; ?></td>
+                                            <td><?= $sale['customer_name']; ?></td>
+                                            <td><?= str_pad($sale['sales_number'], 6, '0', STR_PAD_LEFT); ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-info"
-                                                    onclick="loadHistoryDetails('<?php echo $purchase['remito_number']; ?>')"
-                                                    data-bs-toggle="modal" data-bs-target="#productHistoryModal">
+                                                    data-id-sale="<?= $sale['sales_number']; ?>" data-bs-toggle="modal"
+                                                    data-bs-target="#productHistoryModal">
                                                     Ver Productos
                                                 </button>
                                             </td>
 
-                                            <td><?= $purchase['total_qty']; ?></td>
+                                            <td><?= $sale['total_qty']; ?></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -81,34 +76,34 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                 </div>
             </div>
         </div>
-        <!-- Modal para ver detalles de productos -->
-        <div class="modal fade" id="productHistoryModal" tabindex="-1" aria-labelledby="productHistoryModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="productHistoryModalLabel">Detalles de Compra</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="HistoryDetailsContent">
-                        <!-- Los detalles del producto se cargarán aquí -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- FOOTER -->
         <?php include "footer.php"; ?>
     </div>
-    <script src="../assets/js/history.js"></script>
+    <!-- Modal para ver detalles de productos -->
+    <div class="modal fade" id="productHistoryModal" tabindex="-1" aria-labelledby="productHistoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productHistoryModalLabel">Detalles de Venta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="HistoryDetailsContent">
+                    <!-- Los detalles del producto se cargarán aquí -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/history_sales.js"></script>
     <!-- Incluir jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- Incluir el JS de Select2 -->
     <script src="../assets/js/select2.js"></script>
     <!-- Bootstrap JS -->
-    <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle-v5.3.js"></script>
     <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
@@ -119,8 +114,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <script src="../assets/js/dataTables.searchPanes.js"></script>
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
-    <script src="../assets/js/select.bootstra5.js"></script>
-
+    <script src="../assets/js/select.bootstrap5.js"></script>
 </body>
 
 </html>

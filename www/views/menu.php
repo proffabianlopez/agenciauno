@@ -88,7 +88,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/views/sales.php" class="nav-link">
+                            <a href="/views/history_sales.php" class="nav-link">
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Ventas</p>
                             </a>

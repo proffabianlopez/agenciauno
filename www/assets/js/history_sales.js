@@ -1,32 +1,32 @@
 $(document).ready(function() {
     // Asignar evento al botón de detalles dentro de la tabla
-    $('#purchaseTable').on('click', '.btn-info', function() {
-        const id_purchase = $(this).data('id-purchase'); // Obtener remito_number del botón
-        loadHistoryDetails(id_purchase); // Llamar a la función para cargar los detalles
+    $('#salesTable').on('click', '.btn-info', function() {
+        const id_sale = $(this).data('id-sale'); // Obtener sale_number del botón
+        loadHistoryDetails(id_sale); // Llamar a la función para cargar los detalles
     });
 });
-// Función para cargar los detalles de la compra
-function loadHistoryDetails(remito_number) {
+// Función para cargar los detalles de la venta
+function loadHistoryDetails(sale_number) {
     $.ajax({
-        url: '../controller/get_purchase_history.php',  // Ruta del controlador
+        url: '../controller/get_sales_history.php',  // Ruta del controlador (actualizada)
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ remito_number: remito_number }),  // Enviar el remito_number
+        data: JSON.stringify({ sale_number: sale_number }),  // Enviar el sale_number
         dataType: 'json',
         success: function(data) {
             if (data && data.products && data.products.length > 0) {
-                fillPurchaseDetailsModal(data);  // Llenar el modal con los datos de productos y cabecera
+                fillSaleDetailsModal(data);  // Llenar el modal con los datos de productos
                 
                 // Crear y mostrar el modal con opciones que permiten cerrar con backdrop y teclado
-                const purchaseModal = new bootstrap.Modal(document.getElementById("productHistoryModal"), {
+                const saleModal = new bootstrap.Modal(document.getElementById("productHistoryModal"), {
                     backdrop: true,  // Permitir cierre al hacer click fuera
                     keyboard: true   // Permitir cierre con tecla escape
                 });
-                purchaseModal.show();  // Mostrar el modal
+                saleModal.show();  // Mostrar el modal
             } else {
                 Swal.fire({
                     title: 'Error',
-                    text: 'No se encontraron productos para este remito.',
+                    text: 'No se encontraron productos para esta venta.',
                     icon: 'error',
                     confirmButtonText: 'Aceptar'
                 });
@@ -36,20 +36,21 @@ function loadHistoryDetails(remito_number) {
             console.error('Error en la solicitud AJAX:', xhr.responseText || error);
             Swal.fire({
                 title: 'Error',
-                text: 'Hubo un problema al obtener los detalles de la compra.',
+                text: 'Hubo un problema al obtener los detalles de la venta.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
             });
         }
     });
 }
-// Función para llenar el modal con los detalles de la compra
-function fillPurchaseDetailsModal(data) {
+
+// Función para llenar el modal con los detalles de la venta
+function fillSaleDetailsModal(data) {
     const modalBody = document.querySelector("#HistoryDetailsContent");
     const modalHeader = document.querySelector("#productHistoryModalLabel");
     
-    // Actualizar el título del modal con el remito_number y remito_date
-    modalHeader.textContent = `Detalles de Compra - Remito N° ${data.remito_number} (${data.remito_date})`;
+    // Actualizar el título del modal con el sale_number
+    modalHeader.textContent = `Detalles de Venta - Venta N° ${data.sale_number}`; // Eliminar sale_date
 
     modalBody.innerHTML = '';  // Limpiar el contenido previo
 
@@ -73,7 +74,7 @@ function fillPurchaseDetailsModal(data) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${product.name_product}</td>
-            <td>${product.qty}</td>
+            <td>${product.quantity}</td> 
         `;
         tbody.appendChild(row);
     });

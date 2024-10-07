@@ -1190,25 +1190,60 @@ function get_remito_data($sales_number) {
 function get_purchase_history() {
     $bd = database();
     $query = $bd->prepare("
-        SELECT p.id_purchase, p.remito_number, p.remito_date, p.invoice_number, p.line_number, s.name_supplier, prod.name_product, p.qty
-        FROM purchases p
-        JOIN suppliers s ON p.id_supplier = s.id_supplier
-        JOIN products prod ON p.id_product = prod.id_product
-        ORDER BY p.remito_date DESC
+SELECT 
+    p.remito_number, 
+    p.remito_date, 
+    p.invoice_number, 
+    s.name_supplier, 
+    SUM(p.qty) AS total_qty
+FROM purchases p
+JOIN suppliers s ON p.id_supplier = s.id_supplier
+GROUP BY 
+    p.remito_number, 
+    p.remito_date, 
+    p.invoice_number, 
+    s.name_supplier
+ORDER BY p.remito_date DESC;
+
     ");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
-function get_product_details($id_purchase) {
+function get_product_details_by_remito($remito_number) {
     $bd = database();
     $query = $bd->prepare("
-        SELECT prod.name_product, dp.qty
+        SELECT prod.name_product, dp.qty, dp.remito_date
         FROM purchases dp
         JOIN products prod ON dp.id_product = prod.id_product
-        WHERE dp.id_purchase = :id_purchase
+        WHERE dp.remito_number = :remito_number
+        AND dp.qty > 0
     ");
-    $query->bindParam(':id_purchase', $id_purchase);
+    $query->bindParam(':remito_number', $remito_number);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
-
+function get_sales_history() {
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT sales.sales_number, customers.customer_name, SUM(sales.quantity) as total_qty 
+        FROM sales 
+        JOIN customers ON sales.id_customer = customers.id_customer        
+        GROUP BY sales.sales_number, customers.customer_name
+        ORDER BY sales.sales_number ASC
+    ");
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+function get_product_details_by_sale($sale_number) {
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT prod.name_product, ds.quantity
+        FROM sales ds
+        JOIN products prod ON ds.id_product = prod.id_product
+        WHERE ds.sale_number = :sale_number
+        AND ds.quantity > 0  
+    ");
+    $query->bindParam(':sale_number', $sale_number);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
