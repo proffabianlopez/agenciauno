@@ -1,9 +1,32 @@
 $(document).ready(function() {
-    // Asignar evento al botón de detalles dentro de la tabla
-    $('#purchaseTable').on('click', '.btn-info', function() {
-        const id_purchase = $(this).data('id-purchase'); // Obtener remito_number del botón
-        loadHistoryDetails(id_purchase); // Llamar a la función para cargar los detalles
+        // Asignar evento al botón de detalles dentro de la tabla
+        $('#purchaseTable').on('click', '.btn-info', function() {
+            const id_purchase = $(this).data('id-purchase'); // Obtener remito_number del botón
+            loadHistoryDetails(id_purchase); // Llamar a la función para cargar los detalles
+        });
+    $('#purchaseTable').DataTable({
+        "language": {
+            "paginate": {
+                "first": "Primera",
+                "last": "Última",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "search": "Buscar:"
+        },
+        responsive: true,
+        autoWidth: false,
+        pageLength: 10,
+        lengthChange: false,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
     });
+
+
 });
 // Función para cargar los detalles de la compra
 function loadHistoryDetails(remito_number) {
