@@ -1050,21 +1050,22 @@ function get_sale_details($sales_number) {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-// Actualizar números de serie para un producto
 function update_serial_numbers($id_product, $serial_numbers, $sales_number) {
     $bd = database();
-    // Preparar la consulta SQL
     $stmt = $bd->prepare("UPDATE serial_numbers 
                            SET used = 1, sales_number = :sales_number, updated_at = NOW() 
                            WHERE id_product = :id_product AND serial_number = :serial_number");
-
-    // Iterar sobre el array de números de serie y ejecutar la consulta para cada uno
+    
     foreach ($serial_numbers as $serial_number) {
         $stmt->bindParam(':id_product', $id_product);
         $stmt->bindParam(':serial_number', $serial_number);
         $stmt->bindParam(':sales_number', $sales_number);
-        $stmt->execute();
+        if (!$stmt->execute()) {
+            return false;  // Si falla la actualización, retornamos false
+        }
     }
+    
+    return true;  // Si todo va bien, retornamos true
 }
 // Actualizar el estado de una venta
 function update_sales_status($sales_number, $status) {

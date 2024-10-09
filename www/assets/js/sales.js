@@ -45,21 +45,75 @@ document.addEventListener("DOMContentLoaded", function () {
             $('#view_tax, #view_email, #view_phone').text('');
         }
     });
+// Escuchar el submit del formulario con el ID correcto
+document.querySelector("#insertSalesForm").addEventListener("submit", function (e) {
+    e.preventDefault();  // Prevenir el comportamiento por defecto
 
+    const formData = new FormData(this);  // Obtener los datos del formulario
+
+    fetch(this.action, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                title: 'Venta registrada con éxito',
+                text: data.message,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, imprimir',
+                cancelButtonText: 'No, continuar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `../views/remito.php?sales_number=${data.sales_number}`;
+                } else {
+                    window.location.href = "../views/sales.php";  // Redirigir a otra página si se cancela
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: data.message || 'Hubo un problema al registrar la venta.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    })
+    .catch(error => {
+        Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema con la conexión al servidor.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    });
+});
     let productCounter = 0;
-    const table = $('#table_products').DataTable();
+
+    // Inicializa la tabla con anchos de columnas definidos
+    const table = $('#table_products').DataTable({
+        columnDefs: [
+            { width: "2%", targets: 0 }, 
+            { width: "43%", targets: 1 }, 
+            { width: "10%", targets: 2 }, 
+            { width: "35%", targets: 3 },
+            { width: "10%", targets: 4 }  
+        ],
+        autoWidth: false 
+    });
+    
     // Manejo del evento click en el botón para agregar el producto a la tabla
     $('#addProduct').on('click', function () {
         const productId = $('#id_product').val();
         const productName = $('#id_product option:selected').text().trim();
         const quantity = $('#quantity_input').val();
         const customerId = $('#id_customer').val();
-
-        // Verificar si se seleccionó un producto, se ingresó una cantidad y un cliente
+    
         if (productId && quantity > 0 && customerId) {
             let productExists = false;
-
-            // Verificar si el producto ya ha sido agregado a la tabla
+    
             $('#table_products tbody tr').each(function () {
                 const existingProductId = $(this).find('input[name^="items"][name$="[id_product]"]').val();
                 if (existingProductId === productId) {
@@ -67,25 +121,29 @@ document.addEventListener("DOMContentLoaded", function () {
                     return false;
                 }
             });
-
+    
             if (productExists) {
                 Swal.fire('Error', 'El producto ya ha sido agregado.', 'error');
             } else {
-                // Agregar la nueva fila a la tabla
-                table.row.add([
+                table.row.add([                    
                     `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productCounter + 1}`,
                     `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
                     `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
-                    `<button type="button" class="delete-row"><i class="fas fa-trash-alt"></i></button>`,
-                ]).draw();
-
+                    `<button type="button" class="btn btn-secondary" onclick="openSerialModal('${productId}', '${quantity}')">
+                        <i class="fas fa-cogs"></i> Seleccionar Seriales
+                    </button><br>
+                    <span id="serial_list_${productId}">Seriales seleccionados: Ninguno</span>
+                    <input type="hidden" id="serials_${productId}" name="items[${productCounter}][serials]" value="">
+                    `,
+                    `<button type="button" class="delete-row"><i class="fas fa-trash-alt"></i></button>`
+                ]).draw();                   
+    
                 productCounter++;
-                // Limpiar los campos para la próxima entrada
                 $('#id_product').val('').trigger('change');
                 $('#quantity_input').val('');
                 $('#id_customer').prop('disabled', true);
-
-                // Si no existe el campo oculto de Cliente, agregarlo
+    
+                // Si no existe el campo hidden para el cliente, lo agrega
                 if (!$('input[name="id_customer"]').length) {
                     $('<input>').attr({
                         type: 'hidden',
@@ -99,12 +157,12 @@ document.addEventListener("DOMContentLoaded", function () {
             Swal.fire('Error', 'Debe seleccionar un producto, un cliente y una cantidad válida.', 'error');
         }
     });
-
+    
     // Manejar el clic en el botón de eliminar fila
     $('#table_products tbody').on('click', '.delete-row', function (e) {
         e.preventDefault();
         const row = table.row($(this).closest('tr'));
-
+    
         Swal.fire({
             title: '¿Estás seguro?',
             text: '¿Estás seguro de que deseas eliminar este producto?',
@@ -115,15 +173,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 row.remove().draw();
-
+    
                 if (table.rows().count() === 0) {
                     $('#id_customer').prop('disabled', false);
                 }
-
+    
                 Swal.fire('Eliminado', 'El producto ha sido eliminado.', 'success');
             }
         });
-    });
+    });    
 
 // Manejo del cambio en el select de productos (muestra stock y descripción)
 $('#id_product').on('change', function () {
@@ -358,9 +416,9 @@ window.addNewSerial = function() {
 // Guardar seriales seleccionados al cerrar el modal
 window.saveSerials = function() {
     let productId = document.getElementById('product_id_modal').value;
+    let requiredQty = parseInt(document.getElementById('product_qty_modal').value);
 
     // Verificar que la cantidad de seriales seleccionados coincida con la cantidad requerida
-    let requiredQty = parseInt(document.getElementById('product_qty_modal').value);
     if (selectedSerialsByProduct[productId].length !== requiredQty) {
         Swal.fire({
             icon: 'error',
@@ -370,14 +428,17 @@ window.saveSerials = function() {
         return;
     }
 
-    // Guardar los seriales en el input oculto y cerrar el modal
+    // Guardar los seriales seleccionados en el input oculto del formulario principal
     document.getElementById(`serials_${productId}`).value = selectedSerialsByProduct[productId].join(',');
+
+    // Mostrar los seriales seleccionados en la tabla para referencia
     document.getElementById(`serial_list_${productId}`).innerText = `Seriales seleccionados: ${selectedSerialsByProduct[productId].join(', ')}`;
 
     // Cerrar el modal
     let modal = bootstrap.Modal.getInstance(document.getElementById('serialModal'));
     modal.hide();
-}
+};
+
 // Función para aplicar el estado visual de los checkboxes seleccionados
 function applySelectedCheckboxes(productId) {
     // Obtener todos los checkboxes de seriales
