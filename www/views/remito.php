@@ -1,146 +1,80 @@
 <?php
-include_once "../models/functions.php";
-
-// Capturar el número de venta
-$sales_number = $_GET['sales_number'] ?? null;
+require('../fpdf/fpdf.php');
+include_once "../models/functions.php"; // Aquí incluimos la conexión PDO
+$sales_number = '12';
 
 if ($sales_number) {
     $remito_data = get_remito_data($sales_number);
-}
- else {
+} else {
     die("Número de venta no proporcionado");
 }
-?>
 
-<!DOCTYPE html>
-<html lang="es">
+// Crear clase PDF para remito
+class PDF_Remito extends FPDF
+{
+    // Pie de página
+    function Footer()
+    {
+        $this->SetY(-15);
+        $this->SetFont('Arial', 'I', 8);
+        $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/custom.css">
-    <title>Formulario de Remito</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
+    // Función para imprimir los datos del remito
+    function ImprimirRemito($remito_data)
+    {
+        // Extraer datos del cliente y productos
+        $customer_data = $remito_data['customer'];
+        $dispatches_data = $remito_data['dispatches'];
 
-<body>
-    <div class="remito_container">
-        <form action="#" method="POST">
-            <!-- Header Section -->
-            <div class="header">
-                <div class="header-left">
-                    <h1>U</h1>
-                    <p>AGENCIAUNO<br>AGENCIA UNO DE TECNOLOGÍA Y COMUNICACIÓN S.R.L.</p>
-                    <p>Juncal 253 - 4° B<br>(1722) Merlo - Prov. Bs. As.<br>estudiounoagencia@gmail.com<br>Tel./Fax:
-                        (0220) 483-6292</p>
-                    <p><strong>IVA RESPONSABLE INSCRIPTO</strong></p>
-                </div>
-                <div class="header-right">
-                    <h2>REMITO</h2>
-                    <p>No <input type="text" name="remito_numero"
-                            value="<?= $remito_data['dispatches'][0]['sales_number'] ?? '' ?>"></p>
-                    <p>Fecha: <input type="date" name="remito_fecha"
-                            value="<?= $remito_data['dispatches'][0]['dispatch_date'] ?? '' ?>"></p>
-                    <p>CUIT N°: 30-71659703-9<br>ING. BRUTOS: 30-71659703-9<br>INICIO DE ACTIVIDADES: 11/09/2019</p>
-                    <p><em>Documento no válido como factura</em></p>
-                </div>
-            </div>
+        // Datos generales del remito
+        $this->SetFont('Arial', '', 12);
 
-            <!-- Info Table Section -->
-            <table class="info-table">
-                <tr>
-                    <td>Señor (es): <input type="text" name="cliente_nombre"
-                            value="<?= $remito_data['customer']['customer_name'] ?? '' ?>"></td>
-                    <td>Teléfono: <input type="text" name="cliente_telefono"
-                            value="<?= $remito_data['customer']['phone_customer'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>Domicilio: <input type="text" name="cliente_domicilio"
-                            value="<?= $remito_data['customer']['customer_address'] ?? '' ?>"></td>
-                    <td>Localidad: <input type="text" name="cliente_localidad"
-                            value="<?= $remito_data['customer']['location'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>IVA: <input type="text" name="cliente_iva" value="Consumidor Final"></td>
-                    <td>CUIT: <input type="text" name="cliente_cuit"
-                            value="<?= $remito_data['customer']['tax_identifier'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>Entrega en: <input type="text" name="entrega_en" value=""></td>
-                    <td>Fecha de vencimiento: <input type="date" name="fecha_vencimiento"></td>
-                </tr>
-            </table>
+        // Número de remito
+        $this->SetXY(150, 20); // Ajustar coordenadas
+        $this->Cell(40, 10, utf8_decode($dispatches_data[0]['sales_number']), 0, 1);
 
-            <!-- Details Table Section -->
-            <table class="details-table">
-                <tr>
-                    <td style="width: 20%;">CANTIDAD</td>
-                    <td style="width: 80%;">DETALLE</td>
-                </tr>
-                <?php foreach ($remito_data['dispatches'] as $detail): ?>
-                <tr>
-                    <td><input type="number" name="cantidad[]" value="<?= $detail['qty'] ?>"></td>
-                    <td><textarea name="detalle[]"><?= $detail['product_name'] ?></textarea></td>
-                </tr>
-                <?php endforeach; ?>
-            </table>
+        // Fecha de remito
+        $this->SetXY(150, 30); // Ajustar coordenadas
+        $this->Cell(40, 10, utf8_decode($dispatches_data[0]['dispatch_date']), 0, 1);
 
-            <!-- Footer Section -->
-            <div class="footer">
-                <div class="footer-left">
-                    <p>U AGENCIA UNO</p>
-                    <p>TALLERES GRÁFICOS PELAZZO & CIA S.R.L. - C.U.I.T N° 30-5754559-3</p>
-                    <p>HAB. 395574 - TELEFAX: 0220-4820499<br>FECHA DE IMPRESIÓN: 07/2024 - NUMERACIÓN: 0002-0000251 AL
-                        0002-0002750</p>
-                </div>
-                <div class="footer-right">
-                    <p>CAI Nro: 50309208236427<br>Fecha de Vto: 25/07/2025</p>
-                </div>
-            </div>
-        </form>
-    </div>
-    <script>
-    window.onload = function() {
-        generarPDF();
-    };
-    
-    function generarPDF() {
-    const contenido = document.querySelector('.remito_container');
-    const pdf = new jspdf.jsPDF('portrait', 'mm', 'a4'); // Tamaño A4
+        // Información del cliente
+        $this->SetXY(20, 50); // Cliente - Nombre
+        $this->MultiCell(100, 10, utf8_decode($customer_data['customer_name']), 0, 'L'); // MultiCell para ajustar texto
+        $this->Ln(2); // Espacio adicional
 
-    html2canvas(contenido, {
-        scale: 2,
-        scrollY: -window.scrollY // Capturar todo el contenido
-    }).then(canvas => {
-        const imgData = canvas.toDataURL('image/png');
+        $this->SetXY(130, 50); // Cliente - Teléfono
+        $this->Cell(50, 10, utf8_decode($customer_data['phone_customer']), 0, 1);
 
-        const imgWidth = pdf.internal.pageSize.getWidth(); // Ancho de la página A4
-        const pageHeight = pdf.internal.pageSize.getHeight(); // Altura de la página A4
-        let imgHeight = (canvas.height * imgWidth) / canvas.width; // Calcular la proporción de altura
+        $this->SetXY(20, 60); // Cliente - Domicilio
+        $this->MultiCell(100, 10, utf8_decode($customer_data['customer_address']), 0, 'L'); // MultiCell para ajustar texto
+        $this->Ln(2); // Espacio adicional
 
-        let heightLeft = imgHeight;
-        let position = 0;
+        $this->SetXY(130, 60); // Cliente - Localidad
+        $this->Cell(50, 10, utf8_decode($customer_data['location']), 0, 1);
 
-        // Renderizar la primera página
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, Math.min(imgHeight, pageHeight));
-        heightLeft -= pageHeight;
+        $this->SetXY(130, 70); // Cliente - CUIT
+        $this->Cell(50, 10, utf8_decode($customer_data['tax_identifier']), 0, 1);
 
-        // Agregar más páginas si el contenido es mayor que una página
-        while (heightLeft > 0) {
-            pdf.addPage();
-            position = heightLeft - imgHeight + pageHeight; // Ajuste de posición correcto para nueva página
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, Math.min(imgHeight, pageHeight));
-            heightLeft -= pageHeight;
+        // Detalles de productos
+        $y_position = 100;
+        foreach ($dispatches_data as $detail) {
+            $this->SetXY(20, $y_position); // Cantidad
+            $this->Cell(30, 10, utf8_decode($detail['qty']), 0, 1);
+
+            $this->SetXY(50, $y_position); // Nombre del producto
+            $this->MultiCell(100, 10, utf8_decode($detail['product_name']), 0, 'L'); // MultiCell para ajustar texto
+            $y_position += 10; // Avanzar posición en Y
+            // Espacio adicional después de cada producto
+            $this->Ln(2); // Añadir espacio extra entre productos
+
+            $y_position += 10; // Ajustar el y_position para la siguiente línea
         }
-
-        // Guardar el archivo PDF
-        pdf.save('remito_<?= $sales_number ?>.pdf');
-        window.location.href = '../views/sales_list.php';
-
-    });
+    }
 }
-</script>
-</body>
 
-</html>
+// Crear PDF
+$pdf = new PDF_Remito();
+$pdf->AddPage();
+$pdf->ImprimirRemito($remito_data);
+$pdf->Output();
