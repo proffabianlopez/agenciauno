@@ -10,7 +10,6 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,11 +22,49 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
     <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">
+    <link rel="stylesheet" href="../assets/css/buttons.bootstrap5.css">
+
     <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
     <!-- Incluir el CSS de Select2 -->
     <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Estilos personalizados para DataTables -->
+    <style>
+        /* Ajustar el espaciado del paginador */
+        .dataTables_paginate {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px; /* Espacio entre la tabla y el paginador */
+        }
+
+        .dataTables_paginate .paginate_button {
+            padding: 5px 10px;
+            margin: 0 2px;
+        }
+
+        /* Estilo para la información de la tabla (Mostrando página) */
+        .dataTables_info {
+            text-align: center;
+            margin-bottom: 10px; /* Espacio entre la info y la tabla */
+        }
+
+        /* Ajustar el estilo de los botones de paginación */
+        .dataTables_paginate a {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 6px 12px;
+            color: #007bff;
+        }
+
+        .dataTables_paginate a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
@@ -102,24 +139,24 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
         <!-- FOOTER -->
         <?php include "footer.php"; ?>
     </div>
-    <script src="../assets/js/history.js"></script>
-    <!-- Incluir jQuery -->
-    <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
-    <!-- Incluir el JS de Select2 -->
-    <script src="../assets/js/select2.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="../assets/plugins/bootstrap/js/bootstrap.bumdle-v5.3.js"></script>
-    <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../assets/dist/js/adminlte.min.js"></script>
+   <!-- Incluir jQuery -->
+   <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- DataTables JS -->
     <script src="../assets/js/jquery.datatables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>
-    <script src="../assets/js/dataTables.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle-v5.3.js"></script>
+    <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../assets/dist/js/adminlte.min.js"></script>
+
+    <!-- Otros scripts adicionales -->
+    <script src="../assets/js/history.js"></script>
+    <script src="../assets/js/select2.js"></script>
     <script src="../assets/js/dataTables.searchPanes.js"></script>
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
-    <script src="../assets/js/select.bootstra5.js"></script>
+    <script src="../assets/js/select.bootstrap5.js"></script>
 
 </body>
 
