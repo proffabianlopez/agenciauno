@@ -67,9 +67,14 @@ document.querySelector("#insertSalesForm").addEventListener("submit", function (
                 cancelButtonText: 'No, continuar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = `../views/remito.php?sales_number=${data.sales_number}`;
+                    // Abrir la vista de remito en una nueva pestaña
+                    window.open(`../views/remito.php?sales_number=${data.sales_number}`, '_blank');
+                    
+                    // Después de abrir la nueva pestaña, redirigir a sales.php
+                    window.location.href = "../views/sales.php";  
                 } else {
-                    window.location.href = "../views/sales.php";  // Redirigir a otra página si se cancela
+                    // Si se cancela la impresión, simplemente redirigir a sales.php
+                    window.location.href = "../views/sales.php";
                 }
             });
         } else {
@@ -90,6 +95,7 @@ document.querySelector("#insertSalesForm").addEventListener("submit", function (
         });
     });
 });
+
     let productCounter = 0;
 
     // Inicializa la tabla con anchos de columnas definidos

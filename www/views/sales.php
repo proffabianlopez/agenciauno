@@ -167,7 +167,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
         <div class="modal fade" id="serialModal" tabindex="-1" aria-labelledby="serialModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="serialModalLabel">Seleccionar Números de Serie</h5>

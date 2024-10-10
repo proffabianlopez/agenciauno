@@ -1,7 +1,8 @@
 <?php
 require('../fpdf/fpdf.php');
-include_once "../models/functions.php"; // Aquí incluimos la conexión PDO
-$sales_number = '12';
+include_once "../models/functions.php"; 
+
+$sales_number = $_GET['sales_number'] ?? null;
 
 if ($sales_number) {
     $remito_data = get_remito_data($sales_number);
@@ -17,7 +18,7 @@ class PDF_Remito extends FPDF
     {
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
+        $this->Cell(0, 10, 0, 0, 'C');
     }
 
     // Función para imprimir los datos del remito
