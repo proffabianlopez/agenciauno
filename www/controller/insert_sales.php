@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_product = isset($item["id_product"]) ? trim($item["id_product"]) : null;
             $quantity = isset($item["quantity"]) ? (int)$item["quantity"] : 0;
             $serials = isset($item["serials"]) ? explode(",", $item["serials"]) : [];
-            $product_name = isset($item["product_name"]) ? trim($item["product_name"]) : '';
+            $product_name = isset($item["name_product"]) ? trim($item["name_product"]) : '';
+
 
             if (empty($id_product) || $quantity <= 0 || empty($serials)) {
                 $errorMessages[] = "Error: Producto, cantidad o seriales no válidos para el producto ID: $id_product.";
