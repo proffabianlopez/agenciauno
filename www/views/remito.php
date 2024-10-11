@@ -62,17 +62,18 @@ class PDF_Remito extends FPDF
         foreach ($dispatches_data as $detail) {
             $this->SetXY(20, $y_position); // Cantidad
             $this->Cell(30, 10, utf8_decode($detail['qty']), 0, 1);
-
+            $product_name_clean = preg_replace('/\|? ?Stock:.*?(?=\(Seriales)/', '', $detail['product_name']);
             $this->SetXY(50, $y_position); // Nombre del producto
-            $this->MultiCell(100, 10, utf8_decode($detail['product_name']), 0, 'L'); // MultiCell para ajustar texto
+            $this->MultiCell(100, 10, utf8_decode($product_name_clean), 0, 'L'); // MultiCell para ajustar texto
             $y_position += 10; // Avanzar posición en Y
             // Espacio adicional después de cada producto
             $this->Ln(2); // Añadir espacio extra entre productos
 
             $y_position += 10; // Ajustar el y_position para la siguiente línea
         }
-    }
-}
+
+            }
+        }
 
 // Crear PDF
 $pdf = new PDF_Remito();
