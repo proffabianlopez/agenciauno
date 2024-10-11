@@ -1249,3 +1249,24 @@ function get_product_details_by_sale($sale_number) {
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
+function get_warranty_by_serial_number($serial_number) {
+    $bd = database(); 
+    $query = $bd->prepare("
+        SELECT 
+            p.name_product, 
+            p.description, 
+            sn.created_at, 
+            s.name_supplier, 
+            d.dispatch_date, 
+            c.customer_name
+        FROM serial_numbers sn
+        JOIN products p ON sn.id_product = p.id_product
+        JOIN suppliers s ON sn.id_supplier = s.id_supplier
+        JOIN dispatches d ON sn.sales_number = d.sales_number
+        JOIN customers c ON d.id_customer = c.id_customer
+        WHERE sn.serial_number = :serial_number
+    ");
+    $query->bindParam(':serial_number', $serial_number);
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
