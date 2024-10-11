@@ -72,6 +72,12 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
 
                 </li>
                 <li class="nav-item">
+                 <a href="/views/warranty.php" class="nav-link">
+                    <i class="fa fa-shield-alt nav-icon"></i>
+                     <p>Buscar Garantía</p>
+                </a>
+                </li>
+                <li class="nav-item">
                     <a href="/views/history_purchase.php" class="nav-link">
                         <i class="nav-icon fa fa-clock"></i>
                         <p>
@@ -103,7 +109,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             Gestión Interna
                             <i class="fas fa-angle-left right"></i>
                         </p>
-                    </a>
+     
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="/views/crud_cliente.php" class="nav-link">
