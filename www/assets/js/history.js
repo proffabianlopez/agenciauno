@@ -1,8 +1,8 @@
 $(document).ready(function() {
         // Asignar evento al botón de detalles dentro de la tabla
         $('#purchaseTable').on('click', '.btn-info', function() {
-            const id_purchase = $(this).data('id-purchase'); // Obtener remito_number del botón
-            loadHistoryDetails(id_purchase); // Llamar a la función para cargar los detalles
+            const remito_number = $(this).data('remito_number'); // Obtener remito_number del botón
+            loadHistoryDetails(remito_number); // Llamar a la función para cargar los detalles
         });
     $('#purchaseTable').DataTable({
         "language": {
@@ -55,15 +55,7 @@ function loadHistoryDetails(remito_number) {
                 });
             }
         },
-        error: function(xhr, status, error) {
-            console.error('Error en la solicitud AJAX:', xhr.responseText || error);
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un problema al obtener los detalles de la compra.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-        }
+
     });
 }
 // Función para llenar el modal con los detalles de la compra

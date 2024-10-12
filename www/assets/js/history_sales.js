@@ -24,12 +24,19 @@ $(document).ready(function() {
 
 
 
-    // Asignar evento al botón de detalles dentro de la tabla
-    $('#salesTable').on('click', '.btn-info', function() {
-        const id_sale = $(this).data('id-sale'); // Obtener sale_number del botón
-        loadHistoryDetails(id_sale); // Llamar a la función para cargar los detalles
+    $(document).ready(function() {
+        $('#salesTable').on('click', '.btn-info', function() {
+            const id_sale = $(this).data('id-sale'); // Obtener sale_number del botón
+            loadHistoryDetails(id_sale); // Llamar a la función para cargar los detalles
+        });
+    
+        // Manejar el evento de cierre del modal
+        $('#productHistoryModal').on('hidden.bs.modal', function () {
+            // Refresca la página cuando el modal se cierra
+            location.reload();
+        });
     });
-});
+    
 
 // Función para cargar los detalles de la venta
 function loadHistoryDetails(sale_number) {
@@ -108,3 +115,5 @@ function fillSaleDetailsModal(data) {
     table.appendChild(tbody);
     modalBody.appendChild(table);  // Añadir la tabla al cuerpo del modal
 }
+
+});
