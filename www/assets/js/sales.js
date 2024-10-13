@@ -109,7 +109,66 @@ document.querySelector("#insertSalesForm").addEventListener("submit", function (
         ],
         autoWidth: false 
     });
+    $(document).on('keydown', `.serial-input`, function(e) {
+        // Verificamos si se presionó Enter (código 13) o Tab (código 9)
+        if (e.which === 13 || e.which === 9) {  
+            e.preventDefault(); // Evita el comportamiento por defecto de las teclas
     
+            const productId = $(this).data('product-id');
+            const quantity = $(this).data('quantity'); // Cantidad máxima permitida de seriales
+            const serialInput = $(`#serial_input_${productId}`);
+            const serialList = $(`#serial_list_${productId}`);
+            const serialsField = $(`#serials_${productId}`);
+    
+            // Obtenemos el valor del input
+            const newSerial = serialInput.val().trim();
+    
+            if (newSerial) {
+                // Verificamos si el serial ya está en la lista de seriales
+                let currentSerials = serialsField.val() ? serialsField.val().split(', ') : [];
+    
+                if (currentSerials.includes(newSerial)) {
+                    Swal.fire('Advertencia', `El código de serie "${newSerial}" ya ha sido agregado.`, 'warning');
+                    serialInput.val(''); // Limpiar el campo
+                    return; // Salimos de la función para evitar duplicados
+                }
+    
+                // Hacer una solicitud AJAX para validar el número de serie en el servidor
+                $.ajax({
+                    url: '../controller/get_availableSeries.php', // Ruta hacia el controlador PHP
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        serial_number: newSerial,
+                        id_product: productId
+                    }),
+                    success: function(response) {
+                        if (response.success) {
+                            // Verificamos si ya se ha alcanzado la cantidad máxima
+                            if (currentSerials.length < quantity) {
+                                // Agregamos el nuevo serial al hidden field
+                                currentSerials.push(newSerial);
+                                serialsField.val(currentSerials.join(', '));
+                                
+                                // Actualizamos la lista visual de seriales
+                                serialList.text(`Seriales seleccionados: ${serialsField.val()}`);
+                                
+                                // Limpiamos el input para que se pueda agregar otro serial
+                                serialInput.val('');
+                            } else {
+                                Swal.fire('Advertencia', `Ya has ingresado la cantidad máxima de ${quantity} seriales.`, 'warning');
+                            }
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Hubo un problema con la validación del número de serie.', 'error');
+                    }
+                });
+            }
+        }
+    });          
     // Manejo del evento click en el botón para agregar el producto a la tabla
     $('#addProduct').on('click', function () {
         const productId = $('#id_product').val();
@@ -134,15 +193,19 @@ document.querySelector("#insertSalesForm").addEventListener("submit", function (
                 table.row.add([                    
                     `<input type="hidden" name="items[${productCounter}][id_product]" value="${productId}">${productCounter + 1}`,
                     `<input type="hidden" name="items[${productCounter}][name_product]" value="${productName}">${productName}`,
-                    `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,
-                    `<button type="button" class="btn btn-secondary" onclick="openSerialModal('${productId}', '${quantity}')">
-                        <i class="fas fa-cogs"></i> Seleccionar Seriales
-                    </button><br>
-                    <span id="serial_list_${productId}">Seriales seleccionados: Ninguno</span>
-                    <input type="hidden" id="serials_${productId}" name="items[${productCounter}][serials]" value="">
-                    `,
+                    `<input type="hidden" name="items[${productCounter}][quantity]" value="${quantity}">${quantity}`,                   
+                    `<div>
+                        <button type="button" class="btn btn-secondary" onclick="openSerialModal('${productId}', '${quantity}')">
+                            <i class="fas fa-cogs"></i> Seleccionar Seriales
+                        </button><br>                
+                        <input type="text" id="serial_input_${productId}" class="form-control serial-input" 
+                               placeholder="Ingresar serial" data-product-id="${productId}" data-quantity="${quantity}">
+                        <br>
+                        <span id="serial_list_${productId}">Seriales seleccionados: Ninguno</span>
+                        <input type="hidden" id="serials_${productId}" name="items[${productCounter}][serials]" value="">
+                    </div>`,                 
                     `<button type="button" class="delete-row"><i class="fas fa-trash-alt"></i></button>`
-                ]).draw();                   
+                ]).draw();                       
     
                 productCounter++;
                 $('#id_product').val('').trigger('change');
@@ -277,6 +340,35 @@ $('#id_product').on('change', function () {
     });
 });
 });
+
+// Función para agregar serial
+function addSerial(productId) {
+    const serialInput = $(`#serial_input_${productId}`);
+    const serialValue = serialInput.val().trim();
+
+    if (serialValue) {
+        // Obtener los seriales actuales
+        let currentSerials = $(`#serials_${productId}`).val();
+
+        // Si ya hay seriales, agregamos el nuevo, de lo contrario inicializamos la lista
+        if (currentSerials) {
+            currentSerials += `,${serialValue}`;
+        } else {
+            currentSerials = serialValue;
+        }
+
+        // Actualizar el input hidden con la lista de seriales
+        $(`#serials_${productId}`).val(currentSerials);
+
+        // Actualizar el span que muestra los seriales
+        $(`#serial_list_${productId}`).text(`Seriales: ${currentSerials}`);
+
+        // Limpiar el campo de input de seriales para que pueda agregar otro
+        serialInput.val('');
+    } else {
+        Swal.fire('Error', 'Debe ingresar un serial válido.', 'error');
+    }
+}
 // Objeto global para almacenar los seriales seleccionados por producto
 let selectedSerialsByProduct = {};
 // Función para abrir el modal de números de serie
