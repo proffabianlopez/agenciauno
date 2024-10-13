@@ -18,7 +18,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agencia UNO</title>
-
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
@@ -31,8 +30,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <!-- Hoja de estilo personalizada -->
     <link rel="stylesheet" href="../assets/css/style_lista_cliente.css">
-    <script src="../assets/js/purchase.js"></script>
-
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
@@ -100,14 +97,12 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-1">
                                     <label for="purchase_remito">Número de </label>
                                     <input type="text" name="number_remito" id="number_remito" class="form-control"
-
                                         maxlength="4" value="" placeholder="0000">
 
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="remito">Remito: <sup style="color:red">*</sup></label>
                                     <input type="text" name="remito" id="remito" class="form-control" maxlength="6"
-
                                         value="" placeholder="000000" pattern="\d{6}">
 
                                 </div>
@@ -127,7 +122,6 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <div class="form-group col-md-1">
                                     <label for="purchase_factura">Número de </label>
                                     <input type="text" name="purchase_factura" class="form-control" maxlength="4"
-
                                         value="" placeholder="0000">
                                 </div>
                                 <div class="form-group col-md-3">
@@ -169,11 +163,15 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <div id="products">
                                         <div class="product">
                                             <select name="id_product" id="id_product" class="form-control">
-                                                <option value=""></option>
+                                                <option value="">Selecciona un producto</option>
                                                 <?php foreach ($showP as $product) : ?>
-                                                <option value="<?php echo $product->id_product; ?>">
-                                                    <?php echo $product->name_product; ?>
+                                                <?php if ($product->stock > 0) : ?>
+                                                <option value="<?php echo $product->id_product; ?>"
+                                                    data-description="<?php echo $product->description; ?>"
+                                                    data-stock="<?php echo $product->stock; ?>">
+                                                    <?php echo $product->name_product." - ".$product->description; ?>
                                                 </option>
+                                                <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -209,10 +207,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                 <table id="table_products" class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Producto</th>
+                                            <th>#</th>
                                             <th>Nombre</th>
                                             <th>Cantidad</th>
-                                            <th>Número de Series</th>
+                                            <th>Números de Series</th>
                                             <th>Eliminar</th>
                                         </tr>
                                     </thead>
@@ -305,7 +303,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
             </div>
         </div>
     </div>
-
+    <script src="../assets/js/purchase.js"></script>
     <!-- Incluir jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- Incluir el JS de Select2 -->

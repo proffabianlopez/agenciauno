@@ -59,73 +59,85 @@ document.addEventListener("DOMContentLoaded", function () {
             $('#view_email').text('');
             $('#view_phone').text('');
         }
-    });
-
+    });   
 
     const addSerialButton = document.getElementById("addSerialNumber");
-    if (addSerialButton) {
-        addSerialButton.addEventListener("click", function() {
-            const serialCheckbox = document.getElementById("serial_number");
-            const product = $('#id_product').val();
-            const quantity = document.querySelector("input[name='items[0][quantity]']").value;
-            const serialCheckboxChecked = serialCheckbox.checked;
-            const remitoNumber = $('#number_remito').val() + '-' + $('#remito').val();
-            const supplier = $('#id_supplier').val();
-            let errors = [];
-            if (!product) {
-                errors.push('Debe seleccionar un producto.');
+if (addSerialButton) {
+    addSerialButton.addEventListener("click", function() {
+        console.log("Botón 'Agregar N° Serie' fue clickeado");
+
+        const serialCheckbox = document.getElementById("serial_number");
+        const product = $('#id_product').val();
+
+        // Obtener el valor de cantidad usando el id del input
+        const quantityInput = document.getElementById("quantity_input");
+        const quantity = quantityInput ? quantityInput.value : 0; // Proporciona un valor predeterminado
+
+        const serialCheckboxChecked = serialCheckbox.checked;
+        const remitoNumber = $('#number_remito').val() + '-' + $('#remito').val();
+        const supplier = $('#id_supplier').val();
+        
+        let errors = [];
+        
+        if (!product) {
+            errors.push('Debe seleccionar un producto.');
+        }
+        if (quantity <= 0) {
+            errors.push('Debe ingresar una cantidad mayor a 0.');
+        }
+        if (!serialCheckboxChecked) {
+            errors.push('Debe marcar el checkbox de números de serie.');
+        }
+        if (!remitoNumber) {
+            errors.push('Debe proporcionar un número de remito.');
+        }
+        if (!supplier) {
+            errors.push('Debe seleccionar un proveedor.');
+        }
+        
+        if (errors.length > 0) {
+            Swal.fire({
+                title: 'Error',
+                text: errors.join(' '),
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            console.log("Mostrando modal con producto:", product);
+            console.log("Cantidad ingresada:", quantity); // Agrega esta línea para depuración
+
+            // Cargar datos y abrir el modal
+            document.getElementById("id_product_modal").value = product;
+            document.getElementById("remito_number").value = remitoNumber;
+            document.getElementById("id_supplier_modal").value = supplier;
+            const tableBody = document.querySelector("#serialTable tbody");
+            tableBody.innerHTML = "";
+            for (let i = 0; i < quantity; i++) {
+                const row = document.createElement("tr");
+                const indexCell = document.createElement("th");
+                indexCell.scope = "row";
+                indexCell.textContent = i + 1;
+                const serialInputCell = document.createElement("td");
+                const serialInput = document.createElement("input");
+                serialInput.type = "text";
+                serialInput.name = `items[0][serial_numbers][${i}]`;
+                serialInput.className = "form-control";
+                serialInput.placeholder = `Ingrese el número de serie ${i + 1}`;
+                serialInputCell.appendChild(serialInput);
+                row.appendChild(indexCell);
+                row.appendChild(serialInputCell);
+                tableBody.appendChild(row);
             }
-            if (quantity <= 0) {
-                errors.push('Debe ingresar una cantidad mayor a 0.');
-            }
-            if (!serialCheckboxChecked) {
-                errors.push('Debe marcar el checkbox de números de serie.');
-            }
-            if (!remitoNumber) {
-                errors.push('Debe proporcionar un número de remito.');
-            }
-            if (!supplier) {
-                errors.push('Debe seleccionar un proveedor.');
-            }
-            if (errors.length > 0) {
-                Swal.fire({
-                    title: 'Error',
-                    text: errors.join(' '),
-                    icon: 'error',
-                    confirmButtonText: 'Aceptar'
-                });
-            } else {
-                // Cargar datos y abrir el modal
-                document.getElementById("id_product_modal").value = product;
-                document.getElementById("remito_number").value = remitoNumber;
-                document.getElementById("id_supplier_modal").value = supplier;
-                const tableBody = document.querySelector("#serialTable tbody");
-                tableBody.innerHTML = "";
-                for (let i = 0; i < quantity; i++) {
-                    const row = document.createElement("tr");
-                    const indexCell = document.createElement("th");
-                    indexCell.scope = "row";
-                    indexCell.textContent = i + 1;
-                    const serialInputCell = document.createElement("td");
-                    const serialInput = document.createElement("input");
-                    serialInput.type = "text";
-                    serialInput.name = `items[0][serial_numbers][${i}]`;
-                    serialInput.className = "form-control";
-                    serialInput.placeholder = `Ingrese el número de serie ${i + 1}`;
-                    serialInputCell.appendChild(serialInput);
-                    row.appendChild(indexCell);
-                    row.appendChild(serialInputCell);
-                    tableBody.appendChild(row);
-                }
-                const serialNumberModal = new bootstrap.Modal(document.getElementById("serialNumberModal"));
-                serialNumberModal.show();
-                // Deshabilitar los campos solo después de abrir el modal y validar que no haya errores
-                serialCheckbox.disabled = true; // Deshabilitar el checkbox
-                addSerialButton.disabled = true; // Deshabilitar el botón
-                disableProductEditing(); // Deshabilitar producto y cantidad
-            }
-        });
-    }    
+            const serialNumberModal = new bootstrap.Modal(document.getElementById("serialNumberModal"));
+            serialNumberModal.show();
+
+            // Deshabilitar los campos solo después de abrir el modal y validar que no haya errores
+            serialCheckbox.disabled = true; // Deshabilitar el checkbox
+            addSerialButton.disabled = true; // Deshabilitar el botón
+            disableProductEditing(); // Deshabilitar producto y cantidad
+        }
+    });
+}
     // Validación del formulario y envío con AJAX (Agregar números de serie)
     document.getElementById("serialForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Evita el envío normal del formulario    
@@ -343,17 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             Swal.fire('Error', 'Debe seleccionar un producto, un proveedor y una cantidad válida.', 'error');
         }
-    });
-    function disableProductEditing() {
-        // Deshabilita el select de producto y el campo de cantidad
-        $('#id_product').prop('disabled', true);
-        $('input[name="items[0][quantity]"]').prop('disabled', true);
-    }
-    function enableProductEditing() {
-        // Habilita el select de producto y el campo de cantidad
-        $('#id_product').prop('disabled', false);
-        $('input[name="items[0][quantity]"]').prop('disabled', false);
-    }
+    });    
     // Manejo de la edición de códigos de serie al mostrar detalles del producto
     $('#table_products tbody').on('click', '.view-details', function() {
         const productId = $(this).data('product-id');
@@ -402,22 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    // Función para llenar el modal con los datos existentes del producto
-    function fillProductDetailsModal(serialNumbers) {
-        const tbody = document.querySelector("#productDetailsTable tbody");
-        tbody.innerHTML = ''; // Limpiar filas existentes
-        serialNumbers.forEach((serial, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <th scope="row">${index + 1}</th>
-                <td>
-                    <input type="text" name="items[0][serial_numbers][]" value="${serial.serial_number}" class="form-control">
-                    <input type="hidden" name="items[0][line_numbers][]" value="${serial.line_number}">
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
+    
 // Manejar el clic en el botón de eliminar fila
 $('#table_products tbody').on('click', '.delete-row', function (e) {
     e.preventDefault(); // Evita la acción por defecto del enlace o botón
@@ -446,5 +433,32 @@ $('#table_products tbody').on('click', '.delete-row', function (e) {
         }
     });
 });
-
 });
+function disableProductEditing() {
+    // Deshabilita el select de producto y el campo de cantidad
+    $('#id_product').prop('disabled', true);
+    $('input[name="items[0][quantity]"]').prop('disabled', true);
+}
+
+function enableProductEditing() {
+    // Habilita el select de producto y el campo de cantidad
+    $('#id_product').prop('disabled', false);
+    $('input[name="items[0][quantity]"]').prop('disabled', false);
+}
+
+// Función para llenar el modal con los datos existentes del producto
+function fillProductDetailsModal(serialNumbers) {
+    const tbody = document.querySelector("#productDetailsTable tbody");
+    tbody.innerHTML = ''; // Limpiar filas existentes
+    serialNumbers.forEach((serial, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <th scope="row">${index + 1}</th>
+            <td>
+                <input type="text" name="items[0][serial_numbers][]" value="${serial.serial_number}" class="form-control">
+                <input type="hidden" name="items[0][line_numbers][]" value="${serial.line_number}">
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
