@@ -3,6 +3,13 @@ $(document).ready(function() {
         $('#purchaseTable').on('click', '.btn-info', function() {
             const remito_number = $(this).data('remito_number'); // Obtener remito_number del botón
             loadHistoryDetails(remito_number); // Llamar a la función para cargar los detalles
+        // Detectar cuando se cierra el modal
+$('#productHistoryModal').on('hidden.bs.modal', function () {
+    // Recargar la página cuando el modal se cierre
+    location.reload();
+});
+
+        
         });
     $('#purchaseTable').DataTable({
         "language": {
