@@ -32,7 +32,6 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
 
     <!-- Estilos personalizados para DataTables -->
     <style>
-        /* Ajustar el espaciado del paginador */
         .dataTables_paginate {
             display: flex;
             justify-content: center;

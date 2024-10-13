@@ -146,13 +146,13 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
 
-    <!-- Otros scripts adicionales -->
     <script src="../assets/js/history_sales.js"></script>
     <script src="../assets/js/select2.js"></script>
     <script src="../assets/js/dataTables.searchPanes.js"></script>
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
     <script src="../assets/js/select.bootstrap5.js"></script>
+    
 
 </body>
 

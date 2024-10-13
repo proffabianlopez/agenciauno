@@ -1242,10 +1242,10 @@ function get_product_details_by_sale($sale_number) {
         SELECT prod.name_product, ds.quantity
         FROM sales ds
         JOIN products prod ON ds.id_product = prod.id_product
-        WHERE ds.sale_number = :sale_number
+        WHERE ds.sales_number = :sales_number
         AND ds.quantity > 0  
     ");
-    $query->bindParam(':sale_number', $sale_number);
+    $query->bindParam(':sales_number', $sale_number);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
