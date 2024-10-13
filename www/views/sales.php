@@ -67,7 +67,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                     <label for="id_customer" class="form-label">Cliente: <sup
                                             style="color:red">*</sup></label>
                                     <select name="id_customer" class="form-control select2" id="id_customer">
-                                        <option></option> 
+                                        <option></option>
                                         <?php foreach ($clientes as $cliente) : ?>
                                         <option value="<?php echo $cliente['id_customer']; ?>">
                                             <?php echo $cliente['customer_name']; ?>
@@ -123,11 +123,10 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                          
                                 <div class="form-group col-md-2">
                                     <label for="items">Cantidad: <sup style="color:red">*</sup></label>
-                                    <input type="number" id="quantity_input" class="form-control" placeholder="Cantidad"
-                                        min="1">
+                                    <input type="number" id="quantity_input" name="quantity_input" class="form-control"
+                                        placeholder="Cantidad" min="1">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -140,21 +139,24 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                         </div>
 
-                        <div class="table-responsive">
-                            <table id="table_products" class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Nombre</th>
-                                        <th>Cantidad</th>
+                        <div class="form-group col-md-12">
+                            <div class="table-responsive">
+                                <table id="table_products" class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Producto Nombre</th>
+                                            <th>Cantidad</th>
+                                            <th>Seriales</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Filas dinámicas se agregarán aquí -->
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                        <th>Eliminar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Filas dinámicas se agregarán aquí -->
-                                </tbody>
-                            </table>
                         </div>
 
                         <div class="card-footer" style="text-align:right">
@@ -162,6 +164,49 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="modal fade" id="serialModal" tabindex="-1" aria-labelledby="serialModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="serialModalLabel">Seleccionar Números de Serie</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="serial_form">
+                            <input type="hidden" id="product_id_modal" />
+                            <input type="hidden" id="product_qty_modal" />
+
+                            <table class="table" id="serial_numbers_table">
+                                <thead>
+                                    <tr>
+                                        <th>Seleccionar</th>
+                                        <th>Código de Serie</th>
+                                        <th>Fecha de Compra</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="serial_numbers_container">
+                                    <!-- Aquí se agregarán dinámicamente los seriales -->
+                                </tbody>
+                            </table>
+
+                            <div id="selected_count" class="mt-3">Seleccionados: 0 de 0</div>
+
+                            <div id="new_serial_container" class="mt-3">
+                                <div class="input-group">
+                                    <input type="text" id="new_serial_input" class="form-control"
+                                        placeholder="Nuevo Número de Serie">
+                                    <button type="button" id="add_new_serial" class="btn btn-success">Agregar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="save_serials">Guardar Selección</button>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Modal para agregar clientes -->
@@ -233,9 +278,9 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
         </div>
 
     </div>
-</div>
+    </div>
 
-        <?php include "footer.php" ?>
+    <?php include "footer.php" ?>
     </div>
 
     <!-- Incluir jQuery una sola vez -->
