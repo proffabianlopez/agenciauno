@@ -74,7 +74,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                     <div class="col-md-3">
                         <div class="card card-primary">
                             <div class="card-header" style="display: block;text-align:center">
-                                <h2 class="card-title"><b>Despachos</b></h2>
+                                <h2 class="card-title"><b>Buscas Garantías</b></h2>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
                                             class="fas fa-minus"></i>
@@ -84,8 +84,8 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;text-align:center">
-                                <a href="sales_list.php">
-                                    <img src="../assets/img/app/truck.webp" class="col-md-4" alt=""></a>
+                                <a href="../views/warranty.php">
+                                    <img src="../assets/img/app/garantia.png" class="col-md-4" alt=""></a>
                             </div>
                             <!-- /.card-body -->
                         </div>

@@ -1270,3 +1270,14 @@ function get_warranty_by_serial_number($serial_number) {
     $query->execute();
     return $query->fetch(PDO::FETCH_ASSOC);
 }
+// Verificar si un número de serie está disponible para un producto
+function validate_serial_number($product_id, $serial_number) {
+    $bd = database();
+    $stmt = $bd->prepare("SELECT serial_number FROM serial_numbers WHERE id_product = :id_product AND serial_number = :serial_number AND used = 0");
+    $stmt->bindParam(':id_product', $product_id);
+    $stmt->bindParam(':serial_number', $serial_number);
+    $stmt->execute();
+    
+    // Si encontramos un registro, significa que el serial está disponible
+    return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+}
