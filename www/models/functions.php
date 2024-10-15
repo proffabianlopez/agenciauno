@@ -1227,11 +1227,16 @@ function get_product_details_by_remito($remito_number) {
 function get_sales_history() {
     $bd = database();
     $query = $bd->prepare("
-        SELECT sales.sales_number, customers.customer_name, SUM(sales.quantity) as total_qty 
-        FROM sales 
-        JOIN customers ON sales.id_customer = customers.id_customer        
+        SELECT 
+        sales.sales_number, 
+        customers.customer_name, 
+        SUM(sales.quantity) AS total_qty, 
+        MAX(motions.date_sales) AS sale_date
+        FROM sales
+        JOIN customers ON sales.id_customer = customers.id_customer
+        LEFT JOIN motions ON sales.id_sales = motions.id_sales
         GROUP BY sales.sales_number, customers.customer_name
-        ORDER BY sales.sales_number ASC
+        ORDER BY sales.sales_number DESC;
     ");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);

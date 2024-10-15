@@ -96,7 +96,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                         <tr>
                                             <td><?= $purchase['name_supplier']; ?></td>
                                             <td><?= $purchase['remito_number']; ?></td>
-                                            <td><?= $purchase['remito_date']; ?></td>
+                                            <td><?= date('d-m-Y', strtotime($purchase['remito_date'])); ?></td>
                                             <td><?= $purchase['invoice_number']; ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-info"
