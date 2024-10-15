@@ -26,14 +26,6 @@ class PDF_Remito extends FPDF
         $this->SetFont('Arial', 'I', 8);
         $this->Cell(0, 10, 0, 0, 'C');
     }
-
-    // Función para agregar fondo PDF
-    function AddBackground($file)
-    {
-        // Establecer fondo PDF como imagen
-        $this->Image($file, 0, 0, 210, 297); // A4: 210mm x 297mm
-    }
-
     // Función para imprimir los datos del remito
     function ImprimirRemito($remito_data)
     {
@@ -60,17 +52,17 @@ class PDF_Remito extends FPDF
         $this->MultiCell(100, 10, utf8_decode($customer_data['customer_name']), 0, 'L');
         $this->Ln(2); // Espacio adicional
 
-        $this->SetXY(130, 52); // Cliente - Teléfono (sin cambio)
+        $this->SetXY(124, 52); // Cliente - Teléfono (sin cambio)
         $this->Cell(50, 10, utf8_decode($customer_data['phone_customer']), 0, 1);
 
         $this->SetXY(24, 60); // Cliente - Domicilio (2mm hacia la derecha)
         $this->MultiCell(100, 10, utf8_decode($customer_data['customer_address']), 0, 'L');
         $this->Ln(2); // Espacio adicional
 
-        $this->SetXY(130, 60); // Cliente - Localidad (sin cambio)
+        $this->SetXY(126, 60); // Cliente - Localidad (sin cambio)
         $this->Cell(50, 10, utf8_decode($customer_data['location']), 0, 1);
 
-        $this->SetXY(130, 68); // Cliente - CUIT (1mm hacia arriba)
+        $this->SetXY(119, 68); // Cliente - CUIT (1mm hacia arriba)
         $this->Cell(50, 10, utf8_decode($customer_data['tax_identifier']), 0, 1);
 
         // Detalles de productos
@@ -94,10 +86,6 @@ class PDF_Remito extends FPDF
 // Crear PDF
 $pdf = new PDF_Remito();
 $pdf->AddPage();
-
-// Agregar el PDF de fondo
-$pdf->AddBackground('../assets/img/preview.jpg');
-
 // Imprimir los datos del remito
 $pdf->ImprimirRemito($remito_data);
 
