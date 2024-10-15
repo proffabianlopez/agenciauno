@@ -90,7 +90,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                             <th>Fecha Venta</th>
                                             <th>Productos</th>
                                             <th>Cantidad</th>
-                                            
+                                            <th>Imprimir</th> <!-- Nueva columna para el ícono de impresora -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -98,7 +98,8 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                         <tr>
                                             <td><?= $sale['customer_name']; ?></td>
                                             <td><?= str_pad($sale['sales_number'], 6, '0', STR_PAD_LEFT); ?></td>
-                                            <td><?= isset($sale['sale_date']) ? date('d-m-Y', strtotime($sale['sale_date'])) : date('d-m-Y'); ?></td>                                            </td> 
+                                            <td><?= isset($sale['sale_date']) ? date('d-m-Y', strtotime($sale['sale_date'])) : date('d-m-Y'); ?>
+                                            </td>
                                             <td>
                                                 <button type="button" class="btn btn-info"
                                                     data-id-sale="<?= $sale['sales_number']; ?>" data-bs-toggle="modal"
@@ -106,7 +107,11 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                                     Ver Productos
                                                 </button>
                                             </td>
-                                            <td><?= $sale['total_qty']; ?></td>                                            
+                                            <td><?= $sale['total_qty']; ?></td>
+                                            <td>
+                                                <i class="fas fa-print" style="cursor:pointer; color:blue;"
+                                                    onclick="window.open('../views/remito.php?sales_number=<?= $sale['sales_number']; ?>', '_blank');"></i>
+                                            </td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
