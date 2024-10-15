@@ -23,7 +23,6 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">
     <link rel="stylesheet" href="../assets/css/buttons.bootstrap5.css">
-
     <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
@@ -32,38 +31,40 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
 
     <!-- Estilos personalizados para DataTables -->
     <style>
-        /* Ajustar el espaciado del paginador */
-        .dataTables_paginate {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px; /* Espacio entre la tabla y el paginador */
-        }
+    /* Ajustar el espaciado del paginador */
+    .dataTables_paginate {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        /* Espacio entre la tabla y el paginador */
+    }
 
-        .dataTables_paginate .paginate_button {
-            padding: 5px 10px;
-            margin: 0 2px;
-        }
+    .dataTables_paginate .paginate_button {
+        padding: 5px 10px;
+        margin: 0 2px;
+    }
 
-        /* Estilo para la información de la tabla (Mostrando página) */
-        .dataTables_info {
-            text-align: center;
-            margin-bottom: 10px; /* Espacio entre la info y la tabla */
-        }
+    /* Estilo para la información de la tabla (Mostrando página) */
+    .dataTables_info {
+        text-align: center;
+        margin-bottom: 10px;
+        /* Espacio entre la info y la tabla */
+    }
 
-        /* Ajustar el estilo de los botones de paginación */
-        .dataTables_paginate a {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 6px 12px;
-            color: #007bff;
-        }
+    /* Ajustar el estilo de los botones de paginación */
+    .dataTables_paginate a {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 6px 12px;
+        color: #007bff;
+    }
 
-        .dataTables_paginate a:hover {
-            background-color: #007bff;
-            color: white;
-        }
+    .dataTables_paginate a:hover {
+        background-color: #007bff;
+        color: white;
+    }
     </style>
 </head>
 
@@ -86,8 +87,10 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                         <tr>
                                             <th>Cliente</th>
                                             <th>Número de Venta</th>
+                                            <th>Fecha Venta</th>
                                             <th>Productos</th>
                                             <th>Cantidad</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,6 +98,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                         <tr>
                                             <td><?= $sale['customer_name']; ?></td>
                                             <td><?= str_pad($sale['sales_number'], 6, '0', STR_PAD_LEFT); ?></td>
+                                            <td><?= isset($sale['sale_date']) ? date('d-m-Y', strtotime($sale['sale_date'])) : date('d-m-Y'); ?></td>                                            </td> 
                                             <td>
                                                 <button type="button" class="btn btn-info"
                                                     data-id-sale="<?= $sale['sales_number']; ?>" data-bs-toggle="modal"
@@ -102,12 +106,12 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                                     Ver Productos
                                                 </button>
                                             </td>
-
-                                            <td><?= $sale['total_qty']; ?></td>
+                                            <td><?= $sale['total_qty']; ?></td>                                            
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -152,7 +156,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <script src="../assets/js/searchPanes.bootstrap5.js"></script>
     <script src="../assets/js/dataTables.select.js"></script>
     <script src="../assets/js/select.bootstrap5.js"></script>
-    
+
 
 </body>
 
