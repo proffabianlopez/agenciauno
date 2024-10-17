@@ -319,7 +319,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- Modal Products JS -->
-    <script src="../js.modal/modal_products.js"></script>
+    <script src="../assets/js/modal_products.js"></script>
     <!-- DataTables JS -->
     <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../assets/js/datatables.bootstrap5.min.js"></script>

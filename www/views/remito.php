@@ -1,5 +1,5 @@
 <?php
-require('../fpdf/fpdf.php');
+require('../assets/fpdf/fpdf.php');
 include_once "../models/functions.php"; 
 
 $sales_number = $_GET['sales_number'] ?? null;
