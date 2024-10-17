@@ -84,10 +84,6 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                     <option value="quantity">Cantidad</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="searchBox" class="form-label">Buscar:</label>
-                                <input type="text" id="searchBox" class="form-control" placeholder="Buscar en la tabla">
-                            </div>
                         </div>
 
                         <div class="table-responsive">
