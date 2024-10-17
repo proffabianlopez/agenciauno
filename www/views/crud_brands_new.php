@@ -209,7 +209,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <!-- Bootstrap 4 -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../dist/js/adminlte.min.js"></script>
-    <script src="../js.modal/modal_brands.js"></script>
+    <script src="../assets/js/modal_brands.js"></script>
     <!-- DataTables -->
     <script src="../assets/js/dataTables.js"></script>
     <script src="../assets/js/dataTables.bootstrap5.js"></script>

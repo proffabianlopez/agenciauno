@@ -195,7 +195,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
-    <script src="../js.modal/modal_products.js"></script>
+    <script src="../assets/js/modal_products.js"></script>
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables -->
     <script src="../assets/js/dataTables.js"></script>
