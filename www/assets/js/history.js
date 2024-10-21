@@ -1,17 +1,11 @@
 $(document).ready(function() {
-        // Asignar evento al botón de detalles dentro de la tabla
-        $('#purchaseTable').on('click', '.btn-info', function() {
-            const remito_number = $(this).data('remito_number'); // Obtener remito_number del botón
-            loadHistoryDetails(remito_number); // Llamar a la función para cargar los detalles
-        // Detectar cuando se cierra el modal
-$('#productHistoryModal').on('hidden.bs.modal', function () {
-    // Recargar la página cuando el modal se cierre
-    location.reload();
-});
+    // Destruir la tabla si ya fue inicializada previamente para evitar errores de reinicialización
+    if ($.fn.DataTable.isDataTable('#purchaseTable')) {
+        $('#purchaseTable').DataTable().destroy();
+    }
 
-        
-        });
-    $('#purchaseTable').DataTable({
+    // Inicializar DataTable con paginación, búsqueda, botones y opciones de exportación
+    const table = $('#purchaseTable').DataTable({
         "language": {
             "paginate": {
                 "first": "Primera",
@@ -29,30 +23,92 @@ $('#productHistoryModal').on('hidden.bs.modal', function () {
         lengthChange: false,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+            'excel', 'pdf', 'imprimir'
+        ],
+        // Inicializar con orden por la columna 1 (Número de Remito)
+        "order": [[1, "asc"]]
     });
 
+    // Manejar el cambio en el select para cambiar el orden
+    $('#orderSelect').on('change', function() {
+        const selectedValue = $(this).val();  // Obtener el valor seleccionado
 
+        // Cambiar el orden según la selección
+        switch (selectedValue) {
+            case '1':
+                table.order([1, 'asc']).draw();  
+                break;
+            case '2':
+                table.order([2, 'asc']).draw();  
+                break;
+            case '3':
+                table.order([3, 'asc']).draw();  
+                break;
+            case '4':
+                table.order([0, 'asc']).draw(); 
+                break;
+        }
+    });
+
+    $('#searchBox').on('keyup', function() {
+        const searchTerm = $(this).val();
+        const filterValue = $('#filterOptions').val(); 
+
+        table.search('').columns().search('').draw();
+
+        switch (filterValue) {
+            case 'supplier':
+                table.column(0).search(searchTerm).draw();  
+                break;
+            case 'remito_number':
+                table.column(1).search(searchTerm).draw();
+                break;
+            case 'remito_date':
+                table.column(2).search(searchTerm).draw();  
+                break;
+            case 'invoice_number':
+                table.column(3).search(searchTerm).draw();  
+                break;
+            case 'product':
+                table.column(4).search(searchTerm).draw();  
+                break;
+            case 'quantity':
+                table.column(5).search(searchTerm).draw();  
+                break;
+            default:
+                table.search(searchTerm).draw();
+                break;
+        }
+    });
+
+    // Asignar evento al botón de detalles dentro de la tabla
+    $('#purchaseTable').on('click', '.btn-info', function() {
+        const remito_number = $(this).data('remito_number'); 
+        loadHistoryDetails(remito_number);  // Llamar a la función para cargar los detalles
+    });
+
+    // Detectar cuando se cierra el modal
+    $('#productHistoryModal').on('hidden.bs.modal', function() {
+        location.reload(); 
+    });
 });
+
 // Función para cargar los detalles de la compra
 function loadHistoryDetails(remito_number) {
     $.ajax({
-        url: '../controller/get_purchase_history.php',  // Ruta del controlador
+        url: '../controller/get_purchase_history.php',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ remito_number: remito_number }),  // Enviar el remito_number
+        data: JSON.stringify({ remito_number: remito_number }),
         dataType: 'json',
         success: function(data) {
             if (data && data.products && data.products.length > 0) {
-                fillPurchaseDetailsModal(data);  // Llenar el modal con los datos de productos y cabecera
-                
-                // Crear y mostrar el modal con opciones que permiten cerrar con backdrop y teclado
+                fillPurchaseDetailsModal(data);  // Llenar el modal con los datos de productos
                 const purchaseModal = new bootstrap.Modal(document.getElementById("productHistoryModal"), {
-                    backdrop: true,  // Permitir cierre al hacer click fuera
-                    keyboard: true   // Permitir cierre con tecla escape
+                    backdrop: true,
+                    keyboard: true
                 });
-                purchaseModal.show();  // Mostrar el modal
+                purchaseModal.show();
             } else {
                 Swal.fire({
                     title: 'Error',
@@ -61,15 +117,15 @@ function loadHistoryDetails(remito_number) {
                     confirmButtonText: 'Aceptar'
                 });
             }
-        },
-
+        }
     });
 }
+
 // Función para llenar el modal con los detalles de la compra
 function fillPurchaseDetailsModal(data) {
     const modalBody = document.querySelector("#HistoryDetailsContent");
     const modalHeader = document.querySelector("#productHistoryModalLabel");
-    
+
     // Actualizar el título del modal con el remito_number y remito_date
     modalHeader.textContent = `Detalles de Compra - Remito N° ${data.remito_number} (${data.remito_date})`;
 
@@ -84,8 +140,7 @@ function fillPurchaseDetailsModal(data) {
         <tr>
             <th>Nombre Producto</th>
             <th>Cantidad</th>
-        </tr>
-    `;
+        `;
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');

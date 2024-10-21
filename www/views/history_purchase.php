@@ -23,11 +23,17 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <link rel="stylesheet" href="../assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+<!-- Bootstrap JS -->
+<script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
 
     <style>
+        /* Tus estilos CSS personalizados */
         .dataTables_paginate {
             display: flex;
             justify-content: center;
@@ -56,6 +62,21 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
         #searchBox {
             height: 38px;
         }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #search-input {
+            margin-right: 10px;
+            margin-left: 200px;
+        }
+
+        .print-buttons {
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -72,18 +93,18 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                     </div>
                     <div class="card-body p-4">
                         <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="filterOptions" class="form-label">Filtrar por:</label>
-                                <select id="filterOptions" class="form-control select2 special-select">
-                                    <option value="">Seleccione una opción</option>
-                                    <option value="supplier">Proveedor</option>
-                                    <option value="remito_number">Número de Remito</option>
-                                    <option value="remito_date">Fecha de Remito</option>
-                                    <option value="invoice_number">Número de Factura</option>
-                                    <option value="product">Producto</option>
-                                    <option value="quantity">Cantidad</option>
+                            <div class="form-group">
+                                <label for="orderSelect"></label>
+                                <select id="orderSelect">
+                                    <option value="1">Ordenar por Número de Remito</option>
+                                    <option value="2">Ordenar por Fecha de Remito</option>
+                                    <option value="3">Ordenar por Número de Factura</option>
+                                    <option value="4">Ordenar por Proveedor (A-Z)</option> 
+
                                 </select>
                             </div>
+
+                    
                             <div class="table-responsive">
                                 <table id="purchaseTable" class="table table-striped table-hover table-bordered">
                                     <thead>
@@ -104,9 +125,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                                 <td><?= date('d-m-Y', strtotime($purchase['remito_date'])); ?></td>
                                                 <td><?= $purchase['invoice_number']; ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-info"
-                                                        onclick="loadHistoryDetails('<?php echo $purchase['remito_number']; ?>')"
-                                                        data-bs-toggle="modal" data-bs-target="#productHistoryModal">
+                                                    <button type="button" class="btn btn-info" onclick="loadHistoryDetails('<?= $purchase['remito_number']; ?>')" data-bs-toggle="modal" data-bs-target="#productHistoryModal">
                                                         Ver Productos
                                                     </button>
                                                 </td>
@@ -122,18 +141,17 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
             </div>
 
             <!-- Modal para ver detalles de productos -->
-            <div class="modal fade" id="productHistoryModal" tabindex="-1" aria-labelledby="productHistoryModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="productHistoryModal" tabindex="-1" aria-labelledby="productHistoryModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="productHistoryModalLabel">Detalles de Compra</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="close">    <span aria-hidden="true">&times;</span>
+</button>
                         </div>
-                        <div class="modal-body" id="HistoryDetailsContent">
-                        </div>
+                        <div class="modal-body" id="HistoryDetailsContent"></div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -142,74 +160,28 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
             <?php include "footer.php"; ?>
         </div>
 
-        <!-- jQuery -->
-        <script src="../assets/plugins/jquery/jquery.min.js"></script>
-        <!-- Bootstrap 4 -->
-        <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- DataTables & Plugins -->
-        <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="../assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="../assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="../assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-        <script src="../assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="../assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-        <script src="../assets/plugins/jszip/jszip.min.js"></script>
-        <script src="../assets/plugins/pdfmake/pdfmake.min.js"></script>
-        <script src="../assets/plugins/pdfmake/vfs_fonts.js"></script>
-        <script src="../assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-        <script src="../assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <!-- Select2 -->
-        <script src="../assets/plugins/select2/js/select2.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="../assets/dist/js/adminlte.min.js"></script>
+        <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables & Plugins -->
+<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../assets/plugins/jszip/jszip.min.js"></script>
+<script src="../assets/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../assets/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<!-- Select2 -->
+<script src="../assets/dist/js/adminlte.min.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                // Inicializar DataTable con botones de exportación
-                $('#purchaseTable').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [{
-                            extend: 'pdfHtml5',
-                            text: 'Exportar PDF',
-                            className: 'btn btn-danger',
-                            exportOptions: {
-                                columns: ':visible'
-                            }
-                        },
-                        {
-                            extend: 'print',
-                            text: 'Imprimir',
-                            className: 'btn btn-info',
-                            exportOptions: {
-                                columns: ':visible'
-                            }
-                        }
-                    ],
-                    paging: true,
-                    searching: true,
-                    ordering: true,
-                    responsive: true,
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
-                    }
-                });
+<script src="../assets/plugins/select2/js/select2.full.min.js"></script>
 
-                // Inicializar Select2
-                $('.select2').select2();
+<!-- Script externo -->
+<script src="../assets/js/history.js"></script>
 
-                // Filtro personalizado de Select2
-                $('#filterOptions').on('change', function() {
-                    var columnIdx = $(this).val();
-                    $('#purchaseTable').DataTable().column(columnIdx).search($('#searchBox').val()).draw();
-                });
-
-                // Búsqueda en tiempo real
-                $('#searchBox').on('keyup', function() {
-                    var searchTerm = $(this).val();
-                    $('#purchaseTable').DataTable().search(searchTerm).draw();
-                });
-            });
-        </script>
-</body>
-
+    </body>
 </html>

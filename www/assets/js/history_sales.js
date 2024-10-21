@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Inicializar DataTable con el estilo y configuración deseada
-    $('#salesTable').DataTable({
+    const table = $('#salesTable').DataTable({
         "language": {
             "paginate": {
                 "first": "Primera",
@@ -23,32 +23,57 @@ $(document).ready(function() {
     });
 
 
-
     $(document).ready(function() {
-        $('#salesTable').on('click', '.btn-info', function() {
-            const id_sale = $(this).data('id-sale'); // Obtener sale_number del botón
-            loadHistoryDetails(id_sale); // Llamar a la función para cargar los detalles
-        });
-    
-        // Manejar el evento de cierre del modal
-        $('#productHistoryModal').on('hidden.bs.modal', function () {
-            // Refresca la página cuando el modal se cierra
-            location.reload();
+        var table = $('#salesTable').DataTable();
+
+        $('#orderSelect').on('change', function() {
+            var selectedValue = $(this).val();
+            var columnIndex;
+
+            switch (selectedValue) {
+                case 'customer_name':
+                    columnIndex = 0;
+                    break;
+                case 'sales_number':
+                    columnIndex = 1;
+                    break;
+                case 'sale_date':
+                    columnIndex = 2;
+                    break;
+                default:
+                    columnIndex = 0;
+            }
+
+            table.order([columnIndex, 'asc']).draw();
         });
     });
+
     
+
+    // Manejar el evento de click en el botón de detalles
+    $('#salesTable').on('click', '.btn-info', function() {
+        const id_sale = $(this).data('id-sale'); 
+        loadHistoryDetails(id_sale); // Llamar a la función para cargar los detalles
+    });
+
+    // Manejar el evento de cierre del modal
+    $('#productHistoryModal').on('hidden.bs.modal', function () {
+        // Refresca la página cuando el modal se cierra
+        location.reload();
+    });
+});
 
 // Función para cargar los detalles de la venta
 function loadHistoryDetails(sale_number) {
     $.ajax({
-        url: '../controller/get_sales_history.php',  // Ruta del controlador
+        url: '../controller/get_sales_history.php', 
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ sale_number: sale_number }),  // Enviar el sale_number en el body
+        data: JSON.stringify({ sale_number: sale_number }), 
         dataType: 'json',
         success: function(data) {
             if (data && data.products && data.products.length > 0) {
-                fillSaleDetailsModal(data);  // Llenar el modal con los datos de productos
+                fillSaleDetailsModal(data);  
                 
                 // Crear y mostrar el modal con backdrop y teclado activado
                 const saleModal = new bootstrap.Modal(document.getElementById("productHistoryModal"), {
@@ -90,7 +115,6 @@ function fillSaleDetailsModal(data) {
     const table = document.createElement('table');
     table.className = 'table table-bordered';
 
-    // Crear la cabecera de la tabla
     const thead = document.createElement('thead');
     thead.innerHTML = `
         <tr>
@@ -115,5 +139,3 @@ function fillSaleDetailsModal(data) {
     table.appendChild(tbody);
     modalBody.appendChild(table);  // Añadir la tabla al cuerpo del modal
 }
-
-});
