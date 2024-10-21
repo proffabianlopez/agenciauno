@@ -27,10 +27,12 @@ document.getElementById('warranty-form').addEventListener('submit', function (ev
                         <table class="table table-striped">
                             <tr><th>Producto:</th><td>${data.name_product}</td></tr>
                             <tr><th>Descripción:</th><td>${data.description}</td></tr>
+                            <tr><th>Factura de Compra:</th><td>${data.remito_number}</td></tr>
                             <tr><th>Fecha de Compra:</th><td>${formatDateTime(data.created_at)}</td></tr>
                             <tr><th>Proveedor:</th><td>${data.name_supplier}</td></tr>
+                            <tr><th>Factura de Venta:</th><td>${data.sales_number.toString().padStart(6, '0')}</td></tr>                            
                             <tr><th>Fecha de Venta:</th><td>${formatDateTime(data.dispatch_date)}</td></tr>
-                            <tr><th>Cliente:</th><td>${data.customer_name}</td></tr>
+                            <tr><th>Cliente:</th><td>${data.customer_name}</td></tr>                                                        
                         </table>
                     </div>
                 </div>`;

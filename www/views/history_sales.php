@@ -19,49 +19,17 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <title>Agencia UNO</title>
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
-    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.css">
-    <link rel="stylesheet" href="../assets/css/searchPanes.bootstrap5.css">
-    <link rel="stylesheet" href="../assets/css/buttons.bootstrap5.css">
-    <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
+    <link rel="stylesheet" href="../assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="../assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Bootstrap JS -->
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
-    <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
-
-    <style>
-    /* Ajustar el espaciado del paginador */
-    .dataTables_paginate {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    .dataTables_paginate .paginate_button {
-        padding: 5px 10px;
-        margin: 0 2px;
-    }
-
-    /* Estilo para la información de la tabla (Mostrando página) */
-    .dataTables_info {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    /* Ajustar el estilo de los botones de paginación */
-    .dataTables_paginate a {
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 6px 12px;
-        color: #007bff;
-    }
-
-    .dataTables_paginate a:hover {
-        background-color: #007bff;
-        color: white;
-    }
-    </style>
+    <link rel="stylesheet" href="../assets/css/datatables.css">
 </head>
 
 <body class="sidebar-mini" style="height: auto;">
@@ -85,50 +53,52 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                     <option value="sale_date">Ordenar por Fecha de Venta</option>
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="table-responsive">
-                            <div class="table-wrapper">
-                                <table id="salesTable" class="table table-striped table-hover table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Cliente</th>
-                                            <th>Número de Venta</th>
-                                            <th>Fecha Venta</th>
-                                            <th>Productos</th>
-                                            <th>Cantidad</th>
-                                            <th>Imprimir</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($sales as $sale) : ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($sale['customer_name']); ?></td>
-                                            <td><?= str_pad($sale['sales_number'], 6, '0', STR_PAD_LEFT); ?></td>
-                                            <td><?= isset($sale['sale_date']) ? date('d-m-Y', strtotime($sale['sale_date'])) : date('d-m-Y'); ?></td>
-                                            <td>
-                                                <button type="button" class="btn btn-info"
-                                                    data-id-sale="<?= $sale['sales_number']; ?>" data-bs-toggle="modal"
-                                                    data-bs-target="#productHistoryModal">
-                                                    Ver Productos
-                                                </button>
-                                            </td>
-                                            <td><?= $sale['total_qty']; ?></td>
-                                            <td>
-                                                <i class="fas fa-print" style="cursor:pointer; color:blue;"
-                                                    onclick="window.open('../views/remito.php?sales_number=<?= $sale['sales_number']; ?>', '_blank');"></i>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+
+                            <div class="table-responsive">
+                                <div class="table-wrapper">
+                                    <table id="salesTable" class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Cliente</th>
+                                                <th>Número de Venta</th>
+                                                <th>Fecha Venta</th>
+                                                <th>Productos</th>
+                                                <th>Cantidad</th>
+                                                <th>Imprimir</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($sales as $sale) : ?>
+                                            <tr>
+                                                <td><?= htmlspecialchars($sale['customer_name']); ?></td>
+                                                <td><?= str_pad($sale['sales_number'], 6, '0', STR_PAD_LEFT); ?></td>
+                                                <td><?= isset($sale['sale_date']) ? date('d-m-Y', strtotime($sale['sale_date'])) : date('d-m-Y'); ?>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info"
+                                                        data-id-sale="<?= $sale['sales_number']; ?>"
+                                                        data-bs-toggle="modal" data-bs-target="#productHistoryModal">
+                                                        Ver Productos
+                                                    </button>
+                                                </td>
+                                                <td><?= $sale['total_qty']; ?></td>
+                                                <td>
+                                                    <i class="fas fa-print" style="cursor:pointer; color:blue;"
+                                                        onclick="validarYImprimir('<?= $sale['sales_number']; ?>');"></i>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <?php include "footer.php"; ?>
     </div>
 
@@ -151,24 +121,27 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
         </div>
     </div>
 
-    <!-- Incluir jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
-    <!-- DataTables JS -->
-    <script src="../assets/js/jquery.datatables.min.js"></script>
-    <script src="../assets/js/dataTables.bootstrap5.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle-v5.3.js"></script>
-    <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables & Plugins -->
+    <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="../assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/plugins/jszip/jszip.min.js"></script>
+    <script src="../assets/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="../assets/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="../assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="../assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <!-- Select2 -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
+    <script src="../assets/plugins/select2/js/select2.full.min.js"></script>
 
     <script src="../assets/js/history_sales.js"></script>
-    <script src="../assets/js/select2.js"></script>
-    <script src="../assets/js/dataTables.searchPanes.js"></script>
-    <script src="../assets/js/searchPanes.bootstrap5.js"></script>
-    <script src="../assets/js/dataTables.select.js"></script>
-    <script src="../assets/js/select.bootstrap5.js"></script>
 
-   
 </body>
 
 </html>

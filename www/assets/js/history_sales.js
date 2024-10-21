@@ -22,7 +22,6 @@ $(document).ready(function() {
         ]
     });
 
-
     $(document).ready(function() {
         var table = $('#salesTable').DataTable();
 
@@ -47,8 +46,6 @@ $(document).ready(function() {
             table.order([columnIndex, 'asc']).draw();
         });
     });
-
-    
 
     // Manejar el evento de click en el botón de detalles
     $('#salesTable').on('click', '.btn-info', function() {
@@ -138,4 +135,39 @@ function fillSaleDetailsModal(data) {
 
     table.appendChild(tbody);
     modalBody.appendChild(table);  // Añadir la tabla al cuerpo del modal
+}
+
+// Función para validar los datos del remito y abrir el PDF
+function validarYImprimir(sales_number) {
+    // Realiza una llamada AJAX para verificar si hay datos del remito
+    fetch(`../views/remito.php?sales_number=${sales_number}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Si la respuesta es un mensaje de error, muestra el alert y no continúa
+            if (data.includes("Error: Faltan datos del remito o están vacíos.")) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Faltan datos del remito o están vacíos.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            } else {
+                // Si hay datos, abre el PDF en una nueva pestaña
+                window.open(`../views/remito.php?sales_number=${sales_number}`, '_blank');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un problema al intentar verificar los datos.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        });
 }

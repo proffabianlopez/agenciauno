@@ -9,7 +9,6 @@ if ($sales_number) {
 } else {
     die("Número de venta no proporcionado");
 }
-
 // Crear clase PDF para remito
 class PDF_Remito extends FPDF
 {
@@ -24,12 +23,23 @@ class PDF_Remito extends FPDF
     {
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, 0, 0, 'C');
+        $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
+
     // Función para imprimir los datos del remito
-    function ImprimirRemito($remito_data)
-    {
-        // Extraer datos del cliente y productos
+    function ImprimirRemito($remito_data) {
+        // Verificación genérica de si $remito_data tiene contenido
+        if (empty($remito_data) || 
+            empty($remito_data['customer']) || 
+            empty($remito_data['dispatches']) || 
+            count($remito_data['dispatches']) === 0) {
+            
+            // En lugar de usar un alert, envía un error de vuelta al navegador para que la página no redirija
+            echo "<script>alert('Error: Faltan datos del remito o están vacíos.');</script>";
+            return false; // Detener ejecución
+        }    
+        
+        // Si los datos están presentes, continuar con la generación del PDF
         $customer_data = $remito_data['customer'];
         $dispatches_data = $remito_data['dispatches'];
 
@@ -69,8 +79,9 @@ class PDF_Remito extends FPDF
         $y_position = 100;
         foreach ($dispatches_data as $detail) {
             $this->SetXY(20, $y_position); // Cantidad
-
             $this->Cell(30, 10, utf8_decode($detail['qty']), 0, 1);
+
+            // Limpiar el nombre del producto si es necesario
             $product_name_clean = preg_replace('/\|? ?Stock:.*?(?=\(Seriales)/', '', $detail['product_name']);
             $this->SetXY(50, $y_position); // Nombre del producto
             $this->MultiCell(100, 10, utf8_decode($product_name_clean), 0, 'L'); // MultiCell para ajustar texto
@@ -80,14 +91,18 @@ class PDF_Remito extends FPDF
             $y_position += 10; // Ajustar la posición para la siguiente línea
         }
 
-            }
-        }
+        return true; // Indica que el proceso fue exitoso
+    }   
+}
 
-// Crear PDF
+// Instancia la clase y genera el remito solo si hay datos válidos
 $pdf = new PDF_Remito();
 $pdf->AddPage();
-// Imprimir los datos del remito
-$pdf->ImprimirRemito($remito_data);
 
-$pdf->Output();
-
+// Valida antes de generar el PDF
+if ($pdf->ImprimirRemito($remito_data)) {
+    $pdf->Output(); // Generar y mostrar el PDF solo si la validación es correcta
+} else {
+    // Si hubo un error, no generar el PDF y permanece en la página
+    echo "<script>console.log('Remito no generado por datos inválidos.');</script>";
+}
