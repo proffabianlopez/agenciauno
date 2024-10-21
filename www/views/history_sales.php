@@ -26,10 +26,8 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <link rel="stylesheet" href="../assets/css/select.bootstrap5.css">
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
-    <!-- Incluir el CSS de Select2 -->
     <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
 
-    <!-- Estilos personalizados para DataTables -->
     <style>
     /* Ajustar el espaciado del paginador */
     .dataTables_paginate {
@@ -37,7 +35,6 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
         justify-content: center;
         align-items: center;
         margin-top: 10px;
-        /* Espacio entre la tabla y el paginador */
     }
 
     .dataTables_paginate .paginate_button {
@@ -49,7 +46,6 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     .dataTables_info {
         text-align: center;
         margin-bottom: 10px;
-        /* Espacio entre la info y la tabla */
     }
 
     /* Ajustar el estilo de los botones de paginación */
@@ -80,6 +76,17 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                         <h4><b>Historial de Ventas</b></h4>
                     </div>
                     <div class="card-body p-4">
+                        <div class="row mb-3">
+                            <div class="form-group col-md-4">
+                                <label for="orderSelect"></label>
+                                <select id="orderSelect" class="form-control">
+                                    <option value="customer_name">Ordenar por Cliente</option>
+                                    <option value="sales_number">Ordenar por Número de Venta</option>
+                                    <option value="sale_date">Ordenar por Fecha de Venta</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <div class="table-wrapper">
                                 <table id="salesTable" class="table table-striped table-hover table-bordered">
@@ -90,16 +97,15 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                             <th>Fecha Venta</th>
                                             <th>Productos</th>
                                             <th>Cantidad</th>
-                                            <th>Imprimir</th> <!-- Nueva columna para el ícono de impresora -->
+                                            <th>Imprimir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($sales as $sale) : ?>
                                         <tr>
-                                            <td><?= $sale['customer_name']; ?></td>
+                                            <td><?= htmlspecialchars($sale['customer_name']); ?></td>
                                             <td><?= str_pad($sale['sales_number'], 6, '0', STR_PAD_LEFT); ?></td>
-                                            <td><?= isset($sale['sale_date']) ? date('d-m-Y', strtotime($sale['sale_date'])) : date('d-m-Y'); ?>
-                                            </td>
+                                            <td><?= isset($sale['sale_date']) ? date('d-m-Y', strtotime($sale['sale_date'])) : date('d-m-Y'); ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-info"
                                                     data-id-sale="<?= $sale['sales_number']; ?>" data-bs-toggle="modal"
@@ -116,16 +122,16 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FOOTER -->
+        
         <?php include "footer.php"; ?>
     </div>
+
     <!-- Modal para ver detalles de productos -->
     <div class="modal fade" id="productHistoryModal" tabindex="-1" aria-labelledby="productHistoryModalLabel"
         aria-hidden="true">
@@ -144,6 +150,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
             </div>
         </div>
     </div>
+
     <!-- Incluir jQuery -->
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- DataTables JS -->
@@ -152,7 +159,6 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <!-- Bootstrap JS -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle-v5.3.js"></script>
     <script src="../assets/js/bootstrapt.bundle5.3.min.js"></script>
-    <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
 
     <script src="../assets/js/history_sales.js"></script>
@@ -162,7 +168,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     <script src="../assets/js/dataTables.select.js"></script>
     <script src="../assets/js/select.bootstrap5.js"></script>
 
-
+   
 </body>
 
 </html>
