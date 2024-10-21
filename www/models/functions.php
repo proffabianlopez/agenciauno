@@ -1277,7 +1277,9 @@ function get_warranty_by_serial_number($serial_number)
             sn.created_at, 
             s.name_supplier, 
             d.dispatch_date, 
-            c.customer_name
+            c.customer_name,
+            sn.sales_number,
+            sn.remito_number
         FROM serial_numbers sn
         JOIN products p ON sn.id_product = p.id_product
         JOIN suppliers s ON sn.id_supplier = s.id_supplier

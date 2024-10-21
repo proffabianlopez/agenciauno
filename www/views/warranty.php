@@ -9,7 +9,7 @@ unset($_SESSION["error_message"]);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Buscar Garantía</title>
+    <title>Agencia UNO</title>
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min5.3.css">
