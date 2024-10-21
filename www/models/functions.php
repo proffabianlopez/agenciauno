@@ -464,7 +464,7 @@ function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoi
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
         $consulta->bindParam(':qty', $quantity, PDO::PARAM_INT);
         $consulta->bindParam(':line_number', $line_number, PDO::PARAM_INT);
-        
+
         if (!$consulta->execute()) {
             throw new Exception("Error al insertar en purchases.");
         }
@@ -473,14 +473,13 @@ function insert_sender($id_supplier, $number_remito, $date_remito, $number_invoi
         $consulta_update = $bd->prepare($query_update);
         $consulta_update->bindParam(':qty', $quantity, PDO::PARAM_INT);
         $consulta_update->bindParam(':id_product', $id_product, PDO::PARAM_INT);
-        
+
         if (!$consulta_update->execute()) {
             throw new Exception("Error al actualizar el stock en products.");
         }
 
         $bd->commit();
-        return true; 
-
+        return true;
     } catch (Exception $e) {
         $bd->rollBack();
         echo "Error en la inserción/actualización: " . $e->getMessage();
@@ -492,7 +491,7 @@ function insert_date_sender($date_invoice)
 {
     $bd = database();
 
-    $query_sales = "SELECT id_purchase FROM purchases ORDER BY id_purchase DESC LIMIT 1"; 
+    $query_sales = "SELECT id_purchase FROM purchases ORDER BY id_purchase DESC LIMIT 1";
     $consulta_sales = $bd->prepare($query_sales);
     $consulta_sales->execute();
     $id_purchase = $consulta_sales->fetchColumn();
@@ -917,19 +916,20 @@ function insert_sales($id_customer, $sales_number, $id_product, $quantity)
     }
 }
 
-function check_remito_exists($number_remito) {
+function check_remito_exists($number_remito)
+{
 
     $bd = database();
     $query = $bd->prepare("SELECT COUNT(*) FROM purchases WHERE remito_number = :remito_number");
     $query->bindParam(':remito_number', $number_remito);
     $query->execute();
 
-    return $query->fetchColumn() > 0; 
+    return $query->fetchColumn() > 0;
 }
 function insert_date_sales($date_sales)
 {
     $bd = database();
-    $query_sales = "SELECT id_sales FROM sales ORDER BY id_sales DESC LIMIT 1"; 
+    $query_sales = "SELECT id_sales FROM sales ORDER BY id_sales DESC LIMIT 1";
     $consulta_sales = $bd->prepare($query_sales);
     $consulta_sales->execute();
     $id_sales = $consulta_sales->fetchColumn();
@@ -968,11 +968,11 @@ function obtener_number_sales()
     if ($result && isset($result['sales_number'])) {
         return $result['sales_number'] + 1;
     } else {
-        return 1; 
+        return 1;
     }
-
 }
-function update_product_stock($id_product, $quantity_sold) {
+function update_product_stock($id_product, $quantity_sold)
+{
     try {
         $bd = database();
         // convierto quantity_sold a entero por que en la bd esta en int 
@@ -997,7 +997,8 @@ function update_product_stock($id_product, $quantity_sold) {
         return false;
     }
 }
-function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefono = null, $direccion = null, $altura = null, $ciudad = null, $piso = null, $observaciones = null, $status, $departamento = null) {
+function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefono = null, $direccion = null, $altura = null, $ciudad = null, $piso = null, $observaciones = null, $status, $departamento = null)
+{
     $bd = database();
 
     $sentence = $bd->prepare("INSERT INTO customers (tax_identifier, customer_name, email_customer, phone_customer, street, height, location, floor, observaciones, id_status, departament) 
@@ -1020,7 +1021,8 @@ function add_custommer_sale($identifier, $name_cliente, $email_cliente, $telefon
 
 //DESPACHOS
 // Obtener ventas por id_status y mostrar el nombre del cliente en lugar del id_customer
-function get_sales_by_status($status_id) {
+function get_sales_by_status($status_id)
+{
     $bd = database();
     $stmt = $bd->prepare("
         SELECT sales.sales_number, customers.customer_name, SUM(sales.quantity) as total_qty 
@@ -1032,14 +1034,15 @@ function get_sales_by_status($status_id) {
     ");
     $stmt->bindParam(':status_id', $status_id, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     // Obtener los resultados
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     return $result ? $result : [];
 }
 // Obtener los detalles de una venta (incluyendo cantidad, producto y concatenación de nombre y descripción)
-function get_sale_details($sales_number) {
+function get_sale_details($sales_number)
+{
     $bd = database();
     $stmt = $bd->prepare("SELECT sales.id_product,CONCAT(products.name_product, ' - ', products.description) AS full_product_name, 
             sales.quantity,sales.id_customer FROM sales
@@ -1050,12 +1053,13 @@ function get_sale_details($sales_number) {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function update_serial_numbers($id_product, $serial_numbers, $sales_number) {
+function update_serial_numbers($id_product, $serial_numbers, $sales_number)
+{
     $bd = database();
     $stmt = $bd->prepare("UPDATE serial_numbers 
                            SET used = 1, sales_number = :sales_number, updated_at = NOW() 
                            WHERE id_product = :id_product AND serial_number = :serial_number");
-    
+
     foreach ($serial_numbers as $serial_number) {
         $stmt->bindParam(':id_product', $id_product);
         $stmt->bindParam(':serial_number', $serial_number);
@@ -1064,19 +1068,20 @@ function update_serial_numbers($id_product, $serial_numbers, $sales_number) {
             return false;  // Si falla la actualización, retornamos false
         }
     }
-    
+
     return true;  // Si todo va bien, retornamos true
 }
 // Actualizar el estado de una venta
-function update_sales_status($sales_number, $status) {
+function update_sales_status($sales_number, $status)
+{
     $bd = database();
     // Preparar la consulta SQL para actualizar el id_status de la venta
     $stmt = $bd->prepare("UPDATE sales SET id_status = :status WHERE sales_number = :sales_number");
-    
+
     // Enlazar los parámetros a la consulta preparada
     $stmt->bindParam(':status', $status, PDO::PARAM_INT); // Asegurarse de que es un entero
     $stmt->bindParam(':sales_number', $sales_number, PDO::PARAM_STR); // Asumimos que sales_number es una cadena
-    
+
     // Ejecutar la consulta y comprobar si tuvo éxito
     if ($stmt->execute()) {
         return true; // Retornar verdadero si la actualización fue exitosa
@@ -1085,7 +1090,8 @@ function update_sales_status($sales_number, $status) {
     }
 }
 // Obtener los seriales no utilizados para un producto
-function get_available_serials($product_id) {
+function get_available_serials($product_id)
+{
     $bd = database();
     $stmt = $bd->prepare("SELECT serial_number, created_at FROM serial_numbers WHERE id_product = :id_product AND used = 0");
     $stmt->bindParam(':id_product', $product_id);
@@ -1094,9 +1100,10 @@ function get_available_serials($product_id) {
 }
 
 // Insertar un nuevo número de serie y marcarlo como utilizado
-function add_serial_numbers($product_id, $serial_number) {
+function add_serial_numbers($product_id, $serial_number)
+{
     $bd = database();
-    
+
     // Obtiene la fecha actual en el formato adecuado
     $created_at = date('Y-m-d H:i:s'); // Ajusta el formato según tu necesidad
     $updated_at = $created_at; // Para 'updated_at', puedes usar la misma fecha
@@ -1104,16 +1111,17 @@ function add_serial_numbers($product_id, $serial_number) {
     $stmt = $bd->prepare("INSERT INTO serial_numbers 
         (id_product, serial_number, remito_number, line_number, id_supplier, created_at, updated_at, sales_number, used) 
         VALUES (:id_product, :serial_number, 'Ingreso Manual', 1, 0, :created_at, :updated_at, NULL, 0)");
-    
+
     $stmt->bindParam(':id_product', $product_id);
     $stmt->bindParam(':serial_number', $serial_number);
     $stmt->bindParam(':created_at', $created_at); // Vincula la fecha de creación
     $stmt->bindParam(':updated_at', $updated_at); // Vincula la fecha de actualización
 
     return $stmt->execute();
-}  
+}
 // Función para registrar un nuevo despacho (una línea por producto)
-function insert_dispatch($sales_number, $customer_id, $qty, $product_name, $serial_numbers) {
+function insert_dispatch($sales_number, $customer_id, $qty, $product_name, $serial_numbers)
+{
     $bd = database();
 
     // Concatenar los números de serie en un solo string
@@ -1125,18 +1133,19 @@ function insert_dispatch($sales_number, $customer_id, $qty, $product_name, $seri
     // **Aquí nos aseguramos de que se inserte solo una línea con la cantidad correcta**
     $stmt = $bd->prepare("INSERT INTO dispatches (sales_number, id_customer, qty, product_name) 
                           VALUES (:sales_number, :id_customer, :qty, :product_name)");
-    
+
     // Vincular los parámetros
     $stmt->bindParam(':sales_number', $sales_number, PDO::PARAM_INT);
     $stmt->bindParam(':id_customer', $customer_id, PDO::PARAM_INT);
     $stmt->bindParam(':qty', $qty, PDO::PARAM_INT);  // Cantidad total vendida, no la cantidad de seriales
     $stmt->bindParam(':product_name', $full_product_name, PDO::PARAM_STR);
-    
+
     return $stmt->execute();
 }
 
 // Función para obtener los datos del remito
-function get_remito_data($sales_number) {
+function get_remito_data($sales_number)
+{
     $bd = database();
 
     // Consulta para obtener la información de dispatches
@@ -1153,10 +1162,10 @@ function get_remito_data($sales_number) {
     ");
     $stmt->bindParam(':sales_number', $sales_number, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     // Obtener los datos de dispatches
     $dispatches = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     if (empty($dispatches)) {
         return null; // No se encontró información de dispatches
     }
@@ -1179,7 +1188,7 @@ function get_remito_data($sales_number) {
     ");
     $stmt->bindParam(':id_customer', $customer_id, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     // Obtener los datos del cliente
     $customer = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -1189,7 +1198,8 @@ function get_remito_data($sales_number) {
     ];
 }
 
-function get_purchase_history() {
+function get_purchase_history()
+{
     $bd = database();
     $query = $bd->prepare("
 SELECT 
@@ -1211,7 +1221,8 @@ ORDER BY p.remito_date DESC;
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
-function get_product_details_by_remito($remito_number) {
+function get_product_details_by_remito($remito_number)
+{
     $bd = database();
     $query = $bd->prepare("
         SELECT prod.name_product, dp.qty, dp.remito_date
@@ -1224,7 +1235,8 @@ function get_product_details_by_remito($remito_number) {
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
-function get_sales_history() {
+function get_sales_history()
+{
     $bd = database();
     $query = $bd->prepare("
         SELECT 
@@ -1241,7 +1253,8 @@ function get_sales_history() {
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
-function get_product_details_by_sale($sale_number) {
+function get_product_details_by_sale($sale_number)
+{
     $bd = database();
     $query = $bd->prepare("
         SELECT prod.name_product, ds.quantity
@@ -1254,8 +1267,9 @@ function get_product_details_by_sale($sale_number) {
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
-function get_warranty_by_serial_number($serial_number) {
-    $bd = database(); 
+function get_warranty_by_serial_number($serial_number)
+{
+    $bd = database();
     $query = $bd->prepare("
         SELECT 
             p.name_product, 
@@ -1276,13 +1290,60 @@ function get_warranty_by_serial_number($serial_number) {
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 // Verificar si un número de serie está disponible para un producto
-function validate_serial_number($product_id, $serial_number) {
+function validate_serial_number($product_id, $serial_number)
+{
     $bd = database();
     $stmt = $bd->prepare("SELECT serial_number FROM serial_numbers WHERE id_product = :id_product AND serial_number = :serial_number AND used = 0");
     $stmt->bindParam(':id_product', $product_id);
     $stmt->bindParam(':serial_number', $serial_number);
     $stmt->execute();
-    
+
     // Si encontramos un registro, significa que el serial está disponible
     return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+}
+function obtenerDatosGraficos()
+{
+    $bd = database();
+    try {
+        // Consulta para obtener el producto más vendido
+        $query1 = $bd->prepare("SELECT p.name_product, SUM(s.quantity) AS total_vendido
+                                 FROM sales s
+                                 JOIN products p ON s.id_product = p.id_product
+                                 GROUP BY p.name_product
+                                 ORDER BY total_vendido DESC
+                                 LIMIT 4");
+        $query1->execute();
+        $productosMasVendidos = $query1->fetchAll(PDO::FETCH_ASSOC);
+
+        // Consulta para obtener las ganancias mensuales
+        $query2 = $bd->prepare("SELECT MONTH(remito_date) AS mes, SUM(qty) AS total_vendido
+                                 FROM purchases
+                                 GROUP BY mes");
+        $query2->execute();
+        $vendidoEnElMes = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+        // Consulta para obtener el stock actual
+        $query3 = $bd->prepare("SELECT name_product, stock FROM products");
+        $query3->execute();
+        $stockProductos = $query3->fetchAll(PDO::FETCH_ASSOC);
+
+        // Consulta para obtener las ganancias anuales
+        $query4 = $bd->prepare("SELECT YEAR(remito_date) AS año, SUM(qty) AS total_anual
+                                 FROM purchases
+                                 GROUP BY año");
+        $query4->execute();
+        $gananciasAnuales = $query4->fetchAll(PDO::FETCH_ASSOC);
+
+        return [
+            'productosMasVendidos' => $productosMasVendidos,
+            'vendidoenelmes' => $vendidoEnElMes,
+            'stockProductos' => $stockProductos,
+            'gananciasAnuales' => $gananciasAnuales
+        ];
+    } catch (PDOException $e) {
+        // Manejo de excepciones: puedes registrar el error o manejarlo como desees
+        return [
+            'error' => 'Error al obtener los datos gráficos: ' . $e->getMessage()
+        ];
+    }
 }
