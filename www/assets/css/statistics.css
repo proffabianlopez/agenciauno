@@ -1,0 +1,57 @@
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  /* Limitar el ancho máximo */
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.card {
+  min-height: 400px;
+  /* Para mantener una altura adecuada de los gráficos */
+}
+
+.main-content {
+  margin-left: 250px;
+  /* Ajuste para que el sidebar no se sobreponga al contenido */
+}
+/* Estilos específicos para los gráficos */
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  /* Limitar el ancho máximo */
+  max-height: 100%;
+  /* Limitar la altura máxima */
+}
+
+.chart-card {
+  min-height: 400px;
+  /* Mantener una altura mínima adecuada */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Evitar interferencias con otros estilos */
+.chart-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .chart-wrapper {
+    width: 100%;
+    height: auto;
+  }
+}
