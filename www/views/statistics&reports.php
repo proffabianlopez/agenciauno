@@ -21,7 +21,7 @@ $gananciasAnuales = $dataGraficos['gananciasAnuales'];
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="sidebar-mini" style="height: auto;">
+<body class="sidebar-mini layout-fixed" style="height: auto;">
     <div class="wrapper">
         <!-- HEADER -->
         <?php include "header.php" ?>
@@ -39,11 +39,11 @@ $gananciasAnuales = $dataGraficos['gananciasAnuales'];
             <div class="row">
                 <!-- Producto Más Vendido - Pie Chart -->
                 <div class="col-md-6 mb-4">
-                    <div class="card">
+                    <div class="card chart-card">
                         <div class="card-header bg-danger text-white">
                             <h5 class="card-title mb-0">Producto Más Vendido</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body chart-wrapper">
                             <canvas id="pieChart"></canvas>
                         </div>
                     </div>
@@ -51,11 +51,11 @@ $gananciasAnuales = $dataGraficos['gananciasAnuales'];
 
                 <!-- Ganancias Mensuales - Bar Chart -->
                 <div class="col-md-6 mb-4">
-                    <div class="card">
+                    <div class="card chart-card">
                         <div class="card-header bg-success text-white">
                             <h5 class="card-title mb-0">Ventas en el Mes</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body chart-wrapper">
                             <canvas id="barChart"></canvas>
                         </div>
                     </div>
@@ -65,11 +65,11 @@ $gananciasAnuales = $dataGraficos['gananciasAnuales'];
             <div class="row">
                 <!-- Stock Actual - Line Chart -->
                 <div class="col-md-6 mb-4">
-                    <div class="card">
+                    <div class="card chart-card">
                         <div class="card-header bg-primary text-white">
                             <h5 class="card-title mb-0">Stock Actual</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body chart-wrapper">
                             <canvas id="lineChart"></canvas>
                         </div>
                     </div>
@@ -77,11 +77,11 @@ $gananciasAnuales = $dataGraficos['gananciasAnuales'];
 
                 <!-- Ganancias Anuales - Area Chart -->
                 <div class="col-md-6 mb-4">
-                    <div class="card">
+                    <div class="card chart-card">
                         <div class="card-header bg-info text-white">
                             <h5 class="card-title mb-0">Ventas Anuales</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body chart-wrapper">
                             <canvas id="areaChart"></canvas>
                         </div>
                     </div>
@@ -117,7 +117,7 @@ $gananciasAnuales = $dataGraficos['gananciasAnuales'];
 
         // Bar Chart - Ganancias Mensuales
         var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        var ganancias = <?php echo json_encode(array_column($vendidoEnElMes, 'total_vendido')); ?>; // Asegúrate de que esta sea la columna correcta
+        var ganancias = <?php echo json_encode(array_column($vendidoEnElMes, 'total_vendido')); ?>;
         var ctxBar = document.getElementById('barChart').getContext('2d');
         var barChart = new Chart(ctxBar, {
             type: 'bar',
@@ -149,8 +149,8 @@ $gananciasAnuales = $dataGraficos['gananciasAnuales'];
         });
 
         // Area Chart - Ganancias Anuales
-        var anios = <?php echo json_encode(array_column($gananciasAnuales, 'año')); ?>; // Asegúrate de que esta sea la columna correcta
-        var gananciasAnuales = <?php echo json_encode(array_column($gananciasAnuales, 'total_anual')); ?>; // Asegúrate de que esta sea la columna correcta
+        var anios = <?php echo json_encode(array_column($gananciasAnuales, 'año')); ?>;
+        var gananciasAnuales = <?php echo json_encode(array_column($gananciasAnuales, 'total_anual')); ?>;
         var ctxArea = document.getElementById('areaChart').getContext('2d');
         var areaChart = new Chart(ctxArea, {
             type: 'line',
