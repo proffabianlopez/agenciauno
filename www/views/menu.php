@@ -8,7 +8,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 }
 $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'Usuario no autenticado';
 ?>
-<link rel="stylesheet" href="../assets/css/bootstrap.min5.3css">
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 </Link>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->

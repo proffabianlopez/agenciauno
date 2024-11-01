@@ -1349,3 +1349,29 @@ function obtenerDatosGraficos()
         ];
     }
 }
+function get_sales_details_by_number($sales_number)
+{
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT 
+            sales.sales_number,
+            customers.customer_name,
+            customers.tax_identifier,   -- CUIT/CUIL del cliente
+            customers.email_customer,   -- Email del cliente
+            customers.phone_customer,   -- Teléfono del cliente
+            sales.id_customer,
+            products.name_product,
+            products.description,
+            sales.quantity,            
+            motions.date_sales
+        FROM sales
+        JOIN customers ON sales.id_customer = customers.id_customer
+        LEFT JOIN motions ON sales.id_sales = motions.id_sales
+        LEFT JOIN products ON sales.id_product = products.id_product
+        WHERE sales.sales_number = :sales_number       
+    ");
+    $query->bindParam(':sales_number', $sales_number, PDO::PARAM_INT);
+    $query->execute();
+    
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
