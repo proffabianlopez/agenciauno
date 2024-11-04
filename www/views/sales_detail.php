@@ -28,6 +28,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
+    
     <script src="../assets/js/sweetalert2@11.js"></script>
 </head>
 
@@ -41,8 +42,7 @@ if (isset($_GET['id'])) {
             <div class="container-fluid py-4">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between bg-primary text-white">
-                        <h4><b>Nº de Venta: <?php echo str_pad($sales_number, 6, "0", STR_PAD_LEFT); ?></b></h4>
-                        <h4><b>Resumen de Venta</b></h4>
+                        <h4><b>Nº de Venta: <?php echo str_pad($sales_number, 6, "0", STR_PAD_LEFT); ?></b></h4>                        
                     </div>
                 </div>
                 <div class="card">
