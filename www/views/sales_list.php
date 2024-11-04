@@ -22,39 +22,9 @@ $sales = get_sales_history();
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="../assets/css/history_new.css">
     <script src="../assets/js/sweetalert2@11.js"></script>
 
-    <style>
-    /* Sombra mejorada para todos los botones al hacer clic */
-    .btn-shadow:active {
-        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Estilo del enlace de número de venta */
-    .venta-link {
-        color: #007bff;
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .venta-link i {
-        color: #6c757d;
-        font-size: 0.9em;
-    }
-
-    .venta-link:hover {
-        color: #0056b3;
-        transform: scale(1.05);
-        /* Efecto de zoom leve */
-        text-decoration: underline;
-    }
-
-    .venta-link:hover i {
-        color: #007bff;
-        /* Cambia el color del ícono al hacer hover */
-    }
-    </style>
 </head>
 
 <body class="sidebar-mini layout-fixed">
@@ -69,6 +39,51 @@ $sales = get_sales_history();
                     <div class="card-header d-flex align-items-center justify-content-between bg-primary text-white">
                         <h4 class="mb-0"><b>Histórico de Ventas</b></h4>
                     </div>
+                    <div class="card mb-4">
+                        <div
+                            class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
+                            <h5 class="mb-0">Filtros de Búsqueda</h5>
+                            <button class="btn btn-light btn-sm" onclick="limpiarFiltros()">Limpiar Filtros</button>
+                        </div>
+                        <div class="card-body">
+                            <form id="filterForm">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="date_from">Fecha desde:</label>
+                                        <input type="text" id="date_from" name="date_from" class="form-control"
+                                            placeholder="DD-MM-YYYY" maxlength="10">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="date_to">Fecha hasta:</label>
+                                        <input type="text" id="date_to" name="date_to" class="form-control"
+                                            placeholder="DD-MM-YYYY" maxlength="10">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="sale_number_from">Número de Venta desde:</label>
+                                        <input type="text" id="sale_number_from" name="sale_number_from"
+                                            class="form-control" placeholder="Número de venta">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="sale_number_to">Número de Venta hasta:</label>
+                                        <input type="text" id="sale_number_to" name="sale_number_to"
+                                            class="form-control" placeholder="Número de venta">
+                                    </div>
+
+                                    <div class="col-md-4 mt-3">
+                                        <label for="customer_name">Cliente:</label>
+                                        <input type="text" id="customer_name" name="customer_name" class="form-control"
+                                            placeholder="Nombre del cliente">
+                                    </div>
+                                    <div class="col-md-4 mt-3">
+                                        <button type="button" onclick="aplicarFiltros()"
+                                            class="btn btn-primary mt-4">Aplicar Filtros</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="salesTable" class="table table-striped table-hover">
@@ -128,7 +143,7 @@ $sales = get_sales_history();
 
         <!-- FOOTER -->
         <?php include "footer.php" ?>
-    </div>    
+    </div>
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/jquery.dataTables.min.js"></script>
@@ -136,7 +151,7 @@ $sales = get_sales_history();
     <script src="../assets/plugins/select2/js/select2.min.js"></script>
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <script src="../assets/js/history_sales.js"></script>
-    
+
 </body>
 
 </html>

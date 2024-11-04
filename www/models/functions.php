@@ -1205,7 +1205,8 @@ function get_purchase_history()
 SELECT 
     p.remito_number, 
     p.remito_date, 
-    p.invoice_number, 
+    p.invoice_number,
+    p.invoice_date,
     s.name_supplier, 
     SUM(p.qty) AS total_qty
 FROM purchases p
@@ -1214,9 +1215,9 @@ GROUP BY
     p.remito_number, 
     p.remito_date, 
     p.invoice_number, 
+    p.invoice_date,
     s.name_supplier
 ORDER BY p.remito_date DESC;
-
     ");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -1374,4 +1375,76 @@ function get_sales_details_by_number($sales_number)
     $query->execute();
     
     return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+function get_purchase_history_in($invoice_number)
+{
+    $bd = database();
+    $query = $bd->prepare("
+       SELECT 
+            p.remito_number,
+            p.remito_date,
+            p.invoice_number,
+            p.invoice_date,
+            s.name_supplier,
+            s.phone_supplier,
+            s.email_supplier,
+            s.tax_identifier,
+            CONCAT(pr.name_product, ' ', pr.description) AS product_description,
+            p.qty AS quantity          
+        FROM purchases p
+        JOIN suppliers s ON p.id_supplier = s.id_supplier
+        JOIN products pr ON p.id_product = pr.id_product
+        WHERE p.invoice_number = :invoice_number
+    ");
+    
+    // Vincular el parámetro
+    $query->bindParam(':invoice_number', $invoice_number, PDO::PARAM_STR);
+    $query->execute();
+    
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+function get_filtered_sales($dateFrom, $dateTo, $saleNumberFrom, $saleNumberTo, $customerName) {
+    try {
+        $bd = database();
+        $query = "
+            SELECT s.sales_number, c.customer_name, MAX(m.date_sales) AS sale_date 
+            FROM sales s
+            JOIN customers c ON s.id_customer = c.id_customer
+            JOIN motions m ON m.id_sales = s.sales_number
+            WHERE 1=1
+        ";
+
+        if ($dateFrom) {
+            $query .= " AND m.date_sales >= :date_from"; // Asegúrate de usar el campo correcto de la tabla motions
+        }
+        if ($dateTo) {
+            $query .= " AND m.date_sales <= :date_to"; // Asegúrate de usar el campo correcto de la tabla motions
+        }
+        if ($saleNumberFrom) {
+            $query .= " AND s.sales_number >= :sale_number_from";
+        }
+        if ($saleNumberTo) {
+            $query .= " AND s.sales_number <= :sale_number_to";
+        }
+        if ($customerName) {
+            $query .= " AND c.customer_name LIKE :customer_name";
+        }
+
+        // Añade la cláusula GROUP BY
+        $query .= " GROUP BY s.sales_number, c.customer_name"; // Agrupamos por sales_number y customer_name
+
+        $stmt = $bd->prepare($query);
+
+        if ($dateFrom) $stmt->bindParam(':date_from', $dateFrom);
+        if ($dateTo) $stmt->bindParam(':date_to', $dateTo);
+        if ($saleNumberFrom) $stmt->bindParam(':sale_number_from', $saleNumberFrom);
+        if ($saleNumberTo) $stmt->bindParam(':sale_number_to', $saleNumberTo);
+        if ($customerName) $stmt->bindValue(':customer_name', "%$customerName%");
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error en la consulta de ventas: " . $e->getMessage());
+        return null;
+    }
 }
