@@ -4,18 +4,18 @@ services:
     build: Dockerfiles/php-apache/
     env_file:
       - .env
-    volumes: 
+    volumes:
       - ./www/:/var/www/html
     ports:
       - ${PHP_PORT_AGENCIAUNO}:80
-    container_name: Agenciauno1
+    container_name: Agenciauno2
     restart: always
-    networks: 
+    networks:
       - network1
     environment:
       - PHP_IP_ADDRESS=${PHP_IP_ADDRESS}
 
-networks: 
-  network1: 
-    external: 
+networks:
+  network1:
+    external:
       name: ${RED_NOW}
