@@ -424,25 +424,24 @@ function getSuppliers($id_supplier)
     return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
-function insert_products($number_product, $name_product, $description, $id_brand, $id_category)
+function insert_product($number_product, $name_product, $description, $id_brand, $id_category, $warranty_period)
 {
-    $bd = database();
-    $query = "INSERT INTO products (number_product,name_product, description, id_status, id_brand ,id_category) VALUES (:number_product,:name_product, :description, 1, :id_brand, :id_category)";
-
-    $consulta = $bd->prepare($query);
-
-    $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
-    $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
-    $consulta->bindParam(':description', $description, PDO::PARAM_STR);
-    $consulta->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
-    $consulta->bindParam(':id_category', $id_category, PDO::PARAM_INT);
-
     try {
-        if ($consulta->execute()) {
-            return true; // Devuelve verdadero si la inserción fue exitosa
-        }
+        $bd = database();
+        $query = "INSERT INTO products (number_product, name_product, description, id_brand, id_category, id_status, stock, warranty_period) 
+                  VALUES (:number_product, :name_product, :description, :id_brand, :id_category, 1, 0,:warranty_period)";
+
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':number_product', $number_product, PDO::PARAM_STR);
+        $statement->bindParam(':name_product', $name_product, PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, PDO::PARAM_STR);
+        $statement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+        $statement->bindParam(':id_category', $id_category, PDO::PARAM_INT);        
+        $statement->bindParam(':warranty_period', $warranty_period, PDO::PARAM_INT);
+
+        return $statement->execute();
     } catch (PDOException $e) {
-        echo "Error en la inserción: " . $e->getMessage();
+        echo "Error al insertar el producto: " . $e->getMessage();
         return false;
     }
 }
@@ -521,40 +520,38 @@ function getproducts($id_product)
 {
     try {
         $bd = database();
-        $query = "SELECT * FROM products WHERE id_product = :id_product and id_status=1";
+        $query = "SELECT * FROM products WHERE id_product = :id_product AND id_status = 1";
         $statement = $bd->prepare($query);
         $statement->bindParam(':id_product', $id_product, PDO::PARAM_INT);
         $statement->execute();
 
         return $statement->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        echo "Error al obtener el proveedor: " . $e->getMessage();
+        echo "Error al obtener el producto: " . $e->getMessage();
         return null;
     }
 }
-function update_products($number_product, $id_product, $name_product, $description)
+function update_products($number_product, $id_product, $name_product, $description, $warranty_period)
 {
     try {
         $bd = database();
         $query = "UPDATE products SET
-        
-        number_product = :number_product,
-        name_product = :name_product, 
-        description = :description
-        WHERE id_product = :id_product";
+            number_product = :number_product,
+            name_product = :name_product,
+            description = :description,            
+            warranty_period = :warranty_period
+            WHERE id_product = :id_product";
 
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
-
         $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
         $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
-        $consulta->bindParam(':description', $description, PDO::PARAM_STR);
+        $consulta->bindParam(':description', $description, PDO::PARAM_STR);        
+        $consulta->bindParam(':warranty_period', $warranty_period, PDO::PARAM_INT);
 
-        $result = $consulta->execute();
-
-        return $result;
+        return $consulta->execute();
     } catch (PDOException $e) {
-        echo "Error al actualizar el proveedor: " . $e->getMessage();
+        echo "Error al actualizar el producto: " . $e->getMessage();
         return false;
     }
 }
