@@ -94,6 +94,21 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             </a>
                         </li>
                     </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/views/purchase_list.php" class="nav-link">
+                                <i class="fa fa-truck nav-icon"></i>
+
+                                <p>Compras Nuevo</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/views/sales_list.php" class="nav-link">
+                                <i class="fa fa-address-card nav-icon"></i>
+                                <p>Ventas Nuevo</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
