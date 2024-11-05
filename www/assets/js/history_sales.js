@@ -1,28 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializa DataTable en #salesTable con opciones personalizadas
-    initDataTable();
-
-    // Añade el evento de submit para el formulario de filtros
+document.addEventListener('DOMContentLoaded', function() {    
+    initDataTable();    
     document.getElementById('filterForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        aplicarFiltros(); // Llama a la función para aplicar los filtros
-    });
-
-    // Evento de autocompletar y validación de fechas al perder el foco
+        aplicarFiltros(); 
+    });    
     document.getElementById('date_from').addEventListener('input', function(event) {
         autoCompletarFecha(event.target);
     });
-    document.getElementById('date_from').addEventListener('blur', validarFechaRango); // Validación al perder el foco
+    document.getElementById('date_from').addEventListener('blur', validarFechaRango);
 
     document.getElementById('date_to').addEventListener('input', function(event) {
         autoCompletarFecha(event.target);
     });
-    document.getElementById('date_to').addEventListener('blur', validarFechaRango); // Validación al perder el foco
+    document.getElementById('date_to').addEventListener('blur', validarFechaRango); 
+    
+    document.getElementById('sale_number_from').addEventListener('blur', validarNumeroVenta); 
 
-    // Eventos de validación para los números de venta
-    document.getElementById('sale_number_from').addEventListener('blur', validarNumeroVenta); // Validación al perder el foco
-
-    document.getElementById('sale_number_to').addEventListener('blur', validarNumeroVenta); // Validación al perder el foco
+    document.getElementById('sale_number_to').addEventListener('blur', validarNumeroVenta); 
 });
 function limpiarFiltros() {
     Swal.fire({
@@ -34,47 +28,42 @@ function limpiarFiltros() {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sí, limpiar filtros'
     }).then((result) => {
-        if (result.isConfirmed) {
-            // Redirigir a la página de ventas
-            window.location.href = 'sales_list.php'; // Cambia esta URL si es necesario
+        if (result.isConfirmed) {            
+            window.location.href = 'sales_list.php';
         }
     });
 }
 
-// Función para inicializar DataTable
 function initDataTable() {
     $('#salesTable').DataTable({
         paging: true,
-        searching: false, // Deshabilita búsqueda global de DataTables para manejarla manualmente
+        searching: false, 
         ordering: true,
         info: true,
         responsive: true,
-        destroy: true, // Permite recrear la tabla después de aplicar filtros
+        destroy: true, 
         language: {
             url: "../assets/dist/js/es-ES.json"
         },
-        order: [[0, 'desc']] // Ordenar por la primera columna (número de venta) en orden descendente
+        order: [[0, 'desc']]
     });
 }
-
-// Convierte una fecha en formato `YYYY-MM-DD` a `DD-MM-YYYY`
 function convertirFechaADiaMesAnio(fecha) {
     const [year, month, day] = fecha.split('-');
     return `${day}-${month}-${year}`;
 }
 
-// Convierte una fecha en formato `DD-MM-YYYY` a `YYYY-MM-DD`
 function convertirFechaAAnioMesDia(fecha) {
     const [day, month, year] = fecha.split('-');
     return `${year}-${month}-${day}`;
 }
 
-// Verifica si la fecha tiene el formato correcto
+
 function esFechaValida(fecha) {
     return /^\d{2}-\d{2}-\d{4}$/.test(fecha);
 }
 
-// Función para aplicar filtros
+
 function aplicarFiltros() {
     const dateFrom = document.getElementById('date_from').value;
     const dateTo = document.getElementById('date_to').value;
@@ -82,7 +71,6 @@ function aplicarFiltros() {
     const saleNumberTo = document.getElementById('sale_number_to').value;
     const customerName = document.getElementById('customer_name').value;
 
-    // Verificar si ningún filtro está aplicado
     if (!dateFrom && !dateTo && !saleNumberFrom && !saleNumberTo && !customerName) {
         Swal.fire({
             title: 'Sin filtros aplicados',
@@ -91,9 +79,7 @@ function aplicarFiltros() {
             confirmButtonText: 'Aceptar'
         });
         return;
-    }
-
-    // Validación del formato de fechas
+    }    
     if (dateFrom && !esFechaValida(dateFrom)) {
         Swal.fire("Formato incorrecto", "Por favor ingrese la fecha desde en el formato DD-MM-YYYY.", "error");
         return;
@@ -101,9 +87,8 @@ function aplicarFiltros() {
     if (dateTo && !esFechaValida(dateTo)) {
         Swal.fire("Formato incorrecto", "Por favor ingrese la fecha hasta en el formato DD-MM-YYYY.", "error");
         return;
-    }
+    }   
     
-    // Verificar que `date_to` no sea anterior a `date_from`
     if (dateFrom && dateTo) {
         const dateFromObj = new Date(convertirFechaAAnioMesDia(dateFrom));
         const dateToObj = new Date(convertirFechaAAnioMesDia(dateTo));
@@ -116,9 +101,7 @@ function aplicarFiltros() {
             });
             return;
         }
-    }
-
-    // Validación de números de venta
+    }    
     if (saleNumberFrom && saleNumberTo && parseInt(saleNumberTo) < parseInt(saleNumberFrom)) {
         Swal.fire({
             title: 'Rango de número de venta inválido',
@@ -127,9 +110,7 @@ function aplicarFiltros() {
             confirmButtonText: 'Aceptar'
         });
         return;
-    }
-
-    // Preparar los filtros para enviar
+    }    
     const filters = {
         date_from: dateFrom ? convertirFechaAAnioMesDia(dateFrom) : '',
         date_to: dateTo ? convertirFechaAAnioMesDia(dateTo) : '',
@@ -139,7 +120,6 @@ function aplicarFiltros() {
     };
     console.log("Filtros enviados:", filters);
 
-    // Enviar la solicitud al backend
     fetch('../controller/filter_sales.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -171,14 +151,11 @@ function aplicarFiltros() {
     });
 }
 
-// Función para actualizar la tabla de ventas después de aplicar filtros
 function actualizarTabla(sales) {
-    const salesTable = $('#salesTable').DataTable(); // Accedemos a la instancia de DataTable directamente
-
-    // Limpiamos la tabla
+    const salesTable = $('#salesTable').DataTable(); 
+    
     salesTable.clear().draw();
-
-    // Si hay ventas, las agregamos a la tabla
+    
     if (sales && sales.length > 0) {
         sales.forEach(sale => {
             salesTable.row.add([
@@ -192,8 +169,7 @@ function actualizarTabla(sales) {
                     onclick="validarYImprimir('${sale.sales_number}');" title="Imprimir venta"></i>`
             ]).draw(false);
         });
-    } else {
-        // Mensaje si no hay resultados
+    } else {        
         salesTable.row.add([
             '<td colspan="1" class="text-center">No se encontraron ventas.</td>',
             '<td colspan="1" class="text-center"></td>',
@@ -203,7 +179,7 @@ function actualizarTabla(sales) {
     }
 }
 
-// Función para confirmar y procesar la impresión de una venta específica
+
 function validarYImprimir(sales_number) {
     Swal.fire({
         title: '¿Estás seguro de que deseas imprimir esta venta?',
@@ -247,7 +223,6 @@ function validarYImprimir(sales_number) {
     });
 }
 
-// Función para confirmar la exportación de datos
 function confirmarExportacion(tipo) {
     Swal.fire({
         title: `¿Deseas exportar los datos a ${tipo}?`,
@@ -259,19 +234,16 @@ function confirmarExportacion(tipo) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = `../controller/export_sales.php?export_type=${tipo}`;
+            window.location.href = `../controller/exportar.php?type=${tipo}`;
         }
     });
 }
 
-// Completa automáticamente el formato de fecha
 function autoCompletarFecha(input) {
     if (input.value.length === 2 || input.value.length === 5) {
         input.value += '-';
     }
 }
-
-// Función para validar el rango de fechas al perder el foco
 function validarFechaRango() {
     const dateFrom = document.getElementById('date_from').value;
     const dateTo = document.getElementById('date_to').value;
@@ -285,7 +257,7 @@ function validarFechaRango() {
         }
     }
 }
-// Función para validar el rango numérico de ventas al perder el foco
+
 function validarNumeroVenta() {
     const saleNumberFrom = document.getElementById('sale_number_from').value;
     const saleNumberTo = document.getElementById('sale_number_to').value;

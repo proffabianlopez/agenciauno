@@ -1448,3 +1448,43 @@ function get_filtered_sales($dateFrom, $dateTo, $saleNumberFrom, $saleNumberTo, 
         return null;
     }
 }
+function get_filtered_purchases($dateFrom, $dateTo, $remitoNumber, $invoiceNumber, $supplierName) {
+    try {
+        $bd = database();
+        $query = "
+            SELECT 
+                p.invoice_number, 
+                s.name_supplier, 
+                p.invoice_date, 
+                p.remito_number, 
+                MAX(p.remito_date) AS remito_date
+            FROM purchases p
+            JOIN suppliers s ON p.id_supplier = s.id_supplier
+            WHERE 1=1
+        ";
+
+        if ($dateFrom) $query .= " AND p.invoice_date >= :date_from";
+        if ($dateTo) $query .= " AND p.invoice_date <= :date_to";
+        if ($remitoNumber) $query .= " AND p.remito_number = :remito_number";
+        if ($invoiceNumber) $query .= " AND p.invoice_number = :invoice_number";
+        if ($supplierName) $query .= " AND s.name_supplier LIKE :supplier_name";
+
+        // Agrupamos por número de remito, invoice_number, y name_supplier
+        $query .= " GROUP BY p.invoice_number, s.name_supplier, p.invoice_date, p.remito_number 
+LIMIT 0, 25;";
+
+        $stmt = $bd->prepare($query);
+
+        if ($dateFrom) $stmt->bindParam(':date_from', $dateFrom);
+        if ($dateTo) $stmt->bindParam(':date_to', $dateTo);
+        if ($remitoNumber) $stmt->bindParam(':remito_number', $remitoNumber);
+        if ($invoiceNumber) $stmt->bindParam(':invoice_number', $invoiceNumber);
+        if ($supplierName) $stmt->bindValue(':supplier_name', "%$supplierName%");
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error en la consulta de compras: " . $e->getMessage());
+        return null;
+    }
+}
