@@ -178,8 +178,36 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             </a>
                             <?php }
                             } ?>
-                        </li>        
+                        </li>     
+                        <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-cubes"></i>
+                        <p>Impresoras
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                            <a href="/views/crud_printer.php" class="nav-link">
+                                <i class="fa fa-truck nav-icon"></i>
+                                <p>Cargar Impresoras</p>
+                            </a>
+                        </li> 
+                        <li class="nav-item">
+                            <a href="/views/printer.php" class="nav-link">
+                                <i class="fa fa-address-card nav-icon"></i>
+                                <p>Gestion Alquiler</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/views/history_printer.php" class="nav-link">
+                                <i class="fa fa-truck nav-icon"></i>
+                                <p>Historico de alquiler</p>
+                            </a>
+                        </li> 
             </ul>
+
+          
         </nav>
         <br><br>
         <!-- Make the "Cerrar Sesión" link fixed at the bottom -->
