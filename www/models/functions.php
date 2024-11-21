@@ -1349,3 +1349,17 @@ function obtenerDatosGraficos()
         ];
     }
 }
+function obtenerImpresoras()
+{
+    $bd = database();
+    $sentence = $bd->query("SELECT id_printer, detail, date, count, id, id_brand, id_status FROM printers  WHERE id_status=1");
+    return $sentence->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function insert_printer($serial_number, $model, $brand, $count, $status, $acquisition_date, $observations) {
+    $bd= database();
+    $query = 
+    
+    $sentence = $bd->query ("INSERT INTO printers (serial_number, model, brand, count , status, acquisition_date, observations");
+    return $sentence->fetchAll(PDO::FETCH_ASSOC);
+}
