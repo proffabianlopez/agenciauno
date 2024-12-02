@@ -18,6 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+     // Alternar íconos en botones de colapso
+     document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(button => {
+        button.addEventListener('click', function () {
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+    });
 });
 
 function initDataTable() {
@@ -90,7 +98,8 @@ function limpiarFiltros() {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, limpiar filtros'
+        confirmButtonText: 'Sí, limpiar filtros',
+        cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {            
             window.location.href = 'purchase_list.php';
@@ -199,7 +208,7 @@ function confirmarExportacion(tipo) {
                 'success'
             );
 
-            window.location.href = `../controller/exportar.php?tipo=${tipo}`;
+            window.location.href = `../controller/exportar_purchase.php?tipo=${tipo}`;
         }
     });
-}
+}as

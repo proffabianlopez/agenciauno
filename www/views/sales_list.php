@@ -42,45 +42,55 @@ $sales = get_sales_history();
                     <div class="card mb-4">
                         <div
                             class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
-                            <h5 class="mb-0">Filtros de Búsqueda</h5>
+                            <div class="d-flex align-items-center">
+                                <h5 class="mb-0 me-2">Filtros de Búsqueda</h5>
+                                <!-- Botón para colapsar/expandir cerca del título -->
+                                <button class="btn btn-light btn-sm" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#filterCardBody" aria-expanded="false"
+                                    aria-controls="filterCardBody">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                            <!-- Botón Limpiar Filtros -->
                             <button class="btn btn-light btn-sm" onclick="limpiarFiltros()">Limpiar Filtros</button>
                         </div>
-                        <div class="card-body">
-                            <form id="filterForm">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label for="date_from">Fecha desde:</label>
-                                        <input type="text" id="date_from" name="date_from" class="form-control"
-                                            placeholder="DD-MM-YYYY" maxlength="10">
+                        <!-- Contenido del Card con colapso -->
+                        <div id="filterCardBody" class="collapse">
+                            <div class="card-body">
+                                <form id="filterForm">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="date_from">Fecha desde:</label>
+                                            <input type="text" id="date_from" name="date_from" class="form-control"
+                                                placeholder="DD-MM-YYYY" maxlength="10">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="date_to">Fecha hasta:</label>
+                                            <input type="text" id="date_to" name="date_to" class="form-control"
+                                                placeholder="DD-MM-YYYY" maxlength="10">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="sale_number_from">Número de Venta desde:</label>
+                                            <input type="text" id="sale_number_from" name="sale_number_from"
+                                                class="form-control" placeholder="Número de venta">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="sale_number_to">Número de Venta hasta:</label>
+                                            <input type="text" id="sale_number_to" name="sale_number_to"
+                                                class="form-control" placeholder="Número de venta">
+                                        </div>
+                                        <div class="col-md-4 mt-3">
+                                            <label for="customer_name">Cliente:</label>
+                                            <input type="text" id="customer_name" name="customer_name"
+                                                class="form-control" placeholder="Nombre del cliente">
+                                        </div>
+                                        <div class="col-md-4 mt-3">
+                                            <button type="button" onclick="aplicarFiltros()"
+                                                class="btn btn-primary mt-4">Aplicar Filtros</button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="date_to">Fecha hasta:</label>
-                                        <input type="text" id="date_to" name="date_to" class="form-control"
-                                            placeholder="DD-MM-YYYY" maxlength="10">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="sale_number_from">Número de Venta desde:</label>
-                                        <input type="text" id="sale_number_from" name="sale_number_from"
-                                            class="form-control" placeholder="Número de venta">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="sale_number_to">Número de Venta hasta:</label>
-                                        <input type="text" id="sale_number_to" name="sale_number_to"
-                                            class="form-control" placeholder="Número de venta">
-                                    </div>
-
-                                    <div class="col-md-4 mt-3">
-                                        <label for="customer_name">Cliente:</label>
-                                        <input type="text" id="customer_name" name="customer_name" class="form-control"
-                                            placeholder="Nombre del cliente">
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <button type="button" onclick="aplicarFiltros()"
-                                            class="btn btn-primary mt-4">Aplicar Filtros</button>
-                                    </div>
-                                </div>
-                            </form>
-
+                                </form>
+                            </div>
                         </div>
                     </div>
 

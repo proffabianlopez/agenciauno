@@ -3,9 +3,12 @@ session_start();
 include_once "../models/functions.php";
 $error_message = isset($_SESSION["error_message"]) ? $_SESSION["error_message"] : "";
 unset($_SESSION["error_message"]);
+$guarantees = get_warranty_history();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +19,7 @@ unset($_SESSION["error_message"]);
     <!-- SweetAlert -->
     <script src="../assets/js/sweetalert2@11.js"></script>
 </head>
+
 <body class="sidebar-mini" style="height: auto;">
     <div class="wrapper">
         <!-- HEADER -->
@@ -25,42 +29,41 @@ unset($_SESSION["error_message"]);
         <!-- Contenido Principal -->
         <div class="content-wrapper">
             <div class="container-fluid" style="padding:50px;">
-                <div class="card" style="margin-top:5px">
-                    <div class="card-header">
-                        <h4>Búsqueda de Garantía</h4>
+                <div class="card mt-4 shadow-lg border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="fas fa-search"></i> Buscar Información de Garantía</h4>
                     </div>
-                </div>
-                <div class="card">
                     <div class="card-body">
                         <form id="warranty-form">
-                            <div class="form-group">
-                                <label for="serial_number">Número de Serie del Producto</label>
-                                <input type="text" name="serial_number" id="serial_number" class="form-control" placeholder="Ingrese el número de serie" required>
+                            <div class="form-group mb-3">
+                                <label for="serial_number" class="form-label">Número de Serie del Producto</label>
+                                <input type="text" name="serial_number" id="serial_number" class="form-control"
+                                    placeholder="Ingrese el número de serie" required>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Buscar Garantía</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success"><i class="fas fa-search"></i> Buscar
+                                    Garantía</button>
+                            </div>
                         </form>
-
-                        <?php if ($error_message): ?>
-                            <div class="alert alert-danger mt-3">
-                                <i class="fas fa-exclamation-triangle"></i> 
-                                <?php echo htmlspecialchars($error_message); ?>
-                            </div>
-                        <?php endif; ?>
-
-                        <div id="result"></div> <!-- Contenedor para mostrar resultados -->
-
                     </div>
                 </div>
+                <div id="result" class="mt-4"></div> <!-- Contenedor para mostrar resultados -->
+
+
             </div>
         </div>
-        <!-- FOOTER -->
-        <?php include "footer.php" ?>
+    <!-- FOOTER -->
+    <?php include "footer.php" ?>   
     </div>
-    <!-- Incluir jQuery una sola vez -->
+     
     <script src="../assets/plugins/jquery/jquery-3.6.0.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle5.3.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>     
+    <script src="../assets/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/dataTables.bootstrap5.min.js"></script>
+    <script src="../assets/plugins/select2/js/select2.min.js"></script>
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <script src="../assets/js/warranty.js"></script>
-   
+
 </body>
+
 </html>

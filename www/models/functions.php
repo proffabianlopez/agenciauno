@@ -1265,6 +1265,7 @@ function get_product_details_by_sale($sale_number)
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function get_warranty_by_serial_number($serial_number)
 {
     $bd = database();
@@ -1272,12 +1273,14 @@ function get_warranty_by_serial_number($serial_number)
         SELECT 
             p.name_product, 
             p.description, 
+            p.warranty_period,
             sn.created_at, 
             s.name_supplier, 
             d.dispatch_date, 
             c.customer_name,
             sn.sales_number,
-            sn.remito_number
+            sn.remito_number,
+            sn.serial_number
         FROM serial_numbers sn
         JOIN products p ON sn.id_product = p.id_product
         JOIN suppliers s ON sn.id_supplier = s.id_supplier
@@ -1287,6 +1290,57 @@ function get_warranty_by_serial_number($serial_number)
     ");
     $query->bindParam(':serial_number', $serial_number);
     $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function get_warranty_by_serial_numbers($serial_number) {
+    $bd = database();     
+    $sql = "
+        SELECT 
+            wm.id AS guarantee_id,
+            wm.serial_number,
+            wm.technician_comments,
+            wm.status,
+            wm.review_date,            
+            s.name_supplier,
+            p.name_product
+        FROM warranty_managements wm
+        LEFT JOIN serial_numbers sn ON wm.serial_number = sn.serial_number
+        LEFT JOIN suppliers s ON sn.id_supplier = s.id_supplier
+        LEFT JOIN products p ON sn.id_product = p.id_product
+        WHERE wm.serial_number = :serial_number
+        ORDER BY wm.review_date DESC
+        LIMIT 1
+    ";
+
+    $query = $bd->prepare($sql);
+    $query->bindValue(':serial_number', $serial_number, PDO::PARAM_STR); // Bindeo del parámetro serial_number como string
+    $query->execute();
+
+    return $query->fetch(PDO::FETCH_ASSOC); // Devuelve un solo resultado como array asociativo
+}
+function get_warranty_by_id($id) {
+    $bd = database();
+    $sql = "
+        SELECT 
+            wm.id AS guarantee_id,
+            wm.serial_number,
+            wm.technician_comments,
+            wm.status,
+            wm.review_date,            
+            s.name_supplier,
+            p.name_product
+        FROM warranty_managements wm
+        LEFT JOIN serial_numbers sn ON wm.serial_number = sn.serial_number
+        LEFT JOIN suppliers s ON sn.id_supplier = s.id_supplier
+        LEFT JOIN products p ON sn.id_product = p.id_product
+        WHERE wm.id = :id
+    ";
+
+    $query = $bd->prepare($sql);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 // Verificar si un número de serie está disponible para un producto
@@ -1484,4 +1538,76 @@ LIMIT 0, 25;";
         error_log("Error en la consulta de compras: " . $e->getMessage());
         return null;
     }
+}
+function save_warranty_management($serial_number, $status, $technician_comments, $review_date) {
+    $bd = database();
+    $query = $bd->prepare("
+        INSERT INTO warranty_managements (serial_number, status, technician_comments, review_date)
+        VALUES (:serial_number, :status, :technician_comments, :review_date)
+    ");
+    $query->bindParam(':serial_number', $serial_number);
+    $query->bindParam(':status', $status);
+    $query->bindParam(':technician_comments', $technician_comments);
+    $query->bindParam(':review_date', $review_date);
+    return $query->execute();
+}
+function get_warranty_history() {
+    $bd = database();    
+    $sql = "
+        SELECT 
+            wm.id AS guarantee_id,
+            wm.serial_number,
+            wm.technician_comments,
+            wm.status,
+            wm.review_date,            
+            s.name_supplier
+        FROM warranty_managements wm
+        LEFT JOIN serial_numbers sn ON wm.serial_number = sn.serial_number
+        LEFT JOIN suppliers s ON sn.id_supplier = s.id_supplier        
+        WHERE 1=1
+    ";
+
+    // Parámetros dinámicos
+    $params = [];
+    // Filtros dinámicos
+    if ($date_from) {
+        $sql .= " AND wm.review_date >= :date_from";
+        $params[':date_from'] = $date_from;
+    }
+    if ($date_to) {
+        $sql .= " AND wm.review_date <= :date_to";
+        $params[':date_to'] = $date_to;
+    }
+    if ($guarantee_id) {
+        $sql .= " AND wm.id_warranty = :guarantee_id";
+        $params[':guarantee_id'] = $guarantee_id;
+    }
+    if ($serial_number) {
+        $sql .= " AND wm.serial_number = :serial_number";
+        $params[':serial_number'] = $serial_number;
+    }
+    if ($technical_comments) {
+        $sql .= " AND wm.technician_comments LIKE :technical_comments";
+        $params[':technical_comments'] = '%' . $technical_comments . '%';
+    }
+    if ($supplier_name) {
+        $sql .= " AND s.name_supplier LIKE :supplier_name";
+        $params[':supplier_name'] = '%' . $supplier_name . '%';
+    }
+    if ($status) {
+        $sql .= " AND wm.status = :status";
+        $params[':status'] = $status;
+    }
+    // Ordenar por fecha de revisión
+    $sql .= " ORDER BY wm.review_date DESC";
+
+    // Preparar y ejecutar la consulta
+    $query = $bd->prepare($sql);
+    foreach ($params as $key => $value) {
+        $query->bindValue($key, $value);
+    }
+    $query->execute();
+
+    // Retornar los resultados
+    return $query->fetchAll(PDO::FETCH_ASSOC);
 }
