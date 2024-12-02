@@ -6,7 +6,7 @@ if (!isset($_SESSION["id_rol"]) || ($_SESSION["id_rol"] != 1 && $_SESSION["id_ro
     header("Location: login.php");
     exit();
 }
-
+$show=show_state("suppliers");
 $purchases = get_purchase_history();
 
 ?>
@@ -39,46 +39,61 @@ $purchases = get_purchase_history();
                         <h4 class="mb-0"><b>Histórico de Compras</b></h4>
                     </div>
                     <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
-                            <h5 class="mb-0">Filtros de Búsqueda de Compras</h5>
+                        <div
+                            class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
+                            <div class="d-flex align-items-center">
+                                <h5 class="mb-0 me-2">Filtros de Búsqueda de Compras</h5>
+                                <!-- Botón para colapsar/expandir cerca del título -->
+                                <button class="btn btn-light btn-sm" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#filterCardBody" aria-expanded="false"
+                                    aria-controls="filterCardBody">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                            <!-- Botón Limpiar Filtros -->
                             <button class="btn btn-light btn-sm" onclick="limpiarFiltros()">Limpiar Filtros</button>
                         </div>
-                        <div class="card-body">
-                            <form id="filterForm">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label for="date_from">Fecha desde:</label>
-                                        <input type="text" id="date_from" name="date_from" class="form-control"
-                                            placeholder="DD-MM-YYYY" maxlength="10">
+                        <!-- Contenido del Card con colapso -->
+                        <div id="filterCardBody" class="collapse">
+                            <div class="card-body">
+                                <form id="filterForm">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="date_from">Fecha desde:</label>
+                                            <input type="text" id="date_from" name="date_from" class="form-control"
+                                                placeholder="DD-MM-YYYY" maxlength="10">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="date_to">Fecha hasta:</label>
+                                            <input type="text" id="date_to" name="date_to" class="form-control"
+                                                placeholder="DD-MM-YYYY" maxlength="10">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="remito_number">Número de Remito:</label>
+                                            <input type="text" id="remito_number" name="remito_number"
+                                                class="form-control" placeholder="Número de remito">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="invoice_number">Número de Factura:</label>
+                                            <input type="text" id="invoice_number" name="invoice_number"
+                                                class="form-control" placeholder="Número de factura">
+                                        </div>
+                                        <div class="col-md-4 mt-3">
+                                            <label for="supplier_name">Proveedor:</label>
+                                            <input type="text" id="supplier_name" name="supplier_name"
+                                                class="form-control" placeholder="Nombre del proveedor">
+                                        </div>
+                                        
+                                        <div class="col-md-4 mt-3">
+                                            <button type="button" onclick="aplicarFiltros()"
+                                                class="btn btn-primary mt-4">Aplicar Filtros</button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="date_to">Fecha hasta:</label>
-                                        <input type="text" id="date_to" name="date_to" class="form-control"
-                                            placeholder="DD-MM-YYYY" maxlength="10">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="remito_number">Número de Remito:</label>
-                                        <input type="text" id="remito_number" name="remito_number" class="form-control"
-                                            placeholder="Número de remito">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="invoice_number">Número de Factura:</label>
-                                        <input type="text" id="invoice_number" name="invoice_number"
-                                            class="form-control" placeholder="Número de factura">
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="supplier_name">Proveedor:</label>
-                                        <input type="text" id="supplier_name" name="supplier_name" class="form-control"
-                                            placeholder="Nombre del proveedor">
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <button type="button" onclick="aplicarFiltros()"
-                                            class="btn btn-primary mt-4">Aplicar Filtros</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="purchaseTable" class="table table-striped table-hover">

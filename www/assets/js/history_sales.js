@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {    
     initDataTable();    
+    
+    // Manejo del formulario de filtros
     document.getElementById('filterForm').addEventListener('submit', function(event) {
         event.preventDefault();
         aplicarFiltros(); 
     });    
+
+    // Eventos para fechas
     document.getElementById('date_from').addEventListener('input', function(event) {
         autoCompletarFecha(event.target);
     });
@@ -14,10 +18,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('date_to').addEventListener('blur', validarFechaRango); 
     
+    // Eventos para números de venta
     document.getElementById('sale_number_from').addEventListener('blur', validarNumeroVenta); 
-
     document.getElementById('sale_number_to').addEventListener('blur', validarNumeroVenta); 
+    
+    // Alternar íconos en botones de colapso
+    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(button => {
+        button.addEventListener('click', function () {
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+    });
 });
+
 function limpiarFiltros() {
     Swal.fire({
         title: '¿Deseas limpiar todos los filtros?',
@@ -234,7 +248,13 @@ function confirmarExportacion(tipo) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = `../controller/exportar.php?type=${tipo}`;
+            Swal.fire(
+                '¡Exportación en progreso!',
+                `Exportando a ${tipo}...`,
+                'success'
+            );
+
+            window.location.href = `../controller/exportar.php?tipo=${tipo}`;
         }
     });
 }
