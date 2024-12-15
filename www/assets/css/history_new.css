@@ -1,0 +1,29 @@
+
+    .btn-shadow:active {
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Estilo del enlace de número de venta */
+    .venta-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .venta-link i {
+        color: #6c757d;
+        font-size: 0.9em;
+    }
+
+    .venta-link:hover {
+        color: #0056b3;
+        transform: scale(1.05);
+        /* Efecto de zoom leve */
+        text-decoration: underline;
+    }
+
+    .venta-link:hover i {
+        color: #007bff;
+        /* Cambia el color del ícono al hacer hover */
+    }

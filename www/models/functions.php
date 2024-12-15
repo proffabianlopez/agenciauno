@@ -424,25 +424,24 @@ function getSuppliers($id_supplier)
     return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
-function insert_products($number_product, $name_product, $description, $id_brand, $id_category)
+function insert_product($number_product, $name_product, $description, $id_brand, $id_category, $warranty_period)
 {
-    $bd = database();
-    $query = "INSERT INTO products (number_product,name_product, description, id_status, id_brand ,id_category) VALUES (:number_product,:name_product, :description, 1, :id_brand, :id_category)";
-
-    $consulta = $bd->prepare($query);
-
-    $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
-    $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
-    $consulta->bindParam(':description', $description, PDO::PARAM_STR);
-    $consulta->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
-    $consulta->bindParam(':id_category', $id_category, PDO::PARAM_INT);
-
     try {
-        if ($consulta->execute()) {
-            return true; // Devuelve verdadero si la inserción fue exitosa
-        }
+        $bd = database();
+        $query = "INSERT INTO products (number_product, name_product, description, id_brand, id_category, id_status, stock, warranty_period) 
+                  VALUES (:number_product, :name_product, :description, :id_brand, :id_category, 1, 0,:warranty_period)";
+
+        $statement = $bd->prepare($query);
+        $statement->bindParam(':number_product', $number_product, PDO::PARAM_STR);
+        $statement->bindParam(':name_product', $name_product, PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, PDO::PARAM_STR);
+        $statement->bindParam(':id_brand', $id_brand, PDO::PARAM_INT);
+        $statement->bindParam(':id_category', $id_category, PDO::PARAM_INT);        
+        $statement->bindParam(':warranty_period', $warranty_period, PDO::PARAM_INT);
+
+        return $statement->execute();
     } catch (PDOException $e) {
-        echo "Error en la inserción: " . $e->getMessage();
+        echo "Error al insertar el producto: " . $e->getMessage();
         return false;
     }
 }
@@ -521,40 +520,38 @@ function getproducts($id_product)
 {
     try {
         $bd = database();
-        $query = "SELECT * FROM products WHERE id_product = :id_product and id_status=1";
+        $query = "SELECT * FROM products WHERE id_product = :id_product AND id_status = 1";
         $statement = $bd->prepare($query);
         $statement->bindParam(':id_product', $id_product, PDO::PARAM_INT);
         $statement->execute();
 
         return $statement->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        echo "Error al obtener el proveedor: " . $e->getMessage();
+        echo "Error al obtener el producto: " . $e->getMessage();
         return null;
     }
 }
-function update_products($number_product, $id_product, $name_product, $description)
+function update_products($number_product, $id_product, $name_product, $description, $warranty_period)
 {
     try {
         $bd = database();
         $query = "UPDATE products SET
-        
-        number_product = :number_product,
-        name_product = :name_product, 
-        description = :description
-        WHERE id_product = :id_product";
+            number_product = :number_product,
+            name_product = :name_product,
+            description = :description,            
+            warranty_period = :warranty_period
+            WHERE id_product = :id_product";
 
         $consulta = $bd->prepare($query);
         $consulta->bindParam(':id_product', $id_product, PDO::PARAM_INT);
-
         $consulta->bindParam(':number_product', $number_product, PDO::PARAM_STR);
         $consulta->bindParam(':name_product', $name_product, PDO::PARAM_STR);
-        $consulta->bindParam(':description', $description, PDO::PARAM_STR);
+        $consulta->bindParam(':description', $description, PDO::PARAM_STR);        
+        $consulta->bindParam(':warranty_period', $warranty_period, PDO::PARAM_INT);
 
-        $result = $consulta->execute();
-
-        return $result;
+        return $consulta->execute();
     } catch (PDOException $e) {
-        echo "Error al actualizar el proveedor: " . $e->getMessage();
+        echo "Error al actualizar el producto: " . $e->getMessage();
         return false;
     }
 }
@@ -1205,7 +1202,8 @@ function get_purchase_history()
 SELECT 
     p.remito_number, 
     p.remito_date, 
-    p.invoice_number, 
+    p.invoice_number,
+    p.invoice_date,
     s.name_supplier, 
     SUM(p.qty) AS total_qty
 FROM purchases p
@@ -1214,9 +1212,9 @@ GROUP BY
     p.remito_number, 
     p.remito_date, 
     p.invoice_number, 
+    p.invoice_date,
     s.name_supplier
 ORDER BY p.remito_date DESC;
-
     ");
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -1267,6 +1265,7 @@ function get_product_details_by_sale($sale_number)
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function get_warranty_by_serial_number($serial_number)
 {
     $bd = database();
@@ -1274,12 +1273,14 @@ function get_warranty_by_serial_number($serial_number)
         SELECT 
             p.name_product, 
             p.description, 
+            p.warranty_period,
             sn.created_at, 
             s.name_supplier, 
             d.dispatch_date, 
             c.customer_name,
             sn.sales_number,
-            sn.remito_number
+            sn.remito_number,
+            sn.serial_number
         FROM serial_numbers sn
         JOIN products p ON sn.id_product = p.id_product
         JOIN suppliers s ON sn.id_supplier = s.id_supplier
@@ -1289,6 +1290,57 @@ function get_warranty_by_serial_number($serial_number)
     ");
     $query->bindParam(':serial_number', $serial_number);
     $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function get_warranty_by_serial_numbers($serial_number) {
+    $bd = database();     
+    $sql = "
+        SELECT 
+            wm.id AS guarantee_id,
+            wm.serial_number,
+            wm.technician_comments,
+            wm.status,
+            wm.review_date,            
+            s.name_supplier,
+            p.name_product
+        FROM warranty_managements wm
+        LEFT JOIN serial_numbers sn ON wm.serial_number = sn.serial_number
+        LEFT JOIN suppliers s ON sn.id_supplier = s.id_supplier
+        LEFT JOIN products p ON sn.id_product = p.id_product
+        WHERE wm.serial_number = :serial_number
+        ORDER BY wm.review_date DESC
+        LIMIT 1
+    ";
+
+    $query = $bd->prepare($sql);
+    $query->bindValue(':serial_number', $serial_number, PDO::PARAM_STR); // Bindeo del parámetro serial_number como string
+    $query->execute();
+
+    return $query->fetch(PDO::FETCH_ASSOC); // Devuelve un solo resultado como array asociativo
+}
+function get_warranty_by_id($id) {
+    $bd = database();
+    $sql = "
+        SELECT 
+            wm.id AS guarantee_id,
+            wm.serial_number,
+            wm.technician_comments,
+            wm.status,
+            wm.review_date,            
+            s.name_supplier,
+            p.name_product
+        FROM warranty_managements wm
+        LEFT JOIN serial_numbers sn ON wm.serial_number = sn.serial_number
+        LEFT JOIN suppliers s ON sn.id_supplier = s.id_supplier
+        LEFT JOIN products p ON sn.id_product = p.id_product
+        WHERE wm.id = :id
+    ";
+
+    $query = $bd->prepare($sql);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 // Verificar si un número de serie está disponible para un producto
@@ -1348,4 +1400,214 @@ function obtenerDatosGraficos()
             'error' => 'Error al obtener los datos gráficos: ' . $e->getMessage()
         ];
     }
+}
+function get_sales_details_by_number($sales_number)
+{
+    $bd = database();
+    $query = $bd->prepare("
+        SELECT 
+            sales.sales_number,
+            customers.customer_name,
+            customers.tax_identifier,   -- CUIT/CUIL del cliente
+            customers.email_customer,   -- Email del cliente
+            customers.phone_customer,   -- Teléfono del cliente
+            sales.id_customer,
+            products.name_product,
+            products.description,
+            sales.quantity,            
+            motions.date_sales
+        FROM sales
+        JOIN customers ON sales.id_customer = customers.id_customer
+        LEFT JOIN motions ON sales.id_sales = motions.id_sales
+        LEFT JOIN products ON sales.id_product = products.id_product
+        WHERE sales.sales_number = :sales_number       
+    ");
+    $query->bindParam(':sales_number', $sales_number, PDO::PARAM_INT);
+    $query->execute();
+    
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+function get_purchase_history_in($invoice_number)
+{
+    $bd = database();
+    $query = $bd->prepare("
+       SELECT 
+            p.remito_number,
+            p.remito_date,
+            p.invoice_number,
+            p.invoice_date,
+            s.name_supplier,
+            s.phone_supplier,
+            s.email_supplier,
+            s.tax_identifier,
+            CONCAT(pr.name_product, ' ', pr.description) AS product_description,
+            p.qty AS quantity          
+        FROM purchases p
+        JOIN suppliers s ON p.id_supplier = s.id_supplier
+        JOIN products pr ON p.id_product = pr.id_product
+        WHERE p.invoice_number = :invoice_number
+    ");
+    
+    // Vincular el parámetro
+    $query->bindParam(':invoice_number', $invoice_number, PDO::PARAM_STR);
+    $query->execute();
+    
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+function get_filtered_sales($dateFrom, $dateTo, $saleNumberFrom, $saleNumberTo, $customerName) {
+    try {
+        $bd = database();
+        $query = "
+            SELECT s.sales_number, c.customer_name, MAX(m.date_sales) AS sale_date 
+            FROM sales s
+            JOIN customers c ON s.id_customer = c.id_customer
+            JOIN motions m ON m.id_sales = s.sales_number
+            WHERE 1=1
+        ";
+
+        if ($dateFrom) {
+            $query .= " AND m.date_sales >= :date_from"; // Asegúrate de usar el campo correcto de la tabla motions
+        }
+        if ($dateTo) {
+            $query .= " AND m.date_sales <= :date_to"; // Asegúrate de usar el campo correcto de la tabla motions
+        }
+        if ($saleNumberFrom) {
+            $query .= " AND s.sales_number >= :sale_number_from";
+        }
+        if ($saleNumberTo) {
+            $query .= " AND s.sales_number <= :sale_number_to";
+        }
+        if ($customerName) {
+            $query .= " AND c.customer_name LIKE :customer_name";
+        }
+
+        // Añade la cláusula GROUP BY
+        $query .= " GROUP BY s.sales_number, c.customer_name"; // Agrupamos por sales_number y customer_name
+
+        $stmt = $bd->prepare($query);
+
+        if ($dateFrom) $stmt->bindParam(':date_from', $dateFrom);
+        if ($dateTo) $stmt->bindParam(':date_to', $dateTo);
+        if ($saleNumberFrom) $stmt->bindParam(':sale_number_from', $saleNumberFrom);
+        if ($saleNumberTo) $stmt->bindParam(':sale_number_to', $saleNumberTo);
+        if ($customerName) $stmt->bindValue(':customer_name', "%$customerName%");
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error en la consulta de ventas: " . $e->getMessage());
+        return null;
+    }
+}
+function get_filtered_purchases($dateFrom, $dateTo, $remitoNumber, $invoiceNumber, $supplierName) {
+    try {
+        $bd = database();
+        $query = "
+            SELECT 
+                p.invoice_number, 
+                s.name_supplier, 
+                p.invoice_date, 
+                p.remito_number, 
+                MAX(p.remito_date) AS remito_date
+            FROM purchases p
+            JOIN suppliers s ON p.id_supplier = s.id_supplier
+            WHERE 1=1
+        ";
+
+        if ($dateFrom) $query .= " AND p.invoice_date >= :date_from";
+        if ($dateTo) $query .= " AND p.invoice_date <= :date_to";
+        if ($remitoNumber) $query .= " AND p.remito_number = :remito_number";
+        if ($invoiceNumber) $query .= " AND p.invoice_number = :invoice_number";
+        if ($supplierName) $query .= " AND s.name_supplier LIKE :supplier_name";
+
+        // Agrupamos por número de remito, invoice_number, y name_supplier
+        $query .= " GROUP BY p.invoice_number, s.name_supplier, p.invoice_date, p.remito_number 
+LIMIT 0, 25;";
+
+        $stmt = $bd->prepare($query);
+
+        if ($dateFrom) $stmt->bindParam(':date_from', $dateFrom);
+        if ($dateTo) $stmt->bindParam(':date_to', $dateTo);
+        if ($remitoNumber) $stmt->bindParam(':remito_number', $remitoNumber);
+        if ($invoiceNumber) $stmt->bindParam(':invoice_number', $invoiceNumber);
+        if ($supplierName) $stmt->bindValue(':supplier_name', "%$supplierName%");
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error en la consulta de compras: " . $e->getMessage());
+        return null;
+    }
+}
+function save_warranty_management($serial_number, $status, $technician_comments, $review_date) {
+    $bd = database();
+    $query = $bd->prepare("
+        INSERT INTO warranty_managements (serial_number, status, technician_comments, review_date)
+        VALUES (:serial_number, :status, :technician_comments, :review_date)
+    ");
+    $query->bindParam(':serial_number', $serial_number);
+    $query->bindParam(':status', $status);
+    $query->bindParam(':technician_comments', $technician_comments);
+    $query->bindParam(':review_date', $review_date);
+    return $query->execute();
+}
+function get_warranty_history() {
+    $bd = database();    
+    $sql = "
+        SELECT 
+            wm.id AS guarantee_id,
+            wm.serial_number,
+            wm.technician_comments,
+            wm.status,
+            wm.review_date,            
+            s.name_supplier
+        FROM warranty_managements wm
+        LEFT JOIN serial_numbers sn ON wm.serial_number = sn.serial_number
+        LEFT JOIN suppliers s ON sn.id_supplier = s.id_supplier        
+        WHERE 1=1
+    ";
+
+    // Parámetros dinámicos
+    $params = [];
+    // Filtros dinámicos
+    if ($date_from) {
+        $sql .= " AND wm.review_date >= :date_from";
+        $params[':date_from'] = $date_from;
+    }
+    if ($date_to) {
+        $sql .= " AND wm.review_date <= :date_to";
+        $params[':date_to'] = $date_to;
+    }
+    if ($guarantee_id) {
+        $sql .= " AND wm.id_warranty = :guarantee_id";
+        $params[':guarantee_id'] = $guarantee_id;
+    }
+    if ($serial_number) {
+        $sql .= " AND wm.serial_number = :serial_number";
+        $params[':serial_number'] = $serial_number;
+    }
+    if ($technical_comments) {
+        $sql .= " AND wm.technician_comments LIKE :technical_comments";
+        $params[':technical_comments'] = '%' . $technical_comments . '%';
+    }
+    if ($supplier_name) {
+        $sql .= " AND s.name_supplier LIKE :supplier_name";
+        $params[':supplier_name'] = '%' . $supplier_name . '%';
+    }
+    if ($status) {
+        $sql .= " AND wm.status = :status";
+        $params[':status'] = $status;
+    }
+    // Ordenar por fecha de revisión
+    $sql .= " ORDER BY wm.review_date DESC";
+
+    // Preparar y ejecutar la consulta
+    $query = $bd->prepare($sql);
+    foreach ($params as $key => $value) {
+        $query->bindValue($key, $value);
+    }
+    $query->execute();
+
+    // Retornar los resultados
+    return $query->fetchAll(PDO::FETCH_ASSOC);
 }

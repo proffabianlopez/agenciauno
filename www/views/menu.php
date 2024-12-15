@@ -8,7 +8,7 @@ if (isset($_SESSION["id_rol"]) && ($_SESSION["id_rol"] == 1 || $_SESSION["id_rol
 }
 $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'Usuario no autenticado';
 ?>
-<link rel="stylesheet" href="../assets/css/bootstrap.min5.3css">
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 </Link>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -65,12 +65,32 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                     </ul>
 
                 </li>
+
                 <li class="nav-item">
-                    <a href="/views/warranty.php" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="fa fa-shield-alt nav-icon"></i>
-                        <p>Buscar Garantía</p>
+                        <p>
+                            Gestión de Garantías
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/views/warranty.php" class="nav-link">
+                                <i class="fa fa-shield-alt nav-icon"></i>
+                                <p>Buscar Garantía</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/views/warranty_list.php" class="nav-link">
+                                <i class="fa fa-address-card nav-icon"></i>
+                                <p>Garantías Cargadas</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-history"></i>
@@ -91,6 +111,21 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             <a href="/views/history_sales.php" class="nav-link">
                                 <i class="fa fa-address-card nav-icon"></i>
                                 <p>Ventas</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/views/purchase_list.php" class="nav-link">
+                                <i class="fa fa-truck nav-icon"></i>
+
+                                <p>Compras Nuevo</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/views/sales_list.php" class="nav-link">
+                                <i class="fa fa-address-card nav-icon"></i>
+                                <p>Ventas Nuevo</p>
                             </a>
                         </li>
                     </ul>
@@ -160,7 +195,7 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                             </a>
                             <?php }
                             } ?>
-                        </li>                       
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -168,17 +203,17 @@ $email_usuario_autenticado = isset($_SESSION['email']) ? $_SESSION['email'] : 'U
                         <i class="fa fa-chart-pie nav-icon"></i>
                         <p>Estadisticas</p>
                     </a>
-                </li>        
+                </li>
                 <li class="nav-item">
-                            <?php if (isset($_SESSION["id_rol"])) {
+                    <?php if (isset($_SESSION["id_rol"])) {
                                 if ($_SESSION["id_rol"] === 1) { ?>
-                            <a href="../index.html" class="nav-link" target="_blank">
-                                <i class="fa fa-globe nav-icon"></i>
-                                <p>Sitio Web</p>
-                            </a>
-                            <?php }
+                    <a href="../index.html" class="nav-link" target="_blank">
+                        <i class="fa fa-globe nav-icon"></i>
+                        <p>Sitio Web</p>
+                    </a>
+                    <?php }
                             } ?>
-                        </li>        
+                </li>
             </ul>
         </nav>
         <br><br>
